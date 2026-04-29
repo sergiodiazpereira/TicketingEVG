@@ -1,0 +1,219 @@
+/**
+ * Proyecto: TicketingEVG
+ * Alumno: Joseph Joel Quispe Alvarez
+ * Asignatura: 
+ * Curso: 2 DAW
+ * Descripción: Estilos personalizados para calcar el diseño del mockup.
+ */
+
+:root {
+	--azul-oscuro: #003366;
+	--azul-sidebar: #0a3d6b;
+	--dorado-activo: #fbbc04;
+	--fondo-gris: #f4f7fa;
+	--texto-suave: #6c757d;
+	--borde-suave: #eef2f7;
+	--azul-btn: #006ea4;
+	--badge-responsable-text: #6b62ff;
+	--badge-responsable-bg: rgba(107, 98, 255, 0.1);
+	--badge-trabajador-text: #6c757d;
+	--badge-trabajador-bg: #f1f3f5;
+	--dorado-icono: #f5b041;
+}
+
+body {
+	font-family: 'Inter', sans-serif;
+	background-color: var(--fondo-gris);
+	color: #333;
+}
+
+/* --- Sidebar Dinámico --- */
+#sidebarMenu {
+	background-color: var(--azul-oscuro) !important;
+	color: white;
+	width: 260px; /* Ancho normal */
+	transition: width 0.3s ease;
+	overflow-x: hidden;
+	white-space: nowrap;
+	flex-shrink: 0; /* Evitar que el sidebar se aplaste */
+}
+
+/* Estado Colapsado (vía Checkbox oculto CSS Puro) */
+#toggle-sidebar:checked ~ .d-flex #sidebarMenu {
+	width: 80px;
+}
+
+#sidebarMenu .nav-link {
+	color: rgba(255,255,255,0.7);
+	font-weight: 500;
+	padding: 12px 20px;
+	border-radius: 10px;
+	margin: 5px 15px;
+	display: flex;
+	align-items: center;
+	transition: all 0.2s;
+}
+
+/* Ocultar texto y logos secundarios al colapsar */
+#toggle-sidebar:checked ~ .d-flex #sidebarMenu .link-texto,
+#toggle-sidebar:checked ~ .d-flex #sidebarMenu .sidebar-header-texto,
+#toggle-sidebar:checked ~ .d-flex #sidebarMenu hr {
+	display: none !important;
+}
+
+/* Ajuste de paddings y centrado cuando está colapsado */
+#toggle-sidebar:checked ~ .d-flex #sidebarMenu .sidebar-header {
+	padding: 20px 10px !important;
+	justify-content: center !important;
+}
+
+#toggle-sidebar:checked ~ .d-flex #sidebarMenu .sidebar-header .boton-candado {
+	margin-right: 0 !important;
+}
+
+#toggle-sidebar:checked ~ .d-flex #sidebarMenu .nav-link {
+	justify-content: center;
+	margin: 5px 10px;
+	padding: 12px 0;
+}
+
+#toggle-sidebar:checked ~ .d-flex #sidebarMenu .nav-link i {
+	margin: 0 !important;
+	font-size: 1.4rem;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+	#sidebarMenu {
+		width: 80px; /* Por defecto colapsado en móvil */
+	}
+	#toggle-sidebar:not(:checked) ~ .d-flex #sidebarMenu {
+		width: 260px;
+		position: absolute;
+		z-index: 1050;
+		height: 100vh;
+		box-shadow: 4px 0 15px rgba(0,0,0,0.2);
+	}
+}
+
+#sidebarMenu .nav-link:hover {
+	color: white;
+	background-color: rgba(255,255,255,0.1);
+}
+
+#sidebarMenu .nav-link.active {
+	background-color: var(--dorado-activo) !important;
+	color: white !important;
+}
+
+#sidebarMenu .nav-link i {
+	font-size: 1.2rem;
+}
+
+/* --- Tarjetas y Componentes --- */
+.card-premium {
+	border: none;
+	border-radius: 15px;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+	overflow: hidden;
+}
+
+.icono-circulo {
+	width: 45px;
+	height: 45px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+	background-color: #f8f9fa;
+	border: 1px solid #eee;
+}
+
+.progreso-personalizado {
+	height: 8px;
+	border-radius: 10px;
+	background-color: #e9ecef;
+}
+
+.tarjeta-interna {
+	background-color: #f8f9fa;
+	border: 1px solid #edf2f9;
+	border-radius: 12px;
+	text-align: center;
+	padding: 15px;
+}
+
+.prioridad-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 0;
+	border-bottom: 1px solid #f1f4f8;
+}
+
+.prioridad-item:last-child {
+	border-bottom: none;
+}
+
+.nota-informativa {
+	font-size: 0.8rem;
+	color: #888;
+	font-style: italic;
+}
+
+.btn-evg{
+	background-color: var(--azul-btn);
+	color: white;
+	border: 1px solid var(--azul-btn);
+	transition: all 0.2s;
+}
+
+.btn-evg:hover{
+	background-color: var(--azul-btn);
+	color: white;
+	border: 1px solid var(--azul-btn);
+	padding: 12px 20px;
+	font-weight: 500;
+	display: flex;
+	align-items: center;
+	transition: all 0.2s;
+}
+
+/* --- Tabla Operarios --- */
+.tabla-operarios th {
+	color: #aab2bd;
+	font-weight: 600;
+	font-size: 0.8rem;
+	letter-spacing: 1px;
+}
+
+.tabla-operarios td {
+	padding-top: 1.2rem;
+	padding-bottom: 1.2rem;
+}
+
+.badge-responsable {
+	color: var(--badge-responsable-text);
+	background-color: var(--badge-responsable-bg);
+	font-weight: 700;
+}
+
+.badge-trabajador {
+	color: var(--badge-trabajador-text);
+	background-color: var(--badge-trabajador-bg);
+	font-weight: 700;
+}
+
+.icono-categoria {
+	width: 32px;
+	height: 32px;
+	border: 1px solid var(--borde-suave);
+	color: var(--texto-suave);
+}
+
+.texto-footer-tabla {
+	color: #aab2bd;
+	font-size: 0.75rem;
+	letter-spacing: 1px;
+	font-weight: 700;
+}
