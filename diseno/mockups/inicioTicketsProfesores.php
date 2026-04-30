@@ -121,6 +121,16 @@
 						<div class="info-ticket"><strong>Sustitución de bombilla fundida</strong></div>
 						<span class="etiqueta-estado resuelto">Resuelto</span>
 					</div>
+					<div class="fila-ticket">
+						<div class="punto-ticket rojo"><i class="fa-solid fa-circle-exclamation"></i></div>
+						<div class="info-ticket"><strong>Sustitución de bombilla fundida</strong></div>
+						<span class="etiqueta-estado resuelto">Resuelto</span>
+					</div>
+					<div class="fila-ticket">
+						<div class="punto-ticket rojo"><i class="fa-solid fa-circle-exclamation"></i></div>
+						<div class="info-ticket"><strong>Sustitución de bombilla fundida</strong></div>
+						<span class="etiqueta-estado resuelto">Resuelto</span>
+					</div>
 				</div>
 			</div>
 		</div>

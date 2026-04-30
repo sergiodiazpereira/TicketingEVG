@@ -22,25 +22,22 @@
     --sombra: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* Base y Layout */
 body {
-    font: 400 16px/1.5 'Open Sans', sans-serif;
+    font: 400 16px/1.5 'Open Sans', sans-serif; /* weight, font-size, interlineado y family */
     background: var(--gris-fondo);
     color: var(--azul-oscuro);
-    height: 100vh;
+    height: 100vh; /* Para que no sobresalga verticalmente el contenido en la vista móvil */
     display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    flex-direction: column; /* Para que los elementos se añadan uno debajo del otro en vez de uno al lado del otro */
 }
 
 main {
     margin-top: 81px;
     padding: 1.5rem 1rem 1rem;
-    flex: 1;
+    flex: 1; /* Para que main ocupe todo el espacio restante */
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
-    /* Cambiado de hidden a auto para permitir scroll */
+    overflow-y: auto; /* Cambiado de hidden a auto para permitir scroll solo en el contenido (main) */
     min-height: 0;
 }
 
@@ -48,10 +45,8 @@ main {
     display: flex;
     flex-direction: column;
     height: 100%;
-    min-height: 0;
 }
 
-/* Header y Navegación */
 header {
     position: fixed;
     top: 0;
@@ -61,11 +56,11 @@ header {
     background: #fff;
     border-bottom: 1px solid var(--border);
     box-shadow: var(--sombra);
-    z-index: 999;
     display: flex;
     align-items: center;
     padding: 0 1.25rem;
-    gap: 0.75rem;
+    gap: 0.75rem; /* Para separar "inicio" de "mis tickets" (el boton cerrar sesión es separado mediante un div vacío con grow-1)*/
+    /* No hace falta poner z-index porque el diseño está hecho para que no haya que scrollear, y por lo tanto, nunca se superpone ningún otro elemento */
 }
 
 .icono-logo {
@@ -76,16 +71,17 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
+    /* Icono centrado al medio tanto vertical como horizontalmente */
     color: #fff;
-    flex-shrink: 0;
+    flex-shrink: 0; /* Para que no se encoja el icono cuando la pantalla sea muy pequeña */
 }
 
 .icono-texto strong {
     font-size: 1.25rem;
     font-weight: 700;
-    letter-spacing: -0.05em;
+    letter-spacing: -0.05em; /* Para que las palabras estén más juntas que de normal */
     display: block;
-    line-height: 1.2;
+    line-height: 1.0;
 }
 
 .icono-texto span {
@@ -95,17 +91,15 @@ header {
     text-transform: uppercase;
 }
 
-.boton-nav,
-.boton-crear,
-.btn-cerrar-sesion {
-    display: inline-flex;
-    align-items: center;
+.boton-nav, .boton-crear, .btn-cerrar-sesion {
+    display: inline-flex; /* Inline para que se comporte como un elemento en linea, flex para poder usar "align-items" */
+    align-items: center; /* Centra icono y palabras */ 
     font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    transition: all 0.15s;
-    white-space: nowrap;
+    transition: all 0.2s; /* Para que al activarse el hover, no cambie el color directamente */
+    white-space: nowrap; /* Mantiene el texto de los botones en la misma línea */
     text-decoration: none;
     border-radius: 8px;
 }
@@ -171,7 +165,7 @@ header {
     border-radius: 12px;
     padding: 1.25rem 1.5rem;
     height: 100%;
-    animation: aparecerArriba 0.4s ease both;
+    animation: aparecerArriba 0.4s ease both; /* Animacion a hacer, tiempo que dura, acelera y decelera y hace que se quede fija al terminar la animación ("from" y "to" en el keyframes) */
     box-shadow: var(--sombra);
 }
 
@@ -179,6 +173,7 @@ header {
     from {
         opacity: 0;
         transform: translateY(10px);
+        /* Empieza invisible y 10px mas arriba */
     }
 
     to {
@@ -245,21 +240,19 @@ header {
     box-shadow: var(--sombra);
 }
 
-.cuerpo-tickets,
-.listado-tickets {
+.cuerpo-tickets, .listado-tickets {
     flex: 1;
     overflow-y: auto;
-    min-height: 0;
 }
 
 .cabecera-tickets {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; /* Separa el contenido a los extremos (título y botón) */
     padding: 1.25rem 1.5rem;
     border-bottom: 1px solid var(--border);
-    flex-wrap: wrap;
-    gap: 8px;
+    flex-wrap: wrap; /* Permite que los elementos se ajusten a diferentes tamaños de pantalla */
+    gap: 8px; /* Añade espacio entre los elementos */
 }
 
 .cabecera-tickets h2 {
@@ -274,8 +267,7 @@ header {
     margin: 2px 0 0;
 }
 
-.ver-todo,
-.enlace-detalles {
+.ver-todo, .enlace-detalles {
     font-size: 11px;
     font-weight: 800;
     color: var(--azul);
@@ -285,12 +277,11 @@ header {
     padding: 4px 12px;
     border-radius: 8px;
     text-decoration: none;
-    transition: all 0.2s;
+    transition: all 0.3s;
     text-transform: uppercase;
 }
 
-.ver-todo:hover,
-.enlace-detalles:hover {
+.ver-todo:hover, .enlace-detalles:hover {
     background: var(--azul);
     color: #fff;
 }
@@ -301,8 +292,7 @@ header {
     padding: 1rem 1.5rem;
     border-bottom: 1px solid var(--border);
     gap: 12px;
-    transition: background 0.12s;
-    cursor: pointer;
+    cursor: pointer; /* Se pone la mano para indicar que es interactivo */
 }
 
 .fila-ticket:hover {
@@ -349,7 +339,7 @@ header {
     font-weight: 700;
     display: block;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis; /* Cuando el texto es demasiado largo, pone "..." */
     white-space: nowrap;
 }
 
@@ -417,7 +407,7 @@ header {
 
 .barra-busqueda input {
     border: none;
-    outline: none;
+    outline: none; /* Sin borde marcado al clicar en el input */
     width: 100%;
     font-size: 14px;
     padding: 12px 0;
@@ -446,7 +436,6 @@ header {
     border-color: var(--azul);
 }
 
-/* Listado Detallado */
 .listado-tickets {
     display: flex;
     flex-direction: column;
@@ -455,11 +444,11 @@ header {
     padding-bottom: 1rem;
 }
 
-.listado-tickets::-webkit-scrollbar {
+.listado-tickets::-webkit-scrollbar { /* Personaliza la scrollbar de listado tickets */
     width: 6px;
 }
 
-.listado-tickets::-webkit-scrollbar-thumb {
+.listado-tickets::-webkit-scrollbar-thumb { /* Personaliza la "pieza" de la scrollbar, por asi decirlo, que se mueve al hacer scroll */
     background: #d1d5db;
     border-radius: 10px;
 }
@@ -470,14 +459,12 @@ header {
     border-radius: 14px;
     padding: 1.5rem;
     box-shadow: var(--sombra);
-    position: relative;
+    position: relative; /* Para posicionar la barra de color de los tickets en el borde */
     overflow: hidden;
     animation: aparecerArriba 0.4s ease both;
-    transition: transform 0.2s, box-shadow 0.2s;
     flex-shrink: 0;
 }
 
-/* Barra lateral de colores */
 .tarjeta-ticket-detallada::before {
     content: '';
     position: absolute;
@@ -562,10 +549,10 @@ header {
     line-height: 1.6;
     color: var(--gris-subtitulos);
     margin-bottom: 1.5rem;
-    display: -webkit-box;
+    display: -webkit-box; /* Para limitar el texto a 2 líneas (line-clamp) */
     line-clamp: 2;
     -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    -webkit-box-orient: vertical; /* Las lineas de texto van de arriba a abajo */
     overflow: hidden;
 }
 
@@ -575,7 +562,7 @@ header {
     align-items: center;
     padding-top: 1.25rem;
     border-top: 1px solid var(--border);
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Manda a otra linea los elementos que no quepan (para pantallas pequeñas) */
     gap: 1rem;
 }
 
@@ -601,42 +588,6 @@ header {
     font-size: 10px;
     font-weight: 700;
     color: var(--texto-gris);
-}
-
-/* Media Queries */
-@media (max-width: 768px) {
-    .cabecera-card-ticket {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    .info-derecha-ticket {
-        width: 100%;
-        justify-content: space-between;
-    }
-}
-
-@media (max-width: 576px) {
-
-    .boton-nav .etiqueta-nav,
-    .btn-cerrar-sesion .etiqueta-nav {
-        display: none;
-    }
-
-    .fila-ticket,
-    .cabecera-tickets,
-    .tarjeta-stats {
-        padding: 1rem;
-    }
-
-    .valor-stats {
-        font-size: 26px;
-    }
-
-    .btn-cerrar-sesion {
-        padding: 7px 10px;
-    }
 }
 
 .estado-vacio {
@@ -670,8 +621,7 @@ header {
 }
 
 .estado-vacio.con-borde {
-    border: none;
-    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='24' ry='24' stroke='%23e4e7ef' stroke-width='4' stroke-dasharray='5%2c 10' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e");
+    border: dashed #e4e7ef 2px;
     border-radius: 24px;
     background-color: #fff;
     padding: 6rem 2rem;
@@ -691,7 +641,6 @@ header {
     opacity: 0.6;
 }
 
-/* Formularios Premium */
 .tarjeta-formulario {
     background: #fff;
     border: 1px solid var(--border);
@@ -752,13 +701,13 @@ header {
 }
 
 select.control-form {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e"); /* Es la flecha de la derecha */ 
     background-repeat: no-repeat;
-    background-position: right 1rem center;
-    background-size: 12px 10px;
+    background-position: right 1rem center; /* La flecha se posiciona a la derecha, a 1rem del borde y centrado verticalmente */
+    background-size: 12px 10px; /* Se define el tamaño de la flecha */
 }
 
-.control-form.select-premium {
+.control-form.control-select {
     letter-spacing: 0.12em;
     font-weight: 800;
     font-size: 10px;
@@ -848,4 +797,33 @@ textarea.control-form {
     background: var(--azul-oscuro);
     color: #fff;
     border-color: var(--azul-oscuro);
+}
+
+
+
+
+
+
+
+
+
+
+/* Media Queries */
+@media (max-width: 576px) {
+
+    .boton-nav.etiqueta-nav, .btn-cerrar-sesion.etiqueta-nav {
+        display: none; /* Quito el texto de los botones */
+    }
+
+    .fila-ticket, .cabecera-tickets, .tarjeta-stats {
+        padding: 1rem;
+    }
+
+    .valor-stats {
+        font-size: 26px;  /* Hago que el número de las estadisticas sea más pequeño */
+    }
+
+    .btn-cerrar-sesion {
+        padding: 7px 10px;
+    }
 }

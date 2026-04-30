@@ -51,14 +51,14 @@
 					<div class="row g-4">
 						<div class="col-md-6">
 							<label class="etiqueta-form">Tipo de solicitud</label>
-							<select class="control-form select-premium">
+							<select class="control-form control-select">
 								<option value="incidencia">INCIDENCIA</option>
 								<option value="peticion">PETICIÓN DE SERVICIO</option>
 							</select>
 						</div>
 						<div class="col-md-6">
 							<label class="etiqueta-form">Prioridad</label>
-							<select class="control-form select-premium">
+							<select class="control-form control-select">
 								<option value="baja">BAJA</option>
 								<option value="media" selected>MEDIA</option>
 								<option value="alta">ALTA</option>
@@ -71,7 +71,7 @@
 						</div>
 						<div class="col-md-6">
 							<label class="etiqueta-form">Categoría técnica</label>
-							<select class="control-form select-premium">
+							<select class="control-form control-select">
 								<option value="" disabled selected>Selecciona una categoría</option>
 								<option value="software">Soporte Software</option>
 								<option value="hardware">Hardware / Equipos</option>
