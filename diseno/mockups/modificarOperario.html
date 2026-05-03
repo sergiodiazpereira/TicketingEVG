@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Operario</title>
+    <link rel="stylesheet" href="stylesVega.css">
+</head>
+<body>
+
+    <div class="modal-container modal-form">
+        <div class="modal-header">
+            <button class="btn-close">&times;</button>
+            <h2 class="modal-title">Modificar Operario</h2>
+            <p class="modal-subtitle">Actualiza la información del técnico en el sistema</p>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Nombre Completo</label>
+                    <input type="text" class="form-control" value="Administrador Sistema">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tipo de Perfil</label>
+                    <select class="form-control">
+                        <option value="admin" selected>Administrador</option>
+                        <option value="tecnico">Responsable</option>
+                        <option value="usuario">Trabajador</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label class="form-label">Correo Corporativo</label>
+                    <input type="text" class="form-control" value="">
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label class="form-label">Categorías</label>
+                <div class="categories-container">
+                    <div class="categories-grid">
+                        <label class="category-item">
+                            <input type="radio" name="cat1">
+                            <span class="category-label">Soporte Nivel 1</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="radio" name="cat2">
+                            <span class="category-label">Soporte Nivel 2</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="radio" name="cat3">
+                            <span class="category-label">Mantenimiento General</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="radio" name="cat4">
+                            <span class="category-label">Redes y Sistemas</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="radio" name="cat5">
+                            <span class="category-label">Seguridad Perimetral</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="radio" name="cat6">
+                            <span class="category-label">Gestión Operativa</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="radio" name="cat7">
+                            <span class="category-label">Bases de Datos</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="radio" name="cat8">
+                            <span class="category-label">Soporte Software</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="radio" name="cat9">
+                            <span class="category-label">Coordinación</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="radio" name="cat10">
+                            <span class="category-label">Climatización</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="radio" name="cat11">
+                            <span class="category-label">Iluminación</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="radio" name="cat12">
+                            <span class="category-label">Sistemas Audiovisuales</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="radio" name="cat13">
+                            <span class="category-label">Fontanería</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="radio" name="cat14">
+                            <span class="category-label">Electricidad</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-text">Cancelar</button>
+            <button class="btn btn-primary">Guardar Cambios</button>
+        </div>
+    </div>
+
+</body>
+</html>
