@@ -7,7 +7,7 @@
  */
 ?>
 <!DOCTYPE html>
-<html lang="es">
+<html class="sergio" lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="estiloUsuarios.css">
 </head>
 
-<body>
+<body class="sergio">
     <header>
         <div class="d-flex align-items-center gap-2 me-2">
             <div class="icono-logo"><i class="fa-solid fa-school"></i></div>

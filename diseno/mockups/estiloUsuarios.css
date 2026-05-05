@@ -20,810 +20,1156 @@
     --amarillo-claro: #fffbeb;
     --gris-subtitulos: #64748b;
     --sombra: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+
+
+    --primary-blue: #0069a3;
+    --dark-blue: #04437a;
+    --text-dark: #0f2c4c;
+    --text-light: #7b8e9d;
+    --border-color: #e2e8f0;
+    --bg-light: #f8f9fa;
+    --danger-red: #da244b;
+    --warning-yellow: #db9c31;
+    --white: #ffffff;
+    --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
-body {
-    font: 400 16px/1.5 'Open Sans', sans-serif; /* weight, font-size, interlineado y family */
-    background: var(--gris-fondo);
-    color: var(--azul-oscuro);
-    height: 100vh; /* Para que no sobresalga verticalmente el contenido en la vista móvil */
-    display: flex;
-    flex-direction: column; /* Para que los elementos se añadan uno debajo del otro en vez de uno al lado del otro */
-}
-
-main {
-    margin-top: 81px;
-    padding: 1.5rem 1rem 1rem;
-    flex: 1; /* Para que main ocupe todo el espacio restante */
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto; /* Cambiado de hidden a auto para permitir scroll solo en el contenido (main) */
-    min-height: 0;
-}
-
-.container-lg {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 81px;
-    background: #fff;
-    border-bottom: 1px solid var(--border);
-    box-shadow: var(--sombra);
-    display: flex;
-    align-items: center;
-    padding: 0 1.25rem;
-    gap: 0.75rem; /* Para separar "inicio" de "mis tickets" (el boton cerrar sesión es separado mediante un div vacío con grow-1)*/
-    /* No hace falta poner z-index porque el diseño está hecho para que no haya que scrollear, y por lo tanto, nunca se superpone ningún otro elemento */
-}
-
-.icono-logo {
-    width: 38px;
-    height: 38px;
-    background: var(--azul);
-    border-radius: 9px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* Icono centrado al medio tanto vertical como horizontalmente */
-    color: #fff;
-    flex-shrink: 0; /* Para que no se encoja el icono cuando la pantalla sea muy pequeña */
-}
-
-.icono-texto strong {
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: -0.05em; /* Para que las palabras estén más juntas que de normal */
-    display: block;
-    line-height: 1.0;
-}
-
-.icono-texto span {
-    font-size: 10px;
-    color: var(--texto-gris);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-}
-
-.boton-nav, .boton-crear, .btn-cerrar-sesion {
-    display: inline-flex; /* Inline para que se comporte como un elemento en linea, flex para poder usar "align-items" */
-    align-items: center; /* Centra icono y palabras */ 
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    transition: all 0.2s; /* Para que al activarse el hover, no cambie el color directamente */
-    white-space: nowrap; /* Mantiene el texto de los botones en la misma línea */
-    text-decoration: none;
-    border-radius: 8px;
-}
-
-.boton-nav {
-    gap: 7px;
-    padding: 7px 14px;
-    color: var(--texto-gris);
-}
-
-.boton-nav:hover:not(.activo) {
-    background: var(--azul-claro);
-    color: var(--azul);
-}
-
-.boton-nav.activo {
-    background: var(--azul);
-    color: #fff;
-    box-shadow: 0 2px 8px rgba(0, 110, 164, 0.25);
-}
-
-.boton-nav.activo:hover,
-.boton-crear:hover {
-    background: var(--amarillo);
-}
-
-.boton-crear {
-    background: var(--azul);
-    color: #fff;
-    padding: 10px 18px;
-    gap: 8px;
-    box-shadow: 0 4px 10px rgba(0, 110, 164, 0.2);
-}
-
-.btn-cerrar-sesion {
-    gap: 8px;
-    padding: 7px 16px;
-    border: 1.5px solid var(--rojo);
-    color: var(--rojo);
-    box-shadow: 0 4px 10px rgba(244, 63, 94, 0.1);
-}
-
-.btn-cerrar-sesion:hover {
-    background: var(--rojo);
-    color: #fff;
-}
-
-.cabecera-pagina h1 {
-    font-size: 24px;
-    font-weight: 900;
-    letter-spacing: -0.3px;
-}
-
-.cabecera-pagina p {
-    font-size: 14px;
-    color: var(--gris-subtitulos);
-    margin-top: 2px;
-}
-
-.tarjeta-stats {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.25rem 1.5rem;
-    height: 100%;
-    animation: aparecerArriba 0.4s ease both; /* Animacion a hacer, tiempo que dura, acelera y decelera y hace que se quede fija al terminar la animación ("from" y "to" en el keyframes) */
-    box-shadow: var(--sombra);
-}
-
-@keyframes aparecerArriba {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-        /* Empieza invisible y 10px mas arriba */
+.sergio {
+    body{
+        font: 400 16px/1.5 'Open Sans', sans-serif; /* weight, font-size, interlineado y family */
+        background: var(--gris-fondo);
+        color: var(--azul-oscuro);
+        height: 100vh; /* Para que no sobresalga verticalmente el contenido en la vista móvil */
+        display: flex;
+        flex-direction: column; /* Para que los elementos se añadan uno debajo del otro en vez de uno al lado del otro */
     }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.icono-stats {
-    width: 34px;
-    height: 34px;
-    border-radius: 7px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
-    margin-bottom: 0.85rem;
-}
-
-.icono-stats.azul {
-    background: var(--azul-claro);
-    color: var(--azul);
-}
-
-.icono-stats.amarillo {
-    background: var(--amarillo-claro);
-    color: var(--amarillo);
-}
-
-.icono-stats.rojo {
-    background: var(--rojo-claro);
-    color: var(--rojo);
-}
-
-.icono-stats.verde {
-    background: var(--verde-claro);
-    color: var(--verde);
-}
-
-.info-estadistica {
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--texto-gris);
-    margin-bottom: 4px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-}
-
-.valor-stats {
-    font-size: 32px;
-    font-weight: 700;
-}
-
-.tarjeta-tickets {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    animation: aparecerArriba 0.4s ease 0.25s both;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-height: 0;
-    box-shadow: var(--sombra);
-}
-
-.cuerpo-tickets, .listado-tickets {
-    flex: 1;
-    overflow-y: auto;
-}
-
-.cabecera-tickets {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Separa el contenido a los extremos (título y botón) */
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid var(--border);
-    flex-wrap: wrap; /* Permite que los elementos se ajusten a diferentes tamaños de pantalla */
-    gap: 8px; /* Añade espacio entre los elementos */
-}
-
-.cabecera-tickets h2 {
-    font-size: 15px;
-    font-weight: 600;
-    margin: 0;
-}
-
-.cabecera-tickets p {
-    font-size: 13px;
-    color: var(--gris-subtitulos);
-    margin: 2px 0 0;
-}
-
-.ver-todo, .enlace-detalles {
-    font-size: 11px;
-    font-weight: 800;
-    color: var(--azul);
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 12px;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: all 0.3s;
-    text-transform: uppercase;
-}
-
-.ver-todo:hover, .enlace-detalles:hover {
-    background: var(--azul);
-    color: #fff;
-}
-
-.fila-ticket {
-    display: flex;
-    align-items: center;
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid var(--border);
-    gap: 12px;
-    cursor: pointer; /* Se pone la mano para indicar que es interactivo */
-}
-
-.fila-ticket:hover {
-    background: var(--gris-fondo);
-}
-
-.fila-ticket:last-child {
-    border-bottom: none;
-}
-
-.punto-ticket {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-size: 13px;
-}
-
-.punto-ticket.rojo {
-    background: var(--rojo-claro);
-    color: var(--rojo);
-}
-
-.punto-ticket.azul {
-    background: var(--azul-claro);
-    color: var(--azul);
-}
-
-.punto-ticket.verde {
-    background: var(--verde-claro);
-    color: var(--verde);
-}
-
-.info-ticket {
-    flex: 1;
-    min-width: 0;
-}
-
-.info-ticket strong {
-    font-size: 14px;
-    font-weight: 700;
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis; /* Cuando el texto es demasiado largo, pone "..." */
-    white-space: nowrap;
-}
-
-.info-ticket small {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--amarillo);
-    text-transform: uppercase;
-    margin-top: 2px;
-    display: block;
-}
-
-.etiqueta-estado {
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 5px;
-    white-space: nowrap;
-}
-
-.etiqueta-estado.proceso {
-    background: var(--verde-claro);
-    color: var(--verde);
-    border: 1px solid #b2e8e2;
-}
-
-.etiqueta-estado.pendiente {
-    background: #f3f4f6;
-    color: #6b7280;
-    border: 1px solid var(--border);
-}
-
-.etiqueta-estado.asignado {
-    background: var(--azul-claro);
-    color: var(--azul);
-    border: 1px solid #c4daf5;
-}
-
-.etiqueta-estado.resuelto {
-    background: var(--verde);
-    color: #fff;
-    border: 1px solid var(--verde);
-}
-
-.barra-busqueda-contenedor {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.barra-busqueda {
-    flex: 1;
-    min-width: 280px;
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    padding: 0 1.25rem;
-    gap: 12px;
-    box-shadow: var(--sombra);
-}
-
-.barra-busqueda input {
-    border: none;
-    outline: none; /* Sin borde marcado al clicar en el input */
-    width: 100%;
-    font-size: 14px;
-    padding: 12px 0;
-    background: transparent;
-}
-
-.boton-filtro {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0 1.5rem;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.15em;
-    box-shadow: var(--sombra);
-    transition: all 0.2s;
-    cursor: pointer;
-}
-
-.boton-filtro:hover {
-    background: var(--azul);
-    color: #fff;
-    border-color: var(--azul);
-}
-
-.listado-tickets {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding-right: 6px;
-    padding-bottom: 1rem;
-}
-
-.listado-tickets::-webkit-scrollbar { /* Personaliza la scrollbar de listado tickets */
-    width: 6px;
-}
-
-.listado-tickets::-webkit-scrollbar-thumb { /* Personaliza la "pieza" de la scrollbar, por asi decirlo, que se mueve al hacer scroll */
-    background: #d1d5db;
-    border-radius: 10px;
-}
-
-.tarjeta-ticket-detallada {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1.5rem;
-    box-shadow: var(--sombra);
-    position: relative; /* Para posicionar la barra de color de los tickets en el borde */
-    overflow: hidden;
-    animation: aparecerArriba 0.4s ease both;
-    flex-shrink: 0;
-}
-
-.tarjeta-ticket-detallada::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-}
-
-.tarjeta-ticket-detallada.incidencia::before {
-    background: var(--rojo);
-}
-
-.tarjeta-ticket-detallada.peticion::before {
-    background: var(--azul);
-}
-
-.cabecera-card-ticket {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.75rem;
-}
-
-.tipo-ticket {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.15em;
-    color: var(--azul);
-}
-
-.tarjeta-ticket-detallada.incidencia .tipo-ticket {
-    color: var(--rojo);
-}
-
-.badges-ticket {
-    display: flex;
-    gap: 8px;
-}
-
-.badge-prioridad {
-    font-size: 10px;
-    font-weight: 900;
-    padding: 4px 12px;
-    border-radius: 6px;
-    letter-spacing: 0.1em;
-}
-
-.badge-prioridad.alta {
-    background: var(--rojo-claro);
-    color: var(--rojo);
-}
-
-.badge-prioridad.media {
-    background: var(--amarillo-claro);
-    color: var(--amarillo);
-}
-
-.titulo-ticket {
-    font-size: 18px;
-    font-weight: 800;
-    margin: 0 0 0.5rem;
-    letter-spacing: -0.02em;
-}
-
-.asignacion-ticket {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 10px;
-    color: var(--amarillo);
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    font-weight: 700;
-}
-
-.descripcion-ticket {
-    font-size: 13px;
-    line-height: 1.6;
-    color: var(--gris-subtitulos);
-    margin-bottom: 1.5rem;
-    display: -webkit-box; /* Para limitar el texto a 2 líneas (line-clamp) */
-    line-clamp: 2;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical; /* Las lineas de texto van de arriba a abajo */
-    overflow: hidden;
-}
-
-.pie-card-ticket {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--border);
-    flex-wrap: wrap; /* Manda a otra linea los elementos que no quepan (para pantallas pequeñas) */
-    gap: 1rem;
-}
-
-.categoria-ticket {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    background: var(--gris-fondo);
-    border-radius: 8px;
-    font-size: 11px;
-    font-weight: 700;
-}
-
-.info-derecha-ticket {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    flex-wrap: wrap;
-}
-
-.localizacion {
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--texto-gris);
-}
-
-.estado-vacio {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 5rem 2rem;
-    color: var(--texto-gris);
-    text-align: center;
-}
-
-.estado-vacio i {
-    font-size: 3rem;
-    margin-bottom: 1.5rem;
-    opacity: 0.3;
-}
-
-.estado-vacio p {
-    font-size: 15px;
-    font-weight: 700;
-    margin: 0;
-    color: var(--azul-oscuro);
-}
-
-.estado-vacio span {
-    font-size: 13px;
-    margin-top: 8px;
-    max-width: 320px;
-    line-height: 1.5;
-}
-
-.estado-vacio.con-borde {
-    border: dashed #e4e7ef 2px;
-    border-radius: 24px;
-    background-color: #fff;
-    padding: 6rem 2rem;
-}
-
-.icono-vacio {
-    width: 64px;
-    height: 64px;
-    background: var(--azul-claro);
-    color: var(--azul);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    margin-bottom: 1.5rem;
-    opacity: 0.6;
-}
-
-.tarjeta-formulario {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 0;
-    overflow: hidden;
-    box-shadow: var(--sombra);
-    animation: aparecerArriba 0.4s ease both;
-}
-
-.cabecera-seccion-form {
-    padding: 1.5rem 2rem;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.cabecera-seccion-form h2 {
-    font-size: 14px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin: 0;
-    color: var(--azul-oscuro);
-}
-
-.cabecera-seccion-form i {
-    color: var(--amarillo);
-    font-size: 16px;
-}
-
-.cuerpo-formulario {
-    padding: 1.5rem 2rem;
-}
-
-.etiqueta-form {
-    display: block;
-    font-size: 10px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--texto-gris);
-    margin-bottom: 10px;
-}
-
-.control-form {
-    width: 100%;
-    background: var(--gris-fondo);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    height: 42px;
-    padding: 0 16px;
-    font-size: 14px;
-    color: var(--azul-oscuro);
-    outline: none;
-    appearance: none;
-}
-
-select.control-form {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e"); /* Es la flecha de la derecha */ 
-    background-repeat: no-repeat;
-    background-position: right 1rem center; /* La flecha se posiciona a la derecha, a 1rem del borde y centrado verticalmente */
-    background-size: 12px 10px; /* Se define el tamaño de la flecha */
-}
-
-.control-form.control-select {
-    letter-spacing: 0.12em;
-    font-weight: 800;
-    font-size: 10px;
-    text-transform: uppercase;
-}
-
-.control-form:focus {
-    border-color: var(--azul);
-    background: #fff;
-    box-shadow: 0 0 0 4px var(--azul-claro);
-}
-
-textarea.control-form {
-    height: auto;
-    min-height: 100px;
-    padding: 12px 16px;
-    resize: none;
-}
-
-.hint-form {
-    font-size: 11px;
-    color: var(--texto-gris);
-    margin-top: 10px;
-    display: block;
-}
-
-.boton-enviar {
-    background: var(--azul);
-    color: #fff;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    transition: all 0.2s;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 110, 164, 0.2);
-}
-
-.boton-enviar:hover {
-    background: var(--amarillo);
-    box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3);
-    color: #fff;
-}
-
-.boton-cancelar {
-    padding: 12px 24px;
-    font-size: 11px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--azul-oscuro);
-    text-decoration: none;
-    transition: all 0.2s;
-}
-
-.boton-cancelar:hover {
-    color: var(--rojo);
-}
-
-.btn-retroceso {
-    width: 32px;
-    height: 32px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: #fff;
-    border: 1.5px solid var(--border);
-    color: var(--azul-oscuro);
-    text-decoration: none;
-    font-size: 12px;
-}
-
-.btn-retroceso:hover {
-    background: var(--azul-oscuro);
-    color: #fff;
-    border-color: var(--azul-oscuro);
-}
-
-.btn-retroceso:hover {
-    background: var(--azul-oscuro);
-    color: #fff;
-    border-color: var(--azul-oscuro);
-}
-
-
-
-
-
-
-
-
-
-
-/* Media Queries */
-@media (max-width: 576px) {
-
-    .boton-nav.etiqueta-nav, .btn-cerrar-sesion.etiqueta-nav {
-        display: none; /* Quito el texto de los botones */
+    main {
+        margin-top: 81px;
+        padding: 1.5rem 1rem 1rem;
+        flex: 1; /* Para que main ocupe todo el espacio restante */
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto; /* Cambiado de hidden a auto para permitir scroll solo en el contenido (main) */
+        min-height: 0;
     }
 
-    .fila-ticket, .cabecera-tickets, .tarjeta-stats {
-        padding: 1rem;
+    .container-lg {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
     }
 
-    .valor-stats {
-        font-size: 26px;  /* Hago que el número de las estadisticas sea más pequeño */
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 81px;
+        background: #fff;
+        border-bottom: 1px solid var(--border);
+        box-shadow: var(--sombra);
+        display: flex;
+        align-items: center;
+        padding: 0 1.25rem;
+        gap: 0.75rem; /* Para separar "inicio" de "mis tickets" (el boton cerrar sesión es separado mediante un div vacío con grow-1)*/
+        /* No hace falta poner z-index porque el diseño está hecho para que no haya que scrollear, y por lo tanto, nunca se superpone ningún otro elemento */
+    }
+
+    .icono-logo {
+        width: 38px;
+        height: 38px;
+        background: var(--azul);
+        border-radius: 9px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* Icono centrado al medio tanto vertical como horizontalmente */
+        color: #fff;
+        flex-shrink: 0; /* Para que no se encoja el icono cuando la pantalla sea muy pequeña */
+    }
+
+    .icono-texto strong {
+        font-size: 1.25rem;
+        font-weight: 700;
+        letter-spacing: -0.05em; /* Para que las palabras estén más juntas que de normal */
+        display: block;
+        line-height: 1.0;
+    }
+
+    .icono-texto span {
+        font-size: 10px;
+        color: var(--texto-gris);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+    }
+
+    .boton-nav, .boton-crear, .btn-cerrar-sesion {
+        display: inline-flex; /* Inline para que se comporte como un elemento en linea, flex para poder usar "align-items" */
+        align-items: center; /* Centra icono y palabras */ 
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        transition: all 0.2s; /* Para que al activarse el hover, no cambie el color directamente */
+        white-space: nowrap; /* Mantiene el texto de los botones en la misma línea */
+        text-decoration: none;
+        border-radius: 8px;
+    }
+
+    .boton-nav {
+        gap: 7px;
+        padding: 7px 14px;
+        color: var(--texto-gris);
+    }
+
+    .boton-nav:hover:not(.activo) {
+        background: var(--azul-claro);
+        color: var(--azul);
+    }
+
+    .boton-nav.activo {
+        background: var(--azul);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(0, 110, 164, 0.25);
+    }
+
+    .boton-nav.activo:hover,
+    .boton-crear:hover {
+        background: var(--amarillo);
+    }
+
+    .boton-crear {
+        background: var(--azul);
+        color: #fff;
+        padding: 10px 18px;
+        gap: 8px;
+        box-shadow: 0 4px 10px rgba(0, 110, 164, 0.2);
     }
 
     .btn-cerrar-sesion {
-        padding: 7px 10px;
+        gap: 8px;
+        padding: 7px 16px;
+        border: 1.5px solid var(--rojo);
+        color: var(--rojo);
+        box-shadow: 0 4px 10px rgba(244, 63, 94, 0.1);
+    }
+
+    .btn-cerrar-sesion:hover {
+        background: var(--rojo);
+        color: #fff;
+    }
+
+    .cabecera-pagina h1 {
+        font-size: 24px;
+        font-weight: 900;
+        letter-spacing: -0.3px;
+    }
+
+    .cabecera-pagina p {
+        font-size: 14px;
+        color: var(--gris-subtitulos);
+        margin-top: 2px;
+    }
+
+    .tarjeta-stats {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.25rem 1.5rem;
+        height: 100%;
+        animation: aparecerArriba 0.4s ease both; /* Animacion a hacer, tiempo que dura, acelera y decelera y hace que se quede fija al terminar la animación ("from" y "to" en el keyframes) */
+        box-shadow: var(--sombra);
+    }
+
+    @keyframes aparecerArriba {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+            /* Empieza invisible y 10px mas arriba */
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .icono-stats {
+        width: 34px;
+        height: 34px;
+        border-radius: 7px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        margin-bottom: 0.85rem;
+    }
+
+    .icono-stats.azul {
+        background: var(--azul-claro);
+        color: var(--azul);
+    }
+
+    .icono-stats.amarillo {
+        background: var(--amarillo-claro);
+        color: var(--amarillo);
+    }
+
+    .icono-stats.rojo {
+        background: var(--rojo-claro);
+        color: var(--rojo);
+    }
+
+    .icono-stats.verde {
+        background: var(--verde-claro);
+        color: var(--verde);
+    }
+
+    .info-estadistica {
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--texto-gris);
+        margin-bottom: 4px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+    }
+
+    .valor-stats {
+        font-size: 32px;
+        font-weight: 700;
+    }
+
+    .tarjeta-tickets {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        animation: aparecerArriba 0.4s ease 0.25s both;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+        box-shadow: var(--sombra);
+    }
+
+    .cuerpo-tickets, .listado-tickets {
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    .cabecera-tickets {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Separa el contenido a los extremos (título y botón) */
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid var(--border);
+        flex-wrap: wrap; /* Permite que los elementos se ajusten a diferentes tamaños de pantalla */
+        gap: 8px; /* Añade espacio entre los elementos */
+    }
+
+    .cabecera-tickets h2 {
+        font-size: 15px;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .cabecera-tickets p {
+        font-size: 13px;
+        color: var(--gris-subtitulos);
+        margin: 2px 0 0;
+    }
+
+    .ver-todo, .enlace-detalles {
+        font-size: 11px;
+        font-weight: 800;
+        color: var(--azul);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 12px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s;
+        text-transform: uppercase;
+    }
+
+    .ver-todo:hover, .enlace-detalles:hover {
+        background: var(--azul);
+        color: #fff;
+    }
+
+    .fila-ticket {
+        display: flex;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--border);
+        gap: 12px;
+        cursor: pointer; /* Se pone la mano para indicar que es interactivo */
+    }
+
+    .fila-ticket:hover {
+        background: var(--gris-fondo);
+    }
+
+    .fila-ticket:last-child {
+        border-bottom: none;
+    }
+
+    .punto-ticket {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 13px;
+    }
+
+    .punto-ticket.rojo {
+        background: var(--rojo-claro);
+        color: var(--rojo);
+    }
+
+    .punto-ticket.azul {
+        background: var(--azul-claro);
+        color: var(--azul);
+    }
+
+    .punto-ticket.verde {
+        background: var(--verde-claro);
+        color: var(--verde);
+    }
+
+    .info-ticket {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .info-ticket strong {
+        font-size: 14px;
+        font-weight: 700;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis; /* Cuando el texto es demasiado largo, pone "..." */
+        white-space: nowrap;
+    }
+
+    .info-ticket small {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--amarillo);
+        text-transform: uppercase;
+        margin-top: 2px;
+        display: block;
+    }
+
+    .etiqueta-estado {
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        padding: 4px 10px;
+        border-radius: 5px;
+        white-space: nowrap;
+    }
+
+    .etiqueta-estado.proceso {
+        background: var(--verde-claro);
+        color: var(--verde);
+        border: 1px solid #b2e8e2;
+    }
+
+    .etiqueta-estado.pendiente {
+        background: #f3f4f6;
+        color: #6b7280;
+        border: 1px solid var(--border);
+    }
+
+    .etiqueta-estado.asignado {
+        background: var(--azul-claro);
+        color: var(--azul);
+        border: 1px solid #c4daf5;
+    }
+
+    .etiqueta-estado.resuelto {
+        background: var(--verde);
+        color: #fff;
+        border: 1px solid var(--verde);
+    }
+
+    .barra-busqueda-contenedor {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .barra-busqueda {
+        flex: 1;
+        min-width: 280px;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        padding: 0 1.25rem;
+        gap: 12px;
+        box-shadow: var(--sombra);
+    }
+
+    .barra-busqueda input {
+        border: none;
+        outline: none; /* Sin borde marcado al clicar en el input */
+        width: 100%;
+        font-size: 14px;
+        padding: 12px 0;
+        background: transparent;
+    }
+
+    .boton-filtro {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 1.5rem;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.15em;
+        box-shadow: var(--sombra);
+        transition: all 0.2s;
+        cursor: pointer;
+    }
+
+    .boton-filtro:hover {
+        background: var(--azul);
+        color: #fff;
+        border-color: var(--azul);
+    }
+
+    .listado-tickets {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding-right: 6px;
+        padding-bottom: 1rem;
+    }
+
+    .listado-tickets::-webkit-scrollbar { /* Personaliza la scrollbar de listado tickets */
+        width: 6px;
+    }
+
+    .listado-tickets::-webkit-scrollbar-thumb { /* Personaliza la "pieza" de la scrollbar, por asi decirlo, que se mueve al hacer scroll */
+        background: #d1d5db;
+        border-radius: 10px;
+    }
+
+    .tarjeta-ticket-detallada {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 1.5rem;
+        box-shadow: var(--sombra);
+        position: relative; /* Para posicionar la barra de color de los tickets en el borde */
+        overflow: hidden;
+        animation: aparecerArriba 0.4s ease both;
+        flex-shrink: 0;
+    }
+
+    .tarjeta-ticket-detallada::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+    }
+
+    .tarjeta-ticket-detallada.incidencia::before {
+        background: var(--rojo);
+    }
+
+    .tarjeta-ticket-detallada.peticion::before {
+        background: var(--azul);
+    }
+
+    .cabecera-card-ticket {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.75rem;
+    }
+
+    .tipo-ticket {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.15em;
+        color: var(--azul);
+    }
+
+    .tarjeta-ticket-detallada.incidencia .tipo-ticket {
+        color: var(--rojo);
+    }
+
+    .badges-ticket {
+        display: flex;
+        gap: 8px;
+    }
+
+    .badge-prioridad {
+        font-size: 10px;
+        font-weight: 900;
+        padding: 4px 12px;
+        border-radius: 6px;
+        letter-spacing: 0.1em;
+    }
+
+    .badge-prioridad.alta {
+        background: var(--rojo-claro);
+        color: var(--rojo);
+    }
+
+    .badge-prioridad.media {
+        background: var(--amarillo-claro);
+        color: var(--amarillo);
+    }
+
+    .titulo-ticket {
+        font-size: 18px;
+        font-weight: 800;
+        margin: 0 0 0.5rem;
+        letter-spacing: -0.02em;
+    }
+
+    .asignacion-ticket {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 10px;
+        color: var(--amarillo);
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+
+    .descripcion-ticket {
+        font-size: 13px;
+        line-height: 1.6;
+        color: var(--gris-subtitulos);
+        margin-bottom: 1.5rem;
+        display: -webkit-box; /* Para limitar el texto a 2 líneas (line-clamp) */
+        line-clamp: 2;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical; /* Las lineas de texto van de arriba a abajo */
+        overflow: hidden;
+    }
+
+    .pie-card-ticket {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 1.25rem;
+        border-top: 1px solid var(--border);
+        flex-wrap: wrap; /* Manda a otra linea los elementos que no quepan (para pantallas pequeñas) */
+        gap: 1rem;
+    }
+
+    .categoria-ticket {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 14px;
+        background: var(--gris-fondo);
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .info-derecha-ticket {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .localizacion {
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--texto-gris);
+    }
+
+    .estado-vacio {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 5rem 2rem;
+        color: var(--texto-gris);
+        text-align: center;
+    }
+
+    .estado-vacio i {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        opacity: 0.3;
+    }
+
+    .estado-vacio p {
+        font-size: 15px;
+        font-weight: 700;
+        margin: 0;
+        color: var(--azul-oscuro);
+    }
+
+    .estado-vacio span {
+        font-size: 13px;
+        margin-top: 8px;
+        max-width: 320px;
+        line-height: 1.5;
+    }
+
+    .estado-vacio.con-borde {
+        border: dashed #e4e7ef 2px;
+        border-radius: 24px;
+        background-color: #fff;
+        padding: 6rem 2rem;
+    }
+
+    .icono-vacio {
+        width: 64px;
+        height: 64px;
+        background: var(--azul-claro);
+        color: var(--azul);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin-bottom: 1.5rem;
+        opacity: 0.6;
+    }
+
+    .tarjeta-formulario {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 0;
+        overflow: hidden;
+        box-shadow: var(--sombra);
+        animation: aparecerArriba 0.4s ease both;
+    }
+
+    .cabecera-seccion-form {
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .cabecera-seccion-form h2 {
+        font-size: 14px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin: 0;
+        color: var(--azul-oscuro);
+    }
+
+    .cabecera-seccion-form i {
+        color: var(--amarillo);
+        font-size: 16px;
+    }
+
+    .cuerpo-formulario {
+        padding: 1.5rem 2rem;
+    }
+
+    .etiqueta-form {
+        display: block;
+        font-size: 10px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--texto-gris);
+        margin-bottom: 10px;
+    }
+
+    .control-form {
+        width: 100%;
+        background: var(--gris-fondo);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        height: 42px;
+        padding: 0 16px;
+        font-size: 14px;
+        color: var(--azul-oscuro);
+        outline: none;
+        appearance: none;
+    }
+
+    select.control-form {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e"); /* Es la flecha de la derecha */ 
+        background-repeat: no-repeat;
+        background-position: right 1rem center; /* La flecha se posiciona a la derecha, a 1rem del borde y centrado verticalmente */
+        background-size: 12px 10px; /* Se define el tamaño de la flecha */
+    }
+
+    .control-form.control-select {
+        letter-spacing: 0.12em;
+        font-weight: 800;
+        font-size: 10px;
+        text-transform: uppercase;
+    }
+
+    .control-form:focus {
+        border-color: var(--azul);
+        background: #fff;
+        box-shadow: 0 0 0 4px var(--azul-claro);
+    }
+
+    textarea.control-form {
+        height: auto;
+        min-height: 100px;
+        padding: 12px 16px;
+        resize: none;
+    }
+
+    .hint-form {
+        font-size: 11px;
+        color: var(--texto-gris);
+        margin-top: 10px;
+        display: block;
+    }
+
+    .boton-enviar {
+        background: var(--azul);
+        color: #fff;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.2s;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 110, 164, 0.2);
+    }
+
+    .boton-enviar:hover {
+        background: var(--amarillo);
+        box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3);
+        color: #fff;
+    }
+
+    .boton-cancelar {
+        padding: 12px 24px;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--azul-oscuro);
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+
+    .boton-cancelar:hover {
+        color: var(--rojo);
+    }
+
+    .btn-retroceso {
+        width: 32px;
+        height: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: #fff;
+        border: 1.5px solid var(--border);
+        color: var(--azul-oscuro);
+        text-decoration: none;
+        font-size: 12px;
+    }
+
+    .btn-retroceso:hover {
+        background: var(--azul-oscuro);
+        color: #fff;
+        border-color: var(--azul-oscuro);
+    }
+
+    .btn-retroceso:hover {
+        background: var(--azul-oscuro);
+        color: #fff;
+        border-color: var(--azul-oscuro);
+    }
+
+    .bodymodal {
+        background: #f0f2f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .modal-filtro {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        width: 220px;
+        padding: 6px;
+        border: 1px solid var(--border);
+    }
+
+    .enlace-filtro {
+        display: block;
+        padding: 10px 16px;
+        color: var(--azul-oscuro);
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        border-radius: 12px;
+        transition: all 0.2s;
+    }
+
+    .enlace-filtro:hover {
+        background: var(--azul);
+        color: #fff;
+    }
+
+
+
+
+
+    /* Media Queries */
+    @media (max-width: 576px) {
+
+        .boton-nav.etiqueta-nav, .btn-cerrar-sesion.etiqueta-nav {
+            display: none; /* Quito el texto de los botones */
+        }
+
+        .fila-ticket, .cabecera-tickets, .tarjeta-stats {
+            padding: 1rem;
+        }
+
+        .valor-stats {
+            font-size: 26px;  /* Hago que el número de las estadisticas sea más pequeño */
+        }
+
+        .btn-cerrar-sesion {
+            padding: 7px 10px;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.manuel {
+    body {
+        font-family: var(--font-family);
+        background-color: #2c3e50;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .modal-container {
+        background-color: var(--white);
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .modal-details {
+        max-width: 550px;
+    }
+
+    .modal-header {
+        padding: 25px 30px;
+        border-bottom: 1px solid var(--border-color);
+        position: relative;
+    }
+
+    .btn-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 20px;
+        color: #666;
+        cursor: pointer;
+    }
+
+    .modal-title {
+        color: var(--dark-blue);
+        font-size: 22px;
+        font-weight: 700;
+        margin: 0 0 5px 0;
+        text-transform: uppercase;
+    }
+
+    .modal-subtitle {
+        color: var(--text-light);
+        font-size: 12px;
+        font-weight: 600;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .modal-body {
+        padding: 30px;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group.full-width {
+        grid-column: span 2;
+    }
+
+    .form-label {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-light);
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .form-control {
+        padding: 12px 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 15px;
+        color: #333;
+        font-family: var(--font-family);
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-blue);
+    }
+
+    select.form-control {
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237b8e9d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        background-size: 15px;
+    }
+
+    .modal-footer {
+        padding: 20px 30px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 20px;
+        border-top: 1px solid #f0f0f0;
+    }
+
+    .modal-footer-centered {
+        justify-content: center;
+        gap: 15px;
+        padding: 25px 30px;
+    }
+
+    .btn {
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-family: var(--font-family);
+        transition: all 0.3s ease;
+        border: none;
+        letter-spacing: 0.5px;
+    }
+
+    .btn-success {
+        background-color: #059669;
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-success:hover {
+        background-color: #047857;
+    }
+
+    .btn-outline-custom {
+        background-color: var(--white);
+        color: var(--text-dark);
+        border: 1px solid var(--border-color);
+    }
+
+    .btn-outline-custom:hover {
+        background-color: var(--bg-light);
+    }
+
+    .badges-header {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+        margin-top: 5px;
+    }
+
+    .badge {
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .badge-red { background-color: #ffe4e6; color: #e11d48; }
+    .badge-blue { background-color: #dbeafe; color: #2563eb; }
+    .badge-alta { background-color: #ffe4e6; color: #e11d48; border-radius: 6px; padding: 4px 10px; }
+    .badge-gray { background-color: #f1f5f9; color: #334155; padding: 8px 16px; display: inline-flex; align-items: center; gap: 6px; }
+
+    .content-box {
+        background-color: #f8fafc;
+        border: 1px solid #f1f5f9;
+        border-radius: 12px;
+        padding: 20px;
+        font-size: 14px;
+        color: #334155;
+        line-height: 1.6;
+    }
+
+    .info-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+
+    .info-icon {
+        width: 18px;
+        height: 18px;
+        stroke: #eab308;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .label-icon {
+        width: 14px;
+        height: 14px;
+        stroke: #94a3b8;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        margin-right: 5px;
+        vertical-align: text-bottom;
+    }
+
+    .divider {
+        border: none;
+        border-top: 1px solid var(--border-color);
+        margin: 0;
+    }
+
+    .divider-light {
+        border: none;
+        border-top: 1px solid #f1f5f9;
+        margin: 20px 0;
+    }
+
+    .assigned-tech-card {
+        grid-column: span 1;
+        background-color: #fff9eb;
+        border-radius: 15px;
+        padding: 20px 25px;
+        margin-top: 25px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        border: 1px solid #fef3c7;
+    }
+
+    .tech-icon {
+        background-color: #d99339;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .tech-icon svg {
+        width: 20px;
+        height: 20px;
+        stroke: white;
+    }
+
+    .tech-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tech-label {
+        font-size: 10px;
+        font-weight: 800;
+        color: #d99339;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 2px;
+    }
+
+    .tech-name {
+        font-size: 15px;
+        font-weight: 800;
+        color: #04437a;
+        letter-spacing: 0.2px;
     }
 }

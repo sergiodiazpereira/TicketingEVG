@@ -7,7 +7,7 @@
  */
 ?>
 <!DOCTYPE html>
-<html lang="es">
+<html class="sergio" lang="es">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="estiloUsuarios.css">
 </head>
-<body>
+<body class="sergio">
 	<header>
 		<div class="d-flex align-items-center gap-2 me-2">
 			<div class="icono-logo"><i class="fa-solid fa-school"></i></div>
