@@ -66,7 +66,7 @@
 							</select>
 						</div>
 						<div class="col-md-6">
-							<label class="etiqueta-form">Fecha límite o esperada</label>
+							<label class="etiqueta-form">Fecha límite o esperada (opcional)</label>
 							<input type="date" class="control-form">
 						</div>
 						<div class="col-md-6">
@@ -77,6 +77,20 @@
 								<option value="hardware">Hardware / Equipos</option>
 								<option value="redes">Redes y Conectividad</option>
 								<option value="mantenimiento">Mantenimiento General</option>
+							</select>
+						</div>
+						<div class="col-md-6">
+							<label class="etiqueta-form">Ubicación / Aula</label>
+							<select class="control-form control-select">
+								<option value="" disabled selected>Selecciona ubicación</option>
+								<option value="aula101">Aula 101</option>
+								<option value="aula102">Aula 102</option>
+								<option value="aula201">Aula 201</option>
+								<option value="aula202">Aula 202</option>
+								<option value="biblioteca">Biblioteca</option>
+								<option value="salon_actos">Salón de Actos</option>
+								<option value="secretaria">Secretaría / Administración</option>
+								<option value="otros">Otros / Zonas comunes</option>
 							</select>
 						</div>
 						<div class="col-12">
