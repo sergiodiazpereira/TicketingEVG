@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalle de Incidencia</title>
-    <link rel="stylesheet" href="estiloUsuario.css">
+    <link rel="stylesheet" href="css/estiloUsuario.css">
 </head>
 <body>
 
@@ -50,21 +50,23 @@
                 </div>
             </div>
 
-            <div class="assigned-tech-card">
-                    <div class="tech-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                            <polyline points="16 11 18 13 22 9"></polyline>
-                        </svg>
-                    </div>
-                    <div class="tech-info">
-                        <span class="tech-label">Técnico Asignado</span>
-                        <span class="tech-name">TRABAJADOR-1</span>
-                    </div>
-            </div>
-
             <hr class="divider-light">
+
+            <div class="form-group full-width" style="margin-bottom: 25px;">
+                <label class="form-label" style="color: #94a3b8;">
+                    <svg class="label-icon" viewBox="0 0 24 24">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    Seleccionar técnico
+                </label>
+                <select class="form-control" style="border-color: #cbd5e1;">
+                    <option value="" selected>Asignar a un operario...</option>
+                    <option value="1">Operario Técnico</option>
+                    <option value="2">Soporte Nivel 2</option>
+                    <option value="3">Mantenimiento General</option>
+                </select>
+            </div>
 
             <div class="form-group full-width">
                 <label class="form-label">Categoría</label>

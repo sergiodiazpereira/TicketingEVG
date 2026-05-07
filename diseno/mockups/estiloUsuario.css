@@ -1,5 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 /*
- * Identificación: Sergio Díaz Pereira
+ * Identificación: Sergio Díaz Pereira y Manuel Vega Purificacion
  * Asignatura: Desarrollo de Aplicaciones Web
  * Curso: 2025-2026
  * Descripción: Estilos generales para el portal de usuarios.
@@ -14,25 +15,15 @@
     --rojo: #f43f5e;
     --rojo-claro: #fff1f2;
     --gris-fondo: #f5f6fa;
-    --border: #e4e7ef;
+    --borde: #e4e7ef;
     --texto-gris: #94a3b8;
     --amarillo: #dd9933;
     --amarillo-claro: #fffbeb;
     --gris-subtitulos: #64748b;
     --sombra: 0 4px 12px rgba(0, 0, 0, 0.05);
-
-
-
-    --primary-blue: #0069a3;
-    --dark-blue: #04437a;
-    --text-dark: #0f2c4c;
-    --text-light: #7b8e9d;
-    --border-color: #e2e8f0;
-    --bg-light: #f8f9fa;
-    --danger-red: #da244b;
-    --warning-yellow: #db9c31;
-    --white: #ffffff;
-    --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --azul-oscuro-texto: #0f2c4c;
+    --blanco: #ffffff;
+    --font-family: 'Open Sans', sans-serif;
 }
 
 .sergio {
@@ -68,7 +59,7 @@
         width: 100%;
         height: 81px;
         background: #fff;
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--borde);
         box-shadow: var(--sombra);
         display: flex;
         align-items: center;
@@ -175,7 +166,7 @@
 
     .tarjeta-stats {
         background: #fff;
-        border: 1px solid var(--border);
+        border: 1px solid var(--borde);
         border-radius: 12px;
         padding: 1.25rem 1.5rem;
         height: 100%;
@@ -243,7 +234,7 @@
 
     .tarjeta-tickets {
         background: #fff;
-        border: 1px solid var(--border);
+        border: 1px solid var(--borde);
         border-radius: 12px;
         overflow: hidden;
         animation: aparecerArriba 0.4s ease 0.25s both;
@@ -264,7 +255,7 @@
         align-items: center;
         justify-content: space-between; /* Separa el contenido a los extremos (título y botón) */
         padding: 1.25rem 1.5rem;
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--borde);
         flex-wrap: wrap; /* Permite que los elementos se ajusten a diferentes tamaños de pantalla */
         gap: 8px; /* Añade espacio entre los elementos */
     }
@@ -304,7 +295,7 @@
         display: flex;
         align-items: center;
         padding: 1rem 1.5rem;
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--borde);
         gap: 12px;
         cursor: pointer; /* Se pone la mano para indicar que es interactivo */
     }
@@ -385,7 +376,7 @@
     .etiqueta-estado.pendiente {
         background: #f3f4f6;
         color: #6b7280;
-        border: 1px solid var(--border);
+        border: 1px solid var(--borde);
     }
 
     .etiqueta-estado.asignado {
@@ -410,7 +401,7 @@
         flex: 1;
         min-width: 280px;
         background: #fff;
-        border: 1px solid var(--border);
+        border: 1px solid var(--borde);
         border-radius: 12px;
         display: flex;
         align-items: center;
@@ -430,7 +421,7 @@
 
     .boton-filtro {
         background: #fff;
-        border: 1px solid var(--border);
+        border: 1px solid var(--borde);
         border-radius: 12px;
         display: flex;
         align-items: center;
@@ -469,7 +460,7 @@
 
     .tarjeta-ticket-detallada {
         background: #fff;
-        border: 1px solid var(--border);
+        border: 1px solid var(--borde);
         border-radius: 14px;
         padding: 1.5rem;
         box-shadow: var(--sombra);
@@ -575,7 +566,7 @@
         justify-content: space-between;
         align-items: center;
         padding-top: 1.25rem;
-        border-top: 1px solid var(--border);
+        border-top: 1px solid var(--borde);
         flex-wrap: wrap; /* Manda a otra linea los elementos que no quepan (para pantallas pequeñas) */
         gap: 1rem;
     }
@@ -657,7 +648,7 @@
 
     .tarjeta-formulario {
         background: #fff;
-        border: 1px solid var(--border);
+        border: 1px solid var(--borde);
         border-radius: 20px;
         padding: 0;
         overflow: hidden;
@@ -667,7 +658,7 @@
 
     .cabecera-seccion-form {
         padding: 1.5rem 2rem;
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--borde);
         display: flex;
         align-items: center;
         gap: 12px;
@@ -704,7 +695,7 @@
     .control-form {
         width: 100%;
         background: var(--gris-fondo);
-        border: 1px solid var(--border);
+        border: 1px solid var(--borde);
         border-radius: 12px;
         height: 42px;
         padding: 0 16px;
@@ -795,7 +786,7 @@
         justify-content: center;
         border-radius: 50%;
         background: #fff;
-        border: 1.5px solid var(--border);
+        border: 1.5px solid var(--borde);
         color: var(--azul-oscuro);
         text-decoration: none;
         font-size: 12px;
@@ -828,7 +819,7 @@
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         width: 220px;
         padding: 6px;
-        border: 1px solid var(--border);
+        border: 1px solid var(--borde);
     }
 
     .enlace-filtro {
@@ -901,7 +892,7 @@
     }
 
     .modal-container {
-        background-color: var(--white);
+        background-color: var(--blanco);
         border-radius: 12px;
         box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         width: 100%;
@@ -915,7 +906,7 @@
 
     .modal-header {
         padding: 25px 30px;
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--borde);
         position: relative;
     }
 
@@ -931,7 +922,7 @@
     }
 
     .modal-title {
-        color: var(--dark-blue);
+        color: var(--azul-oscuro);
         font-size: 22px;
         font-weight: 700;
         margin: 0 0 5px 0;
@@ -939,7 +930,7 @@
     }
 
     .modal-subtitle {
-        color: var(--text-light);
+        color: var(--texto-gris);
         font-size: 12px;
         font-weight: 600;
         margin: 0;
@@ -970,7 +961,7 @@
     .form-label {
         font-size: 11px;
         font-weight: 700;
-        color: var(--text-light);
+        color: var(--texto-gris);
         margin-bottom: 8px;
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -978,7 +969,7 @@
 
     .form-control {
         padding: 12px 15px;
-        border: 1px solid var(--border-color);
+        border: 1px solid var(--borde);
         border-radius: 8px;
         font-size: 15px;
         color: #333;
@@ -988,7 +979,7 @@
     }
 
     .form-control:focus {
-        border-color: var(--primary-blue);
+        border-color: var(--azul);
     }
 
     select.form-control {
@@ -1021,7 +1012,7 @@
         font-weight: 700;
         cursor: pointer;
         text-transform: uppercase;
-        font-family: var(--font-family);
+        font-family: 'Roboto', sans-serif;
         transition: all 0.3s ease;
         border: none;
         letter-spacing: 0.5px;
@@ -1029,7 +1020,7 @@
 
     .btn-success {
         background-color: #059669;
-        color: var(--white);
+        color: var(--blanco);
         display: flex;
         align-items: center;
         gap: 8px;
@@ -1040,13 +1031,13 @@
     }
 
     .btn-outline-custom {
-        background-color: var(--white);
-        color: var(--text-dark);
-        border: 1px solid var(--border-color);
+        background-color: var(--blanco);
+        color: var(--azul-oscuro-texto);
+        border: 1px solid var(--borde);
     }
 
     .btn-outline-custom:hover {
-        background-color: var(--bg-light);
+        background-color: var(--gris-fondo);
     }
 
     .badges-header {
@@ -1086,7 +1077,7 @@
         gap: 8px;
         font-size: 14px;
         font-weight: 700;
-        color: var(--text-dark);
+        color: var(--azul-oscuro-texto);
     }
 
     .info-icon {
@@ -1113,7 +1104,7 @@
 
     .divider {
         border: none;
-        border-top: 1px solid var(--border-color);
+        border-top: 1px solid var(--borde);
         margin: 0;
     }
 

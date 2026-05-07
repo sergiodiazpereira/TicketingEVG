@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html class="joseph" lang="es">
 
 <head>
     <!-- 
@@ -19,7 +19,7 @@
     <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Estilos Propios -->
-    <link rel="stylesheet" href="../admin.css">
+    <link rel="stylesheet" href="css/estiloAdmin.css">
 </head>
 
 <body id="pagina-dashboard">
@@ -31,8 +31,8 @@
         <nav id="sidebarMenu" class="sidebar d-flex flex-column vh-100 sticky-top">
             <!-- Header Sidebar -->
             <div class="sidebar-header p-4 mb-3 d-flex align-items-center">
-                <label for="toggle-sidebar" class="boton-candado bg-warning rounded-3 p-2 me-3 flex-shrink-0"
-                    style="cursor: pointer;" title="Abrir/Cerrar menú">
+                <label for="toggle-sidebar" class="boton-candado rounded-3 p-2 me-3 flex-shrink-0"
+                    style="cursor: pointer; background-color: var(--amarillo);" title="Abrir/Cerrar menú">
                     <i class="bi bi-shield-lock-fill text-white fs-4"></i>
                 </label>
                 <div class="sidebar-header-texto">
@@ -44,36 +44,30 @@
             <!-- Links de Navegación -->
             <ul class="nav flex-column mb-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="../dasboard_admin/dashboard_admin.html" title="Dashboard">
+                    <a class="nav-link" href="dashboard_admin.php" title="Dashboard">
                         <i class="bi bi-grid-fill me-3"></i>
                         <span class="link-texto">Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../operarios_admin/operarios_admin.html" title="Operarios">
+                    <a class="nav-link" href="operarios_admin.php" title="Operarios">
                         <i class="bi bi-person-badge-fill me-3"></i>
                         <span class="link-texto">Operarios</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="categorias_admin.html" title="Categorías">
+                    <a class="nav-link active" href="categorias_admin.php" title="Categorías">
                         <i class="bi bi-tag-fill me-3"></i>
                         <span class="link-texto">Categorías</span>
+                    </a>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" title="Cerrar sesión">
+                        <i class="bi bi-box-arrow-left me-3"></i>
+                        <span class="link-texto">Cerrar sesión</span>
                     </a>
                 </li>
             </ul>
 
-            <!-- Footer Sidebar -->
-            <div class="p-3 border-top border-white border-opacity-10">
-                <a href="#" class="nav-link py-2 text-white-50 small" title="Mi información">
-                    <i class="bi bi-person-fill me-3"></i>
-                    <span class="link-texto">Mi información</span>
-                </a>
-                <a href="login.html" class="nav-link py-2 text-white-50 small" title="Cerrar sesión">
-                    <i class="bi bi-box-arrow-left me-3"></i>
-                    <span class="link-texto">Cerrar sesión</span>
-                </a>
-            </div>
         </nav>
 
         <!-- Contenido Principal -->
@@ -82,14 +76,6 @@
             <header class="bg-white p-4 mb-4 border-bottom shadow-sm d-flex justify-content-between align-items-center sticky-top">
                 <div class="d-flex align-items-center">
                     <h1 class="h5 fw-bold mb-0" style="color: #003366;">Gestión de categorías de soporte</h1>
-                </div>
-                <div class="d-none d-md-flex align-items-center">
-                    <div class="text-end me-3">
-                        <div class="fw-bold small">Joseph Joel</div>
-                        <div class="text-muted small">Administrador</div>
-                    </div>
-                    <img src="https://ui-avatars.com/api/?name=Joseph+Joel&background=003366&color=fff"
-                        class="rounded-circle" width="38" alt="Avatar">
                 </div>
             </header>
 
@@ -328,7 +314,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="../js/app.js"></script>
     
-    <?php include '../footer.php'; ?>
+    <?php include 'footer.php'; ?>
 </body>
 
 </html>
