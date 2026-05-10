@@ -1,3 +1,10 @@
+/**
+ * Proyecto: TicketingEVG
+ * Alumno: Joseph Joel Quispe Alvarez
+ * Asignatura: DAW
+ * Curso: 2025-2026
+ * Descripción: Controlador para el componente Sidebar.
+ */
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 

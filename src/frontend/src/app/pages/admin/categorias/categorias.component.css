@@ -1,0 +1,50 @@
+/*
+ * Proyecto: TicketingEVG
+ * Alumno: Joseph Joel Quispe Alvarez
+ * Asignatura: DAW
+ * Curso: 2025-2026
+ * Descripción: Estilos para el componente de Categorías.
+ */
+
+.titulo-primario {
+	color: var(--azul-oscuro);
+}
+
+.col-categoria {
+	width: 25%;
+}
+
+.col-descripcion {
+	width: 50%;
+}
+
+.col-uso {
+	width: 20%;
+}
+
+.col-accion {
+	width: 5%;
+}
+
+.icono-tag {
+	transform: rotate(-45deg);
+}
+
+.texto-categoria {
+	color: var(--azul-oscuro);
+	font-size: 0.85rem;
+}
+
+.icono-descripcion {
+	color: #aab2bd;
+	font-size: 1.1rem;
+}
+
+.texto-descripcion {
+	font-size: 0.95rem;
+}
+
+.etiqueta-uso {
+	font-size: 0.55rem;
+	letter-spacing: 0.5px;
+}

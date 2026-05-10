@@ -1,3 +1,10 @@
+<!--
+ * Proyecto: TicketingEVG
+ * Alumno: Joseph Joel Quispe Alvarez
+ * Asignatura: DAW
+ * Curso: 2025-2026
+ * Descripción: Vista de gestión de operarios.
+ -->
 <div class="d-flex flex-column vh-100 overflow-hidden">
 	<div class="d-flex flex-grow-1 overflow-hidden">
 		<app-sidebar></app-sidebar>
@@ -8,7 +15,7 @@
 				<header
 					class="bg-white p-4 mb-4 border-bottom shadow-sm d-flex justify-content-between align-items-center sticky-top">
 					<div class="d-flex align-items-center">
-						<h1 class="h5 fw-bold mb-0" style="color: #003366;">Gestión de responsables y trabajadores</h1>
+						<h1 class="h5 fw-bold mb-0 titulo-primario">Gestión de responsables y trabajadores</h1>
 					</div>
 					<div class="d-none d-md-flex align-items-center">
 						<div class="text-end me-3">
@@ -61,8 +68,7 @@
 															alt="Avatar">
 														<div>
 															<span class="fw-bold text-dark me-2">Carlos Ruiz</span>
-															<span class="badge badge-responsable rounded-pill px-2 py-1"
-																style="font-size: 0.65rem;">RESPONSABLE</span>
+															<span class="badge badge-responsable rounded-pill px-2 py-1 badge-pequena">RESPONSABLE</span>
 														</div>
 													</div>
 												</td>
@@ -70,25 +76,21 @@
 													<div class="d-flex align-items-center text-muted">
 														<div
 															class="icono-categoria rounded-circle d-flex align-items-center justify-content-center me-3">
-															<i class="bi bi-person"
-																style="color: var(--dorado-icono); font-size: 1.1rem;"></i>
+															<i class="bi bi-person icono-dorado"></i>
 														</div>
-														<span class="fw-medium text-dark me-1"
-															style="font-size: 0.9rem;">3
+														<span class="fw-medium text-dark me-1 texto-normal">3
 															CATEGORÍAS</span>
 														<i class="bi bi-chevron-down small ms-1"></i>
 													</div>
 												</td>
-												<td class="border-0 border-bottom text-muted"
-													style="font-size: 0.9rem;">
+												<td class="border-0 border-bottom text-muted texto-normal">
 													<i class="bi bi-envelope me-2"></i> carlos.ruiz&#64;evg.es
 												</td>
 												<td class="border-0 border-bottom text-center">
 													<div
 														class="d-flex flex-column align-items-center justify-content-center">
 														<span class="fw-bold fs-5 text-dark lh-1 mb-1">5</span>
-														<span class="text-muted small fw-bold"
-															style="font-size: 0.6rem; letter-spacing: 0.5px;">ASIGNADOS</span>
+														<span class="text-muted small fw-bold etiqueta-estadistica">ASIGNADOS</span>
 													</div>
 												</td>
 												<td class="border-0 border-bottom text-end pe-4">
@@ -104,8 +106,7 @@
 															alt="Avatar">
 														<div>
 															<span class="fw-bold text-dark me-2">Ana Martínez</span>
-															<span class="badge badge-trabajador rounded-pill px-2 py-1"
-																style="font-size: 0.65rem;">TRABAJADOR</span>
+															<span class="badge badge-trabajador rounded-pill px-2 py-1 badge-pequena">TRABAJADOR</span>
 														</div>
 													</div>
 												</td>
@@ -113,25 +114,21 @@
 													<div class="d-flex align-items-center text-muted">
 														<div
 															class="icono-categoria rounded-circle d-flex align-items-center justify-content-center me-3">
-															<i class="bi bi-briefcase text-secondary"
-																style="font-size: 1.1rem;"></i>
+															<i class="bi bi-briefcase text-secondary icono-grande"></i>
 														</div>
-														<span class="fw-medium text-dark me-1"
-															style="font-size: 0.9rem;">2
+														<span class="fw-medium text-dark me-1 texto-normal">2
 															CATEGORÍAS</span>
 														<i class="bi bi-chevron-down small ms-1"></i>
 													</div>
 												</td>
-												<td class="border-0 border-bottom text-muted"
-													style="font-size: 0.9rem;">
+												<td class="border-0 border-bottom text-muted texto-normal">
 													<i class="bi bi-envelope me-2"></i> ana.martinez&#64;evg.es
 												</td>
 												<td class="border-0 border-bottom text-center">
 													<div
 														class="d-flex flex-column align-items-center justify-content-center">
 														<span class="fw-bold fs-5 text-dark lh-1 mb-1">3</span>
-														<span class="text-muted small fw-bold"
-															style="font-size: 0.6rem; letter-spacing: 0.5px;">ASIGNADOS</span>
+														<span class="text-muted small fw-bold etiqueta-estadistica">ASIGNADOS</span>
 													</div>
 												</td>
 												<td class="border-0 border-bottom text-end pe-4">
@@ -147,8 +144,7 @@
 															alt="Avatar">
 														<div>
 															<span class="fw-bold text-dark me-2">Roberto Gómez</span>
-															<span class="badge badge-trabajador rounded-pill px-2 py-1"
-																style="font-size: 0.65rem;">TRABAJADOR</span>
+															<span class="badge badge-trabajador rounded-pill px-2 py-1 badge-pequena">TRABAJADOR</span>
 														</div>
 													</div>
 												</td>
@@ -156,25 +152,21 @@
 													<div class="d-flex align-items-center text-muted">
 														<div
 															class="icono-categoria rounded-circle d-flex align-items-center justify-content-center me-3">
-															<i class="bi bi-briefcase text-secondary"
-																style="font-size: 1.1rem;"></i>
+															<i class="bi bi-briefcase text-secondary icono-grande"></i>
 														</div>
-														<span class="fw-medium text-dark me-1"
-															style="font-size: 0.9rem;">1
+														<span class="fw-medium text-dark me-1 texto-normal">1
 															CATEGORÍA</span>
 														<i class="bi bi-chevron-down small ms-1"></i>
 													</div>
 												</td>
-												<td class="border-0 border-bottom text-muted"
-													style="font-size: 0.9rem;">
+												<td class="border-0 border-bottom text-muted texto-normal">
 													<i class="bi bi-envelope me-2"></i> roberto.gomez&#64;evg.es
 												</td>
 												<td class="border-0 border-bottom text-center">
 													<div
 														class="d-flex flex-column align-items-center justify-content-center">
 														<span class="fw-bold fs-5 text-dark lh-1 mb-1">2</span>
-														<span class="text-muted small fw-bold"
-															style="font-size: 0.6rem; letter-spacing: 0.5px;">ASIGNADOS</span>
+														<span class="text-muted small fw-bold etiqueta-estadistica">ASIGNADOS</span>
 													</div>
 												</td>
 												<td class="border-0 border-bottom text-end pe-4">
@@ -190,8 +182,7 @@
 															alt="Avatar">
 														<div>
 															<span class="fw-bold text-dark me-2">Elena Sanz</span>
-															<span class="badge badge-responsable rounded-pill px-2 py-1"
-																style="font-size: 0.65rem;">RESPONSABLE</span>
+															<span class="badge badge-responsable rounded-pill px-2 py-1 badge-pequena">RESPONSABLE</span>
 														</div>
 													</div>
 												</td>
@@ -199,24 +190,21 @@
 													<div class="d-flex align-items-center text-muted">
 														<div
 															class="icono-categoria rounded-circle d-flex align-items-center justify-content-center me-3">
-															<i class="bi bi-person"
-																style="color: var(--dorado-icono); font-size: 1.1rem;"></i>
+															<i class="bi bi-person icono-dorado"></i>
 														</div>
-														<span class="fw-medium text-dark me-1"
-															style="font-size: 0.9rem;">2
+														<span class="fw-medium text-dark me-1 texto-normal">2
 															CATEGORÍAS</span>
 														<i class="bi bi-chevron-down small ms-1"></i>
 													</div>
 												</td>
-												<td class="border-0 text-muted" style="font-size: 0.9rem;">
+												<td class="border-0 text-muted texto-normal">
 													<i class="bi bi-envelope me-2"></i> elena.sanz&#64;evg.es
 												</td>
 												<td class="border-0 text-center">
 													<div
 														class="d-flex flex-column align-items-center justify-content-center">
 														<span class="fw-bold fs-5 text-dark lh-1 mb-1">0</span>
-														<span class="text-muted small fw-bold"
-															style="font-size: 0.6rem; letter-spacing: 0.5px;">ASIGNADOS</span>
+														<span class="text-muted small fw-bold etiqueta-estadistica">ASIGNADOS</span>
 													</div>
 												</td>
 												<td class="border-0 text-end pe-4">

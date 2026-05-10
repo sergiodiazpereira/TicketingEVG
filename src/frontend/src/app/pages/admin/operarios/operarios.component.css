@@ -1,0 +1,33 @@
+/*
+ * Proyecto: TicketingEVG
+ * Alumno: Joseph Joel Quispe Alvarez
+ * Asignatura: DAW
+ * Curso: 2025-2026
+ * Descripción: Estilos para el componente de Operarios.
+ */
+
+.titulo-primario {
+	color: var(--azul-oscuro);
+}
+
+.badge-pequena {
+	font-size: 0.65rem;
+}
+
+.icono-dorado {
+	color: var(--dorado-icono);
+	font-size: 1.1rem;
+}
+
+.texto-normal {
+	font-size: 0.9rem;
+}
+
+.etiqueta-estadistica {
+	font-size: 0.6rem;
+	letter-spacing: 0.5px;
+}
+
+.icono-grande {
+	font-size: 1.1rem;
+}

@@ -1,3 +1,10 @@
+/**
+ * Proyecto: TicketingEVG
+ * Alumno: Joseph Joel Quispe Alvarez
+ * Asignatura: DAW
+ * Curso: 2025-2026
+ * Descripción: Controlador para el componente Footer.
+ */
 import { Component, OnInit } from '@angular/core';
 
 interface UserData {

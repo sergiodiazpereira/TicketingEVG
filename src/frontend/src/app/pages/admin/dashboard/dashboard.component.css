@@ -1,0 +1,32 @@
+/*
+ * Proyecto: TicketingEVG
+ * Alumno: Joseph Joel Quispe Alvarez
+ * Asignatura: DAW
+ * Curso: 2025-2026
+ * Descripción: Estilos para el componente de Dashboard.
+ */
+
+.contenido-principal {
+	min-width: 0;
+}
+
+.titulo-primario {
+	color: var(--azul-oscuro);
+}
+
+.etiqueta-espaciada {
+	letter-spacing: 1px;
+}
+
+.tarjeta-informativa {
+	background-color: #f0f7ff;
+	border: 1px solid #d0e5ff;
+}
+
+.texto-informativo {
+	color: #4a7ab5;
+}
+
+.progreso-82 {
+	width: 82%;
+}
