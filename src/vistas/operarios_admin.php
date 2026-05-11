@@ -19,7 +19,7 @@
     <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Estilos Propios -->
-    <link rel="stylesheet" href="estiloAdmin.css">
+    <link rel="stylesheet" href="../css/estiloAdmin.css">
 </head>
 
 <body id="pagina-dashboard">
