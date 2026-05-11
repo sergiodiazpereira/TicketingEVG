@@ -1,0 +1,14 @@
+# Entornos y secretos
+.env
+*.env
+src/backend/.env
+
+# Dependencias
+node_modules/
+vendor/
+
+# Compilados y temporales
+dist/
+.angular/
+tmp/
+*.log

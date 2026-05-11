@@ -2,57 +2,61 @@
 /**
  * Proyecto: TicketingEVG
  * Alumno: Joseph Joel Quispe Alvarez
- * Asignatura: Desarrollo Web en Entorno Servidor
- * Curso: 2 DAW
- * Descripcion: Fichero de entrada principal (Front Controller) para la arquitectura MVC.
+ * Asignatura: DAW
+ * Curso: 2025-2026
+ * Descripción: Enrutador principal de la API. Dirige las peticiones al controlador adecuado.
  */
 
-// Definicion de constantes para rutas
-define("CONTROLADORES_RUTAS", "Controllers/");
-define("MODELOS_RUTAS", "Models/");
+require_once __DIR__ . '/controladores/C_Ticket.php';
+require_once __DIR__ . '/vistas/V_Ticket.php';
 
-// Controlador y accion por defecto
-$controlador_defecto = "Ticket";
-$accion_defecto = "mostrar_inicio";
+// Capturar el método y la acción de la URL
+$metodo = $_SERVER['REQUEST_METHOD'];
+$accion = $_GET['accion'] ?? '';
 
-// Obtencion del controlador desde la URL o el valor por defecto
-if (isset($_GET["controlador"])) {
-	$nombre_controlador = $_GET["controlador"];
-} else {
-	$nombre_controlador = $controlador_defecto;
+// Inicializar controlador
+$controlador = new C_Ticket();
+
+// Manejo de peticiones OPTIONS (Preflight para CORS)
+if ($metodo === 'OPTIONS') {
+    V_Ticket::responder(["status" => "ok"]);
 }
 
-// Obtencion de la accion desde la URL o el valor por defecto
-if (isset($_GET["accion"])) {
-	$nombre_accion = $_GET["accion"];
-} else {
-	$nombre_accion = $accion_defecto;
-}
+// Enrutamiento básico basado en el parámetro 'accion'
+switch ($accion) {
+    case 'listar':
+        // Ejemplo: index.php?accion=listar&usuario_id=3
+        $id_usuario = $_GET['usuario_id'] ?? null;
+        $respuesta = $controlador->listar($id_usuario);
+        V_Ticket::responder($respuesta);
+        break;
 
-// Construccion del nombre del fichero del controlador
-$fichero_controlador = CONTROLADORES_RUTAS . $nombre_controlador . "Controller.php";
+    case 'crear':
+        if ($metodo === 'POST') {
+            $input = json_decode(file_get_contents('php://input'), true);
+            $respuesta = $controlador->guardar($input);
+            V_Ticket::responder($respuesta);
+        }
+        break;
 
-// Verificacion de existencia del fichero del controlador
-if (file_exists($fichero_controlador)) {
-	require_once $fichero_controlador;
-	$clase_controlador = $nombre_controlador . "Controller";
+    case 'actualizar':
+        if ($metodo === 'PUT') {
+            $input = json_decode(file_get_contents('php://input'), true);
+            $respuesta = $controlador->cambiar_estado($input['id'], $input['estado']);
+            V_Ticket::responder($respuesta);
+        }
+        break;
 
-	// Verificacion de existencia de la clase
-	if (class_exists($clase_controlador)) {
-		$objeto_controlador = new $clase_controlador();
+    case 'eliminar':
+        if ($metodo === 'DELETE') {
+            $id = $_GET['id'] ?? '';
+            $respuesta = $controlador->borrar($id);
+            V_Ticket::responder($respuesta);
+        }
+        break;
 
-		// Verificacion de existencia del metodo (accion)
-		if (method_exists($objeto_controlador, $nombre_accion)) {
-			$objeto_controlador->$nombre_accion();
-		} else {
-			// Si la accion no existe, se ejecuta la accion por defecto
-			$objeto_controlador->$accion_defecto();
-		}
-	} else {
-		echo "Error: La clase " . $clase_controlador . " no esta definida.";
-	}
-} else {
-	// Si el controlador no existe, se podria mostrar una pagina de error
-	echo "Error: El controlador " . $nombre_controlador . " no existe.";
+    default:
+        V_Ticket::responder(["error" => "Acción API no reconocida o método no permitido"]);
+        break;
 }
 ?>
