@@ -1,0 +1,51 @@
+<!--
+ * Proyecto: TicketingEVG
+ * Alumno: Joseph Joel Quispe Alvarez
+ * Asignatura: DAW
+ * Curso: 2025-2026
+ * Descripción: Vista de selección de entorno.
+ -->
+<main class="seleccion-entorno d-flex align-items-center justify-content-center vh-100">
+	<div class="container text-center">
+		<div class="icono-seguridad mb-4">
+			<i class="bi bi-shield-check-fill fs-1"></i>
+		</div>
+
+		<h1 class="titulo-acceso fw-bold mb-2">Bienvenido, {{ usuario_actual?.nombre || 'Usuario' }}</h1>
+		<p class="subtitulo-acceso text-muted mb-5">Selecciona el entorno de trabajo para continuar</p>
+
+		<div class="row justify-content-center g-4">
+			<!-- Tarjeta Admin -->
+			<div class="col-12 col-md-5 col-lg-4">
+				<div class="tarjeta-entorno p-4 shadow-sm cursor-pointer" routerLink="/admin/dashboard">
+					<div class="icono-entorno mb-3">
+						<i class="bi bi-grid-fill"></i>
+					</div>
+					<h2 class="titulo-entorno h4 fw-bold">Consola Admin</h2>
+					<p class="desc-entorno text-muted small">
+						Gestión avanzada de la aplicación TicketingEVG para administradores.
+					</p>
+					<div class="link-acceso mt-3 fw-bold text-primary">
+						Acceder ahora <i class="bi bi-arrow-right ms-1"></i>
+					</div>
+				</div>
+			</div>
+
+			<!-- Tarjeta Portal -->
+			<div class="col-12 col-md-5 col-lg-4">
+				<div class="tarjeta-entorno p-4 shadow-sm portal-card cursor-pointer" routerLink="/portal-tickets">
+					<div class="icono-entorno mb-3">
+						<i class="bi bi-ticket-perforated-fill"></i>
+					</div>
+					<h2 class="titulo-entorno h4 fw-bold">Portal Tickets</h2>
+					<p class="desc-entorno text-muted small">
+						Gestión de incidencias y resolución de problemas de la escuela.
+					</p>
+					<div class="link-acceso mt-3 fw-bold text-primary">
+						Acceder ahora <i class="bi bi-arrow-right ms-1"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>

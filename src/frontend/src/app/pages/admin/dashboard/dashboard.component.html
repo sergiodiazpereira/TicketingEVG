@@ -19,11 +19,11 @@
 			</div>
 			<div class="d-none d-md-flex align-items-center">
 				<div class="text-end me-3">
-					<div class="fw-bold small">Joseph Joel</div>
-					<div class="text-muted small">Administrador</div>
+					<div class="fw-bold small">{{ usuario_actual?.nombre || 'Usuario' }}</div>
+					<div class="text-muted small text-capitalize">{{ usuario_actual?.rol || 'Administrador' }}</div>
 				</div>
-				<img src="https://ui-avatars.com/api/?name=Joseph+Joel&background=003366&color=fff"
-					class="rounded-circle" width="38" alt="Avatar">
+				<img [src]="'https://ui-avatars.com/api/?name=' + (usuario_actual?.nombre || 'U') + '&background=003366&color=fff'"
+					class="rounded-circle shadow-sm" width="38" height="38" alt="Avatar">
 			</div>
 		</header>
 

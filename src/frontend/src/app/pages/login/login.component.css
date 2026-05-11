@@ -1,0 +1,43 @@
+/**
+ * Proyecto: TicketingEVG
+ * Alumno: Joseph Joel Quispe Alvarez
+ * Asignatura: DAW
+ * Curso: 2025-2026
+ * Descripción: Estilos para el inicio de sesión.
+ */
+.login-container {
+	background: linear-gradient(135deg, #003366 0%, #006ea4 100%);
+}
+
+.login-card {
+	width: 100%;
+	max-width: 400px;
+	border: none;
+	border-radius: 20px;
+}
+
+.login-icon {
+	width: 70px;
+	height: 70px;
+	background-color: var(--dorado-activo);
+	color: white;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	font-size: 2rem;
+	box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.input-group-text {
+	border: 1px solid #dee2e6;
+}
+
+.form-control:focus {
+	box-shadow: none;
+	border-color: var(--azul-btn);
+}
+
+.btn-evg {
+	letter-spacing: 1px;
+}

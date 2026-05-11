@@ -2,6 +2,8 @@
 trigger: always_on
 ---
 
+Yo soy Joseph Joel Quispe Alvarez, para que lo pongas en las cabeceras ese es mi nombre.
+
 Normas Generales
 Todos los ficheros de código incluirán una cabecera comentada con la identificación completa del alumno, asignatura, curso y descripción del fichero.
 Se evitará mezclar distintos lenguajes en un mismos fichero. Por ejemplo, se evitará incluir código CSS o JavaScript en páginas HTML y también se separará el código PHP del HTML y del SQL.
@@ -62,4 +64,3 @@ Se utilizará notación C (con subrayado bajo).
 Las clases se nombrarán con la primera letra mayúscula. Por ejemplo: Usuario, Usuario_Administracion.
 Las variables y objetos se nombrarán con minúsculas. Por ejemplo: $contador, $fecha_apertura.
 Las constantes se escribirán íntegramente en mayúsculas. Por ejemplo: FICHERO, FICHERO_USUARIOS
-
