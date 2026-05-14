@@ -99,10 +99,11 @@
 								<div class="flex-grow-1">
 									<div class="d-flex align-items-center gap-2 mb-1">
 										<h3 class="h6 fw-bold mb-0">{{ ticket.titulo }}</h3>
-										<span class="badge bg-light text-muted border small">{{ ticket.tipo }}</span>
+										<span class="badge bg-light text-muted border small">{{ ticket.tipo || 'Incidencia' }}</span>
+										<span class="badge bg-light text-muted border small">{{ getPrioridadTexto(ticket.prioridad) }}</span>
 									</div>
-									@if (ticket.operarioId) {
-										<small class="text-muted">Asignado a Operario {{ ticket.operarioId }}</small>
+									@if (ticket.id_Usuario_Encargado) {
+										<small class="text-muted">Asignado a Operario #{{ ticket.id_Usuario_Encargado }}</small>
 									} @else {
 										<small class="text-muted italic">Pendiente de asignación</small>
 									}

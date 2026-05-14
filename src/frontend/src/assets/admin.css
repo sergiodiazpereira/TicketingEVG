@@ -38,8 +38,8 @@ body {
 	flex-shrink: 0; /* Evitar que el sidebar se aplaste */
 }
 
-/* Estado Colapsado (vía Checkbox oculto CSS Puro) */
-#toggle-sidebar:checked ~ #sidebarMenu {
+/* Estado Colapsado */
+#sidebarMenu.colapsado {
 	width: 80px;
 }
 
@@ -55,29 +55,29 @@ body {
 }
 
 /* Ocultar texto y logos secundarios al colapsar */
-#toggle-sidebar:checked ~ #sidebarMenu .link-texto,
-#toggle-sidebar:checked ~ #sidebarMenu .sidebar-header-texto,
-#toggle-sidebar:checked ~ #sidebarMenu hr {
+#sidebarMenu.colapsado .link-texto,
+#sidebarMenu.colapsado .sidebar-header-texto,
+#sidebarMenu.colapsado hr {
 	display: none !important;
 }
 
 /* Ajuste de paddings y centrado cuando está colapsado */
-#toggle-sidebar:checked ~ #sidebarMenu .sidebar-header {
+#sidebarMenu.colapsado .sidebar-header {
 	padding: 20px 10px !important;
 	justify-content: center !important;
 }
 
-#toggle-sidebar:checked ~ #sidebarMenu .sidebar-header .boton-candado {
+#sidebarMenu.colapsado .sidebar-header .boton-candado {
 	margin-right: 0 !important;
 }
 
-#toggle-sidebar:checked ~ #sidebarMenu .nav-link {
+#sidebarMenu.colapsado .nav-link {
 	justify-content: center;
 	margin: 5px 10px;
 	padding: 12px 0;
 }
 
-#toggle-sidebar:checked ~ #sidebarMenu .nav-link i {
+#sidebarMenu.colapsado .nav-link i {
 	margin: 0 !important;
 	font-size: 1.4rem;
 }
@@ -87,7 +87,7 @@ body {
 	#sidebarMenu {
 		width: 80px; /* Por defecto colapsado en móvil */
 	}
-	#toggle-sidebar:not(:checked) ~ #sidebarMenu {
+	#sidebarMenu:not(.colapsado) {
 		width: 260px;
 		position: absolute;
 		z-index: 1050;

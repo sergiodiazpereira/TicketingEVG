@@ -8,7 +8,10 @@
 export interface Usuario {
   id: number;
   nombre: string;
-  email: string;
+  email?: string;
+  correo?: string; // Según BBDD
   password?: string;
-  rol: 'admin' | 'profesor' | 'operario';
+  rol: string;
+  num_categorias?: number;
+  tickets_asignados?: number;
 }

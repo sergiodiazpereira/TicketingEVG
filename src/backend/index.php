@@ -8,55 +8,85 @@
  */
 
 require_once __DIR__ . '/controladores/C_Ticket.php';
+require_once __DIR__ . '/controladores/C_Usuario.php';
+require_once __DIR__ . '/controladores/C_Categoria.php';
 require_once __DIR__ . '/vistas/V_Ticket.php';
+
+// Cabeceras CORS
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Content-Type: application/json; charset=utf-8");
 
 // Capturar el método y la acción de la URL
 $metodo = $_SERVER['REQUEST_METHOD'];
+$entidad = $_GET['entidad'] ?? 'ticket'; // Por defecto ticket para mantener retrocompatibilidad
 $accion = $_GET['accion'] ?? '';
-
-// Inicializar controlador
-$controlador = new C_Ticket();
 
 // Manejo de peticiones OPTIONS (Preflight para CORS)
 if ($metodo === 'OPTIONS') {
     V_Ticket::responder(["status" => "ok"]);
 }
 
-// Enrutamiento básico basado en el parámetro 'accion'
-switch ($accion) {
-    case 'listar':
-        // Ejemplo: index.php?accion=listar&usuario_id=3
-        $id_usuario = $_GET['usuario_id'] ?? null;
-        $respuesta = $controlador->listar($id_usuario);
-        V_Ticket::responder($respuesta);
-        break;
-
-    case 'crear':
-        if ($metodo === 'POST') {
-            $input = json_decode(file_get_contents('php://input'), true);
-            $respuesta = $controlador->guardar($input);
+// Enrutamiento principal por entidad
+switch ($entidad) {
+    case 'usuario':
+        $controlador = new C_Usuario();
+        if ($accion === 'listar_operarios') {
+            $respuesta = $controlador->listar_operarios();
             V_Ticket::responder($respuesta);
+        } else if ($accion === 'estadisticas') {
+            $respuesta = $controlador->get_estadisticas();
+            V_Ticket::responder($respuesta);
+        } else {
+            V_Ticket::responder(["error" => "Acción no reconocida para usuario"]);
         }
         break;
 
-    case 'actualizar':
-        if ($metodo === 'PUT') {
-            $input = json_decode(file_get_contents('php://input'), true);
-            $respuesta = $controlador->cambiar_estado($input['id'], $input['estado']);
+    case 'categoria':
+        $controlador = new C_Categoria();
+        if ($accion === 'listar') {
+            $respuesta = $controlador->listar();
             V_Ticket::responder($respuesta);
+        } else {
+            V_Ticket::responder(["error" => "Acción no reconocida para categoria"]);
         }
         break;
 
-    case 'eliminar':
-        if ($metodo === 'DELETE') {
-            $id = $_GET['id'] ?? '';
-            $respuesta = $controlador->borrar($id);
-            V_Ticket::responder($respuesta);
-        }
-        break;
-
+    case 'ticket':
     default:
-        V_Ticket::responder(["error" => "Acción API no reconocida o método no permitido"]);
+        $controlador = new C_Ticket();
+        switch ($accion) {
+            case 'listar':
+                $id_usuario = $_GET['usuario_id'] ?? null;
+                $respuesta = $controlador->listar($id_usuario);
+                V_Ticket::responder($respuesta);
+                break;
+            case 'crear':
+                if ($metodo === 'POST') {
+                    $input = json_decode(file_get_contents('php://input'), true);
+                    $respuesta = $controlador->guardar($input);
+                    V_Ticket::responder($respuesta);
+                }
+                break;
+            case 'actualizar':
+                if ($metodo === 'PUT') {
+                    $input = json_decode(file_get_contents('php://input'), true);
+                    $respuesta = $controlador->cambiar_estado($input['id'], $input['estado']);
+                    V_Ticket::responder($respuesta);
+                }
+                break;
+            case 'eliminar':
+                if ($metodo === 'DELETE') {
+                    $id = $_GET['id'] ?? '';
+                    $respuesta = $controlador->borrar($id);
+                    V_Ticket::responder($respuesta);
+                }
+                break;
+            default:
+                V_Ticket::responder(["error" => "Acción API no reconocida o método no permitido"]);
+                break;
+        }
         break;
 }
 ?>

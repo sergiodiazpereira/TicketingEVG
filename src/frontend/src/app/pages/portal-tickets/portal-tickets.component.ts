@@ -64,8 +64,13 @@ export class PortalTicketsComponent implements OnInit {
    */
   cargarTickets(): void {
     if (this.usuario_actual) {
-      this.tickets = this.ticketService.getTicketsPorUsuario(this.usuario_actual.id);
-      this.calcularStats();
+      this.ticketService.getTicketsPorUsuario(this.usuario_actual.id).subscribe({
+        next: (data) => {
+          this.tickets = data;
+          this.calcularStats();
+        },
+        error: (err) => console.error('Error al cargar tickets', err)
+      });
     }
   }
 
@@ -85,23 +90,38 @@ export class PortalTicketsComponent implements OnInit {
   crearTicket(): void {
     if (!this.usuario_actual) return;
 
-    // Preparamos el objeto ticket con el ID del usuario actual
-    const ticketData: Omit<Ticket, 'id' | 'fechaCreacion'> = {
-      ...this.nuevoTicket,
-      usuarioId: this.usuario_actual.id,
+    // Mapeo de prioridad de texto a código de base de datos
+    const mapaPrioridad: any = { 'baja': 'b', 'media': 'm', 'alta': 'a' };
+
+    // Preparamos el objeto ticket para el backend con el tipado correcto
+    const ticketData: Partial<Ticket> = {
+      titulo: this.nuevoTicket.titulo,
+      descripcion: this.nuevoTicket.descripcion,
+      tipo: this.nuevoTicket.tipo,
+      prioridad: mapaPrioridad[this.nuevoTicket.prioridad] || 'm',
+      id_Categoria: this.nuevoTicket.categoriaId,
+      id_Usuario_Creador: this.usuario_actual.id,
       estado: 'pendiente'
     };
 
     // Llamamos al servicio para guardar
-    this.ticketService.addTicket(ticketData);
-    
-    // Recargamos la lista y estadísticas
-    this.cargarTickets();
+    this.ticketService.crearTicket(ticketData).subscribe({
+      next: (res) => {
+        console.log('Ticket creado:', res);
+        this.cargarTickets(); // Recargamos la lista
+        this.resetForm();     // Limpiamos el formulario
+      },
+      error: (err) => alert('Error al crear el ticket. Revisa la conexión con el backend.')
+    });
+  }
 
-    // Limpiamos el formulario
-    this.resetForm();
-
-    // Nota: El cierre del modal se gestiona mediante data-bs-dismiss en el botón del HTML
+  /**
+   * Traduce el código de prioridad ('a', 'm', 'b') a texto legible.
+   * @param codigo Código de un solo carácter.
+   */
+  getPrioridadTexto(codigo: string): string {
+    const mapa: any = { 'a': 'Alta', 'm': 'Media', 'b': 'Baja' };
+    return mapa[codigo] || 'Media';
   }
 
   /**

@@ -19,20 +19,25 @@ class Conexion {
             // Carga de configuración desde el archivo .env
             $ruta_env = __DIR__ . '/../.env';
             if (!file_exists($ruta_env)) {
-                die("Error: No se encuentra el archivo .env en el backend.");
+                header('Content-Type: application/json');
+                echo json_encode(['error' => 'No se encuentra el archivo .env en el servidor del colegio.']);
+                exit;
             }
             
             $config = parse_ini_file($ruta_env);
             
-            $servidor = 'localhost';
-            $usuario  = $config['USER_DB'];
-            $clave    = $config['CLAVE'];
-            $base_datos = $config['BBDD_DEMO']; // Se utiliza la base de datos de demostración
+            $servidor = $config['SERVIDOR'] ?? '';
+            $usuario  = $config['USER_DB'] ?? '';
+            $clave    = $config['CLAVE'] ?? '';
+            $base_datos = $config['BBDD_DEMO'] ?? '';
 
-            self::$conexion = new mysqli($servidor, $usuario, $clave, $base_datos);
+            // Silenciamos errores para manejarlos nosotros
+            self::$conexion = @new mysqli($servidor, $usuario, $clave, $base_datos);
 
             if (self::$conexion->connect_error) {
-                die("Error de conexión MySQLi: " . self::$conexion->connect_error);
+                header('Content-Type: application/json');
+                echo json_encode(['error' => 'Fallo de conexión a BD: ' . self::$conexion->connect_error]);
+                exit;
             }
 
             self::$conexion->set_charset("utf8mb4");

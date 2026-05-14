@@ -3,141 +3,63 @@
  * Alumno: Joseph Joel Quispe Alvarez
  * Asignatura: DAW
  * Curso: 2025-2026
- * Descripción: Servicio encargado de la lógica de negocio y gestión de datos de los tickets.
+ * Descripción: Servicio para la gestión de tickets conectando con la API PHP.
  */
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
+import { environment } from '../../enviroments/environment';
 import { Ticket } from '../models/ticket.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TicketService {
-  /**
-   * Almacén temporal de tickets (simula una base de datos).
-   */
-  private tickets: Ticket[] = [
-    { 
-      id: 1, 
-      titulo: 'Ordenador no enciende en Aula 203', 
-      descripcion: 'El equipo no da señal de vida tras pulsar el botón.', 
-      fechaCreacion: new Date(), 
-      tipo: 'incidencia',
-      estado: 'proceso', 
-      prioridad: 'alta', 
-      usuarioId: 2, 
-      operarioId: 4, 
-      categoriaId: 1 
-    },
-    { 
-      id: 2, 
-      titulo: 'Solicitud de marcadores para pizarra', 
-      descripcion: 'Se necesitan marcadores de color azul y negro.', 
-      fechaCreacion: new Date(), 
-      tipo: 'peticion',
-      estado: 'pendiente', 
-      prioridad: 'baja', 
-      usuarioId: 2, 
-      categoriaId: 3 
-    },
-    { 
-      id: 3, 
-      titulo: 'Proyector muestra imagen borrosa', 
-      descripcion: 'No se puede enfocar correctamente la imagen.', 
-      fechaCreacion: new Date(), 
-      tipo: 'incidencia',
-      estado: 'asignado', 
-      prioridad: 'media', 
-      usuarioId: 3, 
-      operarioId: 4, 
-      categoriaId: 1 
-    },
-    { 
-      id: 4, 
-      titulo: 'Fallo conexión Wi-Fi Sala Profesores', 
-      descripcion: 'Cortes intermitentes en la red inalámbrica.', 
-      fechaCreacion: new Date(), 
-      tipo: 'incidencia',
-      estado: 'pendiente', 
-      prioridad: 'alta', 
-      usuarioId: 2, 
-      categoriaId: 2 
-    },
-    { 
-      id: 5, 
-      titulo: 'Instalación de software estadístico', 
-      descripcion: 'Requerido para las clases de matemáticas.', 
-      fechaCreacion: new Date(), 
-      tipo: 'peticion',
-      estado: 'asignado', 
-      prioridad: 'media', 
-      usuarioId: 3, 
-      operarioId: 4, 
-      categoriaId: 1 
-    },
-    { 
-      id: 6, 
-      titulo: 'Sustitución de bombilla fundida', 
-      descripcion: 'Aula 104, fila central.', 
-      fechaCreacion: new Date(), 
-      tipo: 'peticion',
-      estado: 'resuelto', 
-      prioridad: 'baja', 
-      usuarioId: 3, 
-      categoriaId: 3 
-    }
-  ];
+  /** URL base de la API obtenida de los archivos de entorno */
+  private apiUrl = environment.apiUrl;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   /**
-   * Recupera la lista completa de todos los tickets del sistema.
-   * @returns Array de objetos Ticket.
+   * Obtiene todos los tickets del sistema a través de la API.
+   * @returns Observable con la lista de tickets.
    */
-  getTickets(): Ticket[] {
-    return [...this.tickets];
+  getTickets(): Observable<Ticket[]> {
+    return this.http.get<Ticket[]>(`${this.apiUrl}?accion=listar`);
   }
 
   /**
-   * Filtra los tickets creados por un usuario específico (ej: un profesor).
-   * @param usuarioId El identificador del usuario.
-   * @returns Array de tickets pertenecientes a dicho usuario.
+   * Obtiene los tickets de un usuario específico.
+   * @param usuarioId ID del usuario logueado.
+   * @returns Observable filtrado.
    */
-  getTicketsPorUsuario(usuarioId: number): Ticket[] {
-    return this.tickets.filter(t => t.usuarioId === usuarioId);
+  getTicketsPorUsuario(usuarioId: number): Observable<Ticket[]> {
+    return this.http.get<Ticket[]>(`${this.apiUrl}?accion=listar&usuario_id=${usuarioId}`);
   }
 
   /**
-   * Filtra los tickets que han sido asignados a un operario técnico específico.
-   * @param operarioId El identificador del operario.
-   * @returns Array de tickets asignados.
+   * Registra un nuevo ticket en la base de datos.
+   * @param ticket Objeto ticket con los datos del formulario.
+   * @returns Observable con la respuesta del servidor.
    */
-  getTicketsPorOperario(operarioId: number): Ticket[] {
-    return this.tickets.filter(t => t.operarioId === operarioId);
+  crearTicket(ticket: Partial<Ticket>): Observable<any> {
+    return this.http.post(`${this.apiUrl}?accion=crear`, ticket);
   }
 
   /**
-   * Crea un nuevo ticket y lo añade al almacén local.
-   * Genera automáticamente el ID y la fecha de creación.
-   * @param ticket Los datos del nuevo ticket (sin ID ni fecha).
+   * Cambia el estado de un ticket.
+   * @param id Identificador del ticket.
+   * @param estado Nuevo estado.
    */
-  addTicket(ticket: Omit<Ticket, 'id' | 'fechaCreacion'>): void {
-    const nuevoTicket: Ticket = {
-      ...ticket,
-      id: this.tickets.length + 1,
-      fechaCreacion: new Date()
-    };
-    this.tickets.push(nuevoTicket);
+  actualizarEstado(id: string, estado: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}?accion=actualizar`, { id, estado });
   }
 
   /**
-   * Permite modificar el estado actual de un ticket existente.
-   * @param id El identificador del ticket a modificar.
-   * @param estado El nuevo estado (pendiente, asignado, proceso, resuelto).
+   * Elimina un ticket físicamente.
+   * @param id Identificador del ticket.
    */
-  actualizarEstado(id: number, estado: Ticket['estado']): void {
-    const index = this.tickets.findIndex(t => t.id === id);
-    if (index !== -1) {
-      this.tickets[index].estado = estado;
-    }
+  eliminarTicket(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}?accion=eliminar&id=${id}`);
   }
 }

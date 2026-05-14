@@ -55,32 +55,33 @@
 										</tr>
 									</thead>
 									<tbody class="border-top-0">
+										@for (categoria of categorias; track categoria.id) {
 										<tr>
 											<td class="border-0 border-bottom text-center">
 												<div class="d-flex flex-column align-items-center justify-content-center py-2">
 													<div class="icono-categoria-grande rounded-4 d-flex align-items-center justify-content-center mb-2">
 														<i class="bi bi-tag icono-tag"></i>
 													</div>
-													<span class="fw-bold texto-categoria">SOPORTE NIVEL 1</span>
+													<span class="fw-bold texto-categoria text-uppercase">{{ categoria.nombre }}</span>
 												</div>
 											</td>
 											<td class="border-0 border-bottom">
 												<div class="d-flex align-items-start text-muted">
 													<i class="bi bi-file-earmark-text me-3 mt-1 icono-descripcion"></i>
-													<p class="mb-0 texto-descripcion">Atención primaria y resolución de incidencias básicas de primer contacto.</p>
+													<p class="mb-0 texto-descripcion">Categoría de {{ categoria.nombre }}.</p>
 												</div>
 											</td>
 											<td class="border-0 border-bottom">
 												<div class="d-flex gap-4 justify-content-center">
 													<div class="d-flex flex-column align-items-center">
 														<span class="badge badge-operarios rounded-pill d-flex align-items-center justify-content-center mb-1">
-															<i class="bi bi-person me-1"></i> 8
+															<i class="bi bi-person me-1"></i> {{ categoria.operarios || 0 }}
 														</span>
 														<span class="text-muted fw-bold etiqueta-uso">OPERARIOS</span>
 													</div>
 													<div class="d-flex flex-column align-items-center">
 														<span class="badge badge-tickets rounded-pill d-flex align-items-center justify-content-center mb-1">
-															<i class="bi bi-ticket-detailed me-1"></i> 15
+															<i class="bi bi-ticket-detailed me-1"></i> {{ categoria.tickets || 0 }}
 														</span>
 														<span class="text-muted fw-bold etiqueta-uso">TICKETS</span>
 													</div>
@@ -90,146 +91,7 @@
 												<button class="btn btn-link text-muted p-0"><i class="bi bi-three-dots-vertical"></i></button>
 											</td>
 										</tr>
-										<tr>
-											<td class="border-0 border-bottom text-center">
-												<div class="d-flex flex-column align-items-center justify-content-center py-2">
-													<div class="icono-categoria-grande rounded-4 d-flex align-items-center justify-content-center mb-2">
-														<i class="bi bi-tag icono-tag"></i>
-													</div>
-													<span class="fw-bold texto-categoria">SOPORTE NIVEL 2</span>
-												</div>
-											</td>
-											<td class="border-0 border-bottom">
-												<div class="d-flex align-items-start text-muted">
-													<i class="bi bi-file-earmark-text me-3 mt-1 icono-descripcion"></i>
-													<p class="mb-0 texto-descripcion">Escalado técnico para problemas complejos de sistemas y software corporativo.</p>
-												</div>
-											</td>
-											<td class="border-0 border-bottom">
-												<div class="d-flex gap-4 justify-content-center">
-													<div class="d-flex flex-column align-items-center">
-														<span class="badge badge-operarios rounded-pill d-flex align-items-center justify-content-center mb-1">
-															<i class="bi bi-person me-1"></i> 5
-														</span>
-														<span class="text-muted fw-bold etiqueta-uso">OPERARIOS</span>
-													</div>
-													<div class="d-flex flex-column align-items-center">
-														<span class="badge badge-tickets rounded-pill d-flex align-items-center justify-content-center mb-1">
-															<i class="bi bi-ticket-detailed me-1"></i> 8
-														</span>
-														<span class="text-muted fw-bold etiqueta-uso">TICKETS</span>
-													</div>
-												</div>
-											</td>
-											<td class="border-0 border-bottom text-end pe-4">
-												<button class="btn btn-link text-muted p-0"><i class="bi bi-three-dots-vertical"></i></button>
-											</td>
-										</tr>
-										<tr>
-											<td class="border-0 border-bottom text-center">
-												<div class="d-flex flex-column align-items-center justify-content-center py-2">
-													<div class="icono-categoria-grande rounded-4 d-flex align-items-center justify-content-center mb-2">
-														<i class="bi bi-tag icono-tag"></i>
-													</div>
-													<span class="fw-bold texto-categoria">MANTENIMIENTO GENERAL</span>
-												</div>
-											</td>
-											<td class="border-0 border-bottom">
-												<div class="d-flex align-items-start text-muted">
-													<i class="bi bi-file-earmark-text me-3 mt-1 icono-descripcion"></i>
-													<p class="mb-0 texto-descripcion">Reparaciones físicas e infraestructura de la escuela.</p>
-												</div>
-											</td>
-											<td class="border-0 border-bottom">
-												<div class="d-flex gap-4 justify-content-center">
-													<div class="d-flex flex-column align-items-center">
-														<span class="badge badge-operarios rounded-pill d-flex align-items-center justify-content-center mb-1">
-															<i class="bi bi-person me-1"></i> 12
-														</span>
-														<span class="text-muted fw-bold etiqueta-uso">OPERARIOS</span>
-													</div>
-													<div class="d-flex flex-column align-items-center">
-														<span class="badge badge-tickets rounded-pill d-flex align-items-center justify-content-center mb-1">
-															<i class="bi bi-ticket-detailed me-1"></i> 24
-														</span>
-														<span class="text-muted fw-bold etiqueta-uso">TICKETS</span>
-													</div>
-												</div>
-											</td>
-											<td class="border-0 border-bottom text-end pe-4">
-												<button class="btn btn-link text-muted p-0"><i class="bi bi-three-dots-vertical"></i></button>
-											</td>
-										</tr>
-										<tr>
-											<td class="border-0 border-bottom text-center">
-												<div class="d-flex flex-column align-items-center justify-content-center py-2">
-													<div class="icono-categoria-grande rounded-4 d-flex align-items-center justify-content-center mb-2">
-														<i class="bi bi-tag icono-tag"></i>
-													</div>
-													<span class="fw-bold texto-categoria">REDES Y SISTEMAS</span>
-												</div>
-											</td>
-											<td class="border-0 border-bottom">
-												<div class="d-flex align-items-start text-muted">
-													<i class="bi bi-file-earmark-text me-3 mt-1 icono-descripcion"></i>
-													<p class="mb-0 texto-descripcion">Gestión de infraestructura de red, Wi-Fi y conectividad general.</p>
-												</div>
-											</td>
-											<td class="border-0 border-bottom">
-												<div class="d-flex gap-4 justify-content-center">
-													<div class="d-flex flex-column align-items-center">
-														<span class="badge badge-operarios rounded-pill d-flex align-items-center justify-content-center mb-1">
-															<i class="bi bi-person me-1"></i> 4
-														</span>
-														<span class="text-muted fw-bold etiqueta-uso">OPERARIOS</span>
-													</div>
-													<div class="d-flex flex-column align-items-center">
-														<span class="badge badge-tickets rounded-pill d-flex align-items-center justify-content-center mb-1">
-															<i class="bi bi-ticket-detailed me-1"></i> 6
-														</span>
-														<span class="text-muted fw-bold etiqueta-uso">TICKETS</span>
-													</div>
-												</div>
-											</td>
-											<td class="border-0 border-bottom text-end pe-4">
-												<button class="btn btn-link text-muted p-0"><i class="bi bi-three-dots-vertical"></i></button>
-											</td>
-										</tr>
-										<tr>
-											<td class="border-0 text-center">
-												<div class="d-flex flex-column align-items-center justify-content-center py-2">
-													<div class="icono-categoria-grande rounded-4 d-flex align-items-center justify-content-center mb-2">
-														<i class="bi bi-tag icono-tag"></i>
-													</div>
-													<span class="fw-bold texto-categoria">SEGURIDAD Y ACCESOS</span>
-												</div>
-											</td>
-											<td class="border-0">
-												<div class="d-flex align-items-start text-muted">
-													<i class="bi bi-file-earmark-text me-3 mt-1 icono-descripcion"></i>
-													<p class="mb-0 texto-descripcion">Sistemas de videovigilancia e infraestructura de seguridad.</p>
-												</div>
-											</td>
-											<td class="border-0">
-												<div class="d-flex gap-4 justify-content-center">
-													<div class="d-flex flex-column align-items-center">
-														<span class="badge badge-operarios rounded-pill d-flex align-items-center justify-content-center mb-1">
-															<i class="bi bi-person me-1"></i> 3
-														</span>
-														<span class="text-muted fw-bold etiqueta-uso">OPERARIOS</span>
-													</div>
-													<div class="d-flex flex-column align-items-center">
-														<span class="badge badge-tickets rounded-pill d-flex align-items-center justify-content-center mb-1">
-															<i class="bi bi-ticket-detailed me-1"></i> 2
-														</span>
-														<span class="text-muted fw-bold etiqueta-uso">TICKETS</span>
-													</div>
-												</div>
-											</td>
-											<td class="border-0 text-end pe-4">
-												<button class="btn btn-link text-muted p-0"><i class="bi bi-three-dots-vertical"></i></button>
-											</td>
-										</tr>
+										}
 									</tbody>
 								</table>
 							</div>

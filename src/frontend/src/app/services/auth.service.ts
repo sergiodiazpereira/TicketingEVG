@@ -5,7 +5,8 @@
  * Curso: 2025-2026
  * Descripción: Servicio de autenticación con usuarios estáticos.
  */
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Usuario } from '../models/usuario.model';
 
 @Injectable({
@@ -21,7 +22,14 @@ export class AuthService {
 
   private usuarioAutenticado: Usuario | null = null;
 
-  constructor() { }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    if (isPlatformBrowser(this.platformId)) {
+      const storedUser = localStorage.getItem('usuario_actual');
+      if (storedUser) {
+        this.usuarioAutenticado = JSON.parse(storedUser);
+      }
+    }
+  }
 
   /**
    * Intenta iniciar sesion con las credenciales proporcionadas.
@@ -33,6 +41,9 @@ export class AuthService {
     const usuario = this.usuarios.find(u => u.email === email && u.password === password);
     if (usuario) {
       this.usuarioAutenticado = usuario;
+      if (isPlatformBrowser(this.platformId)) {
+        localStorage.setItem('usuario_actual', JSON.stringify(usuario));
+      }
       return usuario;
     }
     return null;
@@ -43,6 +54,9 @@ export class AuthService {
    */
   logout(): void {
     this.usuarioAutenticado = null;
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('usuario_actual');
+    }
   }
 
   /**

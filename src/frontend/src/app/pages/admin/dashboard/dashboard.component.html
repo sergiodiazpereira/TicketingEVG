@@ -34,14 +34,14 @@
 						<div class="icono-circulo mb-3 text-primary"><i class="bi bi-eye"></i></div>
 						<div class="text-uppercase text-muted fw-bold small etiqueta-espaciada">Visitas
 							Totales</div>
-						<div class="h3 fw-bold mb-0">12.450</div>
+						<div class="h3 fw-bold mb-0">{{ estadisticas?.total_visitas || 0 }}</div>
 					</div>
 				</div>
 				<div class="col-12 col-sm-6 col-lg-3">
 					<div class="card card-premium p-3 h-100 bg-white">
 						<div class="icono-circulo mb-3 text-warning"><i class="bi bi-people"></i></div>
 						<div class="text-uppercase text-muted fw-bold small etiqueta-espaciada">Usuarios</div>
-						<div class="h3 fw-bold mb-0">842</div>
+						<div class="h3 fw-bold mb-0">{{ estadisticas?.total_usuarios || 0 }}</div>
 					</div>
 				</div>
 				<div class="col-12 col-sm-6 col-lg-3">
@@ -49,7 +49,7 @@
 						<div class="icono-circulo mb-3 text-success"><i class="bi bi-tag"></i></div>
 						<div class="text-uppercase text-muted fw-bold small etiqueta-espaciada">Categorías
 						</div>
-						<div class="h3 fw-bold mb-0">14</div>
+						<div class="h3 fw-bold mb-0">{{ estadisticas?.total_categorias || 0 }}</div>
 					</div>
 				</div>
 				<div class="col-12 col-sm-6 col-lg-3">
@@ -57,7 +57,7 @@
 						<div class="icono-circulo mb-3 text-danger"><i class="bi bi-ticket-perforated"></i></div>
 						<div class="text-uppercase text-muted fw-bold small etiqueta-espaciada">Tickets
 							Activos</div>
-						<div class="h3 fw-bold mb-0">48</div>
+						<div class="h3 fw-bold mb-0">{{ estadisticas?.tickets_activos || 0 }}</div>
 					</div>
 				</div>
 			</div>
@@ -74,10 +74,10 @@
 								<div class="w-100 pe-3">
 									<div class="text-uppercase text-muted fw-bold small">Tickets resueltos</div>
 									<div class="progress progreso-personalizado mt-2">
-										<div class="progress-bar bg-primary progreso-82"></div>
+										<div class="progress-bar bg-primary" [style.width.%]="porcentajeResueltos"></div>
 									</div>
 								</div>
-								<span class="fw-bold text-success">82%</span>
+								<span class="fw-bold text-success">{{ porcentajeResueltos }}%</span>
 							</div>
 						</div>
 						<div class="row g-4">
@@ -88,14 +88,14 @@
 							<div class="col-6">
 								<div class="tarjeta-interna">
 									<i class="bi bi-exclamation-triangle text-danger fs-4"></i>
-									<div class="h3 fw-bold mb-0 mt-2">18</div>
+									<div class="h3 fw-bold mb-0 mt-2">{{ estadisticas?.total_tickets || 0 }}</div>
 									<div class="text-uppercase text-muted fw-bold small">Incidencias</div>
 								</div>
 							</div>
 							<div class="col-6">
 								<div class="tarjeta-interna">
 									<i class="bi bi-info-circle text-primary fs-4"></i>
-									<div class="h3 fw-bold mb-0 mt-2">30</div>
+									<div class="h3 fw-bold mb-0 mt-2">{{ estadisticas?.tickets_resueltos || 0 }}</div>
 									<div class="text-uppercase text-muted fw-bold small">Peticiones</div>
 								</div>
 							</div>
@@ -117,7 +117,7 @@
 								<i class="bi bi-flag text-danger me-3"></i>
 								<span class="fw-medium">Prioridad alta</span>
 							</div>
-							<span class="badge bg-danger bg-opacity-10 text-danger rounded-pill px-2 small">12
+							<span class="badge bg-danger bg-opacity-10 text-danger rounded-pill px-2 small">{{ estadisticas?.prioridad_alta || 0 }}
 								TICKETS</span>
 						</div>
 						<div class="prioridad-item">
@@ -125,7 +125,7 @@
 								<i class="bi bi-flag text-warning me-3"></i>
 								<span class="fw-medium">Prioridad media</span>
 							</div>
-							<span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-2 small">24
+							<span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-2 small">{{ estadisticas?.prioridad_media || 0 }}
 								TICKETS</span>
 						</div>
 						<div class="prioridad-item mb-4">
@@ -133,7 +133,7 @@
 								<i class="bi bi-flag text-secondary me-3"></i>
 								<span class="fw-medium">Prioridad baja</span>
 							</div>
-							<span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-2 small">12
+							<span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-2 small">{{ estadisticas?.prioridad_baja || 0 }}
 								TICKETS</span>
 						</div>
 						<div
@@ -142,7 +142,7 @@
 								<i class="bi bi-person-check text-success me-3 fs-4"></i>
 								<span class="fw-bold small text-uppercase">Operarios disponibles</span>
 							</div>
-							<span class="text-success fw-bold">8</span>
+							<span class="text-success fw-bold">{{ estadisticas?.operarios_disponibles || 0 }}</span>
 						</div>
 					</div>
 					<div class="card card-premium p-3 tarjeta-informativa">
