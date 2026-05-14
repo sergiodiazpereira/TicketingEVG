@@ -7,7 +7,7 @@
  * Descripción: Controlador para las peticiones de Categorías.
  */
 
-require_once __DIR__ . '/../modelos/M_Categoria.php';
+require_once __DIR__ . '/../Models/M_Categoria.php';
 
 class C_Categoria {
     private $modelo;

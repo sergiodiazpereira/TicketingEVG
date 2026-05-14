@@ -7,7 +7,7 @@
  * Descripción: Controlador (C) para gestionar las peticiones API de Tickets.
  */
 
-require_once __DIR__ . '/../modelos/M_Ticket.php';
+require_once __DIR__ . '/../Models/M_Ticket.php';
 
 class C_Ticket {
     /** @var M_Ticket Instancia del modelo */

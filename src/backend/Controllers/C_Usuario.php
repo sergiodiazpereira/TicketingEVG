@@ -7,7 +7,7 @@
  * Descripción: Controlador para las peticiones de Usuarios.
  */
 
-require_once __DIR__ . '/../modelos/M_Usuario.php';
+require_once __DIR__ . '/../Models/M_Usuario.php';
 
 class C_Usuario {
     private $modelo;

@@ -7,10 +7,10 @@
  * Descripción: Enrutador principal de la API. Dirige las peticiones al controlador adecuado.
  */
 
-require_once __DIR__ . '/controladores/C_Ticket.php';
-require_once __DIR__ . '/controladores/C_Usuario.php';
-require_once __DIR__ . '/controladores/C_Categoria.php';
-require_once __DIR__ . '/vistas/V_Ticket.php';
+require_once __DIR__ . '/Controllers/C_Ticket.php';
+require_once __DIR__ . '/Controllers/C_Usuario.php';
+require_once __DIR__ . '/Controllers/C_Categoria.php';
+require_once __DIR__ . '/Views/V_Ticket.php';
 
 // Cabeceras CORS
 header("Access-Control-Allow-Origin: *");
