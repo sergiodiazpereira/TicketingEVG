@@ -70,12 +70,13 @@ CREATE TABLE Ticket (
 	descripcion VARCHAR(500) NOT NULL,
 	prioridad CHAR(1) NOT NULL,
 	id_Usuario_Creador SMALLINT UNSIGNED NOT NULL,
-	id_Usuario_Encargado SMALLINT UNSIGNED NOT NULL,
+	estado ENUM('pendiente', 'asignado', 'proceso', 'resuelto') NOT NULL DEFAULT 'pendiente',
+	id_Usuario_Encargado SMALLINT UNSIGNED DEFAULT NULL,
 	fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	fecha_prevista DATETIME DEFAULT NULL,
 	CONSTRAINT PK_Ticket PRIMARY KEY (id),
 	CONSTRAINT CHECK_prioridad CHECK (prioridad IN ('a', 'm', 'b')),
 	CONSTRAINT FK_Ticket_Categoria FOREIGN KEY (id_Categoria) REFERENCES Categoria (id) ON DELETE RESTRICT ON UPDATE CASCADE,
 	CONSTRAINT FK_Ticket_Usuario_Creador FOREIGN KEY (id_Usuario_Creador) REFERENCES Usuario (id) ON DELETE RESTRICT ON UPDATE CASCADE,
-	CONSTRAINT FK_Ticket_Usuario_Encargado FOREIGN KEY (id_Usuario_Encargado) REFERENCES Usuario (id) ON DELETE RESTRICT ON UPDATE CASCADE
+	CONSTRAINT FK_Ticket_Usuario_Encargado FOREIGN KEY (id_Usuario_Encargado) REFERENCES Usuario (id) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

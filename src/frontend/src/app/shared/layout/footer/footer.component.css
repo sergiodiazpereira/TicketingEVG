@@ -1,27 +1,45 @@
-/*
+/**
  * Proyecto: TicketingEVG
  * Alumno: Joseph Joel Quispe Alvarez
  * Asignatura: DAW
  * Curso: 2025-2026
- * Descripción: Estilos para el componente Footer.
+ * Descripción: Estilos para el componente Footer (Copia exacta de footer.php).
  */
+
 :host {
     --footer-h: 42px;
+    --borde: #e4e7ef;
+    --azul-claro: #f0f7ff;
+    --azul: #006ea4;
+    --azul-oscuro: #014179;
+    --gris-subtitulos: #64748b;
+    --texto-gris: #94a3b8;
 }
 
 .intranet-footer {
-    position: relative;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
     height: var(--footer-h);
     z-index: 1055;
-    background: #003366;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: #fff;
+    border-top: 1.5px solid var(--borde);
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, .07);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 1.25rem;
     gap: 1rem;
     font-size: .78rem;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--gris-subtitulos);
+    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif !important;
+}
+
+.if-sin-sesion {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--texto-gris);
 }
 
 .if-user {
@@ -36,7 +54,7 @@
     height: 26px;
     border-radius: 50%;
     object-fit: cover;
-    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    border: 1.5px solid var(--azul-claro);
     flex-shrink: 0;
 }
 
@@ -44,8 +62,8 @@
     width: 26px;
     height: 26px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    background: var(--azul-claro);
+    color: var(--azul);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -55,7 +73,7 @@
 
 .if-nombre {
     font-weight: 600;
-    color: #fff;
+    color: var(--azul-oscuro);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

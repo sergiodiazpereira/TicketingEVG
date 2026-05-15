@@ -1,232 +1,154 @@
-<!--
- * Proyecto: TicketingEVG
- * Alumno: Joseph Joel Quispe Alvarez
- * Asignatura: DAW
- * Curso: 2025-2026
- * Descripción: Vista de gestión de operarios.
- -->
+<!-- 
+  Proyecto: TicketingEVG
+  Alumno: Joseph Joel Quispe Alvarez
+  Asignatura: 
+  Curso: 2 DAW
+  Descripción: Gestión de personal técnico (Versión Angular unificada).
+-->
 <div class="d-flex flex-column vh-100 overflow-hidden">
 	<div class="d-flex flex-grow-1 overflow-hidden">
+		<!-- Sidebar Componente -->
 		<app-sidebar></app-sidebar>
 
 		<!-- Contenido Principal -->
 		<main class="flex-grow-1 overflow-auto">
 			<div class="flex-grow-1">
-				<header
-					class="bg-white p-4 mb-4 border-bottom shadow-sm d-flex justify-content-between align-items-center sticky-top">
+				<!-- Cabecera de página (Unificada) -->
+				<header class="bg-white p-4 mb-4 border-bottom shadow-sm d-flex justify-content-between align-items-center sticky-top">
 					<div class="d-flex align-items-center">
 						<h1 class="h5 fw-bold mb-0 titulo-primario">Gestión de responsables y trabajadores</h1>
-					</div>
-					<div class="d-none d-md-flex align-items-center">
-						<div class="text-end me-3">
-							<div class="fw-bold small">Joseph Joel</div>
-							<div class="text-muted small">Administrador</div>
-						</div>
-						<img src="https://ui-avatars.com/api/?name=Joseph+Joel&background=003366&color=fff"
-							class="rounded-circle" width="38" alt="Avatar">
 					</div>
 				</header>
 
 				<div class="container-fluid px-4">
-					<div class="row">
-						<div class="col-9">
-							<h2 class="fw-bold">LISTADO DE PERSONAL TÉCNICO</h2>
-							<p class="text-muted small">Aquí podrás gestionar los responsables y trabajadores del
-								sistema de
-								ticketing.</p>
+					<!-- Título y Botón de Acción -->
+					<div class="row align-items-center mb-4">
+						<div class="col-12 col-md-9">
+							<h2 class="fw-bold titulo-primario text-uppercase">LISTADO DE PERSONAL TÉCNICO</h2>
+							<p class="text-muted small">Aquí podrás gestionar los responsables y trabajadores del sistema de ticketing.</p>
 						</div>
-						<div class="col-3 d-flex align-items-center">
-							<button type="button" class="btn btn-evg w-100 p-3 rounded-4 shadow fw-bold">
+						<div class="col-12 col-md-3 mt-3 mt-md-0">
+							<button type="button" class="btn btn-evg w-100 p-3 rounded-4 shadow-sm fw-bold text-uppercase" (click)="abrirModalFormulario()">
 								<i class="bi bi-plus-circle me-2"></i>
 								AÑADIR OPERARIOS
 							</button>
 						</div>
 					</div>
-				</div>
 
-				<div class="row m-4">
-					<div class="col-12">
-						<div class="card card-premium">
-							<div class="card-body p-0">
-								<div class="table-responsive">
-									<table class="table table-hover align-middle mb-0 tabla-operarios">
-										<thead class="text-uppercase border-bottom">
-											<tr>
-												<th scope="col" class="border-0 ps-4 py-3">Personal y tipo</th>
-												<th scope="col" class="border-0 py-3">Categorías</th>
-												<th scope="col" class="border-0 py-3">Correo electrónico</th>
-												<th scope="col" class="border-0 py-3 text-center">Tickets</th>
-												<th scope="col" class="border-0 py-3"></th>
-											</tr>
-										</thead>
-										<tbody class="border-top-0">
-											<tr>
-												<td class="ps-4 border-0 border-bottom">
-													<div class="d-flex align-items-center">
-														<img src="https://ui-avatars.com/api/?name=Carlos+Ruiz&background=random"
-															class="rounded-circle me-3 shadow-sm" width="42" height="42"
-															alt="Avatar">
-														<div>
-															<span class="fw-bold text-dark me-2">Carlos Ruiz</span>
-															<span class="badge badge-responsable rounded-pill px-2 py-1 badge-pequena">RESPONSABLE</span>
-														</div>
-													</div>
-												</td>
-												<td class="border-0 border-bottom">
-													<div class="d-flex align-items-center text-muted">
-														<div
-															class="icono-categoria rounded-circle d-flex align-items-center justify-content-center me-3">
-															<i class="bi bi-person icono-dorado"></i>
-														</div>
-														<span class="fw-medium text-dark me-1 texto-normal">3
-															CATEGORÍAS</span>
-														<i class="bi bi-chevron-down small ms-1"></i>
-													</div>
-												</td>
-												<td class="border-0 border-bottom text-muted texto-normal">
-													<i class="bi bi-envelope me-2"></i> carlos.ruiz&#64;evg.es
-												</td>
-												<td class="border-0 border-bottom text-center">
-													<div
-														class="d-flex flex-column align-items-center justify-content-center">
-														<span class="fw-bold fs-5 text-dark lh-1 mb-1">5</span>
-														<span class="text-muted small fw-bold etiqueta-estadistica">ASIGNADOS</span>
-													</div>
-												</td>
-												<td class="border-0 border-bottom text-end pe-4">
-													<button class="btn btn-link text-muted p-0"><i
-															class="bi bi-three-dots-vertical"></i></button>
-												</td>
-											</tr>
-											<tr>
-												<td class="ps-4 border-0 border-bottom">
-													<div class="d-flex align-items-center">
-														<img src="https://ui-avatars.com/api/?name=Ana+Martinez&background=random"
-															class="rounded-circle me-3 shadow-sm" width="42" height="42"
-															alt="Avatar">
-														<div>
-															<span class="fw-bold text-dark me-2">Ana Martínez</span>
-															<span class="badge badge-trabajador rounded-pill px-2 py-1 badge-pequena">TRABAJADOR</span>
-														</div>
-													</div>
-												</td>
-												<td class="border-0 border-bottom">
-													<div class="d-flex align-items-center text-muted">
-														<div
-															class="icono-categoria rounded-circle d-flex align-items-center justify-content-center me-3">
-															<i class="bi bi-briefcase text-secondary icono-grande"></i>
-														</div>
-														<span class="fw-medium text-dark me-1 texto-normal">2
-															CATEGORÍAS</span>
-														<i class="bi bi-chevron-down small ms-1"></i>
-													</div>
-												</td>
-												<td class="border-0 border-bottom text-muted texto-normal">
-													<i class="bi bi-envelope me-2"></i> ana.martinez&#64;evg.es
-												</td>
-												<td class="border-0 border-bottom text-center">
-													<div
-														class="d-flex flex-column align-items-center justify-content-center">
-														<span class="fw-bold fs-5 text-dark lh-1 mb-1">3</span>
-														<span class="text-muted small fw-bold etiqueta-estadistica">ASIGNADOS</span>
-													</div>
-												</td>
-												<td class="border-0 border-bottom text-end pe-4">
-													<button class="btn btn-link text-muted p-0"><i
-															class="bi bi-three-dots-vertical"></i></button>
-												</td>
-											</tr>
-											<tr>
-												<td class="ps-4 border-0 border-bottom">
-													<div class="d-flex align-items-center">
-														<img src="https://ui-avatars.com/api/?name=Roberto+Gomez&background=random"
-															class="rounded-circle me-3 shadow-sm" width="42" height="42"
-															alt="Avatar">
-														<div>
-															<span class="fw-bold text-dark me-2">Roberto Gómez</span>
-															<span class="badge badge-trabajador rounded-pill px-2 py-1 badge-pequena">TRABAJADOR</span>
-														</div>
-													</div>
-												</td>
-												<td class="border-0 border-bottom">
-													<div class="d-flex align-items-center text-muted">
-														<div
-															class="icono-categoria rounded-circle d-flex align-items-center justify-content-center me-3">
-															<i class="bi bi-briefcase text-secondary icono-grande"></i>
-														</div>
-														<span class="fw-medium text-dark me-1 texto-normal">1
-															CATEGORÍA</span>
-														<i class="bi bi-chevron-down small ms-1"></i>
-													</div>
-												</td>
-												<td class="border-0 border-bottom text-muted texto-normal">
-													<i class="bi bi-envelope me-2"></i> roberto.gomez&#64;evg.es
-												</td>
-												<td class="border-0 border-bottom text-center">
-													<div
-														class="d-flex flex-column align-items-center justify-content-center">
-														<span class="fw-bold fs-5 text-dark lh-1 mb-1">2</span>
-														<span class="text-muted small fw-bold etiqueta-estadistica">ASIGNADOS</span>
-													</div>
-												</td>
-												<td class="border-0 border-bottom text-end pe-4">
-													<button class="btn btn-link text-muted p-0"><i
-															class="bi bi-three-dots-vertical"></i></button>
-												</td>
-											</tr>
-											<tr>
-												<td class="ps-4 border-0">
-													<div class="d-flex align-items-center">
-														<img src="https://ui-avatars.com/api/?name=Elena+Sanz&background=random"
-															class="rounded-circle me-3 shadow-sm" width="42" height="42"
-															alt="Avatar">
-														<div>
-															<span class="fw-bold text-dark me-2">Elena Sanz</span>
-															<span class="badge badge-responsable rounded-pill px-2 py-1 badge-pequena">RESPONSABLE</span>
-														</div>
-													</div>
-												</td>
-												<td class="border-0">
-													<div class="d-flex align-items-center text-muted">
-														<div
-															class="icono-categoria rounded-circle d-flex align-items-center justify-content-center me-3">
-															<i class="bi bi-person icono-dorado"></i>
-														</div>
-														<span class="fw-medium text-dark me-1 texto-normal">2
-															CATEGORÍAS</span>
-														<i class="bi bi-chevron-down small ms-1"></i>
-													</div>
-												</td>
-												<td class="border-0 text-muted texto-normal">
-													<i class="bi bi-envelope me-2"></i> elena.sanz&#64;evg.es
-												</td>
-												<td class="border-0 text-center">
-													<div
-														class="d-flex flex-column align-items-center justify-content-center">
-														<span class="fw-bold fs-5 text-dark lh-1 mb-1">0</span>
-														<span class="text-muted small fw-bold etiqueta-estadistica">ASIGNADOS</span>
-													</div>
-												</td>
-												<td class="border-0 text-end pe-4">
-													<button class="btn btn-link text-muted p-0"><i
-															class="bi bi-three-dots-vertical"></i></button>
-												</td>
-											</tr>
-										</tbody>
-									</table>
+					<!-- Tabla de Operarios -->
+					<div class="row mb-5">
+						<div class="col-12">
+							<div class="card card-premium">
+								<div class="card-body p-0">
+									<div class="table-responsive">
+										<table class="table table-hover align-middle mb-0 tabla-operarios">
+											<thead class="text-uppercase">
+												<tr>
+													<th scope="col" class="border-0 ps-4 py-3">Personal y tipo</th>
+													<th scope="col" class="border-0 py-3">Categorías</th>
+													<th scope="col" class="border-0 py-3">Correo electrónico</th>
+													<th scope="col" class="border-0 py-3 text-center">Tickets</th>
+													<th scope="col" class="border-0 py-3"></th>
+												</tr>
+											</thead>
+											<tbody class="border-top-0">
+												<ng-container *ngFor="let operario of operarios; trackBy: trackByOperarioId">
+													<!-- Fila principal del operario -->
+													<tr>
+														<td class="ps-4 border-0 border-bottom align-top pt-4">
+															<div class="d-flex align-items-center">
+																<img [src]="'https://ui-avatars.com/api/?name=' + operario.nombre + '&background=random'"
+																	class="rounded-circle me-3 shadow-sm" width="42" height="42" alt="Avatar">
+																<div>
+																	<span class="fw-bold text-dark me-2">{{ operario.nombre }}</span>
+																	<span class="badge rounded-pill px-2 py-1 etiqueta-rol"
+																		[ngClass]="operario.rol === 'responsable' ? 'badge-responsable' : 'badge-trabajador'">
+																		{{ operario.rol | uppercase }}
+																	</span>
+																</div>
+															</div>
+														</td>
+														<td class="border-0 border-bottom align-top pt-4">
+															<div class="d-flex align-items-center text-muted cursor-pointer" (click)="toggleCategorias(operario.id)">
+																<div class="icono-categoria rounded-circle d-flex align-items-center justify-content-center me-3">
+																	<i class="bi"
+																		[ngClass]="operario.rol === 'responsable' ? 'bi-person' : 'bi-briefcase'"
+																		[style.color]="operario.rol === 'responsable' ? 'var(--amarillo, #ffc107)' : ''"></i>
+																</div>
+																<span class="fw-medium text-dark me-1 small">{{ operario.num_categorias || 0 }} CATEGORÍAS</span>
+																<i class="bi small ms-1 transition-transform"
+																	[ngClass]="operarioExpandido === operario.id ? 'bi-chevron-up text-primary' : 'bi-chevron-down'"></i>
+															</div>
+														</td>
+														<td class="border-0 border-bottom text-muted small align-top pt-4">
+															<i class="bi bi-envelope me-2"></i> {{ operario.email }}
+														</td>
+														<td class="border-0 border-bottom text-center align-top pt-3">
+															<div class="d-flex flex-column align-items-center justify-content-center">
+																<span class="fw-bold fs-5 text-dark lh-1 mb-1">{{ operario.tickets_asignados || 0 }}</span>
+																<span class="text-muted small fw-bold etiqueta-min">ASIGNADOS</span>
+															</div>
+														</td>
+														<td class="border-0 border-bottom text-end pe-4 align-top pt-4">
+															<div class="dropdown">
+																<button class="btn btn-link text-muted p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+																	<i class="bi bi-three-dots-vertical"></i>
+																</button>
+																<ul class="dropdown-menu dropdown-menu-end shadow-sm">
+																	<li><a class="dropdown-item fw-bold" style="color: #003366;" href="#" (click)="abrirModalFormulario(operario); $event.preventDefault()">Editar</a></li>
+																	<li><a class="dropdown-item text-danger fw-bold" href="#" (click)="abrirModalEliminar(); $event.preventDefault()">Eliminar</a></li>
+																</ul>
+															</div>
+														</td>
+													</tr>
+
+													<!-- Fila expandible de categorías -->
+													<tr *ngIf="operarioExpandido === operario.id">
+														<td colspan="5" class="border-0">
+															<div class="mt-2 ps-5 d-flex flex-wrap gap-2">
+																<ng-container *ngFor="let cat of operario.categorias_nombres">
+																	<span class="badge border text-secondary fw-medium px-2 py-1"
+																		style="background-color: #f8f9fa; font-size: 0.75rem;">
+																		<i class="bi bi-tag text-muted me-1"></i>{{ cat }}
+																	</span>
+																</ng-container>
+															</div>
+														</td>
+													</tr>
+												</ng-container>
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
-						</div>
 
-						<!-- Footer Tabla -->
-						<div class="text-center mt-4 mb-5">
-							<span class="texto-footer-tabla text-uppercase">Mostrando 4 registros del equipo técnico y
-								responsables de la organización</span>
+							<!-- Footer Tabla -->
+							<div class="text-center mt-4">
+								<span class="texto-footer-tabla text-uppercase">
+									Mostrando {{ operarios.length }} registros del equipo técnico y responsables de la organización
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</main>
 	</div>
+
+	<!-- Footer Componente -->
 	<app-footer></app-footer>
+
+	<app-formulario-operario
+		*ngIf="mostrarModalFormulario"
+		[operario]="operarioAEditar"
+		(cerrar)="cerrarModalFormulario()"
+		(guardar)="guardarOperario()">
+	</app-formulario-operario>
+
+	<app-confirmacion-eliminar
+		*ngIf="mostrarModalEliminar"
+		[tipo]="'operario'"
+		(cancelar)="cerrarModal()"
+		(confirmar)="confirmarEliminar()">
+	</app-confirmacion-eliminar>
 </div>

@@ -1,0 +1,136 @@
+/* Overlay y Animaciones (Nuevas) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(44, 62, 80, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1060;
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Estilos extraídos de .manuel para el modal de alerta */
+.modal-container {
+    background-color: var(--blanco, #ffffff);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-alert {
+    max-width: 450px;
+    text-align: center;
+}
+
+.alert-header {
+    background-color: var(--azul-oscuro, #014179);
+    padding: 40px 30px 30px;
+}
+
+.alert-icon-container {
+    background-color: var(--amarillo, #dd9933);
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px;
+}
+
+.alert-icon-container svg {
+    width: 40px;
+    height: 40px;
+    fill: none;
+    stroke: var(--blanco, #ffffff);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.alert-title {
+    color: var(--blanco, #ffffff);
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+}
+
+.alert-subtitle {
+    color: #a8c6df;
+    font-size: 11px;
+    font-weight: 600;
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+}
+
+.alert-footer {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    background-color: var(--blanco, #ffffff);
+}
+
+/* Botones del Modal */
+.btn {
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-family: var(--font-family, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif);
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: none;
+    letter-spacing: 0.5px;
+}
+
+.btn-danger {
+    background-color: var(--rojo, #f43f5e);
+    color: var(--blanco, #ffffff);
+    flex: 1;
+}
+
+.btn-danger:hover {
+    background-color: #b81d3f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3) !important;
+}
+
+.btn-outline {
+    background-color: var(--blanco, #ffffff);
+    color: var(--texto-gris, #94a3b8);
+    border: 1px solid var(--borde, #e4e7ef);
+    flex: 1;
+}
+
+.btn-outline:hover {
+    background-color: var(--gris-fondo, #f4f7fa) !important;
+    transform: translateY(-2px);
+}
+

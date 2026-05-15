@@ -1,0 +1,326 @@
+:host {
+    --azul: #006ea4;
+    --azul-oscuro: #014179;
+    --azul-claro: #eff6ff;
+    --verde: #0fa892;
+    --verde-claro: #e4f7f5;
+    --rojo: #f43f5e;
+    --rojo-claro: #fff1f2;
+    --gris-fondo: #f5f6fa;
+    --borde: #e4e7ef;
+    --texto-gris: #94a3b8;
+    --amarillo: #dd9933;
+    --amarillo-claro: #fffbeb;
+    --gris-subtitulos: #64748b;
+    --sombra: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --blanco: #ffffff;
+    --font-family: 'Open Sans', sans-serif;
+}
+
+.sergio {
+    font: 400 16px/1.5 'Open Sans', sans-serif;
+    background: var(--gris-fondo);
+    color: var(--azul-oscuro);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 81px;
+    background: #fff;
+    border-bottom: 1px solid var(--borde);
+    box-shadow: var(--sombra);
+    display: flex;
+    align-items: center;
+    padding: 0 1.25rem;
+    gap: 0.75rem;
+    z-index: 1050;
+}
+
+main {
+    margin-top: 81px;
+    padding: 1.5rem 1rem 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+.container-lg {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* --- Logo --- */
+.icono-logo {
+    width: 38px;
+    height: 38px;
+    background: var(--azul);
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.icono-texto strong {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    display: block;
+    line-height: 1.0;
+}
+
+.icono-texto span {
+    font-size: 10px;
+    color: var(--texto-gris);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+/* --- Botones Nav --- */
+.boton-nav, .boton-crear, .btn-cerrar-sesion {
+    display: inline-flex;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    transition: all 0.2s;
+    white-space: nowrap;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+.boton-nav {
+    gap: 7px;
+    padding: 7px 14px;
+    color: var(--texto-gris);
+}
+
+.boton-nav:hover:not(.activo) {
+    background: var(--azul-claro);
+    color: var(--azul);
+}
+
+.boton-nav.activo {
+    background: var(--azul);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 110, 164, 0.25);
+}
+
+.boton-crear {
+    background: var(--azul);
+    color: #fff;
+    padding: 10px 18px;
+    gap: 8px;
+    box-shadow: 0 4px 10px rgba(0, 110, 164, 0.2);
+}
+
+.boton-nav.activo:hover,
+.boton-crear:hover {
+    background: var(--amarillo);
+}
+
+.btn-cerrar-sesion {
+    gap: 8px;
+    padding: 7px 16px;
+    border: 1.5px solid var(--rojo);
+    color: var(--rojo);
+    box-shadow: 0 4px 10px rgba(244, 63, 94, 0.1);
+}
+
+.btn-cerrar-sesion:hover {
+    background: var(--rojo);
+    color: #fff;
+}
+
+/* --- Cabecera Página --- */
+.cabecera-pagina h1 {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -0.3px;
+    margin: 0;
+}
+
+.cabecera-pagina p {
+    font-size: 14px;
+    color: var(--gris-subtitulos);
+    margin-top: 2px;
+}
+
+/* --- Animaciones --- */
+@keyframes aparecerArriba {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Formulario Creación Ticket --- */
+.tarjeta-formulario {
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 20px;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    animation: aparecerArriba 0.4s ease both;
+}
+
+.cabecera-seccion-form {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--borde);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cabecera-seccion-form h2 {
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0;
+    color: var(--azul-oscuro);
+}
+
+.cabecera-seccion-form i {
+    color: var(--amarillo);
+    font-size: 16px;
+}
+
+.cuerpo-formulario {
+    padding: 1.5rem 2rem;
+}
+
+.etiqueta-form {
+    display: block;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--texto-gris);
+    margin-bottom: 10px;
+}
+
+.control-form {
+    width: 100%;
+    background: var(--gris-fondo);
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    height: 42px;
+    padding: 0 16px;
+    font-size: 14px;
+    color: var(--azul-oscuro);
+    outline: none;
+    appearance: none;
+}
+
+select.control-form {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 12px 10px;
+}
+
+.control-form.control-select {
+    letter-spacing: 0.12em;
+    font-weight: 800;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.control-form:focus {
+    border-color: var(--azul);
+    background: #fff;
+    box-shadow: 0 0 0 4px var(--azul-claro);
+}
+
+textarea.control-form {
+    height: auto;
+    min-height: 100px;
+    padding: 12px 16px;
+    resize: none;
+}
+
+.hint-form {
+    font-size: 11px;
+    color: var(--texto-gris);
+    margin-top: 10px;
+    display: block;
+}
+
+.boton-enviar {
+    background: var(--azul);
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 110, 164, 0.2);
+}
+
+.boton-enviar:hover {
+    background: var(--amarillo);
+    box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3);
+    color: #fff;
+}
+
+.boton-cancelar {
+    padding: 12px 24px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--azul-oscuro);
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.boton-cancelar:hover {
+    color: var(--rojo);
+}
+
+.btn-retroceso {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #fff;
+    border: 1.5px solid var(--borde);
+    color: var(--azul-oscuro);
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.btn-retroceso:hover {
+    background: var(--azul-oscuro);
+    color: #fff;
+    border-color: var(--azul-oscuro);
+}

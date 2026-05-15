@@ -1,23 +1,84 @@
-/*
+/**
  * Proyecto: TicketingEVG
  * Alumno: Joseph Joel Quispe Alvarez
- * Asignatura: DAW
+ * Asignatura: Desarrollo de Aplicaciones Web
  * Curso: 2025-2026
- * Descripción: Estilos para el componente de Dashboard.
+ * Descripción: Estilos para el Dashboard de administración (Importados de estiloAdmin.css).
  */
 
-.contenido-principal {
-	min-width: 0;
+:host {
+	--azul-oscuro: #014179;
+	--azul: #006ea4;
+	--amarillo: #dd9933;
+	--texto-gris: #94a3b8;
+	--gris-fondo: #f4f7fa;
+	--borde: #e4e7ef;
+	--blanco: #ffffff;
 }
 
+/* --- Títulos --- */
 .titulo-primario {
 	color: var(--azul-oscuro);
+}
+
+/* --- Tarjetas Principales --- */
+.card-premium {
+	border: none;
+	border-radius: 15px;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+	overflow: hidden;
+}
+
+.icono-circulo {
+	width: 45px;
+	height: 45px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+	background-color: #f8f9fa;
+	border: 1px solid #eee;
 }
 
 .etiqueta-espaciada {
 	letter-spacing: 1px;
 }
 
+/* --- Rendimiento y Progreso --- */
+.progreso-personalizado {
+	height: 8px;
+	border-radius: 10px;
+	background-color: #e9ecef;
+}
+
+.tarjeta-interna {
+	background-color: #f8f9fa;
+	border: 1px solid #edf2f9;
+	border-radius: 12px;
+	text-align: center;
+	padding: 15px;
+}
+
+/* --- Prioridades y Listados --- */
+.prioridad-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 0;
+	border-bottom: 1px solid #f1f4f8;
+}
+
+.prioridad-item:last-child {
+	border-bottom: none;
+}
+
+.nota-informativa {
+	font-size: 0.8rem;
+	color: #888;
+	font-style: italic;
+}
+
+/* --- Tarjeta Informativa Inferior --- */
 .tarjeta-informativa {
 	background-color: #f0f7ff;
 	border: 1px solid #d0e5ff;
@@ -25,8 +86,4 @@
 
 .texto-informativo {
 	color: #4a7ab5;
-}
-
-.progreso-82 {
-	width: 82%;
 }

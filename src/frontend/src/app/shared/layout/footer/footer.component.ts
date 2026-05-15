@@ -6,6 +6,7 @@
  * Descripción: Controlador para el componente Footer.
  */
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 interface UserData {
   nombre?: string;
@@ -16,7 +17,8 @@ interface UserData {
 
 @Component({
   selector: 'app-footer',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css'
 })

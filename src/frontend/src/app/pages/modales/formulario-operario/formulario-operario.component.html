@@ -1,0 +1,70 @@
+<div class="modal-overlay">
+    <div class="modal-container modal-form shadow-lg">
+        <div class="modal-header">
+            <button class="btn-close" (click)="cerrar.emit()">&times;</button>
+            <h2 class="modal-title">{{ operario ? 'Modificar Operario' : 'Nuevo Operario' }}</h2>
+            <p class="modal-subtitle">Actualiza la información del técnico en el sistema</p>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Nombre Completo</label>
+                    <input type="text" class="form-control" [value]="operario?.nombre || ''" placeholder="Ej: Administrador Sistema">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tipo de Perfil</label>
+                    <select class="form-control" [value]="operario?.rol || 'trabajador'">
+                        <option value="admin">Administrador</option>
+                        <option value="responsable">Responsable</option>
+                        <option value="trabajador">Trabajador</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label class="form-label">Correo Corporativo</label>
+                    <input type="text" class="form-control" [value]="operario?.email || ''" placeholder="ejemplo@ticketing.com">
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label class="form-label">Categorías</label>
+                <div class="categories-container">
+                    <div class="categories-grid">
+                        <label class="category-item">
+                            <input type="checkbox" name="cat1" [checked]="operario?.num_categorias > 0">
+                            <span class="category-label">Soporte Nivel 1</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="checkbox" name="cat2" [checked]="operario?.num_categorias > 1">
+                            <span class="category-label">Soporte Nivel 2</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="checkbox" name="cat3">
+                            <span class="category-label">Mantenimiento General</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="checkbox" name="cat4">
+                            <span class="category-label">Redes y Sistemas</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="checkbox" name="cat5">
+                            <span class="category-label">Seguridad Perimetral</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="checkbox" name="cat6">
+                            <span class="category-label">Gestión Operativa</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-text" (click)="cerrar.emit()">Cancelar</button>
+            <button class="btn btn-primary shadow-sm" (click)="guardar.emit()">Guardar Cambios</button>
+        </div>
+    </div>
+</div>

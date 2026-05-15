@@ -1,0 +1,52 @@
+<!--
+ * Proyecto: TicketingEVG
+ * Alumno: Sergio Díaz Pereira
+ * Asignatura: Desarrollo de Aplicaciones Web
+ * Curso: 2025-2026
+ * Descripción: Vista de selección de pantalla para administradores (Versión Angular).
+-->
+
+<main class="seleccion-entorno">
+	<div class="icono-seguridad">
+		<i class="bi bi-shield-lock-fill fs-2"></i>
+	</div>
+
+	<h1 class="titulo-acceso">Acceso de administrador</h1>
+	<p class="subtitulo-acceso">Selecciona el entorno de trabajo</p>
+
+	<div class="container">
+		<div class="row justify-content-center g-4">
+			<!-- Opción: Consola Admin -->
+			<div class="col-12 col-md-5 col-lg-4">
+				<a [routerLink]="['/admin/dashboard']" class="tarjeta-entorno">
+					<div class="icono-entorno">
+						<i class="bi bi-grid-fill"></i>
+					</div>
+					<h2 class="titulo-entorno">Consola Admin</h2>
+					<p class="desc-entorno">
+						Gestión de la aplicación TicketingEVG
+					</p>
+					<div class="link-acceso">
+						Acceder ahora <i class="bi bi-arrow-right"></i>
+					</div>
+				</a>
+			</div>
+
+			<!-- Opción: Portal Tickets -->
+			<div class="col-12 col-md-5 col-lg-4">
+				<a [routerLink]="['/portal-tickets']" class="tarjeta-entorno">
+					<div class="icono-entorno" style="background-color: var(--azul, #006ea4);">
+						<i class="bi bi-ticket-perforated-fill"></i>
+					</div>
+					<h2 class="titulo-entorno">Portal Tickets</h2>
+					<p class="desc-entorno">
+						Gestión de tickets y resolución de problemas de la Escuela Virgen de Guadalupe
+					</p>
+					<div class="link-acceso">
+						Acceder ahora <i class="bi bi-arrow-right"></i>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</main>

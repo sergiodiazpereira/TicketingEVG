@@ -1,33 +1,141 @@
-/*
- * Proyecto: TicketingEVG
- * Alumno: Joseph Joel Quispe Alvarez
- * Asignatura: DAW
- * Curso: 2025-2026
- * Descripción: Estilos para el componente de Operarios.
- */
+:host {
+	--azul-oscuro: #014179;
+	--azul: #006ea4;
+	--amarillo: #dd9933;
+	--texto-gris: #94a3b8;
+	--borde: #e4e7ef;
+	--blanco: #ffffff;
+}
 
 .titulo-primario {
 	color: var(--azul-oscuro);
 }
 
-.badge-pequena {
-	font-size: 0.65rem;
+.card-premium {
+	border: none;
+	border-radius: 15px;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+	overflow: hidden;
 }
 
-.icono-dorado {
-	color: var(--dorado-icono);
-	font-size: 1.1rem;
+.btn-evg {
+	background-color: var(--azul);
+	color: white;
+	border: 1px solid var(--azul);
+	transition: all 0.2s;
 }
 
-.texto-normal {
-	font-size: 0.9rem;
+.btn-evg:hover {
+	background-color: #002240;
+	color: white;
+	border: 1px solid var(--azul);
 }
 
-.etiqueta-estadistica {
-	font-size: 0.6rem;
+.tabla-operarios th {
+	color: #aab2bd;
+	font-weight: 600;
+	font-size: 0.8rem;
+	letter-spacing: 1px;
+}
+
+.tabla-operarios td {
+	padding-top: 1.2rem;
+	padding-bottom: 1.2rem;
+}
+
+.badge-responsable {
+	color: var(--amarillo);
+	background-color: #fffbeb;
+	font-weight: 700;
+}
+
+.badge-trabajador {
+	color: #6c757d;
+	background-color: #f1f3f5;
+	font-weight: 700;
+}
+
+.icono-categoria {
+	width: 32px;
+	height: 32px;
+	border: 1px solid var(--borde);
+	color: var(--texto-gris);
+}
+
+.texto-footer-tabla {
+	color: #aab2bd;
+	font-size: 0.75rem;
+	letter-spacing: 1px;
+	font-weight: 700;
+}
+
+.etiqueta-min {
+	font-size: 0.55rem;
 	letter-spacing: 0.5px;
 }
 
-.icono-grande {
-	font-size: 1.1rem;
+/* Estilos para el Dropdown Mini-Modal */
+.dropdown-menu {
+    border: none;
+    border-radius: 12px;
+    padding: 8px;
+    min-width: 150px;
+    animation: dropFade 0.2s ease-out;
+}
+
+.dropdown-item {
+    border-radius: 8px;
+    padding: 10px 15px;
+    transition: all 0.2s ease;
+    margin-bottom: 2px;
+}
+
+.dropdown-item:last-child {
+    margin-bottom: 0;
+}
+
+.dropdown-item:hover {
+    background-color: #f4f7fa;
+    transform: translateX(4px);
+}
+
+.dropdown-item.text-danger:hover {
+    background-color: #fff1f2;
+    color: #e11d48 !important;
+}
+
+@keyframes dropFade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Utilidades extra */
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.transition-transform {
+    transition: transform 0.2s ease-in-out, color 0.2s;
+}
+
+.slide-down-anim {
+    animation: slideDownFade 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: top;
+}
+
+@keyframes slideDownFade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scaleY(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scaleY(1);
+    }
 }

@@ -1,0 +1,119 @@
+<!--
+ * Proyecto: TicketingEVG
+ * Alumno: Sergio Díaz Pereira
+ * Asignatura: DAW
+ * Curso: 2025-2026
+ * Descripción: Vista del portal de tickets (Migración LITERAL 100% de PHP).
+-->
+<div class="sergio">
+	<header>
+		<div class="d-flex align-items-center gap-2 me-2">
+			<div class="icono-logo"><i class="fa-solid fa-school"></i></div>
+			<div class="icono-texto">
+				<strong>TicketingEVG</strong>
+				<span class="info-estadistica">Portal de gestión</span>
+			</div>
+		</div>
+		<a routerLink="/portal-tickets" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}" #rlaInicio="routerLinkActive" [class.fantasma]="!rlaInicio.isActive" class="boton-nav">
+			<i class="fa-solid fa-table-cells-large"></i>
+			<span class="etiqueta-nav">Inicio</span>
+		</a>
+		<a routerLink="/portal-tickets/tickets" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}" #rlaTickets="routerLinkActive" [class.fantasma]="!rlaTickets.isActive" class="boton-nav">
+			<i class="fa-regular fa-clipboard"></i>
+			<span class="etiqueta-nav">Mis tickets</span>
+		</a>
+		<div class="flex-grow-1"></div>
+		<a routerLink="/acceso" class="btn-cerrar-sesion">
+			<i class="fa-solid fa-right-from-bracket"></i>
+			<span class="etiqueta-nav">Cerrar sesión</span>
+		</a>
+	</header>
+
+	<main>
+		<div class="container-lg">
+			<div class="d-flex align-items-start justify-content-between flex-wrap gap-3 mb-4 cabecera-pagina">
+				<div>
+					<h1>Dashboard</h1>
+					<p>Resumen operativo y estado de las solicitudes de soporte.</p>
+				</div>
+				<a routerLink="/portal-tickets/crear" class="boton-crear"><i class="fa-solid fa-plus"></i> Crear ticket</a>
+			</div>
+
+			<div class="row g-3 mb-4">
+				<div class="col-6 col-md-3">
+					<div class="tarjeta-stats" style="animation-delay:.05s">
+						<div class="icono-stats amarillo"><i class="fa-solid fa-layer-group"></i></div>
+						<div class="info-estadistica">Total tickets</div>
+						<div class="valor-stats">{{ stats.total }}</div>
+					</div>
+				</div>
+				<div class="col-6 col-md-3">
+					<div class="tarjeta-stats" style="animation-delay:.1s">
+						<div class="icono-stats rojo"><i class="fa-solid fa-circle-exclamation"></i></div>
+						<div class="info-estadistica">Incidencias</div>
+						<div class="valor-stats">{{ stats.incidencias }}</div>
+					</div>
+				</div>
+				<div class="col-6 col-md-3">
+					<div class="tarjeta-stats" style="animation-delay:.15s">
+						<div class="icono-stats azul"><i class="fa-solid fa-circle-info"></i></div>
+						<div class="info-estadistica">Peticiones de servicio</div>
+						<div class="valor-stats">{{ stats.peticiones }}</div>
+					</div>
+				</div>
+				<div class="col-6 col-md-3">
+					<div class="tarjeta-stats" style="animation-delay:.2s">
+						<div class="icono-stats verde">
+							<i class="fa-solid" [ngClass]="(usuario_actual?.rol === 'operario' || usuario_actual?.rol === 'admin') ? 'fa-stopwatch' : 'fa-gear'"></i>
+						</div>
+						<div class="info-estadistica">
+								{{ (usuario_actual?.rol === 'operario' || usuario_actual?.rol === 'admin') ? 'Tickets pendientes' : 'En proceso' }}
+						</div>
+						<div class="valor-stats">{{ stats.enProceso }}</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="tarjeta-tickets">
+				<div class="cabecera-tickets">
+					<div>
+						<h2>Tickets recientes</h2>
+						<p>
+							@if (usuario_actual?.rol === 'operario' || usuario_actual?.rol === 'admin') {
+								Últimas solicitudes y actualizaciones de estado.
+							} @else {
+								Tus últimos tickets y actualizaciones de estado.
+							}
+						</p>
+					</div>
+					<a routerLink="/portal-tickets/tickets" class="ver-todo">Ver todo <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i></a>
+				</div>
+				<div class="cuerpo-tickets">
+					@if (tickets.length > 0) {
+						@for (ticket of tickets.slice(0, 8); track ticket.id) {
+							<div class="fila-ticket">
+								<div class="punto-ticket" [ngClass]="ticket.tipo === 'incidencia' ? 'rojo' : 'azul'">
+									<i class="fa-solid" [ngClass]="ticket.tipo === 'incidencia' ? 'fa-circle-exclamation' : 'fa-circle-info'"></i>
+								</div>
+								<div class="info-ticket">
+									<strong>{{ ticket.titulo }}</strong>
+									@if (ticket.id_Usuario_Encargado) {
+										<small>Asignado a: Trabajador {{ ticket.id_Usuario_Encargado }}</small>
+									}
+								</div>
+								<span class="etiqueta-estado" [ngClass]="ticket.estado">
+									{{ ticket.estado === 'proceso' ? 'En proceso' : (ticket.estado | titlecase) }}
+								</span>
+							</div>
+						}
+					} @else {
+						<div class="estado-vacio">
+							<p>No hay tickets registrados</p>
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+	</main>
+	<app-footer></app-footer>
+</div>

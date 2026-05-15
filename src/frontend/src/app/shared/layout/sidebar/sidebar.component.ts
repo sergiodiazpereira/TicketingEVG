@@ -15,4 +15,9 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+  estaColapsado: boolean = false;
+
+  toggleSidebar() {
+    this.estaColapsado = !this.estaColapsado;
+  }
 }

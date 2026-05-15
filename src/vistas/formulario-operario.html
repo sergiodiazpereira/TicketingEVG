@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html class="manuel" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Operario</title>
+    <link rel="stylesheet" href="../css/estiloAdmin.css">
+</head>
+<body>
+
+<div class="modal-overlay">
+    <div class="modal-container modal-form shadow-lg">
+        <div class="modal-header">
+            <button class="btn-close">&times;</button>
+            <h2 class="modal-title">Modificar Operario</h2>
+            <p class="modal-subtitle">Actualiza la información del técnico en el sistema</p>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Nombre Completo</label>
+                    <input type="text" class="form-control" value="Administrador Sistema">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tipo de Perfil</label>
+                    <select class="form-control">
+                        <option value="admin" selected>Administrador</option>
+                        <option value="tecnico">Responsable</option>
+                        <option value="usuario">Trabajador</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label class="form-label">Correo Corporativo</label>
+                    <input type="text" class="form-control" value="">
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label class="form-label">Categorías</label>
+                <div class="categories-container">
+                    <div class="categories-grid">
+                        <label class="category-item">
+                            <input type="checkbox" name="cat1" checked>
+                            <span class="category-label">Soporte Nivel 1</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="checkbox" name="cat2" checked>
+                            <span class="category-label">Soporte Nivel 2</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="checkbox" name="cat3">
+                            <span class="category-label">Mantenimiento General</span>
+                        </label>
+                        <label class="category-item">
+                            <input type="checkbox" name="cat4">
+                            <span class="category-label">Redes y Sistemas</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-text">Cancelar</button>
+            <button class="btn btn-primary shadow-sm">Guardar Cambios</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
