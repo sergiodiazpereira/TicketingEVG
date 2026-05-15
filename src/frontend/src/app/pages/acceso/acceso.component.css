@@ -1,53 +1,135 @@
 /**
  * Proyecto: TicketingEVG
- * Alumno: Joseph Joel Quispe Alvarez
- * Asignatura: DAW
+ * Alumno: Sergio Díaz Pereira
+ * Asignatura: Desarrollo de Aplicaciones Web
  * Curso: 2025-2026
- * Descripción: Estilos para la selección de entorno.
+ * Descripción: Estilos para la selección de entorno (Solo clases utilizadas en el componente).
  */
+
+:host {
+	--azul-oscuro: #014179;
+	--azul-oscuro-texto: #0f2c4c;
+	--texto-gris: #94a3b8;
+	--gris-fondo: #f4f7fa;
+	--borde: #e4e7ef;
+	--amarillo: #dd9933;
+	--blanco: #ffffff;
+	--font-family: 'Inter', sans-serif;
+}
+
 .seleccion-entorno {
-	background-color: #f4f7fa;
+	background-color: var(--gris-fondo);
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 2rem;
+	font-family: var(--font-family);
 }
 
-.icono-seguridad i {
-	color: var(--azul-oscuro);
-}
-
-.tarjeta-entorno {
-	background: white;
-	border-radius: 20px;
-	cursor: pointer;
-	transition: transform 0.3s, box-shadow 0.3s;
-	border: 2px solid transparent;
-}
-
-.tarjeta-entorno:hover {
-	transform: translateY(-10px);
-	box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
-	border-color: var(--dorado-activo);
-}
-
-.portal-card:hover {
-	border-color: var(--azul-btn);
-}
-
-.icono-entorno {
-	width: 60px;
-	height: 60px;
-	background-color: var(--dorado-activo);
-	color: white;
+.icono-seguridad {
+	background-color: var(--amarillo);
+	color: var(--blanco);
+	width: 64px;
+	height: 64px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border-radius: 15px;
-	font-size: 1.5rem;
-	margin: 0 auto;
+	border-radius: 16px;
+	margin-bottom: 1.5rem;
+	box-shadow: 0 8px 16px rgba(221, 153, 51, 0.2);
 }
 
-.portal-card .icono-entorno {
-	background-color: var(--azul-btn);
+.titulo-acceso {
+	color: var(--azul-oscuro-texto);
+	font-weight: 700;
+	font-size: 2.2rem;
+	margin-bottom: 0.5rem;
+}
+
+.subtitulo-acceso {
+	color: var(--texto-gris);
+	font-size: 0.8rem;
+	font-weight: 700;
+	letter-spacing: 1.5px;
+	text-transform: uppercase;
+	margin-bottom: 4rem;
+}
+
+.tarjeta-entorno {
+	background-color: var(--blanco);
+	border-radius: 28px;
+	padding: 3.5rem 2.5rem;
+	text-align: center;
+	transition: all 0.15s ease-out;
+	cursor: pointer;
+	text-decoration: none;
+	color: inherit;
+	border: 1px solid var(--borde);
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	max-width: 380px;
+}
+
+.tarjeta-entorno:hover {
+	transform: translateY(-15px);
+	box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+	border-color: transparent;
+}
+
+.icono-entorno {
+	background-color: var(--azul-oscuro);
+	color: var(--blanco);
+	width: 64px;
+	height: 64px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 16px;
+	margin: 0 auto 1.8rem;
+	font-size: 1.8rem;
+}
+
+.titulo-entorno {
+	color: var(--azul-oscuro-texto);
+	font-weight: 700;
+	font-size: 1.25rem;
+	margin-bottom: 0.8rem;
+	text-transform: uppercase;
+}
+
+.desc-entorno {
+	color: var(--texto-gris);
+	font-size: 0.85rem;
+	margin-bottom: 2.5rem;
+	line-height: 1.6;
+	flex-grow: 1;
 }
 
 .link-acceso {
-	color: var(--azul-oscuro);
+	color: var(--amarillo);
+	font-weight: 700;
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.6rem;
+	transition: gap 0.2s ease;
+}
+
+.tarjeta-entorno:hover .link-acceso {
+	gap: 1rem;
+}
+
+@media (max-width: 768px) {
+	.titulo-acceso {
+		font-size: 1.8rem;
+	}
+	.tarjeta-entorno {
+		padding: 2.5rem 1.5rem;
+	}
 }

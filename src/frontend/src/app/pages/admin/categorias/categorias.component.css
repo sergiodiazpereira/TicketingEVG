@@ -1,29 +1,90 @@
-/*
+/**
  * Proyecto: TicketingEVG
  * Alumno: Joseph Joel Quispe Alvarez
- * Asignatura: DAW
+ * Asignatura: Desarrollo de Aplicaciones Web
  * Curso: 2025-2026
- * Descripción: Estilos para el componente de Categorías.
+ * Descripción: Estilos para la gestión de categorías (Importados de estiloAdmin.css).
  */
 
-.titulo-primario {
+:host {
+	--azul-oscuro: #014179;
+	--azul: #006ea4;
+	--amarillo: #dd9933;
+	--texto-gris: #94a3b8;
+	--borde: #e4e7ef;
+	--blanco: #ffffff;
+}
+
+/* --- Títulos --- */
+.titulo-seccion {
 	color: var(--azul-oscuro);
 }
 
-.col-categoria {
-	width: 25%;
+.titulo-pagina {
+	color: var(--azul-oscuro);
 }
 
-.col-descripcion {
-	width: 50%;
+/* --- Tarjetas y Contenedores --- */
+.card-premium {
+	border: none;
+	border-radius: 15px;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+	overflow: hidden;
 }
 
-.col-uso {
-	width: 20%;
+.btn-evg {
+	background-color: var(--azul);
+	color: white;
+	border: 1px solid var(--azul);
+	transition: all 0.2s;
 }
 
-.col-accion {
-	width: 5%;
+.btn-evg:hover {
+	background-color: #002240;
+	color: white;
+	border: 1px solid var(--azul);
+}
+
+/* --- Tabla de Categorías --- */
+.tabla-scroll-container {
+	max-height: 50vh;
+	overflow-y: auto;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+.tabla-scroll-container::-webkit-scrollbar {
+	display: none;
+}
+
+.tabla-scroll-container thead th {
+	position: sticky;
+	top: 0;
+	background-color: #fff;
+	z-index: 2;
+	box-shadow: inset 0 -2px 0 #dee2e6;
+}
+
+.tabla-categorias th {
+	color: #aab2bd;
+	font-weight: 600;
+	font-size: 0.8rem;
+	letter-spacing: 1px;
+}
+
+.tabla-categorias td {
+	padding-top: 1.5rem;
+	padding-bottom: 1.5rem;
+}
+
+/* --- Elementos de Fila --- */
+.icono-categoria-grande {
+	width: 48px;
+	height: 48px;
+	background-color: #f0f7fb;
+	border: 1px solid #d9eaf5;
+	color: var(--azul);
+	font-size: 1.5rem;
 }
 
 .icono-tag {
@@ -35,7 +96,7 @@
 	font-size: 0.85rem;
 }
 
-.icono-descripcion {
+.icono-doc {
 	color: #aab2bd;
 	font-size: 1.1rem;
 }
@@ -44,7 +105,31 @@
 	font-size: 0.95rem;
 }
 
-.etiqueta-uso {
+/* --- Badges y Etiquetas --- */
+.badge-operarios {
+	background-color: #fef5e6;
+	color: var(--amarillo);
+	border: 1px solid #fde7c3;
+	font-size: 0.85rem;
+	padding: 0.4rem 0.8rem;
+}
+
+.badge-tickets {
+	background-color: #f0f7fb;
+	color: var(--azul);
+	border: 1px solid #d9eaf5;
+	font-size: 0.85rem;
+	padding: 0.4rem 0.8rem;
+}
+
+.etiqueta-min {
 	font-size: 0.55rem;
 	letter-spacing: 0.5px;
+}
+
+.texto-footer-tabla {
+	color: #aab2bd;
+	font-size: 0.75rem;
+	letter-spacing: 1px;
+	font-weight: 700;
 }

@@ -1,112 +1,110 @@
 <!--
  * Proyecto: TicketingEVG
  * Alumno: Joseph Joel Quispe Alvarez
- * Asignatura: DAW
+ * Asignatura: Desarrollo de Aplicaciones Web
  * Curso: 2025-2026
- * Descripción: Vista de gestión de categorías.
- -->
+ * Descripción: Vista de gestión de categorías (Versión Angular).
+-->
+
 <div class="d-flex flex-column vh-100 overflow-hidden">
 	<div class="d-flex flex-grow-1 overflow-hidden">
+		<!-- Sidebar Componente -->
 		<app-sidebar></app-sidebar>
 
 		<!-- Contenido Principal -->
 		<main class="flex-grow-1 overflow-auto">
-		<div class="flex-grow-1">
-			<header class="bg-white p-4 mb-4 border-bottom shadow-sm d-flex justify-content-between align-items-center sticky-top">
-			<div class="d-flex align-items-center">
-				<h1 class="h5 fw-bold mb-0 titulo-primario">Gestión de categorías de soporte</h1>
-			</div>
-			<div class="d-none d-md-flex align-items-center">
-				<div class="text-end me-3">
-					<div class="fw-bold small">{{ usuario_actual?.nombre || 'Usuario' }}</div>
-					<div class="text-muted small text-capitalize">{{ usuario_actual?.rol || 'Administrador' }}</div>
-				</div>
-				<img [src]="'https://ui-avatars.com/api/?name=' + (usuario_actual?.nombre || 'U') + '&background=003366&color=fff'"
-					class="rounded-circle shadow-sm" width="38" height="38" alt="Avatar">
-			</div>
-		</header>
+			<div class="flex-grow-1">
+				<!-- Cabecera de página -->
+				<header class="bg-white p-4 mb-4 border-bottom shadow-sm d-flex justify-content-between align-items-center sticky-top">
+					<div class="d-flex align-items-center">
+						<h1 class="h5 fw-bold mb-0 titulo-seccion">Gestión de categorías de soporte</h1>
+					</div>
+				</header>
 
-		<div class="container-fluid px-4">
-			<div class="row">
-				<div class="col-9">
-					<h2 class="fw-bold text-uppercase titulo-primario">GESTIÓN DE CATEGORÍAS</h2>
-					<p class="text-muted small">Administra las áreas técnicas para la clasificación de personal y tickets.</p>
-				</div>
-				<div class="col-3 d-flex align-items-center">
-					<button type="button" class="btn btn-evg w-100 p-3 rounded-4 shadow fw-bold text-uppercase">
-						<i class="bi bi-plus-lg me-2"></i>
-						AÑADIR CATEGORÍA
-					</button>
-				</div>
-			</div>
-
-			<div class="row mt-4 mb-4">
-				<div class="col-12">
-					<div class="card card-premium">
-						<div class="card-body p-0">
-							<div class="table-responsive tabla-scroll-container">
-								<table class="table align-middle mb-0 tabla-categorias">
-									<thead class="text-uppercase">
-										<tr>
-											<th scope="col" class="border-0 text-center py-3 col-categoria">Categoría</th>
-											<th scope="col" class="border-0 py-3 col-descripcion">Descripción</th>
-											<th scope="col" class="border-0 py-3 text-center col-uso">En uso</th>
-											<th scope="col" class="border-0 py-3 text-end pe-4 col-accion"></th>
-										</tr>
-									</thead>
-									<tbody class="border-top-0">
-										@for (categoria of categorias; track categoria.id) {
-										<tr>
-											<td class="border-0 border-bottom text-center">
-												<div class="d-flex flex-column align-items-center justify-content-center py-2">
-													<div class="icono-categoria-grande rounded-4 d-flex align-items-center justify-content-center mb-2">
-														<i class="bi bi-tag icono-tag"></i>
-													</div>
-													<span class="fw-bold texto-categoria text-uppercase">{{ categoria.nombre }}</span>
-												</div>
-											</td>
-											<td class="border-0 border-bottom">
-												<div class="d-flex align-items-start text-muted">
-													<i class="bi bi-file-earmark-text me-3 mt-1 icono-descripcion"></i>
-													<p class="mb-0 texto-descripcion">Categoría de {{ categoria.nombre }}.</p>
-												</div>
-											</td>
-											<td class="border-0 border-bottom">
-												<div class="d-flex gap-4 justify-content-center">
-													<div class="d-flex flex-column align-items-center">
-														<span class="badge badge-operarios rounded-pill d-flex align-items-center justify-content-center mb-1">
-															<i class="bi bi-person me-1"></i> {{ categoria.operarios || 0 }}
-														</span>
-														<span class="text-muted fw-bold etiqueta-uso">OPERARIOS</span>
-													</div>
-													<div class="d-flex flex-column align-items-center">
-														<span class="badge badge-tickets rounded-pill d-flex align-items-center justify-content-center mb-1">
-															<i class="bi bi-ticket-detailed me-1"></i> {{ categoria.tickets || 0 }}
-														</span>
-														<span class="text-muted fw-bold etiqueta-uso">TICKETS</span>
-													</div>
-												</div>
-											</td>
-											<td class="border-0 border-bottom text-end pe-4">
-												<button class="btn btn-link text-muted p-0"><i class="bi bi-three-dots-vertical"></i></button>
-											</td>
-										</tr>
-										}
-									</tbody>
-								</table>
-							</div>
+				<div class="container-fluid px-4">
+					<!-- Título y Botón de Acción -->
+					<div class="row align-items-center mb-4">
+						<div class="col-12 col-md-9">
+							<h2 class="fw-bold text-uppercase titulo-pagina">GESTIÓN DE CATEGORÍAS</h2>
+							<p class="text-muted small">Administra las áreas técnicas para la clasificación de personal y tickets.</p>
+						</div>
+						<div class="col-12 col-md-3 mt-3 mt-md-0">
+							<button type="button" class="btn btn-evg w-100 p-3 rounded-4 shadow-sm fw-bold text-uppercase">
+								<i class="bi bi-plus-lg me-2"></i>
+								AÑADIR CATEGORÍA
+							</button>
 						</div>
 					</div>
 
-					<!-- Footer Tabla -->
-					<div class="text-center mt-4 mb-5">
-						<span class="texto-footer-tabla text-uppercase">SISTEMA DE CLASIFICACIÓN TÉCNICA TICKETINGEVG</span>
+					<!-- Tabla de Categorías -->
+					<div class="row mb-5">
+						<div class="col-12">
+							<div class="card card-premium">
+								<div class="card-body p-0">
+									<div class="table-responsive tabla-scroll-container">
+										<table class="table align-middle mb-0 tabla-categorias">
+											<thead class="text-uppercase">
+												<tr>
+													<th scope="col" class="border-0 text-center py-3">Categoría</th>
+													<th scope="col" class="border-0 py-3">Descripción</th>
+													<th scope="col" class="border-0 py-3 text-center">En uso</th>
+													<th scope="col" class="border-0 py-3 text-end pe-4"></th>
+												</tr>
+											</thead>
+											<tbody class="border-top-0">
+												@for (categoria of categorias; track categoria.id) {
+												<tr>
+													<td class="border-0 border-bottom text-center">
+														<div class="d-flex flex-column align-items-center justify-content-center py-2">
+															<div class="icono-categoria-grande rounded-4 d-flex align-items-center justify-content-center mb-2">
+																<i class="bi bi-tag icono-tag"></i>
+															</div>
+															<span class="fw-bold texto-categoria text-uppercase">{{ categoria.nombre }}</span>
+														</div>
+													</td>
+													<td class="border-0 border-bottom">
+														<div class="d-flex align-items-start text-muted">
+															<i class="bi bi-file-earmark-text me-3 mt-1 icono-doc"></i>
+															<p class="mb-0 texto-descripcion">Atención primaria y resolución de incidencias de {{ categoria.nombre }}.</p>
+														</div>
+													</td>
+													<td class="border-0 border-bottom">
+														<div class="d-flex gap-4 justify-content-center">
+															<div class="d-flex flex-column align-items-center">
+																<span class="badge badge-operarios rounded-pill d-flex align-items-center justify-content-center mb-1">
+																	<i class="bi bi-person me-1"></i> {{ categoria.operarios || 0 }}
+																</span>
+																<span class="text-muted fw-bold etiqueta-min">OPERARIOS</span>
+															</div>
+															<div class="d-flex flex-column align-items-center">
+																<span class="badge badge-tickets rounded-pill d-flex align-items-center justify-content-center mb-1">
+																	<i class="bi bi-ticket-detailed me-1"></i> {{ categoria.tickets || 0 }}
+																</span>
+																<span class="text-muted fw-bold etiqueta-min">TICKETS</span>
+															</div>
+														</div>
+													</td>
+													<td class="border-0 border-bottom text-end pe-4">
+														<button class="btn btn-link text-muted p-0"><i class="bi bi-three-dots-vertical"></i></button>
+													</td>
+												</tr>
+												}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+
+							<!-- Footer Tabla -->
+							<div class="text-center mt-4">
+								<span class="texto-footer-tabla text-uppercase">SISTEMA DE CLASIFICACIÓN TÉCNICA TICKETINGEVG</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		</div>
 		</main>
 	</div>
+	<!-- Footer Componente -->
 	<app-footer></app-footer>
 </div>

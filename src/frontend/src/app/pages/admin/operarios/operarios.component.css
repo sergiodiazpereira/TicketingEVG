@@ -1,33 +1,95 @@
-/*
+/**
  * Proyecto: TicketingEVG
  * Alumno: Joseph Joel Quispe Alvarez
- * Asignatura: DAW
- * Curso: 2025-2026
- * Descripción: Estilos para el componente de Operarios.
+ * Asignatura: 
+ * Curso: 2 DAW
+ * Descripción: Dashboard con Sidebar colapsable (Mini-Sidebar).
  */
 
+:host {
+	--azul-oscuro: #014179;
+	--azul: #006ea4;
+	--amarillo: #dd9933;
+	--amarillo-claro: #fffbeb;
+	--texto-gris: #94a3b8;
+	--borde: #e4e7ef;
+	--blanco: #ffffff;
+}
+
+/* --- Títulos --- */
 .titulo-primario {
 	color: var(--azul-oscuro);
 }
 
-.badge-pequena {
+/* --- Tarjetas y Botones --- */
+.card-premium {
+	border: none;
+	border-radius: 15px;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+	overflow: hidden;
+}
+
+.btn-evg {
+	background-color: var(--azul);
+	color: white;
+	border: 1px solid var(--azul);
+	transition: all 0.2s;
+}
+
+.btn-evg:hover {
+	background-color: #002240;
+	color: white;
+	border: 1px solid var(--azul);
+}
+
+/* --- Tabla Operarios --- */
+.tabla-operarios th {
+	color: #aab2bd;
+	font-weight: 600;
+	font-size: 0.8rem;
+	letter-spacing: 1px;
+}
+
+.tabla-operarios td {
+	padding-top: 1.2rem;
+	padding-bottom: 1.2rem;
+}
+
+/* --- Roles y Badges --- */
+.etiqueta-rol {
 	font-size: 0.65rem;
 }
 
-.icono-dorado {
-	color: var(--dorado-icono);
-	font-size: 1.1rem;
+.badge-responsable {
+	color: var(--amarillo);
+	background-color: var(--amarillo-claro);
+	font-weight: 700;
+	border: 1px solid rgba(221, 153, 51, 0.2);
 }
 
-.texto-normal {
-	font-size: 0.9rem;
+.badge-trabajador {
+	color: #6c757d;
+	background-color: #f1f3f5;
+	font-weight: 700;
+	border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.etiqueta-estadistica {
+/* --- Iconos y Detalles --- */
+.icono-categoria {
+	width: 32px;
+	height: 32px;
+	border: 1px solid var(--borde);
+	color: var(--texto-gris);
+}
+
+.etiqueta-min {
 	font-size: 0.6rem;
 	letter-spacing: 0.5px;
 }
 
-.icono-grande {
-	font-size: 1.1rem;
+.texto-footer-tabla {
+	color: #aab2bd;
+	font-size: 0.75rem;
+	letter-spacing: 1px;
+	font-weight: 700;
 }

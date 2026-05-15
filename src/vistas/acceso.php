@@ -21,7 +21,7 @@
 <body>
 	<main class="seleccion-entorno">
 		<div class="icono-seguridad">
-			<i class="bi bi-shield-check-fill fs-2"></i>
+			<i class="bi bi-shield-lock-fill fs-2"></i>
 		</div>
 
 		<h1 class="titulo-acceso">Acceso de administrador</h1>

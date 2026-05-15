@@ -1,40 +1,40 @@
-<!--
- * Proyecto: TicketingEVG
- * Alumno: Joseph Joel Quispe Alvarez
- * Asignatura: DAW
- * Curso: 2025-2026
- * Descripción: Componente de pie de página.
- -->
+<!-- 
+  Proyecto: TicketingEVG
+  Alumno: Joseph Joel Quispe Alvarez
+  Asignatura: DAW
+  Curso: 2025-2026
+  Descripción: Componente de pie de página (Copia exacta de footer.php).
+-->
 <footer class="intranet-footer" role="contentinfo">
 	<div class="if-user">
 		@if (foto) {
-		<img [src]="foto" alt="" class="if-avatar" referrerpolicy="no-referrer">
+			<img [src]="foto" alt="" class="if-avatar" referrerpolicy="no-referrer">
 		} @else {
-		<div class="if-avatar-ph" aria-hidden="true">
-			<i class="bi bi-person-fill"></i>
-		</div>
+			<div class="if-avatar-ph" aria-hidden="true">
+				<i class="bi bi-person-fill"></i>
+			</div>
 		}
 
 		@if (nombre) {
-		<span class="if-nombre">{{ nombre }}</span>
+			<span class="if-nombre">{{ nombre }}</span>
 		}
 
 		@if (nombre && email) {
-		<span class="if-sep">·</span>
+			<span class="if-sep">·</span>
 		}
 
 		@if (email) {
-		<span class="if-email">{{ email }}</span>
+			<span class="if-email">{{ email }}</span>
 		}
 
 		@if (!nombre && !email) {
-		<span class="fst-italic">Sin sesión</span>
+			<span class="if-sin-sesion">Sin sesón</span>
 		}
 	</div>
 
 	<div class="if-right">
 		@if (rolLabel) {
-		<span class="if-badge" [class]="rolClass">{{ rolLabel }}</span>
+			<span class="if-badge" [ngClass]="rolClass">{{ rolLabel }}</span>
 		}
 		<span class="if-copy">Intranet &copy; {{ currentYear }}</span>
 	</div>

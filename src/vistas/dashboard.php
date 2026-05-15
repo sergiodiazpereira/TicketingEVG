@@ -19,7 +19,7 @@
 	<!-- Google Fonts: Inter -->
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 	<!-- Estilos Propios -->
-	<link rel="stylesheet" href="estiloAdmin.css">
+	<link rel="stylesheet" href="../css/estiloAdmin.css">
 </head>
 
 <body id="pagina-dashboard">
@@ -45,19 +45,19 @@
 			<!-- Links de Navegación -->
 			<ul class="nav flex-column mb-auto">
 				<li class="nav-item">
-					<a class="nav-link active" href="dashboard_admin.php" title="Dashboard">
+					<a class="nav-link active" href="dashboard.php" title="Dashboard">
 						<i class="bi bi-grid-fill me-3"></i>
 						<span class="link-texto">Dashboard</span>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="operarios_admin.php" title="Operarios">
+					<a class="nav-link" href="operarios.php" title="Operarios">
 						<i class="bi bi-person-badge-fill me-3"></i>
 						<span class="link-texto">Operarios</span>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="categorias_admin.php" title="Categorías">
+					<a class="nav-link" href="categorias.php" title="Categorías">
 						<i class="bi bi-tag-fill me-3"></i>
 						<span class="link-texto">Categorías</span>
 					</a>
