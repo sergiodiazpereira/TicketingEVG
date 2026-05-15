@@ -45,7 +45,7 @@
 				</div>
 
 				<div class="col-12 col-md-5 col-lg-4">
-					<a href="inicioTicketsOperarios.php" class="tarjeta-entorno">
+					<a href="portal-tickets-operarios.php" class="tarjeta-entorno">
 						<div class="icono-entorno" style="background-color: var(--azul);">
 							<i class="bi bi-ticket-perforated-fill"></i>
 						</div>

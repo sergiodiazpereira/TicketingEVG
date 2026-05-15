@@ -1,0 +1,26 @@
+<div class="modal-overlay">
+    <div class="modal-container modal-form shadow-lg">
+        <div class="modal-header">
+            <button class="btn-close" (click)="cerrar.emit()">&times;</button>
+            <h2 class="modal-title">{{ categoria ? 'Modificar Categoría' : 'Nueva Categoría' }}</h2>
+            <p class="modal-subtitle">Define las características de la categoría técnica</p>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-group full-width" style="margin-bottom: 25px;">
+                <label class="form-label">Nombre de la categoría</label>
+                <input type="text" class="form-control" [value]="categoria?.nombre || ''" placeholder="Ej: Soporte Nivel 1">
+            </div>
+
+            <div class="form-group full-width">
+                <label class="form-label">Descripción detallada</label>
+                <textarea class="form-control" rows="4" style="resize: vertical; min-height: 100px;" placeholder="Descripción...">{{ categoria?.descripcion || '' }}</textarea>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-text" (click)="cerrar.emit()">Cancelar</button>
+            <button class="btn btn-primary shadow-sm" (click)="guardar.emit()">Guardar Cambios</button>
+        </div>
+    </div>
+</div>

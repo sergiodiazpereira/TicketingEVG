@@ -14,4 +14,5 @@ export interface Usuario {
   rol: string;
   num_categorias?: number;
   tickets_asignados?: number;
+  categorias_nombres?: string[];
 }
