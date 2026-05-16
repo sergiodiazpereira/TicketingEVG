@@ -16,23 +16,22 @@ class Conexion {
      */
     public static function conectar() {
         if (self::$conexion === null) {
-            // Carga de configuración desde el archivo .env
+            // Carga opcional de configuración desde el archivo .env
+            $config = [];
             $ruta_env = __DIR__ . '/../.env';
-            if (!file_exists($ruta_env)) {
-                header('Content-Type: application/json');
-                echo json_encode(['error' => 'No se encuentra el archivo .env en el servidor del colegio.']);
-                exit;
+            if (file_exists($ruta_env)) {
+                $config = parse_ini_file($ruta_env);
             }
             
-            $config = parse_ini_file($ruta_env);
-            
-            $servidor = $config['SERVIDOR'] ?? '';
-            $usuario  = $config['USER_DB'] ?? '';
+            $servidor = $config['SERVIDOR'] ?? '127.0.0.1';
+            $usuario  = $config['USER_DB'] ?? 'root';
             $clave    = $config['CLAVE'] ?? '';
-            $base_datos = $config['BBDD_DEMO'] ?? '';
+            $base_datos = $config['BBDD_DEMO'] ?? 'TicketingEVG';
 
+            $puerto = $config['PUERTO'] ?? 3307;
+            
             // Silenciamos errores para manejarlos nosotros
-            self::$conexion = @new mysqli($servidor, $usuario, $clave, $base_datos);
+            self::$conexion = @new mysqli($servidor, $usuario, $clave, $base_datos, $puerto);
 
             if (self::$conexion->connect_error) {
                 header('Content-Type: application/json');

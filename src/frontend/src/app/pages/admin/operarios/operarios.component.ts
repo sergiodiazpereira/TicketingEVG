@@ -40,11 +40,11 @@ export class OperariosComponent implements OnInit {
   ngOnInit(): void {
     this.usuarioService.getOperarios().subscribe({
       next: (data) => {
-        // Asegurar que data sea un array para evitar errores en @for
-        this.operarios = Array.isArray(data) && data.length > 0 ? data : [
-          { id: 1, nombre: 'Juan Pérez', email: 'juan@ticketing.com', rol: 'responsable', num_categorias: 3, tickets_asignados: 12, categorias_nombres: ['Soporte Nivel 1', 'Soporte Nivel 2', 'Redes y Sistemas'] },
-          { id: 2, nombre: 'Ana Gómez', email: 'ana@ticketing.com', rol: 'trabajador', num_categorias: 1, tickets_asignados: 5, categorias_nombres: ['Mantenimiento General'] }
-        ] as any;
+        // Transformar la cadena de categorías en un array para el frontend
+        this.operarios = data.map((op: any) => ({
+          ...op,
+          categorias_nombres: op.categorias_nombres ? op.categorias_nombres.split(', ') : []
+        }));
       },
       error: (err) => {
         console.error('Error al cargar operarios', err);

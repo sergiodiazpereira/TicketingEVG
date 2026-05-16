@@ -70,7 +70,7 @@ CREATE TABLE Ticket (
 	descripcion VARCHAR(500) NOT NULL,
 	prioridad CHAR(1) NOT NULL,
 	id_Usuario_Creador SMALLINT UNSIGNED NOT NULL,
-	estado ENUM('pendiente', 'asignado', 'proceso', 'resuelto') NOT NULL DEFAULT 'pendiente',
+	estado ENUM('pendiente', 'asignado', 'proceso', 'resuelto', 'no aplica') NOT NULL DEFAULT 'pendiente',
 	id_Usuario_Encargado SMALLINT UNSIGNED DEFAULT NULL,
 	fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	fecha_prevista DATETIME DEFAULT NULL,

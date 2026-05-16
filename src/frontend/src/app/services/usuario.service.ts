@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../enviroments/environment';
 import { Usuario } from '../models/usuario.model';
-import { Estadisticas } from '../models/estadisticas.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +14,5 @@ export class UsuarioService {
 
   getOperarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(`${this.apiUrl}?entidad=usuario&accion=listar_operarios`);
-  }
-
-  getEstadisticas(): Observable<Estadisticas> {
-    return this.http.get<Estadisticas>(`${this.apiUrl}?entidad=usuario&accion=estadisticas`);
   }
 }

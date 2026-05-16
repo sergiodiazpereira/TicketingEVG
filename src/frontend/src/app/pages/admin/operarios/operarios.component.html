@@ -73,7 +73,9 @@
 																<div class="icono-categoria rounded-circle d-flex align-items-center justify-content-center me-3">
 																	<i class="bi"
 																		[ngClass]="operario.rol === 'responsable' ? 'bi-person' : 'bi-briefcase'"
-																		[style.color]="operario.rol === 'responsable' ? 'var(--amarillo, #ffc107)' : ''"></i>
+																		[style.color]="operario.rol === 'responsable' ? 'var(--amarillo)' : ''"
+																		[class.text-secondary]="operario.rol !== 'responsable'"
+																		style="font-size: 1.1rem;"></i>
 																</div>
 																<span class="fw-medium text-dark me-1 small">{{ operario.num_categorias || 0 }} CATEGORÍAS</span>
 																<i class="bi small ms-1 transition-transform"

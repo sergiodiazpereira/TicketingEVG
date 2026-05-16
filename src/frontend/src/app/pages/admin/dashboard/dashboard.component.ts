@@ -6,29 +6,48 @@
  * Descripción: Controlador para el componente de Dashboard.
  */
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../../shared/layout/footer/footer.component';
 import { SidebarComponent } from '../../../shared/layout/sidebar/sidebar.component';
 import { AuthService } from '../../../services/auth.service';
 import { Usuario } from '../../../models/usuario.model';
-import { UsuarioService } from '../../../services/usuario.service';
+import { DashboardService } from '../../../services/dashboard.service';
+import { TicketService } from '../../../services/ticket.service';
+import { ModalTicketComponent } from '../../modales/modal-ticket/modal-ticket.component';
 import { Estadisticas } from '../../../models/estadisticas.model';
+import { Ticket } from '../../../models/ticket.model';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [FooterComponent, SidebarComponent],
+  standalone: true,
+  imports: [CommonModule, FooterComponent, SidebarComponent, ModalTicketComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
   usuario_actual: Usuario | null = null;
   estadisticas: Estadisticas | null = null;
+  ticketsRecientes: Ticket[] = [];
+  
+  /** Gestión del modal */
+  mostrarModalTicket: boolean = false;
+  ticketSeleccionado: any = null;
 
-  constructor(private authService: AuthService, private usuarioService: UsuarioService) {
+  constructor(
+    private authService: AuthService, 
+    private dashboardService: DashboardService,
+    private ticketService: TicketService
+  ) {
     this.usuario_actual = this.authService.getUsuarioActual();
   }
 
   ngOnInit(): void {
-    this.usuarioService.getEstadisticas().subscribe({
+    this.cargarEstadisticas();
+    this.cargarTicketsRecientes();
+  }
+
+  cargarEstadisticas(): void {
+    this.dashboardService.getEstadisticas().subscribe({
       next: (data) => {
         // Verificar que la respuesta sea un objeto válido y no un error
         if (data && !((data as any).error)) {
@@ -39,6 +58,24 @@ export class DashboardComponent implements OnInit {
       },
       error: (err) => console.error('Error al cargar estadísticas', err)
     });
+  }
+
+  cargarTicketsRecientes(): void {
+    // Para el admin, traemos todos los tickets (o los más recientes)
+    this.ticketService.getTickets().subscribe({
+      next: (data) => this.ticketsRecientes = data.slice(0, 5),
+      error: (err) => console.error('Error al cargar tickets recientes', err)
+    });
+  }
+
+  abrirModalTicket(ticket: any) {
+    this.ticketSeleccionado = ticket;
+    this.mostrarModalTicket = true;
+  }
+
+  cerrarModalTicket() {
+    this.mostrarModalTicket = false;
+    this.ticketSeleccionado = null;
   }
 
   get porcentajeResueltos(): number {

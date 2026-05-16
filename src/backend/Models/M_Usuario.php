@@ -16,9 +16,14 @@ class M_Usuario {
         $this->db = Conexion::conectar();
     }
 
+    /**
+     * Obtiene la lista completa de operarios y sus estadísticas de carga.
+     * @return array
+     */
     public function listar_operarios() {
-        $sql = "SELECT u.id, u.nombre, u.correo, r.nombre as rol,
+        $sql = "SELECT u.id, u.nombre, u.correo as email, LOWER(r.nombre) as rol,
                    (SELECT COUNT(*) FROM Categoria_Usuario cu WHERE cu.id_Usuario = u.id) as num_categorias,
+                   (SELECT GROUP_CONCAT(c.nombre SEPARATOR ', ') FROM Categoria_Usuario cu JOIN Categoria c ON cu.id_Categoria = c.id WHERE cu.id_Usuario = u.id) as categorias_nombres,
                    (SELECT COUNT(*) FROM Ticket t WHERE t.id_Usuario_Encargado = u.id AND t.estado != 'resuelto') as tickets_asignados
                 FROM Usuario u 
                 JOIN Rol r ON u.id_Rol = r.id
@@ -28,6 +33,10 @@ class M_Usuario {
         return $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
     }
     
+    /**
+     * Recopila estadísticas generales de tickets y usuarios.
+     * @return array
+     */
     public function get_estadisticas() {
         $stats = [
             'total_visitas' => 0,

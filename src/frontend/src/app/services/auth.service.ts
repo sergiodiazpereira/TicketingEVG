@@ -17,7 +17,9 @@ export class AuthService {
     { id: 1, nombre: 'Administrador', email: 'admin@evg.es', password: 'admin', rol: 'admin' },
     { id: 2, nombre: 'Joseph Joel', email: 'joseph@evg.es', password: 'joseph', rol: 'admin' },
     { id: 3, nombre: 'Profesor Test', email: 'profesor@evg.es', password: 'profesor', rol: 'profesor' },
-    { id: 4, nombre: 'Operario Test', email: 'operario@evg.es', password: 'operario', rol: 'operario' }
+    { id: 4, nombre: 'Responsable Test', email: 'responsable@evg.es', password: 'responsable', rol: 'responsable' },
+    { id: 5, nombre: 'Trabajador Test', email: 'trabajador@evg.es', password: 'trabajador', rol: 'trabajador' }
+
   ];
 
   private usuarioAutenticado: Usuario | null = null;

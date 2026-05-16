@@ -1,0 +1,131 @@
+<div class="modal-container modal-details" (click)="$event.stopPropagation()">
+    <!-- Botón X siempre absoluto -->
+    <button class="btn-close" (click)="onCerrar()">&times;</button>
+    
+    <div class="modal-header" style="border-bottom: none; padding-bottom: 20px; display: block !important;">
+        <div class="badges-header" style="display: flex; gap: 10px; margin-bottom: 15px;">
+            <span class="badge" [ngClass]="ticket.tipo === 'incidencia' ? 'badge-red' : 'badge-blue'">
+                {{ (ticket.tipo === 'incidencia' ? 'Incidencia' : 'Petición') }}
+            </span>
+            <span class="badge" [ngClass]="ticket.estado === 'resuelto' ? 'badge-green' : 'badge-blue'">
+                {{ (ticket.estado === 'proceso' ? 'En proceso' : ticket.estado) | uppercase }}
+            </span>
+        </div>
+
+        <h2 class="modal-title">{{ ticket.titulo }}</h2>
+        <p class="modal-subtitle">#{{ ticket.id }}</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="modal-body" style="padding-top: 25px;">
+        <div class="form-group full-width" style="margin-bottom: 25px;">
+            <label class="form-label">Descripción del problema</label>
+            <div class="content-box">
+                {{ ticket.descripcion }}
+            </div>
+        </div>
+
+        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 10px;">
+            <div class="form-group">
+                <label class="form-label">Ubicación</label>
+                <div class="info-row" style="display: flex; align-items: center; gap: 8px;">
+                    <svg class="info-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    {{ ticket.ubicacion || 'Aula 102, Edificio A' }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Prioridad</label>
+                <div>
+                    <span class="badge" [ngClass]="{
+                        'badge-red': ticket.prioridad === 'a',
+                        'badge-blue': ticket.prioridad === 'm',
+                        'badge-gray': ticket.prioridad === 'b'
+                    }">{{ ticket.prioridad === 'a' ? 'ALTA' : (ticket.prioridad === 'm' ? 'MEDIA' : 'BAJA') }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TARJETA TÉCNICO ASIGNADO -->
+        <div class="assigned-tech-card" *ngIf="ticket.id_Usuario_Encargado" style="margin-bottom: 25px; display: flex; align-items: center; gap: 15px;">
+            <div class="tech-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                    <polyline points="16 11 18 13 22 9"></polyline>
+                </svg>
+            </div>
+            <div class="tech-info" style="display: flex; flex-direction: column; gap: 2px;">
+                <span class="tech-label">Técnico Asignado</span>
+                <span class="tech-name">{{ ticket.nombre_encargado || 'TRABAJADOR-' + ticket.id_Usuario_Encargado | uppercase }}</span>
+            </div>
+        </div>
+
+        <!-- SELECTOR TÉCNICO (Admin o Responsable si no hay técnico) -->
+        <ng-container *ngIf="(rolUsuario === 'admin' || rolUsuario === 'responsable') && !ticket.id_Usuario_Encargado">
+            <hr class="divider-light">
+            <div class="form-group full-width" style="margin-bottom: 25px;">
+                <label class="form-label">
+                    <svg class="label-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    Asignar Técnico (Responsable)
+                </label>
+                <select class="form-control" (change)="onAsignar($event)">
+                    <option value="" selected>Seleccionar operario...</option>
+                    <option *ngFor="let op of operarios" [value]="op.id">{{ op.nombre }}</option>
+                </select>
+            </div>
+        </ng-container>
+
+        <hr class="divider-light">
+
+        <div class="form-group full-width">
+            <label class="form-label">Categoría</label>
+            <div>
+                <span class="badge badge-gray" style="padding: 8px 16px; display: inline-flex; align-items: center; gap: 8px;">
+                    <svg class="label-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                        <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                    </svg>
+                    {{ ticket.categoria_nombre || 'Sistemas Audiovisuales' }}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- FOOTER: Centrado perfecto -->
+    <div class="modal-footer" style="padding: 25px 30px; display: flex !important; flex-direction: row !important; justify-content: center !important; flex-wrap: nowrap !important; gap: 10px;">
+        <!-- Botón Resolver -->
+        <button *ngIf="ticket.estado !== 'resuelto' && (rolUsuario === 'admin' || rolUsuario === 'responsable' || rolUsuario === 'trabajador')" 
+                class="btn btn-success" (click)="onResolver()" style="min-width: 150px; justify-content: center; font-size: 11px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            {{ (rolUsuario === 'admin') ? 'Resolver' : 'Marcar resuelto' }}
+        </button>
+
+        <!-- Botón No Aplica -->
+        <button *ngIf="ticket.estado !== 'resuelto' && (rolUsuario === 'profesor' || rolUsuario === 'admin')" 
+                class="btn btn-no-aplica" (click)="onNoAplica()" style="min-width: 150px; justify-content: center; font-size: 11px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+            {{ (rolUsuario === 'admin') ? 'No aplica' : 'Marcar no aplica' }}
+        </button>
+
+        <!-- Botón Volver -->
+        <button class="btn btn-outline-custom" (click)="onCerrar()" style="min-width: 100px; justify-content: center; font-size: 11px;">
+            Volver
+        </button>
+    </div>
+</div>
