@@ -12,3 +12,6 @@ dist/
 .angular/
 tmp/
 *.log
+
+# Agentes
+.agents/

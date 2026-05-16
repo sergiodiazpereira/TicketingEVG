@@ -7,20 +7,18 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FooterComponent } from '../../../shared/layout/footer/footer.component';
 import { SidebarComponent } from '../../../shared/layout/sidebar/sidebar.component';
 import { AuthService } from '../../../services/auth.service';
 import { Usuario } from '../../../models/usuario.model';
 import { DashboardService } from '../../../services/dashboard.service';
 import { TicketService } from '../../../services/ticket.service';
-import { ModalTicketComponent } from '../../modales/modal-ticket/modal-ticket.component';
 import { Estadisticas } from '../../../models/estadisticas.model';
 import { Ticket } from '../../../models/ticket.model';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FooterComponent, SidebarComponent, ModalTicketComponent],
+  imports: [CommonModule, SidebarComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

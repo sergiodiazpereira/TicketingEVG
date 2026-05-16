@@ -28,19 +28,28 @@ export class OperariosComponent implements OnInit {
   mostrarModalEliminar = false;
   mostrarModalFormulario = false;
   operarioAEditar: any = null;
+  /** ID del operario seleccionado para eliminar. */
+  operarioAEliminarId: number | null = null;
   operarioExpandido: number | null = null;
+  /** Mensaje de feedback para el usuario (éxito o error). */
+  mensajeFeedback: string | null = null;
+  esMensajeError = false;
 
   constructor(
-    private authService: AuthService, 
+    private authService: AuthService,
     private usuarioService: UsuarioService
   ) {
     this.usuario_actual = this.authService.getUsuarioActual();
   }
 
   ngOnInit(): void {
+    this.cargarOperarios();
+  }
+
+  /** Carga la lista de operarios desde la API. */
+  cargarOperarios(): void {
     this.usuarioService.getOperarios().subscribe({
       next: (data) => {
-        // Transformar la cadena de categorías en un array para el frontend
         this.operarios = data.map((op: any) => ({
           ...op,
           categorias_nombres: op.categorias_nombres ? op.categorias_nombres.split(', ') : []
@@ -48,20 +57,16 @@ export class OperariosComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al cargar operarios', err);
-        this.operarios = [
-          { id: 1, nombre: 'Juan Pérez', email: 'juan@ticketing.com', rol: 'responsable', num_categorias: 3, tickets_asignados: 12, categorias_nombres: ['Soporte Nivel 1', 'Soporte Nivel 2', 'Redes y Sistemas'] },
-          { id: 2, nombre: 'Ana Gómez', email: 'ana@ticketing.com', rol: 'trabajador', num_categorias: 1, tickets_asignados: 5, categorias_nombres: ['Mantenimiento General'] }
-        ] as any;
+        this.mostrarMensaje('No se pudo conectar con el servidor.', true);
       }
     });
   }
 
   toggleCategorias(id: number) {
-    if (this.operarioExpandido === id) {
+    if (this.operarioExpandido === id)
       this.operarioExpandido = null;
-    } else {
+    else
       this.operarioExpandido = id;
-    }
   }
 
   abrirModalFormulario(operario?: any) {
@@ -74,25 +79,78 @@ export class OperariosComponent implements OnInit {
     this.operarioAEditar = null;
   }
 
-  guardarOperario() {
-    console.log('Operario guardado (Simulación)', this.operarioAEditar);
-    this.cerrarModalFormulario();
+  /**
+   * Recibe los datos del modal y llama al servicio para crear o actualizar.
+   * @param datos Objeto con nombre, correo, rol y categorias enviado por el formulario.
+   */
+  guardarOperario(datos: any) {
+    if (datos.id) {
+      // Actualizar operario existente
+      this.usuarioService.actualizarUsuario(datos.id, datos).subscribe({
+        next: (res) => {
+          if (res.status === 'success') {
+            this.mostrarMensaje('Operario actualizado correctamente.', false);
+            this.cerrarModalFormulario();
+            this.cargarOperarios();
+          } else {
+            this.mostrarMensaje(res.message || 'Error al actualizar el operario.', true);
+          }
+        },
+        error: () => this.mostrarMensaje('Error de conexión al actualizar.', true)
+      });
+    } else {
+      // Crear nuevo operario
+      this.usuarioService.crearUsuario(datos).subscribe({
+        next: (res) => {
+          if (res.status === 'success') {
+            this.mostrarMensaje('Operario creado correctamente.', false);
+            this.cerrarModalFormulario();
+            this.cargarOperarios();
+          } else {
+            this.mostrarMensaje(res.message || 'Error al crear el operario.', true);
+          }
+        },
+        error: () => this.mostrarMensaje('Error de conexión al crear.', true)
+      });
+    }
   }
 
-  abrirModalEliminar() {
+  abrirModalEliminar(operario: any) {
+    this.operarioAEliminarId = operario.id;
     this.mostrarModalEliminar = true;
   }
 
   cerrarModal() {
     this.mostrarModalEliminar = false;
+    this.operarioAEliminarId = null;
   }
 
+  /** Confirma y ejecuta la eliminación del operario seleccionado. */
   confirmarEliminar() {
-    console.log('Operario eliminado (Simulación)');
-    this.cerrarModal();
+    if (!this.operarioAEliminarId) return;
+    this.usuarioService.eliminarUsuario(this.operarioAEliminarId).subscribe({
+      next: (res) => {
+        if (res.status === 'success') {
+          this.mostrarMensaje('Operario eliminado correctamente.', false);
+          this.cerrarModal();
+          this.cargarOperarios();
+        } else {
+          this.mostrarMensaje(res.message || 'No se pudo eliminar el operario.', true);
+          this.cerrarModal();
+        }
+      },
+      error: () => this.mostrarMensaje('Error de conexión al eliminar.', true)
+    });
   }
-  
-trackByOperarioId(index: number, operario: any): number {
-  return operario.id;
-}
+
+  trackByOperarioId(index: number, operario: any): number {
+    return operario.id;
+  }
+
+  /** Muestra un mensaje de feedback temporal durante 4 segundos. */
+  private mostrarMensaje(texto: string, esError: boolean) {
+    this.mensajeFeedback = texto;
+    this.esMensajeError = esError;
+    setTimeout(() => this.mensajeFeedback = null, 4000);
+  }
 }

@@ -1,3 +1,10 @@
+<!-- 
+  Proyecto: TicketingEVG
+  Alumno: Joseph Joel Quispe Alvarez
+  Asignatura: DAW
+  Curso: 2 DAW
+  Descripción: Formulario para crear un nuevo ticket de soporte.
+-->
 <div class="sergio">
 	<header>
 		<div class="d-flex align-items-center gap-2 me-2">
@@ -32,7 +39,15 @@
 				</div>
 			</div>
 
-			<form class="tarjeta-formulario">
+			<!-- Mensajes de feedback -->
+			<div *ngIf="mensajeError" class="alert alert-danger mb-3 py-2 small fw-bold rounded-3">
+				<i class="fa-solid fa-circle-exclamation me-2"></i>{{ mensajeError }}
+			</div>
+			<div *ngIf="mensajeExito" class="alert alert-success mb-3 py-2 small fw-bold rounded-3">
+				<i class="fa-solid fa-circle-check me-2"></i>{{ mensajeExito }}
+			</div>
+
+			<form class="tarjeta-formulario" [formGroup]="formulario" (ngSubmit)="onEnviar()">
 				<div class="cabecera-seccion-form">
 					<i class="fa-solid fa-circle-plus"></i>
 					<h2>Información general</h2>
@@ -40,39 +55,45 @@
 				<div class="cuerpo-formulario">
 					<div class="row g-4">
 						<div class="col-md-6">
-							<label class="etiqueta-form">Tipo de solicitud</label>
-							<select class="control-form control-select">
+							<label class="etiqueta-form" for="campo-tipo">Tipo de solicitud</label>
+							<select id="campo-tipo" class="control-form control-select" formControlName="tipo">
 								<option value="incidencia">INCIDENCIA</option>
 								<option value="peticion">PETICIÓN DE SERVICIO</option>
 							</select>
 						</div>
 						<div class="col-md-6">
-							<label class="etiqueta-form">Prioridad</label>
-							<select class="control-form control-select">
+							<label class="etiqueta-form" for="campo-prioridad">Prioridad</label>
+							<select id="campo-prioridad" class="control-form control-select" formControlName="prioridad">
 								<option value="baja">BAJA</option>
-								<option value="media" selected>MEDIA</option>
+								<option value="media">MEDIA</option>
 								<option value="alta">ALTA</option>
 								<option value="urgente">URGENTE</option>
 							</select>
 						</div>
 						<div class="col-md-6">
-							<label class="etiqueta-form">Fecha límite o esperada (opcional)</label>
-							<input type="date" class="control-form">
+							<label class="etiqueta-form" for="campo-fecha">Fecha límite o esperada (opcional)</label>
+							<input id="campo-fecha" type="date" class="control-form" formControlName="fecha_limite">
 						</div>
 						<div class="col-md-6">
-							<label class="etiqueta-form">Categoría técnica</label>
-							<select class="control-form control-select">
-								<option value="" disabled selected>Selecciona una categoría</option>
+							<label class="etiqueta-form" for="campo-categoria">
+								Categoría técnica <span class="text-danger">*</span>
+							</label>
+							<select id="campo-categoria" class="control-form control-select" formControlName="categoria"
+								[class.is-invalid]="formulario.get('categoria')?.invalid && formulario.get('categoria')?.touched">
+								<option value="" disabled>Selecciona una categoría</option>
 								<option value="software">Soporte Software</option>
 								<option value="hardware">Hardware / Equipos</option>
 								<option value="redes">Redes y Conectividad</option>
 								<option value="mantenimiento">Mantenimiento General</option>
 							</select>
+							<div class="text-danger small mt-1" *ngIf="formulario.get('categoria')?.invalid && formulario.get('categoria')?.touched">
+								La categoría es obligatoria.
+							</div>
 						</div>
 						<div class="col-md-6">
-							<label class="etiqueta-form">Ubicación / Aula</label>
-							<select class="control-form control-select">
-								<option value="" disabled selected>Selecciona ubicación</option>
+							<label class="etiqueta-form" for="campo-ubicacion">Ubicación / Aula</label>
+							<select id="campo-ubicacion" class="control-form control-select" formControlName="ubicacion">
+								<option value="" disabled>Selecciona ubicación</option>
 								<option value="aula101">Aula 101</option>
 								<option value="aula102">Aula 102</option>
 								<option value="aula201">Aula 201</option>
@@ -84,12 +105,33 @@
 							</select>
 						</div>
 						<div class="col-12">
-							<label class="etiqueta-form">Título breve del asunto</label>
-							<input type="text" class="control-form" placeholder="Ej: No funciona la impresora en Aula 203">
+							<label class="etiqueta-form" for="campo-titulo">
+								Título breve del asunto <span class="text-danger">*</span>
+							</label>
+							<input id="campo-titulo" type="text" class="control-form" formControlName="titulo"
+								placeholder="Ej: No funciona la impresora en Aula 203"
+								[class.is-invalid]="formulario.get('titulo')?.invalid && formulario.get('titulo')?.touched">
+							<div class="text-danger small mt-1" *ngIf="formulario.get('titulo')?.errors?.['required'] && formulario.get('titulo')?.touched">
+								El título es obligatorio.
+							</div>
+							<div class="text-danger small mt-1" *ngIf="formulario.get('titulo')?.errors?.['minlength'] && formulario.get('titulo')?.touched">
+								El título debe tener al menos 5 caracteres.
+							</div>
 						</div>
 						<div class="col-12">
-							<label class="etiqueta-form">Descripción detallada</label>
-							<textarea class="control-form" placeholder="Describe el problema o tu solicitud con el mayor detalle posible..."></textarea>
+							<label class="etiqueta-form" for="campo-descripcion">
+								Descripción detallada <span class="text-danger">*</span>
+							</label>
+							<textarea id="campo-descripcion" class="control-form" formControlName="descripcion"
+								placeholder="Describe el problema o tu solicitud con el mayor detalle posible..."
+								[class.is-invalid]="formulario.get('descripcion')?.invalid && formulario.get('descripcion')?.touched">
+							</textarea>
+							<div class="text-danger small mt-1" *ngIf="formulario.get('descripcion')?.errors?.['required'] && formulario.get('descripcion')?.touched">
+								La descripción es obligatoria.
+							</div>
+							<div class="text-danger small mt-1" *ngIf="formulario.get('descripcion')?.errors?.['minlength'] && formulario.get('descripcion')?.touched">
+								La descripción debe tener al menos 10 caracteres.
+							</div>
 							<span class="hint-form">Incluye cualquier paso que hayas intentado ya para solucionar el problema.</span>
 						</div>
 					</div>
@@ -97,7 +139,10 @@
 				<div class="modal-pie-premium border-top bg-light" style="padding: 1.5rem 2rem;">
 					<div class="ms-auto d-flex align-items-center gap-3">
 						<a routerLink="/portal-tickets/tickets" class="boton-cancelar">Cancelar</a>
-						<button type="submit" class="boton-enviar"><i class="fa-solid fa-paper-plane"></i> Enviar ticket</button>
+						<button type="submit" class="boton-enviar" [disabled]="enviando">
+							<span *ngIf="!enviando"><i class="fa-solid fa-paper-plane"></i> Enviar ticket</span>
+							<span *ngIf="enviando"><i class="fa-solid fa-spinner fa-spin"></i> Enviando...</span>
+						</button>
 					</div>
 				</div>
 			</form>

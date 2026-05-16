@@ -48,6 +48,14 @@ switch ($entidad) {
         } else if ($accion === 'estadisticas') {
             $respuesta = $controlador->get_estadisticas();
             V_Ticket::responder($respuesta);
+        } else if ($accion === 'guardar' && ($metodo === 'POST' || $metodo === 'PUT')) {
+            $input = json_decode(file_get_contents('php://input'), true);
+            $respuesta = $controlador->guardar($input);
+            V_Ticket::responder($respuesta);
+        } else if ($accion === 'eliminar' && $metodo === 'DELETE') {
+            $id = $_GET['id'] ?? null;
+            $respuesta = $controlador->borrar($id);
+            V_Ticket::responder($respuesta);
         } else {
             V_Ticket::responder(["error" => "Acción no reconocida para usuario"]);
         }

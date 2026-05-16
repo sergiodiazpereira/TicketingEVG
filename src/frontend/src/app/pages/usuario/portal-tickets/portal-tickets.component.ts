@@ -68,50 +68,8 @@ export class PortalTicketsComponent implements OnInit {
    */
   ngOnInit(): void {
     this.usuario_actual = this.authService.getUsuarioActual();
-    
-    // Tickets de ejemplo para demostración final
-    this.tickets = [
-      {
-        id: 'TKT-1001',
-        titulo: 'Fallo conexión Wi-Fi Sala Profesores',
-        descripcion: 'La red no aparece en los dispositivos del aula.',
-        fecha_creacion: '2026-05-15',
-        tipo: 'incidencia',
-        estado: 'pendiente',
-        prioridad: 'a',
-        id_Usuario_Creador: 3,
-        id_Categoria: 1
-      },
-      {
-        id: 'TKT-1002',
-        titulo: 'Instalación de software estadístico',
-        descripcion: 'Necesito instalar SPSS en los equipos del laboratorio.',
-        fecha_creacion: '2026-05-14',
-        tipo: 'peticion',
-        estado: 'resuelto',
-        prioridad: 'm',
-        id_Usuario_Creador: 3,
-        id_Usuario_Encargado: 4,
-        id_Categoria: 2
-      },
-      {
-        id: 'TKT-1003',
-        titulo: 'Proyector muestra imagen borrosa',
-        descripcion: 'El proyector del Aula 102 necesita calibración.',
-        fecha_creacion: '2026-05-13',
-        tipo: 'incidencia',
-        estado: 'proceso',
-        prioridad: 'a',
-        id_Usuario_Creador: 3,
-        id_Usuario_Encargado: 4,
-        id_Categoria: 1
-      }
-    ];
-    this.calcularStats();
-
-    if (this.usuario_actual) {
-      // this.cargarTickets();
-    }
+    if (this.usuario_actual)
+      this.cargarTickets();
   }
 
   /**

@@ -1,21 +1,44 @@
+<!-- 
+  Proyecto: TicketingEVG
+  Alumno: Joseph Joel Quispe Alvarez
+  Asignatura: DAW
+  Curso: 2 DAW
+  Descripción: Modal de formulario para crear o editar un operario.
+-->
 <div class="modal-overlay">
     <div class="modal-container modal-form shadow-lg">
         <div class="modal-header">
             <button class="btn-close" (click)="cerrar.emit()">&times;</button>
             <h2 class="modal-title">{{ operario ? 'Modificar Operario' : 'Nuevo Operario' }}</h2>
-            <p class="modal-subtitle">Actualiza la información del técnico en el sistema</p>
+            <p class="modal-subtitle">{{ operario ? 'Actualiza la información del técnico en el sistema.' : 'Completa los datos para añadir un nuevo técnico.' }}</p>
         </div>
 
-        <div class="modal-body">
+        <div class="modal-body" [formGroup]="formulario">
             <div class="form-row">
                 <div class="form-group">
-                    <label class="form-label">Nombre Completo</label>
-                    <input type="text" class="form-control" [value]="operario?.nombre || ''" placeholder="Ej: Administrador Sistema">
+                    <label class="form-label" for="campo-nombre">Nombre Completo</label>
+                    <input
+                        id="campo-nombre"
+                        type="text"
+                        class="form-control"
+                        formControlName="nombre"
+                        placeholder="Ej: Administrador Sistema"
+                        [class.is-invalid]="formulario.get('nombre')?.invalid && formulario.get('nombre')?.touched"
+                    >
+                    <div class="invalid-feedback" *ngIf="formulario.get('nombre')?.errors?.['required'] && formulario.get('nombre')?.touched">
+                        El nombre es obligatorio.
+                    </div>
+                    <div class="invalid-feedback" *ngIf="formulario.get('nombre')?.errors?.['minlength'] && formulario.get('nombre')?.touched">
+                        El nombre debe tener al menos 3 caracteres.
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Tipo de Perfil</label>
-                    <select class="form-control" [value]="operario?.rol || 'trabajador'">
-                        <option value="admin">Administrador</option>
+                    <label class="form-label" for="campo-rol">Tipo de Perfil</label>
+                    <select
+                        id="campo-rol"
+                        class="form-control"
+                        formControlName="rol"
+                    >
                         <option value="responsable">Responsable</option>
                         <option value="trabajador">Trabajador</option>
                     </select>
@@ -24,38 +47,35 @@
 
             <div class="form-row">
                 <div class="form-group full-width">
-                    <label class="form-label">Correo Corporativo</label>
-                    <input type="text" class="form-control" [value]="operario?.email || ''" placeholder="ejemplo@ticketing.com">
+                    <label class="form-label" for="campo-correo">Correo Corporativo</label>
+                    <input
+                        id="campo-correo"
+                        type="email"
+                        class="form-control"
+                        formControlName="correo"
+                        placeholder="ejemplo@ticketing.com"
+                        [class.is-invalid]="formulario.get('correo')?.invalid && formulario.get('correo')?.touched"
+                    >
+                    <div class="invalid-feedback" *ngIf="formulario.get('correo')?.errors?.['required'] && formulario.get('correo')?.touched">
+                        El correo es obligatorio.
+                    </div>
+                    <div class="invalid-feedback" *ngIf="formulario.get('correo')?.errors?.['email'] && formulario.get('correo')?.touched">
+                        Introduce un correo electrónico válido.
+                    </div>
                 </div>
             </div>
 
             <div class="form-group full-width">
-                <label class="form-label">Categorías</label>
+                <label class="form-label">Categorías Asignadas</label>
                 <div class="categories-container">
                     <div class="categories-grid">
-                        <label class="category-item">
-                            <input type="checkbox" name="cat1" [checked]="operario?.num_categorias > 0">
-                            <span class="category-label">Soporte Nivel 1</span>
-                        </label>
-                        <label class="category-item">
-                            <input type="checkbox" name="cat2" [checked]="operario?.num_categorias > 1">
-                            <span class="category-label">Soporte Nivel 2</span>
-                        </label>
-                        <label class="category-item">
-                            <input type="checkbox" name="cat3">
-                            <span class="category-label">Mantenimiento General</span>
-                        </label>
-                        <label class="category-item">
-                            <input type="checkbox" name="cat4">
-                            <span class="category-label">Redes y Sistemas</span>
-                        </label>
-                        <label class="category-item">
-                            <input type="checkbox" name="cat5">
-                            <span class="category-label">Seguridad Perimetral</span>
-                        </label>
-                        <label class="category-item">
-                            <input type="checkbox" name="cat6">
-                            <span class="category-label">Gestión Operativa</span>
+                        <label class="category-item" *ngFor="let cat of categorias">
+                            <input
+                                type="checkbox"
+                                [checked]="estaSeleccionada(cat.id)"
+                                (change)="toggleCategoria(cat.id)"
+                            >
+                            <span class="category-label">{{ cat.nombre }}</span>
                         </label>
                     </div>
                 </div>
@@ -63,8 +83,10 @@
         </div>
 
         <div class="modal-footer">
-            <button class="btn btn-text" (click)="cerrar.emit()">Cancelar</button>
-            <button class="btn btn-primary shadow-sm" (click)="guardar.emit()">Guardar Cambios</button>
+            <button class="btn btn-text" type="button" (click)="cerrar.emit()">Cancelar</button>
+            <button class="btn btn-primary shadow-sm" type="button" (click)="onGuardar()">
+                {{ operario ? 'Guardar Cambios' : 'Crear Operario' }}
+            </button>
         </div>
     </div>
 </div>

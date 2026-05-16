@@ -48,11 +48,7 @@ export class ListaTicketsComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error al cargar tickets', err);
-          // Mocks por si la API falla
-          this.tickets = [
-            { id: 'TKT-1001', titulo: 'Fallo conexión Wi-Fi', descripcion: 'La red no aparece...', fecha_creacion: '2026-05-15', tipo: 'incidencia', estado: 'pendiente', prioridad: 'a', id_Usuario_Creador: 1, id_Categoria: 1 },
-            { id: 'TKT-1002', titulo: 'Instalación de software', descripcion: 'Necesito SPSS...', fecha_creacion: '2026-05-14', tipo: 'peticion', estado: 'resuelto', prioridad: 'm', id_Usuario_Creador: 1, id_Categoria: 2 }
-          ];
+          this.tickets = [];
         }
       });
     }
