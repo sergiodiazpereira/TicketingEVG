@@ -16,10 +16,18 @@ class C_Usuario {
         $this->modelo = new M_Usuario();
     }
 
+    /**
+     * Obtiene la lista de operarios del sistema.
+     * @return array
+     */
     public function listar_operarios() {
         return $this->modelo->listar_operarios();
     }
 
+    /**
+     * Obtiene estadísticas globales de los usuarios.
+     * @return array
+     */
     public function get_estadisticas() {
         return $this->modelo->get_estadisticas();
     }

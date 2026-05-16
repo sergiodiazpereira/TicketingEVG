@@ -44,15 +44,23 @@
 }
 
 .badge-responsable {
-	color: var(--amarillo);
-	background-color: #fffbeb;
+	color: #dd9933;
+	background-color: #fff7e6;
 	font-weight: 700;
+	font-size: 0.65rem;
+	padding: 0.3rem 0.8rem !important;
+	letter-spacing: 0.5px;
+	border: none;
 }
 
 .badge-trabajador {
 	color: #6c757d;
 	background-color: #f1f3f5;
 	font-weight: 700;
+	font-size: 0.65rem;
+	padding: 0.3rem 0.8rem !important;
+	letter-spacing: 0.5px;
+	border: none;
 }
 
 .icono-categoria {

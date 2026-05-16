@@ -91,7 +91,7 @@
 				<div class="cuerpo-tickets">
 					@if (tickets.length > 0) {
 						@for (ticket of tickets.slice(0, 8); track ticket.id) {
-							<div class="fila-ticket">
+							<div class="fila-ticket" (click)="abrirModalTicket(ticket)">
 								<div class="punto-ticket" [ngClass]="ticket.tipo === 'incidencia' ? 'rojo' : 'azul'">
 									<i class="fa-solid" [ngClass]="ticket.tipo === 'incidencia' ? 'fa-circle-exclamation' : 'fa-circle-info'"></i>
 								</div>
@@ -117,3 +117,11 @@
 	</main>
 	<app-footer></app-footer>
 </div>
+
+<!-- Modal de detalles de ticket -->
+<app-modal-ticket 
+    *ngIf="mostrarModalTicket" 
+    [ticket]="ticketSeleccionado" 
+    [rolUsuario]="usuario_actual?.rol || 'profesor'" 
+    (cerrar)="cerrarModalTicket()">
+</app-modal-ticket>

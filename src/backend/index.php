@@ -9,7 +9,7 @@
 
 require_once __DIR__ . '/Controllers/C_Ticket.php';
 require_once __DIR__ . '/Controllers/C_Usuario.php';
-require_once __DIR__ . '/Controllers/C_Categoria.php';
+require_once __DIR__ . '/Controllers/C_Dashboard.php';
 require_once __DIR__ . '/Views/V_Ticket.php';
 
 // Cabeceras CORS
@@ -30,6 +30,16 @@ if ($metodo === 'OPTIONS') {
 
 // Enrutamiento principal por entidad
 switch ($entidad) {
+    case 'dashboard':
+        $controlador = new C_Dashboard();
+        if ($accion === 'obtener_datos') {
+            $respuesta = $controlador->obtenerDatos();
+            V_Ticket::responder($respuesta);
+        } else {
+            V_Ticket::responder(["error" => "Acción no reconocida para dashboard"]);
+        }
+        break;
+        
     case 'usuario':
         $controlador = new C_Usuario();
         if ($accion === 'listar_operarios') {
@@ -40,16 +50,6 @@ switch ($entidad) {
             V_Ticket::responder($respuesta);
         } else {
             V_Ticket::responder(["error" => "Acción no reconocida para usuario"]);
-        }
-        break;
-
-    case 'categoria':
-        $controlador = new C_Categoria();
-        if ($accion === 'listar') {
-            $respuesta = $controlador->listar();
-            V_Ticket::responder($respuesta);
-        } else {
-            V_Ticket::responder(["error" => "Acción no reconocida para categoria"]);
         }
         break;
 

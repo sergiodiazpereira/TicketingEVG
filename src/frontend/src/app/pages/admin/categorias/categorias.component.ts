@@ -4,7 +4,6 @@ import { FooterComponent } from '../../../shared/layout/footer/footer.component'
 import { SidebarComponent } from '../../../shared/layout/sidebar/sidebar.component';
 import { AuthService } from '../../../services/auth.service';
 import { Usuario } from '../../../models/usuario.model';
-import { CategoriaService } from '../../../services/categoria.service';
 import { Categoria } from '../../../models/categoria.model';
 import { ConfirmacionEliminarComponent } from '../../modales/confirmacion-eliminar/confirmacion-eliminar.component';
 import { FormularioCategoriaComponent } from '../../modales/formulario-categoria/formulario-categoria.component';
@@ -24,29 +23,17 @@ export class CategoriasComponent implements OnInit {
   categoriaAEditar: any = null;
 
   constructor(
-    private authService: AuthService, 
-    private categoriaService: CategoriaService
+    private authService: AuthService
   ) {
     this.usuario_actual = this.authService.getUsuarioActual();
   }
 
   ngOnInit(): void {
-    this.categoriaService.getCategorias().subscribe({
-      next: (data) => {
-        // Asegurar que data sea un array para evitar errores en @for
-        this.categorias = Array.isArray(data) && data.length > 0 ? data : [
-          { id: 1, nombre: 'Soporte Nivel 1', descripcion: '', operarios: 8, tickets: 15 },
-          { id: 2, nombre: 'Soporte Nivel 2', descripcion: '', operarios: 5, tickets: 8 }
-        ] as any;
-      },
-      error: (err) => {
-        console.error('Error al cargar categorías', err);
-        this.categorias = [
-          { id: 1, nombre: 'Soporte Nivel 1', descripcion: '', operarios: 8, tickets: 15 },
-          { id: 2, nombre: 'Soporte Nivel 2', descripcion: '', operarios: 5, tickets: 8 }
-        ] as any;
-      }
-    });
+    // Datos de prueba estáticos (ya que no hay backend)
+    this.categorias = [
+      { id: 1, nombre: 'Soporte Nivel 1', operarios: 8, tickets: 15 } as any,
+      { id: 2, nombre: 'Soporte Nivel 2', operarios: 5, tickets: 8 } as any
+    ];
   }
 
   abrirModalFormulario(categoria?: any) {

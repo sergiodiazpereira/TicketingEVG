@@ -12,13 +12,14 @@ import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../../shared/layout/footer/footer.component';
 import { AuthService } from '../../../services/auth.service';
 import { TicketService } from '../../../services/ticket.service';
+import { ModalTicketComponent } from '../../modales/modal-ticket/modal-ticket.component';
 import { Usuario } from '../../../models/usuario.model';
 import { Ticket } from '../../../models/ticket.model';
 
 @Component({
   selector: 'app-portal-tickets',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, FooterComponent], 
+  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, FooterComponent, ModalTicketComponent], 
   templateUrl: './portal-tickets.component.html',
   styleUrl: './portal-tickets.component.css'
 })
@@ -27,6 +28,10 @@ export class PortalTicketsComponent implements OnInit {
   usuario_actual: Usuario | null = null;
   /** Lista de tickets del usuario */
   tickets: Ticket[] = [];
+  
+  /** Gestión del modal de detalles */
+  mostrarModalTicket: boolean = false;
+  ticketSeleccionado: any = null;
   
   /** Estadísticas calculadas dinámicamente */
   stats = {
@@ -175,5 +180,15 @@ export class PortalTicketsComponent implements OnInit {
       prioridad: 'media',
       categoriaId: 1
     };
+  }
+
+  abrirModalTicket(ticket: any) {
+    this.ticketSeleccionado = ticket;
+    this.mostrarModalTicket = true;
+  }
+
+  cerrarModalTicket() {
+    this.mostrarModalTicket = false;
+    this.ticketSeleccionado = null;
   }
 }

@@ -42,64 +42,44 @@
 
 			@if (tickets.length > 0) {
 				<div class="listado-tickets">
-					<div class="tarjeta-ticket-detallada incidencia" style="animation-delay: .1s">
-					<div class="cabecera-card-ticket">
-						<div class="tipo-ticket"><i class="fa-solid fa-circle-exclamation"></i> <span>INCIDENCIA</span></div>
-						<div class="badges-ticket">
-							<span class="badge-prioridad alta">ALTA</span>
-							<span class="etiqueta-estado proceso">EN PROCESO</span>
-						</div>
-					</div>
-					<h3 class="titulo-ticket">ORDENADOR NO ENCIENDE EN AULA 203</h3>
-					<div class="asignacion-ticket"><i class="fa-solid fa-user-gear"></i> <span>ASIGNADO A: <strong>TRABAJADOR-1</strong></span></div>
-					<p class="descripcion-ticket">El ordenador del profesor en el Aula 203 no enciende. He revisado que está conectado a la corriente pero no responde al pulsar el botón de encendido.</p>
-					<div class="pie-card-ticket">
-						<div class="categoria-ticket"><i class="fa-solid fa-tags"></i> <span>SOPORTE SOFTWARE</span></div>
-						<div class="info-derecha-ticket">
-							<span class="localizacion">LOCALIZACIÓN: <strong>AULA 203, EDIFICIO B</strong></span>
-							<a href="#" class="enlace-detalles">DETALLES <i class="fa-solid fa-arrow-right"></i></a>
-						</div>
-					</div>
-				</div>
+					@for (ticket of tickets; track ticket.id) {
+						<div class="tarjeta-ticket-detallada" [ngClass]="ticket.tipo === 'incidencia' ? 'incidencia' : 'peticion'">
+							<div class="cabecera-card-ticket">
+								<div class="tipo-ticket">
+									<i class="fa-solid" [ngClass]="ticket.tipo === 'incidencia' ? 'fa-circle-exclamation' : 'fa-circle-info'"></i> 
+									<span>{{ ticket.tipo | uppercase }}</span>
+								</div>
+								<div class="badges-ticket">
+									<span class="badge-prioridad" [ngClass]="{
+										'alta': ticket.prioridad === 'a',
+										'media': ticket.prioridad === 'm'
+									}">{{ ticket.prioridad === 'a' ? 'ALTA' : (ticket.prioridad === 'm' ? 'MEDIA' : 'BAJA') }}</span>
+									<span class="etiqueta-estado" [ngClass]="ticket.estado">
+										{{ ticket.estado === 'proceso' ? 'EN PROCESO' : (ticket.estado | uppercase) }}
+									</span>
+								</div>
+							</div>
+							<h3 class="titulo-ticket">{{ ticket.titulo }}</h3>
+							
+							@if (ticket.id_Usuario_Encargado) {
+								<div class="asignacion-ticket">
+									<i class="fa-solid fa-user-gear"></i> 
+									<span>ASIGNADO A: <strong>TÉCNICO #{{ ticket.id_Usuario_Encargado }}</strong></span>
+								</div>
+							}
 
-				<div class="tarjeta-ticket-detallada peticion" style="animation-delay: .2s">
-					<div class="cabecera-card-ticket">
-						<div class="tipo-ticket"><i class="fa-solid fa-circle-info"></i> <span>PETICIÓN DE SERVICIO</span></div>
-						<div class="badges-ticket">
-							<span class="badge-prioridad media">MEDIA</span>
-							<span class="etiqueta-estado pendiente">PENDIENTE</span>
+							<p class="descripcion-ticket">{{ ticket.descripcion }}</p>
+							<div class="pie-card-ticket">
+								<div class="categoria-ticket"><i class="fa-solid fa-tags"></i> <span>CATEGORÍA #{{ ticket.id_Categoria }}</span></div>
+								<div class="info-derecha-ticket">
+									<span class="localizacion">FECHA: <strong>{{ ticket.fecha_creacion }}</strong></span>
+									<a (click)="abrirModalTicket(ticket)" class="enlace-detalles" style="cursor: pointer;">
+										DETALLES <i class="fa-solid fa-arrow-right"></i>
+									</a>
+								</div>
+							</div>
 						</div>
-					</div>
-					<h3 class="titulo-ticket">SOLICITUD DE MARCADORES PARA PIZARRA</h3>
-					<p class="descripcion-ticket">Necesito 10 marcadores de colores variados para la pizarra blanca del Aula 105. Los actuales están secos y no escriben bien.</p>
-					<div class="pie-card-ticket">
-						<div class="categoria-ticket"><i class="fa-solid fa-tags"></i> <span>MANTENIMIENTO GENERAL</span></div>
-						<div class="info-derecha-ticket">
-							<span class="localizacion">LOCALIZACIÓN: <strong>AULA 105, EDIFICIO A</strong></span>
-							<a href="#" class="enlace-detalles">DETALLES <i class="fa-solid fa-arrow-right"></i></a>
-						</div>
-					</div>
-				</div>
-
-				<div class="tarjeta-ticket-detallada incidencia" style="animation-delay: .3s">
-					<div class="cabecera-card-ticket">
-						<div class="tipo-ticket"><i class="fa-solid fa-circle-exclamation"></i> <span>INCIDENCIA</span></div>
-						<div class="badges-ticket">
-							<span class="badge-prioridad alta">ALTA</span>
-							<span class="etiqueta-estado asignado">ASIGNADO</span>
-						</div>
-					</div>
-					<h3 class="titulo-ticket">PROYECTOR MUESTRA IMAGEN BORROSA</h3>
-					<div class="asignacion-ticket"><i class="fa-solid fa-user-gear"></i> <span>ASIGNADO A: <strong>TRABAJADOR-1</strong></span></div>
-					<p class="descripcion-ticket">El proyector del Aula 102 no enfoca correctamente a pesar de ajustar la lente. Se requiere revisión técnica urgente.</p>
-					<div class="pie-card-ticket">
-						<div class="categoria-ticket"><i class="fa-solid fa-tags"></i> <span>SISTEMAS AUDIOVISUALES</span></div>
-						<div class="info-derecha-ticket">
-							<span class="localizacion">LOCALIZACIÓN: <strong>AULA 102, EDIFICIO A</strong></span>
-							<a href="#" class="enlace-detalles">DETALLES <i class="fa-solid fa-arrow-right"></i></a>
-						</div>
-					</div>
-				</div>
+					}
 				</div>
 			} @else {
 				<div class="estado-vacio con-borde">
@@ -110,4 +90,13 @@
 			}
 		</div>
 	</main>
+    <app-footer></app-footer>
 </div>
+
+<!-- Modal de detalles de ticket -->
+<app-modal-ticket 
+    *ngIf="mostrarModalTicket" 
+    [ticket]="ticketSeleccionado" 
+    [rolUsuario]="usuario_actual?.rol || 'profesor'" 
+    (cerrar)="cerrarModalTicket()">
+</app-modal-ticket>
