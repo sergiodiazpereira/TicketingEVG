@@ -4,97 +4,85 @@
  * Alumno: Joseph Joel Quispe Alvarez
  * Asignatura: DAW
  * Curso: 2025-2026
- * Descripción: Enrutador principal de la API. Dirige las peticiones al controlador adecuado.
+ * Descripción: Enrutador dinámico para la API PHP. 
  */
 
-require_once __DIR__ . '/Controllers/C_Ticket.php';
-require_once __DIR__ . '/Controllers/C_Usuario.php';
-require_once __DIR__ . '/Controllers/C_Dashboard.php';
-require_once __DIR__ . '/Views/V_Ticket.php';
-
-// Cabeceras CORS
+// Cabeceras y CORS
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Content-Type: application/json; charset=utf-8");
 
-// Capturar el método y la acción de la URL
-$metodo = $_SERVER['REQUEST_METHOD'];
-$entidad = $_GET['entidad'] ?? 'ticket'; // Por defecto ticket para mantener retrocompatibilidad
-$accion = $_GET['accion'] ?? '';
-
-// Manejo de peticiones OPTIONS (Preflight para CORS)
-if ($metodo === 'OPTIONS') {
-    V_Ticket::responder(["status" => "ok"]);
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    echo json_encode(["status" => "ok"]);
+    exit;
 }
 
-// Enrutamiento principal por entidad
-switch ($entidad) {
-    case 'dashboard':
-        $controlador = new C_Dashboard();
-        if ($accion === 'obtener_datos') {
-            $respuesta = $controlador->obtenerDatos();
-            V_Ticket::responder($respuesta);
-        } else {
-            V_Ticket::responder(["error" => "Acción no reconocida para dashboard"]);
-        }
-        break;
-        
-    case 'usuario':
-        $controlador = new C_Usuario();
-        if ($accion === 'listar_operarios') {
-            $respuesta = $controlador->listar_operarios();
-            V_Ticket::responder($respuesta);
-        } else if ($accion === 'estadisticas') {
-            $respuesta = $controlador->get_estadisticas();
-            V_Ticket::responder($respuesta);
-        } else if ($accion === 'guardar' && ($metodo === 'POST' || $metodo === 'PUT')) {
-            $input = json_decode(file_get_contents('php://input'), true);
-            $respuesta = $controlador->guardar($input);
-            V_Ticket::responder($respuesta);
-        } else if ($accion === 'eliminar' && $metodo === 'DELETE') {
-            $id = $_GET['id'] ?? null;
-            $respuesta = $controlador->borrar($id);
-            V_Ticket::responder($respuesta);
-        } else {
-            V_Ticket::responder(["error" => "Acción no reconocida para usuario"]);
-        }
-        break;
+// 1. Obtener controlador y método directamente de la URL
+$entidad = $_GET['entidad'] ?? 'ticket';
+$metodo  = $_GET['accion']  ?? '';
 
-    case 'ticket':
-    default:
-        $controlador = new C_Ticket();
-        switch ($accion) {
-            case 'listar':
-                $id_usuario = $_GET['usuario_id'] ?? null;
-                $respuesta = $controlador->listar($id_usuario);
-                V_Ticket::responder($respuesta);
-                break;
-            case 'crear':
-                if ($metodo === 'POST') {
-                    $input = json_decode(file_get_contents('php://input'), true);
-                    $respuesta = $controlador->guardar($input);
-                    V_Ticket::responder($respuesta);
-                }
-                break;
-            case 'actualizar':
-                if ($metodo === 'PUT') {
-                    $input = json_decode(file_get_contents('php://input'), true);
-                    $respuesta = $controlador->cambiar_estado($input['id'], $input['estado']);
-                    V_Ticket::responder($respuesta);
-                }
-                break;
-            case 'eliminar':
-                if ($metodo === 'DELETE') {
-                    $id = $_GET['id'] ?? '';
-                    $respuesta = $controlador->borrar($id);
-                    V_Ticket::responder($respuesta);
-                }
-                break;
-            default:
-                V_Ticket::responder(["error" => "Acción API no reconocida o método no permitido"]);
-                break;
-        }
-        break;
+$clase   = 'C_' . ucfirst(strtolower($entidad));
+$archivo = __DIR__ . "/Controllers/{$clase}.php";
+
+// 2. Cargar e instanciar controlador
+if (!file_exists($archivo)) {
+    echo json_encode(["error" => "Controlador '{$entidad}' no encontrado."]);
+    exit;
 }
-?>
+require_once $archivo;
+$ctrl = new $clase();
+
+if (!method_exists($ctrl, $metodo)) {
+    echo json_encode(["error" => "Método '{$metodo}' no encontrado en '{$entidad}'."]);
+    exit;
+}
+
+// 3. Unificar datos de entrada (GET, POST y JSON Body)
+$datos = array_merge($_GET, $_POST, json_decode(file_get_contents('php://input'), true) ?? []);
+
+// 4. Inyectar parámetros mediante Reflexión (para pasar argumentos al método)
+$ref = new ReflectionMethod($ctrl, $metodo);
+$args = [];
+$payload = array_diff_key($datos, array_flip(['entidad', 'accion']));
+
+foreach ($ref->getParameters() as $p) {
+    $nombre = $p->getName();
+    
+    if (in_array($nombre, ['json_data', 'datos', 'data', 'input'])) {
+        $args[] = $payload;
+    } else {
+        $valor = null;
+
+        // 1. Buscar coincidencia exacta (ej: id, estado)
+        if (isset($datos[$nombre])) {
+            $valor = $datos[$nombre];
+        } 
+        // 2. Si el parámetro en PHP es 'id_usuario', buscar 'usuario_id' en la petición de Angular
+        else {
+            $variante1 = str_replace('id_', '', $nombre) . '_id';
+            if (isset($datos[$variante1])) {
+                $valor = $datos[$variante1];
+            } 
+            // 3. Si el parámetro en PHP es 'usuario_id', buscar 'id_usuario' en la petición
+            else {
+                $variante2 = 'id_' . str_replace('_id', '', $nombre);
+                if (isset($datos[$variante2])) {
+                    $valor = $datos[$variante2];
+                }
+            }
+        }
+
+        // 4. Si el valor sigue siendo null, comprobar si el parámetro tiene un valor por defecto en la firma del método
+        if ($valor === null) {
+            if ($p->isDefaultValueAvailable()) {
+                $valor = $p->getDefaultValue();
+            }
+        }
+
+        $args[] = $valor;
+    }
+}
+
+// 5. Ejecutar y devolver respuesta directamente en JSON
+echo json_encode($ref->invokeArgs($ctrl, $args), JSON_UNESCAPED_UNICODE);

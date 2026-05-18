@@ -43,7 +43,7 @@ export class TicketService {
    * @returns Observable con la respuesta del servidor.
    */
   crearTicket(ticket: Partial<Ticket>): Observable<any> {
-    return this.http.post(`${this.apiUrl}?accion=crear`, ticket);
+    return this.http.post(`${this.apiUrl}?accion=guardar`, ticket);
   }
 
   /**
@@ -52,7 +52,7 @@ export class TicketService {
    * @param estado Nuevo estado.
    */
   actualizarEstado(id: string, estado: string): Observable<any> {
-    return this.http.put(`${this.apiUrl}?accion=actualizar`, { id, estado });
+    return this.http.put(`${this.apiUrl}?accion=cambiar_estado`, { id, estado });
   }
 
   /**
@@ -60,6 +60,6 @@ export class TicketService {
    * @param id Identificador del ticket.
    */
   eliminarTicket(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}?accion=eliminar&id=${id}`);
+    return this.http.delete(`${this.apiUrl}?accion=borrar&id=${id}`);
   }
 }
