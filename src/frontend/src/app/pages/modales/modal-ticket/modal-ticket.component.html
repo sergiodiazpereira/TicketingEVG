@@ -50,7 +50,7 @@
         </div>
 
         <!-- TARJETA TÉCNICO ASIGNADO -->
-        <div class="assigned-tech-card" *ngIf="ticket.id_Usuario_Encargado" style="margin-bottom: 25px; display: flex; align-items: center; gap: 15px;">
+        <div class="assigned-tech-card" *ngIf="ticket.id_usuario_encargado" style="margin-bottom: 25px; display: flex; align-items: center; gap: 15px;">
             <div class="tech-icon">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -60,12 +60,12 @@
             </div>
             <div class="tech-info" style="display: flex; flex-direction: column; gap: 2px;">
                 <span class="tech-label">Técnico Asignado</span>
-                <span class="tech-name">{{ ticket.nombre_encargado || 'TRABAJADOR-' + ticket.id_Usuario_Encargado | uppercase }}</span>
+                <span class="tech-name">{{ ticket.nombre_encargado || 'TRABAJADOR-' + ticket.id_usuario_encargado | uppercase }}</span>
             </div>
         </div>
 
         <!-- SELECTOR TÉCNICO (Admin o Responsable si no hay técnico) -->
-        <ng-container *ngIf="(rolUsuario === 'admin' || rolUsuario === 'responsable') && !ticket.id_Usuario_Encargado">
+        <ng-container *ngIf="(rolUsuario === 'admin' || rolUsuario === 'responsable') && !ticket.id_usuario_encargado">
             <hr class="divider-light">
             <div class="form-group full-width" style="margin-bottom: 25px;">
                 <label class="form-label">

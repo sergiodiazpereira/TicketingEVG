@@ -13,7 +13,7 @@ export interface Ticket {
   tipo: 'incidencia' | 'peticion';
   estado: 'pendiente' | 'asignado' | 'proceso' | 'resuelto';
   prioridad: string; // 'a', 'm', 'b'
-  id_Usuario_Creador: number;
-  id_Usuario_Encargado?: number;
-  id_Categoria: number;
+  id_usuario_creador: number;
+  id_usuario_encargado?: number;
+  id_categoria: number;
 }

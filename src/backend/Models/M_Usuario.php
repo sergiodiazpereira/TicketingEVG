@@ -22,11 +22,11 @@ class M_Usuario {
      */
     public function listar_operarios() {
         $sql = "SELECT u.id, u.nombre, u.correo as email, LOWER(r.nombre) as rol,
-                   (SELECT COUNT(*) FROM Categoria_Usuario cu WHERE cu.id_Usuario = u.id) as num_categorias,
-                   (SELECT GROUP_CONCAT(c.nombre SEPARATOR ', ') FROM Categoria_Usuario cu JOIN Categoria c ON cu.id_Categoria = c.id WHERE cu.id_Usuario = u.id) as categorias_nombres,
-                   (SELECT COUNT(*) FROM Ticket t WHERE t.id_Usuario_Encargado = u.id AND t.estado != 'resuelto') as tickets_asignados
+                   (SELECT COUNT(*) FROM Categoria_Usuario cu WHERE cu.id_usuario = u.id) as num_categorias,
+                   (SELECT GROUP_CONCAT(c.nombre SEPARATOR ', ') FROM Categoria_Usuario cu JOIN Categoria c ON cu.id_categoria = c.id WHERE cu.id_usuario = u.id) as categorias_nombres,
+                   (SELECT COUNT(*) FROM Ticket t WHERE t.id_usuario_encargado = u.id AND t.estado != 'resuelto') as tickets_asignados
                 FROM Usuario u 
-                JOIN Rol r ON u.id_Rol = r.id
+                JOIN Rol r ON u.id_rol = r.id
                 WHERE LOWER(r.nombre) IN ('responsable', 'trabajador', 'operario')
                 ORDER BY u.nombre ASC";
         $resultado = $this->db->query($sql);
@@ -79,7 +79,7 @@ class M_Usuario {
         if ($res && $row = $res->fetch_assoc()) $stats['prioridad_baja'] = $row['total'] ?? 0;
         
         // Operarios disponibles (sin tickets asignados en proceso)
-        $sql = "SELECT COUNT(u.id) as total FROM Usuario u JOIN Rol r ON u.id_Rol = r.id WHERE r.nombre IN ('responsable', 'trabajador', 'operario') AND u.id NOT IN (SELECT id_Usuario_Encargado FROM Ticket WHERE id_Usuario_Encargado IS NOT NULL AND estado IN ('asignado', 'proceso'))";
+        $sql = "SELECT COUNT(u.id) as total FROM Usuario u JOIN Rol r ON u.id_rol = r.id WHERE r.nombre IN ('responsable', 'trabajador', 'operario') AND u.id NOT IN (SELECT id_usuario_encargado FROM Ticket WHERE id_usuario_encargado IS NOT NULL AND estado IN ('asignado', 'proceso'))";
         $res = $this->db->query($sql);
         if ($res && $row = $res->fetch_assoc()) $stats['operarios_disponibles'] = $row['total'] ?? 0;
 
@@ -113,7 +113,7 @@ class M_Usuario {
 
         $password_hash = password_hash($datos['password'] ?? 'Cambiar123!', PASSWORD_DEFAULT);
         $stmt = $this->db->prepare(
-            "INSERT INTO Usuario (nombre, correo, password, id_Rol) VALUES (?, ?, ?, ?)"
+            "INSERT INTO Usuario (nombre, correo, password, id_rol) VALUES (?, ?, ?, ?)"
         );
         $stmt->bind_param("sssi", $datos['nombre'], $datos['correo'], $password_hash, $id_rol);
         if ($stmt->execute())
@@ -133,7 +133,7 @@ class M_Usuario {
             return false;
 
         $stmt = $this->db->prepare(
-            "UPDATE Usuario SET nombre = ?, correo = ?, id_Rol = ? WHERE id = ?"
+            "UPDATE Usuario SET nombre = ?, correo = ?, id_rol = ? WHERE id = ?"
         );
         $stmt->bind_param("ssii", $datos['nombre'], $datos['correo'], $id_rol, $id);
         return $stmt->execute();
@@ -147,7 +147,7 @@ class M_Usuario {
     public function eliminar($id) {
         // Comprobar tickets activos asignados antes de eliminar
         $stmt = $this->db->prepare(
-            "SELECT COUNT(*) as total FROM Ticket WHERE id_Usuario_Encargado = ? AND estado != 'resuelto'"
+            "SELECT COUNT(*) as total FROM Ticket WHERE id_usuario_encargado = ? AND estado != 'resuelto'"
         );
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -157,7 +157,7 @@ class M_Usuario {
             return ['status' => 'error', 'message' => 'No se puede eliminar: el operario tiene tickets activos asignados.'];
 
         // Primero eliminar las relaciones de categorías
-        $stmt_cat = $this->db->prepare("DELETE FROM Categoria_Usuario WHERE id_Usuario = ?");
+        $stmt_cat = $this->db->prepare("DELETE FROM Categoria_Usuario WHERE id_usuario = ?");
         $stmt_cat->bind_param("i", $id);
         $stmt_cat->execute();
 
@@ -178,7 +178,7 @@ class M_Usuario {
      */
     public function asignar_categorias($id_usuario, $ids_categorias) {
         // Borrar asignaciones anteriores
-        $stmt = $this->db->prepare("DELETE FROM Categoria_Usuario WHERE id_Usuario = ?");
+        $stmt = $this->db->prepare("DELETE FROM Categoria_Usuario WHERE id_usuario = ?");
         $stmt->bind_param("i", $id_usuario);
         $stmt->execute();
 
@@ -187,7 +187,7 @@ class M_Usuario {
 
         // Insertar las nuevas asignaciones
         $stmt_ins = $this->db->prepare(
-            "INSERT INTO Categoria_Usuario (id_Usuario, id_Categoria) VALUES (?, ?)"
+            "INSERT INTO Categoria_Usuario (id_usuario, id_categoria) VALUES (?, ?)"
         );
         foreach ($ids_categorias as $id_cat) {
             $stmt_ins->bind_param("ii", $id_usuario, $id_cat);

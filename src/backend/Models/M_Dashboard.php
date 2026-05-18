@@ -39,7 +39,7 @@ class M_Dashboard {
 
 
         $res_usuarios = $this->db->query("SELECT COUNT(*) as total FROM Usuario 
-                                          INNER JOIN Rol ON usuario.id_Rol = rol.id
+                                          INNER JOIN Rol ON usuario.id_rol = rol.id
                                           WHERE rol.nombre IN ('Responsable', 'Trabajador')");
         if ($res_usuarios && $row = $res_usuarios->fetch_assoc()) $stats['total_usuarios'] = ($row['total'] ?? 0);
 
@@ -79,12 +79,12 @@ class M_Dashboard {
         // Operarios disponibles (sin tickets asignados en proceso)
         $sql_operarios = "SELECT COUNT(usuario.id) as total 
                          FROM Usuario 
-                         JOIN Rol ON usuario.id_Rol = rol.id 
+                         JOIN Rol ON usuario.id_rol = rol.id 
                          WHERE rol.nombre IN ('Responsable', 'Trabajador') 
                          AND usuario.id NOT IN (
-                            SELECT id_Usuario_Encargado 
+                            SELECT id_usuario_encargado 
                             FROM Ticket 
-                            WHERE id_Usuario_Encargado IS NOT NULL 
+                            WHERE id_usuario_encargado IS NOT NULL 
                             AND estado IN ('asignado', 'proceso')
                          )";
         $res_disponibles = $this->db->query($sql_operarios);

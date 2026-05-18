@@ -33,7 +33,7 @@ class M_Ticket {
      * @return array Lista de tickets filtrada.
      */
     public function listar_por_usuario($id_usuario) {
-        $sql = "SELECT * FROM Ticket WHERE id_Usuario_Creador = ? ORDER BY fecha_creacion DESC";
+        $sql = "SELECT * FROM Ticket WHERE id_usuario_creador = ? ORDER BY fecha_creacion DESC";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("i", $id_usuario);
         $stmt->execute();
@@ -49,7 +49,11 @@ class M_Ticket {
         // Lógica de generación de ID: [Tipo][DDMMYY][CatID][IncID]
         $tipo_prefijo = ($datos['tipo'] === 'incidencia') ? 'I' : 'PC';
         $fecha_actual = date('dmy');
-        $cat_id = str_pad($datos['id_Categoria'], 2, '0', STR_PAD_LEFT);
+        
+        $id_categoria = $datos['id_categoria'] ?? $datos['id_Categoria'] ?? 1;
+        $id_usuario_creador = $datos['id_usuario_creador'] ?? $datos['id_Usuario_Creador'] ?? 1;
+        
+        $cat_id = str_pad($id_categoria, 2, '0', STR_PAD_LEFT);
 
         // Contar tickets del mismo tipo y día para el autoincremento manual
         $patron = $tipo_prefijo . $fecha_actual . $cat_id . '%';
@@ -61,17 +65,17 @@ class M_Ticket {
 
         $id_nuevo = $tipo_prefijo . $fecha_actual . $cat_id . $inc_id;
 
-        $sql = "INSERT INTO Ticket (id, id_Categoria, titulo, descripcion, prioridad, id_Usuario_Creador, estado) 
+        $sql = "INSERT INTO Ticket (id, id_categoria, titulo, descripcion, prioridad, id_usuario_creador, estado) 
                 VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("sisssis", 
             $id_nuevo, 
-            $datos['id_Categoria'], 
+            $id_categoria, 
             $datos['titulo'], 
             $datos['descripcion'], 
             $datos['prioridad'], 
-            $datos['id_Usuario_Creador'],
+            $id_usuario_creador,
             $datos['estado']
         );
 

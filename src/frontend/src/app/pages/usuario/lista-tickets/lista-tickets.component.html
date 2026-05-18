@@ -61,16 +61,16 @@
 							</div>
 							<h3 class="titulo-ticket">{{ ticket.titulo }}</h3>
 							
-							@if (ticket.id_Usuario_Encargado) {
+							@if (ticket.id_usuario_encargado) {
 								<div class="asignacion-ticket">
 									<i class="fa-solid fa-user-gear"></i> 
-									<span>ASIGNADO A: <strong>TÉCNICO #{{ ticket.id_Usuario_Encargado }}</strong></span>
+									<span>ASIGNADO A: <strong>TÉCNICO #{{ ticket.id_usuario_encargado }}</strong></span>
 								</div>
 							}
 
 							<p class="descripcion-ticket">{{ ticket.descripcion }}</p>
 							<div class="pie-card-ticket">
-								<div class="categoria-ticket"><i class="fa-solid fa-tags"></i> <span>CATEGORÍA #{{ ticket.id_Categoria }}</span></div>
+								<div class="categoria-ticket"><i class="fa-solid fa-tags"></i> <span>CATEGORÍA #{{ ticket.id_categoria }}</span></div>
 								<div class="info-derecha-ticket">
 									<span class="localizacion">FECHA: <strong>{{ ticket.fecha_creacion }}</strong></span>
 									<a (click)="abrirModalTicket(ticket)" class="enlace-detalles" style="cursor: pointer;">
