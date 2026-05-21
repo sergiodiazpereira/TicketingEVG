@@ -29,6 +29,8 @@ class M_Dashboard {
             'operarios_disponibles' => 0,
             'tickets_resueltos' => 0,
             'total_tickets' => 0,
+            'total_incidencias' => 0,
+            'total_peticiones' => 0,
             'prioridad_alta' => 0,
             'prioridad_media' => 0,
             'prioridad_baja' => 0
@@ -55,6 +57,12 @@ class M_Dashboard {
 
         $res_totales = $this->db->query("SELECT COUNT(*) as total FROM Ticket");
         if ($res_totales && $row = $res_totales->fetch_assoc()) $stats['total_tickets'] = ($row['total'] ?? 0);
+        
+        $res_inc = $this->db->query("SELECT COUNT(*) as total FROM Ticket WHERE id LIKE 'I%' AND estado NOT IN ('resuelto', 'no aplica')");
+        if ($res_inc && $row = $res_inc->fetch_assoc()) $stats['total_incidencias'] = ($row['total'] ?? 0);
+
+        $res_pet = $this->db->query("SELECT COUNT(*) as total FROM Ticket WHERE id LIKE 'P%' AND estado NOT IN ('resuelto', 'no aplica')");
+        if ($res_pet && $row = $res_pet->fetch_assoc()) $stats['total_peticiones'] = ($row['total'] ?? 0);
         
 
         $res_resueltos = $this->db->query("SELECT COUNT(*) as total FROM Ticket 

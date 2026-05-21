@@ -1,8 +1,8 @@
 <!-- 
   Proyecto: TicketingEVG
   Alumno: Joseph Joel Quispe Alvarez
-  Asignatura: 
-  Curso: 2 DAW
+  Asignatura: DAW
+  Curso: 2025-2026
   Descripción: Gestión de categorías (Versión Angular unificada).
 -->
 <div class="d-flex flex-column vh-100 overflow-hidden">
@@ -21,8 +21,15 @@
 				</header>
 
 				<div class="container-fluid px-4">
+					<!-- Mensaje de feedback -->
+					<div *ngIf="mensajeFeedback" class="alert mt-3 mb-0 py-2 px-3 rounded-3 small fw-bold"
+						[class.alert-success]="!esMensajeError"
+						[class.alert-danger]="esMensajeError">
+						{{ mensajeFeedback }}
+					</div>
+
 					<!-- Título y Botón de Acción -->
-					<div class="row align-items-center mb-4">
+					<div class="row align-items-center mb-4 mt-3">
 						<div class="col-12 col-md-9">
 							<h2 class="fw-bold titulo-primario text-uppercase">LISTADO DE CATEGORÍAS</h2>
 							<p class="text-muted small">Aquí podrás gestionar las categorías del sistema de ticketing.</p>
@@ -59,11 +66,14 @@
 																<div class="icono-categoria rounded-circle d-flex align-items-center justify-content-center me-3">
 																	<i class="bi bi-tag"></i>
 																</div>
-																<span class="fw-bold text-dark">{{ categoria.nombre }}</span>
+																<div class="d-flex flex-column justify-content-center">
+																	<span class="fw-bold text-dark">{{ categoria.nombre }}</span>
+																	<span class="text-muted small" *ngIf="categoria.descripcion" style="margin-top: 2px;">{{ categoria.descripcion }}</span>
+																</div>
 															</div>
 														</td>
 
-<!-- Operarios -->
+														<!-- Operarios -->
 														<td class="border-0 border-bottom text-center align-middle py-3">
 															<div class="d-flex flex-column align-items-center justify-content-center">
 																<span class="fw-bold fs-5 text-dark lh-1 mb-1">{{ categoria.operarios || 0 }}</span>
@@ -94,7 +104,7 @@
 																	</li>
 																	<li>
 																		<a class="dropdown-item text-danger fw-bold" href="#"
-																			(click)="abrirModalEliminar(); $event.preventDefault()">
+																			(click)="abrirModalEliminar(categoria); $event.preventDefault()">
 																			Eliminar
 																		</a>
 																	</li>
@@ -112,7 +122,7 @@
 							<!-- Footer Tabla -->
 							<div class="text-center mt-4">
 								<span class="texto-footer-tabla text-uppercase">
-									Mostrando {{ categorias.length }} categorías registradas en el sidstema
+									Mostrando {{ categorias.length }} categorías registradas en el sistema
 								</span>
 							</div>
 						</div>
@@ -130,7 +140,7 @@
 		*ngIf="mostrarModalFormulario"
 		[categoria]="categoriaAEditar"
 		(cerrar)="cerrarModalFormulario()"
-		(guardar)="guardarCategoria()">
+		(guardar)="guardarCategoria($event)">
 	</app-formulario-categoria>
 
 	<!-- Modal Confirmación Eliminar -->
