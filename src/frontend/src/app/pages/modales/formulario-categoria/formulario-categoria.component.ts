@@ -27,7 +27,7 @@ export class FormularioCategoriaComponent implements OnInit {
 
   ngOnInit(): void {
     this.formulario = this.fb.group({
-      nombre: [this.categoria?.nombre || '', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      nombre: [this.categoria?.nombre || '', [Validators.required, Validators.maxLength(50)]],
       descripcion: [this.categoria?.descripcion || '', [Validators.maxLength(100)]]
     });
   }
