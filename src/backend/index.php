@@ -10,7 +10,9 @@
 require_once __DIR__ . '/Controllers/C_Ticket.php';
 require_once __DIR__ . '/Controllers/C_Usuario.php';
 require_once __DIR__ . '/Controllers/C_Dashboard.php';
+require_once __DIR__ . '/Controllers/C_Categoria.php';
 require_once __DIR__ . '/Views/V_Ticket.php';
+require_once __DIR__ . '/Views/V_Categoria.php';
 
 // Cabeceras CORS
 header("Access-Control-Allow-Origin: *");
@@ -58,6 +60,28 @@ switch ($entidad) {
             V_Ticket::responder($respuesta);
         } else {
             V_Ticket::responder(["error" => "Acción no reconocida para usuario"]);
+        }
+        break;
+
+    case 'categorias':
+        $controlador = new C_Categoria();
+        if ($accion === 'obtener') {
+            $respuesta = $controlador->listar();
+            V_Categoria::responder($respuesta);
+        } else if ($accion === 'crear' && $metodo === 'POST') {
+            $input = json_decode(file_get_contents('php://input'), true);
+            $respuesta = $controlador->guardar($input);
+            V_Categoria::responder($respuesta);
+        } else if ($accion === 'actualizar' && $metodo === 'PUT') {
+            $input = json_decode(file_get_contents('php://input'), true);
+            $respuesta = $controlador->guardar($input);
+            V_Categoria::responder($respuesta);
+        } else if ($accion === 'eliminar' && $metodo === 'DELETE') {
+            $id = $_GET['id'] ?? null;
+            $respuesta = $controlador->borrar($id);
+            V_Categoria::responder($respuesta);
+        } else {
+            V_Categoria::responder(["error" => "Acción no reconocida para categorías"]);
         }
         break;
 

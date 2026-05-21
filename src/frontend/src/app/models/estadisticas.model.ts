@@ -13,6 +13,8 @@ export interface Estadisticas {
   operarios_disponibles: number;
   tickets_resueltos: number;
   total_tickets: number;
+  total_incidencias: number;
+  total_peticiones: number;
   prioridad_alta: number;
   prioridad_media: number;
   prioridad_baja: number;

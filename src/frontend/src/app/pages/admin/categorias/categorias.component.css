@@ -16,11 +16,7 @@
 }
 
 /* --- Títulos --- */
-.titulo-seccion {
-	color: var(--azul-oscuro);
-}
-
-.titulo-pagina {
+.titulo-primario {
 	color: var(--azul-oscuro);
 }
 
@@ -28,7 +24,7 @@
 .card-premium {
 	border: none;
 	border-radius: 15px;
-	box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 	overflow: hidden;
 }
 
@@ -136,41 +132,42 @@
 
 /* Estilos para el Dropdown Mini-Modal */
 .dropdown-menu {
-    border: none;
-    border-radius: 12px;
-    padding: 8px;
-    min-width: 150px;
-    animation: dropFade 0.2s ease-out;
+	border: none;
+	border-radius: 12px;
+	padding: 8px;
+	min-width: 150px;
+	animation: dropFade 0.2s ease-out;
 }
 
 .dropdown-item {
-    border-radius: 8px;
-    padding: 10px 15px;
-    transition: all 0.2s ease;
-    margin-bottom: 2px;
+	border-radius: 8px;
+	padding: 10px 15px;
+	transition: all 0.2s ease;
+	margin-bottom: 2px;
 }
 
 .dropdown-item:last-child {
-    margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 .dropdown-item:hover {
-    background-color: #f4f7fa;
-    transform: translateX(4px);
+	background-color: #f4f7fa;
+	transform: translateX(4px);
 }
 
 .dropdown-item.text-danger:hover {
-    background-color: #fff1f2;
-    color: #e11d48 !important;
+	background-color: #fff1f2;
+	color: #e11d48 !important;
 }
 
 @keyframes dropFade {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }

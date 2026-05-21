@@ -15,11 +15,11 @@ INSERT INTO Rol (nombre) VALUES
 ('Trabajador');
 
 -- Inserción de datos en `Categoria`
-INSERT INTO Categoria (nombre) VALUES 
-('Software'),
-('Redes'),
-('Mantenimiento'),
-('Otros');
+INSERT INTO Categoria (nombre, descripcion) VALUES 
+('Software', 'Incidencias y peticiones relacionadas con programas y SO'),
+('Redes', 'Problemas de conectividad y equipos de red'),
+('Mantenimiento', 'Mantenimiento preventivo y correctivo de hardware'),
+('Otros', 'Cualquier otro tipo de solicitud no clasificada');
 
 -- Inserción de datos en `Usuario`
 INSERT INTO Usuario (nombre, correo, activo, visitas_totales, id_Rol) VALUES 
