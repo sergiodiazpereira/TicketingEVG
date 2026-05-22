@@ -10,8 +10,10 @@
                 </svg>
             </div>
             <h2 class="alert-title">{{ tipo === 'categoria' ? '¿ELIMINAR CATEGORÍA?' : '¿CONFIRMAR ELIMINACIÓN?' }}</h2>
-            <p class="alert-subtitle" *ngIf="tipo === 'categoria'">Esta acción desactivará la clasificación técnica. Los tickets sin asignar podrían verse afectados.</p>
-            <p class="alert-subtitle" *ngIf="tipo === 'operario'">Esta acción es permanente y afectará a la<br>gestión histórica de operarios.</p>
+            <p class="alert-subtitle" *ngIf="tipo === 'categoria'">Esta acción solo puede llevarse a cabo si la
+                categoría no tiene ningún ticket asociado.</p>
+            <p class="alert-subtitle" *ngIf="tipo === 'operario'">Esta acción es permanente y afectará a la gestión
+                histórica de operarios.</p>
         </div>
 
         <div class="alert-footer">
