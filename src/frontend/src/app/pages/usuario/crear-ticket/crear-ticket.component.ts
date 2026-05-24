@@ -11,6 +11,8 @@ import { RouterModule, Router } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TicketService } from '../../../services/ticket.service';
 import { AuthService } from '../../../services/auth.service';
+import { CategoriasService } from '../../../services/categorias.service';
+import { Categoria } from '../../../models/categoria.model';
 
 @Component({
   selector: 'app-crear-ticket',
@@ -29,22 +31,18 @@ export class CrearTicketComponent implements OnInit {
   readonly PRIORIDAD_MAP: Record<string, string> = {
     baja: 'b',
     media: 'm',
-    alta: 'a',
-    urgente: 'a'
+    alta: 'a'
   };
 
-  /** Mapa de categoría: valor del select → id_Categoria en la BD */
-  readonly CATEGORIA_MAP: Record<string, number> = {
-    software: 1,
-    hardware: 2,
-    redes: 3,
-    mantenimiento: 4
-  };
+  /** Categorías cargadas dinámicamente desde la BD */
+  categorias: Categoria[] = [];
+  cargandoCategorias = true;
 
   constructor(
     private fb: FormBuilder,
     private ticketService: TicketService,
     private authService: AuthService,
+    private categoriasService: CategoriasService,
     private router: Router
   ) {}
 
@@ -52,11 +50,23 @@ export class CrearTicketComponent implements OnInit {
     this.formulario = this.fb.group({
       tipo: ['incidencia', Validators.required],
       prioridad: ['media', Validators.required],
-      categoria: ['', Validators.required],
+      id_categoria: ['', Validators.required],
       ubicacion: [''],
       fecha_limite: [''],
       titulo: ['', [Validators.required, Validators.minLength(5)]],
       descripcion: ['', [Validators.required, Validators.minLength(10)]]
+    });
+
+    // Cargar categorías desde la BD
+    this.categoriasService.obtenerCategorias().subscribe({
+      next: (data: any) => {
+        this.categorias = data;
+        this.cargandoCategorias = false;
+      },
+      error: () => {
+        this.cargandoCategorias = false;
+        this.mensajeError = 'No se pudieron cargar las categorías.';
+      }
     });
   }
 
@@ -78,7 +88,7 @@ export class CrearTicketComponent implements OnInit {
     const payload = {
       tipo: valores.tipo,
       prioridad: this.PRIORIDAD_MAP[valores.prioridad] ?? 'm',
-      id_categoria: this.CATEGORIA_MAP[valores.categoria] ?? 1,
+      id_categoria: valores.id_categoria,
       titulo: valores.titulo,
       descripcion: valores.descripcion,
       id_usuario_creador: usuario.id,

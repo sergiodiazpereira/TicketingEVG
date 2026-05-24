@@ -67,7 +67,6 @@
 								<option value="baja">BAJA</option>
 								<option value="media">MEDIA</option>
 								<option value="alta">ALTA</option>
-								<option value="urgente">URGENTE</option>
 							</select>
 						</div>
 						<div class="col-md-6">
@@ -78,31 +77,21 @@
 							<label class="etiqueta-form" for="campo-categoria">
 								Categoría técnica <span class="text-danger">*</span>
 							</label>
-							<select id="campo-categoria" class="control-form control-select" formControlName="categoria"
-								[class.is-invalid]="formulario.get('categoria')?.invalid && formulario.get('categoria')?.touched">
-								<option value="" disabled>Selecciona una categoría</option>
-								<option value="software">Soporte Software</option>
-								<option value="hardware">Hardware / Equipos</option>
-								<option value="redes">Redes y Conectividad</option>
-								<option value="mantenimiento">Mantenimiento General</option>
+							<select id="campo-categoria" class="control-form control-select" formControlName="id_categoria"
+								[class.is-invalid]="formulario.get('id_categoria')?.invalid && formulario.get('id_categoria')?.touched">
+								<option value="" disabled>
+									{{ cargandoCategorias ? 'Cargando categorías...' : 'Selecciona una categoría' }}
+								</option>
+								<option *ngFor="let cat of categorias" [value]="cat.id">{{ cat.nombre }}</option>
 							</select>
-							<div class="text-danger small mt-1" *ngIf="formulario.get('categoria')?.invalid && formulario.get('categoria')?.touched">
+							<div class="text-danger small mt-1" *ngIf="formulario.get('id_categoria')?.invalid && formulario.get('id_categoria')?.touched">
 								La categoría es obligatoria.
 							</div>
 						</div>
 						<div class="col-md-6">
 							<label class="etiqueta-form" for="campo-ubicacion">Ubicación / Aula</label>
-							<select id="campo-ubicacion" class="control-form control-select" formControlName="ubicacion">
-								<option value="" disabled>Selecciona ubicación</option>
-								<option value="aula101">Aula 101</option>
-								<option value="aula102">Aula 102</option>
-								<option value="aula201">Aula 201</option>
-								<option value="aula202">Aula 202</option>
-								<option value="biblioteca">Biblioteca</option>
-								<option value="salon_actos">Salón de Actos</option>
-								<option value="secretaria">Secretaría / Administración</option>
-								<option value="otros">Otros / Zonas comunes</option>
-							</select>
+							<input id="campo-ubicacion" type="text" class="control-form" formControlName="ubicacion"
+								placeholder="Ej: Aula 101, Biblioteca, Sala de reuniones...">
 						</div>
 						<div class="col-12">
 							<label class="etiqueta-form" for="campo-titulo">

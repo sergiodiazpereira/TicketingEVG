@@ -8,6 +8,8 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CategoriasService } from '../../../services/categorias.service';
+import { Categoria } from '../../../models/categoria.model';
 
 @Component({
   selector: 'app-formulario-operario',
@@ -24,28 +26,37 @@ export class FormularioOperarioComponent implements OnInit {
 
   formulario!: FormGroup;
 
-  /** Categorías disponibles (cargadas estáticamente; pueden venir de una API futura). */
-  categorias = [
-    { id: 1, nombre: 'Software' },
-    { id: 2, nombre: 'Redes' },
-    { id: 3, nombre: 'Mantenimiento' },
-    { id: 4, nombre: 'Otros' }
-  ];
+  /** Categorías cargadas desde la API. */
+  categorias: Categoria[] = [];
+  cargandoCategorias = true;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private categoriasService: CategoriasService) {}
 
   ngOnInit(): void {
-    // Pre-rellenar si es modo edición
-    const categoriasSeleccionadas = this.operario?.categorias_nombres ?? [];
-    const idsSeleccionados = this.categorias
-      .filter(c => categoriasSeleccionadas.includes(c.nombre))
-      .map(c => c.id);
-
     this.formulario = this.fb.group({
       nombre: [this.operario?.nombre || '', [Validators.required, Validators.minLength(3)]],
       correo: [this.operario?.email || '', [Validators.required, Validators.email]],
       rol: [this.operario?.rol || 'trabajador', Validators.required],
-      categorias: [idsSeleccionados]
+      categorias: [[]]
+    });
+
+    // Cargar categorías desde la BD y luego preseleccionar las del operario
+    this.categoriasService.obtenerCategorias().subscribe({
+      next: (data: any) => {
+        this.categorias = data;
+        this.cargandoCategorias = false;
+
+        // Si es modo edición, preseleccionar las categorías del operario por nombre
+        if (this.operario?.categorias_nombres) {
+          const idsSeleccionados = this.categorias
+            .filter(c => this.operario.categorias_nombres.includes(c.nombre))
+            .map(c => c.id);
+          this.formulario.patchValue({ categorias: idsSeleccionados });
+        }
+      },
+      error: () => {
+        this.cargandoCategorias = false;
+      }
     });
   }
 

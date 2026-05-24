@@ -68,7 +68,16 @@
             <div class="form-group full-width">
                 <label class="form-label">Categorías Asignadas</label>
                 <div class="categories-container">
-                    <div class="categories-grid">
+                    <!-- Cargando -->
+                    <div *ngIf="cargandoCategorias" class="text-center py-3 text-muted small">
+                        <span class="spinner-border spinner-border-sm me-2"></span>Cargando categorías...
+                    </div>
+                    <!-- Sin categorías -->
+                    <div *ngIf="!cargandoCategorias && categorias.length === 0" class="text-center py-3 text-muted small">
+                        No hay categorías disponibles.
+                    </div>
+                    <!-- Lista de categorías de la BD -->
+                    <div class="categories-grid" *ngIf="!cargandoCategorias && categorias.length > 0">
                         <label class="category-item" *ngFor="let cat of categorias">
                             <input
                                 type="checkbox"

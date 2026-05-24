@@ -8,6 +8,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from '../../../shared/layout/sidebar/sidebar.component';
+import { FooterComponent } from '../../../shared/layout/footer/footer.component';
 import { AuthService } from '../../../services/auth.service';
 import { Usuario } from '../../../models/usuario.model';
 import { DashboardService } from '../../../services/dashboard.service';
@@ -18,7 +19,7 @@ import { Ticket } from '../../../models/ticket.model';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, SidebarComponent],
+  imports: [CommonModule, SidebarComponent, FooterComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

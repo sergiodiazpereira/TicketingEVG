@@ -24,27 +24,27 @@ export class CategoriasService {
    * Obtiene la lista de categorías.
    */
   obtenerCategorias(): Observable<Categoria[]> {
-    return this.http.get<Categoria[]>(`${this.apiUrl}?entidad=categorias&accion=obtener`);
+    return this.http.get<Categoria[]>(`${this.apiUrl}?entidad=categoria&accion=listar`);
   }
 
   /**
    * Crea una nueva categoría.
    */
   crearCategoria(categoria: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}?entidad=categorias&accion=crear`, categoria);
+    return this.http.post<any>(`${this.apiUrl}?entidad=categoria&accion=guardar`, categoria);
   }
 
   /**
    * Actualiza una categoría existente.
    */
   actualizarCategoria(categoria: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}?entidad=categorias&accion=actualizar&id=${categoria.id}`, categoria);
+    return this.http.post<any>(`${this.apiUrl}?entidad=categoria&accion=guardar`, categoria);
   }
 
   /**
    * Elimina una categoría.
    */
   eliminarCategoria(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}?entidad=categorias&accion=eliminar&id=${id}`);
+    return this.http.delete<any>(`${this.apiUrl}?entidad=categoria&accion=borrar&id=${id}`);
   }
 }
