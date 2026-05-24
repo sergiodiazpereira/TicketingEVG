@@ -111,11 +111,10 @@ class M_Usuario {
         if (!$id_rol)
             return false;
 
-        $password_hash = password_hash($datos['password'] ?? 'Cambiar123!', PASSWORD_DEFAULT);
         $stmt = $this->db->prepare(
-            "INSERT INTO Usuario (nombre, correo, password, id_rol) VALUES (?, ?, ?, ?)"
+            "INSERT INTO Usuario (nombre, correo, id_rol) VALUES (?, ?, ?)"
         );
-        $stmt->bind_param("sssi", $datos['nombre'], $datos['correo'], $password_hash, $id_rol);
+        $stmt->bind_param("ssi", $datos['nombre'], $datos['correo'], $id_rol);
         if ($stmt->execute())
             return $this->db->insert_id;
         return false;

@@ -21,10 +21,10 @@ class M_Categoria {
 	 * @return array
 	 */
 	public function listar_categorias() {
-		$sql = "SELECT categoria.id, categoria.nombre, categoria.descripcion,
-			    (SELECT COUNT(*) FROM Categoria_Usuario WHERE categoria_usuario.id_Categoria = categoria.id) as operarios,
-			    (SELECT COUNT(*) FROM Ticket WHERE ticket.id_Categoria = categoria.id) as tickets
-				FROM Categoria";
+		$sql = "SELECT c.id, c.nombre,
+			    (SELECT COUNT(*) FROM Categoria_Usuario cu WHERE cu.id_categoria = c.id) as operarios,
+			    (SELECT COUNT(*) FROM Ticket t WHERE t.id_categoria = c.id) as tickets
+				FROM Categoria c";
 		$resultado = $this->db->query($sql);
 		return $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
 	}
