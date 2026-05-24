@@ -90,9 +90,7 @@ main {
 }
 
 /* --- Botones Nav --- */
-.boton-nav,
-.boton-crear,
-.btn-cerrar-sesion {
+.boton-nav, .boton-crear, .btn-cerrar-sesion {
     display: inline-flex;
     align-items: center;
     font-size: 10px;
@@ -168,7 +166,6 @@ main {
         opacity: 0;
         transform: translateY(10px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -412,29 +409,10 @@ main {
     white-space: nowrap;
 }
 
-.etiqueta-estado.proceso {
-    background: var(--verde-claro);
-    color: var(--verde);
-    border: 1px solid #b2e8e2;
-}
-
-.etiqueta-estado.pendiente {
-    background: #f3f4f6;
-    color: #6b7280;
-    border: 1px solid var(--borde);
-}
-
-.etiqueta-estado.asignado {
-    background: var(--azul-claro);
-    color: var(--azul);
-    border: 1px solid #c4daf5;
-}
-
-.etiqueta-estado.resuelto {
-    background: var(--verde);
-    color: #fff;
-    border: 1px solid var(--verde);
-}
+.etiqueta-estado.proceso { background: var(--verde-claro); color: var(--verde); border: 1px solid #b2e8e2; }
+.etiqueta-estado.pendiente { background: #f3f4f6; color: #6b7280; border: 1px solid var(--borde); }
+.etiqueta-estado.asignado { background: var(--azul-claro); color: var(--azul); border: 1px solid #c4daf5; }
+.etiqueta-estado.resuelto { background: var(--verde); color: #fff; border: 1px solid var(--verde); }
 
 /* --- Estado Vacío --- */
 .estado-vacio {
@@ -480,13 +458,4 @@ main {
     font-size: 24px;
     margin-bottom: 1.5rem;
     opacity: 0.6;
-}
-
-.info-estadistica {
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--texto-gris);
-    margin-bottom: 4px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
 }

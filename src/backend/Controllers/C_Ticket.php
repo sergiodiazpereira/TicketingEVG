@@ -66,5 +66,62 @@ class C_Ticket {
         }
         return ["status" => "error", "message" => "No se pudo eliminar el ticket"];
     }
+
+    /**
+     * Obtiene un ticket específico por su ID.
+     * @param string $id ID del ticket.
+     */
+    public function obtener($id) {
+        return $this->modelo->obtener_por_id($id);
+    }
+
+    /**
+     * Obtiene los tickets asignados a un operario.
+     * @param int $id_operario ID del operario.
+     * @param string|null $estado Filtro opcional por estado.
+     */
+    public function listar_por_operario($id_operario, $estado = null) {
+        return $this->modelo->listar_por_operario($id_operario, $estado);
+    }
+
+    /**
+     * Asigna un operario a un ticket.
+     * @param string $id_ticket ID del ticket.
+     * @param int $id_operario ID del operario.
+     */
+    public function asignar_operario($id_ticket, $id_operario) {
+        if ($this->modelo->asignar_operario($id_ticket, $id_operario)) {
+            return ["status" => "success", "message" => "Operario asignado correctamente"];
+        }
+        return ["status" => "error", "message" => "No se pudo asignar el operario"];
+    }
+
+    /**
+     * Obtiene estadísticas de tickets para un operario.
+     * @param int $id_operario ID del operario.
+     */
+    public function obtener_estadisticas_operario($id_operario) {
+        return $this->modelo->obtener_estadisticas_operario($id_operario);
+    }
+
+    /**
+     * Obtiene tickets disponibles para asignación.
+     */
+    public function obtener_tickets_disponibles() {
+        return $this->modelo->obtener_tickets_disponibles();
+    }
+
+    /**
+     * Actualiza el estado de un ticket con validación.
+     * @param string $id_ticket ID del ticket.
+     * @param string $nuevo_estado Nuevo estado.
+     * @param int|null $id_operario ID del operario (para validación).
+     */
+    public function actualizar_estado_validado($id_ticket, $nuevo_estado, $id_operario = null) {
+        if ($this->modelo->actualizar_estado_validado($id_ticket, $nuevo_estado, $id_operario)) {
+            return ["status" => "success", "message" => "Estado actualizado correctamente"];
+        }
+        return ["status" => "error", "message" => "No se pudo actualizar el estado"];
+    }
 }
 ?>
