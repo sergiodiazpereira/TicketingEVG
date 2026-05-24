@@ -16,4 +16,6 @@ export interface Ticket {
   id_usuario_creador: number;
   id_usuario_encargado?: number;
   id_categoria: number;
+  ubicacion?: string;
+  fecha_prevista?: string;
 }

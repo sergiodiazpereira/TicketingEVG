@@ -82,7 +82,9 @@ export class CrearTicketComponent implements OnInit {
       titulo: valores.titulo,
       descripcion: valores.descripcion,
       id_usuario_creador: usuario.id,
-      estado: 'pendiente' as const
+      estado: 'pendiente' as const,
+      ubicacion: valores.ubicacion || null,
+      fecha_prevista: valores.fecha_limite || null
     };
 
     this.enviando = true;

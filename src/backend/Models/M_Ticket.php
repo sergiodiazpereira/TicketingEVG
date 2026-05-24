@@ -65,18 +65,23 @@ class M_Ticket {
 
         $id_nuevo = $tipo_prefijo . $fecha_actual . $cat_id . $inc_id;
 
-        $sql = "INSERT INTO Ticket (id, id_categoria, titulo, descripcion, prioridad, id_usuario_creador, estado) 
-                VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $ubicacion = $datos['ubicacion'] ?? null;
+        $fecha_prevista = $datos['fecha_prevista'] ?? null;
+
+        $sql = "INSERT INTO Ticket (id, id_categoria, titulo, descripcion, prioridad, id_usuario_creador, estado, ubicacion, fecha_prevista) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("sisssis", 
+        $stmt->bind_param("sisssisss", 
             $id_nuevo, 
             $id_categoria, 
             $datos['titulo'], 
             $datos['descripcion'], 
             $datos['prioridad'], 
             $id_usuario_creador,
-            $datos['estado']
+            $datos['estado'],
+            $ubicacion,
+            $fecha_prevista
         );
 
         if ($stmt->execute()) {

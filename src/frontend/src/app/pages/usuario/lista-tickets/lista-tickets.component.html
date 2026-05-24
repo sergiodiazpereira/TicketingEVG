@@ -35,14 +35,26 @@
 			<div class="barra-busqueda-contenedor mb-4">
 				<div class="barra-busqueda">
 					<i class="fa-solid fa-magnifying-glass"></i>
-					<input type="text" placeholder="Buscar por asunto o descripción...">
+					<input type="text" placeholder="Buscar por asunto, descripción o ID..." 
+                           [(ngModel)]="terminoBusqueda" (input)="filtrarTickets()">
 				</div>
-				<button class="boton-filtro"><i class="fa-solid fa-filter"></i> <span>TODOS</span></button>
+				<div class="position-relative d-flex align-items-center">
+					<select class="boton-filtro" [(ngModel)]="filtroEstado" (change)="filtrarTickets()" 
+                            style="appearance: none; -webkit-appearance: none; cursor: pointer; padding-right: 2.5rem; outline: none; border-radius: 12px; height: 100%;">
+						<option value="todos">FILTRAR: TODOS</option>
+						<option value="incidencia">🔴 INCIDENCIAS</option>
+						<option value="peticion">🔵 PETICIONES</option>
+						<option value="pendiente">⚪ PENDIENTES</option>
+						<option value="proceso">🟢 EN PROCESO</option>
+						<option value="resuelto">✔️ RESUELTOS</option>
+					</select>
+					<i class="fa-solid fa-chevron-down" style="position: absolute; right: 15px; pointer-events: none; font-size: 10px; color: var(--azul);"></i>
+				</div>
 			</div>
 
-			@if (tickets.length > 0) {
+			@if (ticketsFiltrados.length > 0) {
 				<div class="listado-tickets">
-					@for (ticket of tickets; track ticket.id) {
+					@for (ticket of ticketsFiltrados; track ticket.id) {
 						<div class="tarjeta-ticket-detallada" [ngClass]="ticket.tipo === 'incidencia' ? 'incidencia' : 'peticion'">
 							<div class="cabecera-card-ticket">
 								<div class="tipo-ticket">
@@ -70,7 +82,12 @@
 
 							<p class="descripcion-ticket">{{ ticket.descripcion }}</p>
 							<div class="pie-card-ticket">
-								<div class="categoria-ticket"><i class="fa-solid fa-tags"></i> <span>CATEGORÍA #{{ ticket.id_categoria }}</span></div>
+								<div class="d-flex align-items-center gap-2 flex-wrap">
+									<div class="categoria-ticket"><i class="fa-solid fa-tags"></i> <span>CATEGORÍA #{{ ticket.id_categoria }}</span></div>
+									<div class="categoria-ticket text-warning bg-dark-subtle" *ngIf="ticket.ubicacion" style="border: 1px solid rgba(234, 179, 8, 0.2); background: rgba(234, 179, 8, 0.05);">
+										<i class="fa-solid fa-location-dot"></i> <span>{{ ticket.ubicacion | uppercase }}</span>
+									</div>
+								</div>
 								<div class="info-derecha-ticket">
 									<span class="localizacion">FECHA: <strong>{{ ticket.fecha_creacion }}</strong></span>
 									<a (click)="abrirModalTicket(ticket)" class="enlace-detalles" style="cursor: pointer;">

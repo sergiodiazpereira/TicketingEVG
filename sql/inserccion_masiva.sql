@@ -37,11 +37,11 @@ INSERT INTO Categoria_Usuario (id_categoria, id_usuario) VALUES
 (3, 1);
 
 -- Inserción de datos en `Ticket`
-INSERT INTO Ticket (id, id_categoria, titulo, descripcion, prioridad, id_usuario_creador, estado, id_usuario_encargado, fecha_creacion) VALUES 
-('PS2002230501', 2, 'Instalar Office', 'Se requiere licencia para el equipo de secretaría.', 'b', 1, 'proceso', 4, '2026-02-22 09:15:00'),
-('PS2002230502', 2, 'Actualización Windows', 'Varios equipos del aula 2 están pidiendo reinicio.', 'm', 1, 'asignado', 4, '2026-02-22 10:00:00'),
-('I2002230101', 1, 'Monitor parpadea', 'El monitor del puesto 5 no deja de parpadear.', 'a', 4, 'proceso', 1, '2026-02-23 08:30:00'),
-('PS2002230503', 3, 'no hay conexión WiFi', 'La zona del gimnasio no tiene señal desde ayer.', 'a', 2, 'pendiente', 1, '2026-02-23 09:45:00'),
-('PS2002230504', 4, 'Limpieza de filtros', 'Se solicita mantenimiento preventivo de los proyectores.', 'b', 3, 'resuelto', 2, '2026-02-24 12:00:00'),
-('I2002230102', 1, 'Teclado roto', 'Faltan teclas en el teclado del aula de música.', 'b', 4, 'pendiente', 3, '2026-02-24 13:20:00'),
-('I2002230103', 2, 'Fallo Java', 'No funciona el entorno de desarrollo en el aula 1.', 'm', 3, 'asignado', 1, '2026-02-25 10:15:00');
+INSERT INTO Ticket (id, id_categoria, titulo, descripcion, prioridad, id_usuario_creador, estado, id_usuario_encargado, fecha_creacion, ubicacion) VALUES 
+('PS2002230501', 2, 'Instalar Office', 'Se requiere licencia para el equipo de secretaría.', 'b', 1, 'proceso', 4, '2026-02-22 09:15:00', 'secretaria'),
+('PS2002230502', 2, 'Actualización Windows', 'Varios equipos del aula 2 están pidiendo reinicio.', 'm', 1, 'asignado', 4, '2026-02-22 10:00:00', 'aula102'),
+('I2002230101', 1, 'Monitor parpadea', 'El monitor del puesto 5 no deja de parpadear.', 'a', 4, 'proceso', 1, '2026-02-23 08:30:00', 'aula201'),
+('PS2002230503', 3, 'no hay conexión WiFi', 'La zona del gimnasio no tiene señal desde ayer.', 'a', 2, 'pendiente', 1, '2026-02-23 09:45:00', 'otros'),
+('PS2002230504', 4, 'Limpieza de filtros', 'Se solicita mantenimiento preventivo de los proyectores.', 'b', 3, 'resuelto', 2, '2026-02-24 12:00:00', 'salon_actos'),
+('I2002230102', 1, 'Teclado roto', 'Faltan teclas en el teclado del aula de música.', 'b', 4, 'pendiente', 3, '2026-02-24 13:20:00', 'aula202'),
+('I2002230103', 2, 'Fallo Java', 'No funciona el entorno de desarrollo en el aula 1.', 'm', 3, 'asignado', 1, '2026-02-25 10:15:00', 'aula101');

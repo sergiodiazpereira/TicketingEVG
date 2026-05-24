@@ -74,6 +74,7 @@ CREATE TABLE Ticket (
 	id_usuario_encargado SMALLINT UNSIGNED DEFAULT NULL,
 	fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	fecha_prevista DATETIME DEFAULT NULL,
+	ubicacion VARCHAR(100) DEFAULT NULL,
 	CONSTRAINT PK_Ticket PRIMARY KEY (id),
 	CONSTRAINT CHECK_prioridad CHECK (prioridad IN ('a', 'm', 'b')),
 	CONSTRAINT FK_Ticket_Categoria FOREIGN KEY (id_categoria) REFERENCES Categoria (id) ON DELETE RESTRICT ON UPDATE CASCADE,
