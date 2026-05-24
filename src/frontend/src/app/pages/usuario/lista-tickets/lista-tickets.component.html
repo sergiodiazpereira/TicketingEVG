@@ -38,17 +38,53 @@
 					<input type="text" placeholder="Buscar por asunto, descripción o ID..." 
                            [(ngModel)]="terminoBusqueda" (input)="filtrarTickets()">
 				</div>
-				<div class="position-relative d-flex align-items-center">
-					<select class="boton-filtro" [(ngModel)]="filtroEstado" (change)="filtrarTickets()" 
-                            style="appearance: none; -webkit-appearance: none; cursor: pointer; padding-right: 2.5rem; outline: none; border-radius: 12px; height: 100%;">
-						<option value="todos">FILTRAR: TODOS</option>
-						<option value="incidencia">🔴 INCIDENCIAS</option>
-						<option value="peticion">🔵 PETICIONES</option>
-						<option value="pendiente">⚪ PENDIENTES</option>
-						<option value="proceso">🟢 EN PROCESO</option>
-						<option value="resuelto">✔️ RESUELTOS</option>
-					</select>
-					<i class="fa-solid fa-chevron-down" style="position: absolute; right: 15px; pointer-events: none; font-size: 10px; color: var(--azul);"></i>
+				
+				<!-- Filtro Tipo Custom -->
+				<div class="desplegable-personalizado" [class.activo]="desplegableTipoAbierto" [class.filtro-aplicado]="filtroTipo !== 'todos'">
+					<button type="button" class="boton-filtro-custom" (click)="toggleDesplegableTipo($event)">
+						<span>TIPO: {{ getTipoEtiqueta() }}</span>
+						<i class="fa-solid fa-chevron-down"></i>
+					</button>
+					<div class="opciones-desplegable" *ngIf="desplegableTipoAbierto">
+						<div class="opcion-item" [class.seleccionado]="filtroTipo === 'todos'" (click)="seleccionarTipo('todos')">
+							<span>TIPO: TODOS</span>
+							<i class="fa-solid fa-check" *ngIf="filtroTipo === 'todos'"></i>
+						</div>
+						<div class="opcion-item" [class.seleccionado]="filtroTipo === 'incidencia'" (click)="seleccionarTipo('incidencia')">
+							<span>🔴 INCIDENCIAS</span>
+							<i class="fa-solid fa-check" *ngIf="filtroTipo === 'incidencia'"></i>
+						</div>
+						<div class="opcion-item" [class.seleccionado]="filtroTipo === 'peticion'" (click)="seleccionarTipo('peticion')">
+							<span>🔵 PETICIONES</span>
+							<i class="fa-solid fa-check" *ngIf="filtroTipo === 'peticion'"></i>
+						</div>
+					</div>
+				</div>
+
+				<!-- Filtro Estado Custom -->
+				<div class="desplegable-personalizado" [class.activo]="desplegableEstadoAbierto" [class.filtro-aplicado]="filtroEstado !== 'todos'">
+					<button type="button" class="boton-filtro-custom" (click)="toggleDesplegableEstado($event)">
+						<span>ESTADO: {{ getEstadoEtiqueta() }}</span>
+						<i class="fa-solid fa-chevron-down"></i>
+					</button>
+					<div class="opciones-desplegable" *ngIf="desplegableEstadoAbierto">
+						<div class="opcion-item" [class.seleccionado]="filtroEstado === 'todos'" (click)="seleccionarEstado('todos')">
+							<span>ESTADO: TODOS</span>
+							<i class="fa-solid fa-check" *ngIf="filtroEstado === 'todos'"></i>
+						</div>
+						<div class="opcion-item" [class.seleccionado]="filtroEstado === 'pendiente'" (click)="seleccionarEstado('pendiente')">
+							<span>⚪ PENDIENTES</span>
+							<i class="fa-solid fa-check" *ngIf="filtroEstado === 'pendiente'"></i>
+						</div>
+						<div class="opcion-item" [class.seleccionado]="filtroEstado === 'proceso'" (click)="seleccionarEstado('proceso')">
+							<span>🟢 EN PROCESO</span>
+							<i class="fa-solid fa-check" *ngIf="filtroEstado === 'proceso'"></i>
+						</div>
+						<div class="opcion-item" [class.seleccionado]="filtroEstado === 'resuelto'" (click)="seleccionarEstado('resuelto')">
+							<span>✔️ RESUELTOS</span>
+							<i class="fa-solid fa-check" *ngIf="filtroEstado === 'resuelto'"></i>
+						</div>
+					</div>
 				</div>
 			</div>
 
@@ -83,13 +119,13 @@
 							<p class="descripcion-ticket">{{ ticket.descripcion }}</p>
 							<div class="pie-card-ticket">
 								<div class="d-flex align-items-center gap-2 flex-wrap">
-									<div class="categoria-ticket"><i class="fa-solid fa-tags"></i> <span>CATEGORÍA #{{ ticket.id_categoria }}</span></div>
-									<div class="categoria-ticket text-warning bg-dark-subtle" *ngIf="ticket.ubicacion" style="border: 1px solid rgba(234, 179, 8, 0.2); background: rgba(234, 179, 8, 0.05);">
+									<div class="categoria-ticket"><i class="fa-solid fa-tags"></i> <span>{{ (ticket.categoria_nombre || 'CATEGORÍA #' + (ticket.id_categoria || ticket.id_Categoria)) | uppercase }}</span></div>
+									<div class="categoria-ticket" *ngIf="ticket.ubicacion">
 										<i class="fa-solid fa-location-dot"></i> <span>{{ ticket.ubicacion | uppercase }}</span>
 									</div>
 								</div>
 								<div class="info-derecha-ticket">
-									<span class="localizacion">FECHA: <strong>{{ ticket.fecha_creacion }}</strong></span>
+									<span class="localizacion">FECHA: <strong>{{ ticket.fecha_creacion | date:'dd/MM/yyyy HH:mm' }}</strong></span>
 									<a (click)="abrirModalTicket(ticket)" class="enlace-detalles" style="cursor: pointer;">
 										DETALLES <i class="fa-solid fa-arrow-right"></i>
 									</a>

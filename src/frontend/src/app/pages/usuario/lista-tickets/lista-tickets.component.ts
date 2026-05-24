@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -29,8 +29,13 @@ export class ListaTicketsComponent implements OnInit {
   
   /** Variables para búsqueda y filtrado */
   terminoBusqueda: string = '';
+  filtroTipo: string = 'todos';
   filtroEstado: string = 'todos';
   ticketsFiltrados: Ticket[] = [];
+
+  /** Estado de los desplegables personalizados */
+  desplegableTipoAbierto = false;
+  desplegableEstadoAbierto = false;
 
   /** Gestión del modal de detalles */
   mostrarModalTicket: boolean = false;
@@ -69,21 +74,25 @@ export class ListaTicketsComponent implements OnInit {
       const coincideBusqueda = !busqueda || 
         ticket.titulo.toLowerCase().includes(busqueda) ||
         ticket.descripcion.toLowerCase().includes(busqueda) ||
-        ticket.id.toLowerCase().includes(busqueda);
+        ticket.id.toString().toLowerCase().includes(busqueda);
 
-      // Filtrar por estado o tipo
-      let coincideFiltro = true;
+      // Filtrar por tipo
+      let coincideTipo = true;
+      if (this.filtroTipo !== 'todos') {
+        coincideTipo = ticket.tipo === this.filtroTipo;
+      }
+
+      // Filtrar por estado
+      let coincideEstado = true;
       if (this.filtroEstado !== 'todos') {
-        if (this.filtroEstado === 'incidencia' || this.filtroEstado === 'peticion') {
-          coincideFiltro = ticket.tipo === this.filtroEstado;
-        } else if (this.filtroEstado === 'proceso') {
-          coincideFiltro = ticket.estado === 'proceso' || ticket.estado === 'asignado';
+        if (this.filtroEstado === 'proceso') {
+          coincideEstado = ticket.estado === 'proceso' || ticket.estado === 'asignado';
         } else {
-          coincideFiltro = ticket.estado === this.filtroEstado;
+          coincideEstado = ticket.estado === this.filtroEstado;
         }
       }
 
-      return coincideBusqueda && coincideFiltro;
+      return coincideBusqueda && coincideTipo && coincideEstado;
     });
   }
 
@@ -95,5 +104,54 @@ export class ListaTicketsComponent implements OnInit {
   cerrarModalTicket() {
     this.mostrarModalTicket = false;
     this.ticketSeleccionado = null;
+  }
+
+  toggleDesplegableTipo(event: Event): void {
+    event.stopPropagation();
+    this.desplegableTipoAbierto = !this.desplegableTipoAbierto;
+    this.desplegableEstadoAbierto = false;
+  }
+
+  toggleDesplegableEstado(event: Event): void {
+    event.stopPropagation();
+    this.desplegableEstadoAbierto = !this.desplegableEstadoAbierto;
+    this.desplegableTipoAbierto = false;
+  }
+
+  seleccionarTipo(tipo: string): void {
+    this.filtroTipo = tipo;
+    this.desplegableTipoAbierto = false;
+    this.filtrarTickets();
+  }
+
+  seleccionarEstado(estado: string): void {
+    this.filtroEstado = estado;
+    this.desplegableEstadoAbierto = false;
+    this.filtrarTickets();
+  }
+
+  getTipoEtiqueta(): string {
+    const mapa: Record<string, string> = {
+      todos: 'TODOS',
+      incidencia: 'INCIDENCIAS',
+      peticion: 'PETICIONES'
+    };
+    return mapa[this.filtroTipo] || 'TODOS';
+  }
+
+  getEstadoEtiqueta(): string {
+    const mapa: Record<string, string> = {
+      todos: 'TODOS',
+      pendiente: 'PENDIENTES',
+      proceso: 'EN PROCESO',
+      resuelto: 'RESUELTOS'
+    };
+    return mapa[this.filtroEstado] || 'TODOS';
+  }
+
+  @HostListener('document:click', ['$event'])
+  cerrarDesplegables(): void {
+    this.desplegableTipoAbierto = false;
+    this.desplegableEstadoAbierto = false;
   }
 }

@@ -16,6 +16,8 @@ export interface Ticket {
   id_usuario_creador: number;
   id_usuario_encargado?: number;
   id_categoria: number;
+  id_Categoria?: number; // Soportar base de datos remota case-insensitive
+  categoria_nombre?: string; // Nombre devuelto por el LEFT JOIN
   ubicacion?: string;
   fecha_prevista?: string;
 }

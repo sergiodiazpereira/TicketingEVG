@@ -18,22 +18,33 @@ class M_Ticket {
     }
 
     /**
-     * Obtiene todos los tickets registrados.
+     * Obtiene todos los tickets registrados con el nombre de su categoría y tipo derivado.
      * @return array Lista de tickets.
      */
     public function listar() {
-        $sql = "SELECT * FROM Ticket ORDER BY fecha_creacion DESC";
+        $sql = "SELECT t.*, 
+                       CASE WHEN t.id LIKE 'I%' THEN 'incidencia' ELSE 'peticion' END AS tipo,
+                       c.nombre AS categoria_nombre 
+                FROM Ticket t 
+                LEFT JOIN Categoria c ON t.id_categoria = c.id 
+                ORDER BY t.fecha_creacion DESC";
         $resultado = $this->db->query($sql);
         return $resultado->fetch_all(MYSQLI_ASSOC);
     }
 
     /**
-     * Obtiene los tickets creados por un usuario específico.
+     * Obtiene los tickets creados por un usuario específico con el nombre de su categoría y tipo derivado.
      * @param int $id_usuario ID del creador.
      * @return array Lista de tickets filtrada.
      */
     public function listar_por_usuario($id_usuario) {
-        $sql = "SELECT * FROM Ticket WHERE id_usuario_creador = ? ORDER BY fecha_creacion DESC";
+        $sql = "SELECT t.*, 
+                       CASE WHEN t.id LIKE 'I%' THEN 'incidencia' ELSE 'peticion' END AS tipo,
+                       c.nombre AS categoria_nombre 
+                FROM Ticket t 
+                LEFT JOIN Categoria c ON t.id_categoria = c.id 
+                WHERE t.id_usuario_creador = ? 
+                ORDER BY t.fecha_creacion DESC";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("i", $id_usuario);
         $stmt->execute();
@@ -47,7 +58,7 @@ class M_Ticket {
      */
     public function crear($datos) {
         // Lógica de generación de ID: [Tipo][DDMMYY][CatID][IncID]
-        $tipo_prefijo = ($datos['tipo'] === 'incidencia') ? 'I' : 'PC';
+        $tipo_prefijo = ($datos['tipo'] === 'incidencia') ? 'I' : 'PS';
         $fecha_actual = date('dmy');
         
         $id_categoria = $datos['id_categoria'] ?? $datos['id_Categoria'] ?? 1;

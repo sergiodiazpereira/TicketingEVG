@@ -56,34 +56,67 @@
 					<div class="row g-4">
 						<div class="col-md-6">
 							<label class="etiqueta-form" for="campo-tipo">Tipo de solicitud</label>
-							<select id="campo-tipo" class="control-form control-select" formControlName="tipo">
-								<option value="incidencia">INCIDENCIA</option>
-								<option value="peticion">PETICIÓN DE SERVICIO</option>
-							</select>
+							<div class="desplegable-personalizado w-100" [class.activo]="desplegableTipoAbierto">
+								<button type="button" class="boton-filtro-custom w-100" (click)="toggleDesplegableTipo($event)">
+									<span>{{ getTipoEtiqueta() }}</span>
+									<i class="fa-solid fa-chevron-down"></i>
+								</button>
+								<div class="opciones-desplegable" *ngIf="desplegableTipoAbierto">
+									<div class="opcion-item" [class.seleccionado]="formulario.get('tipo')?.value === 'incidencia'" (click)="seleccionarTipo('incidencia')">
+										<span>INCIDENCIA</span>
+										<i class="fa-solid fa-check" *ngIf="formulario.get('tipo')?.value === 'incidencia'"></i>
+									</div>
+									<div class="opcion-item" [class.seleccionado]="formulario.get('tipo')?.value === 'peticion'" (click)="seleccionarTipo('peticion')">
+										<span>PETICIÓN DE SERVICIO</span>
+										<i class="fa-solid fa-check" *ngIf="formulario.get('tipo')?.value === 'peticion'"></i>
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="col-md-6">
 							<label class="etiqueta-form" for="campo-prioridad">Prioridad</label>
-							<select id="campo-prioridad" class="control-form control-select" formControlName="prioridad">
-								<option value="baja">BAJA</option>
-								<option value="media">MEDIA</option>
-								<option value="alta">ALTA</option>
-							</select>
+							<div class="desplegable-personalizado w-100" [class.activo]="desplegablePrioridadAbierto">
+								<button type="button" class="boton-filtro-custom w-100" (click)="toggleDesplegablePrioridad($event)">
+									<span>{{ getPrioridadEtiqueta() }}</span>
+									<i class="fa-solid fa-chevron-down"></i>
+								</button>
+								<div class="opciones-desplegable" *ngIf="desplegablePrioridadAbierto">
+									<div class="opcion-item" [class.seleccionado]="formulario.get('prioridad')?.value === 'baja'" (click)="seleccionarPrioridad('baja')">
+										<span>BAJA</span>
+										<i class="fa-solid fa-check" *ngIf="formulario.get('prioridad')?.value === 'baja'"></i>
+									</div>
+									<div class="opcion-item" [class.seleccionado]="formulario.get('prioridad')?.value === 'media'" (click)="seleccionarPrioridad('media')">
+										<span>MEDIA</span>
+										<i class="fa-solid fa-check" *ngIf="formulario.get('prioridad')?.value === 'media'"></i>
+									</div>
+									<div class="opcion-item" [class.seleccionado]="formulario.get('prioridad')?.value === 'alta'" (click)="seleccionarPrioridad('alta')">
+										<span>ALTA</span>
+										<i class="fa-solid fa-check" *ngIf="formulario.get('prioridad')?.value === 'alta'"></i>
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="col-md-6">
 							<label class="etiqueta-form" for="campo-fecha">Fecha límite o esperada (opcional)</label>
-							<input id="campo-fecha" type="date" class="control-form" formControlName="fecha_limite">
+							<input id="campo-fecha" type="date" class="control-form" formControlName="fecha_limite" [min]="fechaMinima">
 						</div>
 						<div class="col-md-6">
 							<label class="etiqueta-form" for="campo-categoria">
 								Categoría técnica <span class="text-danger">*</span>
 							</label>
-							<select id="campo-categoria" class="control-form control-select" formControlName="id_categoria"
+							<div class="desplegable-personalizado w-100" [class.activo]="desplegableCategoriaAbierto"
 								[class.is-invalid]="formulario.get('id_categoria')?.invalid && formulario.get('id_categoria')?.touched">
-								<option value="" disabled>
-									{{ cargandoCategorias ? 'Cargando categorías...' : 'Selecciona una categoría' }}
-								</option>
-								<option *ngFor="let cat of categorias" [value]="cat.id">{{ cat.nombre }}</option>
-							</select>
+								<button type="button" class="boton-filtro-custom w-100" (click)="toggleDesplegableCategoria($event)" [disabled]="cargandoCategorias">
+									<span>{{ getCategoriaEtiqueta() }}</span>
+									<i class="fa-solid fa-chevron-down"></i>
+								</button>
+								<div class="opciones-desplegable" *ngIf="desplegableCategoriaAbierto && categorias.length > 0">
+									<div class="opcion-item" *ngFor="let cat of categorias" [class.seleccionado]="formulario.get('id_categoria')?.value === cat.id" (click)="seleccionarCategoria(cat.id)">
+										<span>{{ cat.nombre }}</span>
+										<i class="fa-solid fa-check" *ngIf="formulario.get('id_categoria')?.value === cat.id"></i>
+									</div>
+								</div>
+							</div>
 							<div class="text-danger small mt-1" *ngIf="formulario.get('id_categoria')?.invalid && formulario.get('id_categoria')?.touched">
 								La categoría es obligatoria.
 							</div>

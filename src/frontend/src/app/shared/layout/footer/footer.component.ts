@@ -7,6 +7,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
 
 interface UserData {
   nombre?: string;
@@ -38,7 +39,10 @@ export class FooterComponent implements OnInit {
     'profesor': ['Profesor/a', 'badge-profesor'],
     'alumno': ['Alumno/a', 'badge-alumno'],
     'staff': ['Personal', 'badge-staff'],
+    'trabajador': ['Técnico', 'badge-staff'] // Añadimos técnico por si acaso
   };
+
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.loadUserData();
@@ -54,15 +58,24 @@ export class FooterComponent implements OnInit {
         this.email = datos.email || null;
         this.foto = datos.foto || null;
         this.rol = datos.rol || null;
-        
-        if (this.rol && this.roles[this.rol]) {
-          this.rolLabel = this.roles[this.rol][0];
-          this.rolClass = this.roles[this.rol][1];
-        } else if (this.rol) {
-          this.rolLabel = this.rol;
-          this.rolClass = '';
-        }
       }
+    } else {
+      // Intentar cargar desde el AuthService
+      const usuario = this.authService.getUsuarioActual();
+      if (usuario) {
+        this.nombre = usuario.nombre || null;
+        this.email = usuario.email || null;
+        this.foto = null;
+        this.rol = usuario.rol || null;
+      }
+    }
+
+    if (this.rol && this.roles[this.rol]) {
+      this.rolLabel = this.roles[this.rol][0];
+      this.rolClass = this.roles[this.rol][1];
+    } else if (this.rol) {
+      this.rolLabel = this.rol;
+      this.rolClass = '';
     }
   }
 

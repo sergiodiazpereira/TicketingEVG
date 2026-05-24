@@ -1,2 +1,134 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'assets/admin.css';
+
+/* --- Desplegables personalizados Premium Globales --- */
+.desplegable-personalizado {
+    position: relative;
+    display: inline-block;
+}
+
+.boton-filtro-custom {
+    background: var(--blanco, #ffffff);
+    border: 1px solid var(--borde, #e4e7ef);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 12px 1.5rem;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    box-shadow: var(--sombra, 0 4px 12px rgba(0, 0, 0, 0.05));
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    color: var(--azul-oscuro, #014179);
+    outline: none;
+    height: 100%;
+    min-height: 48px;
+    min-width: 200px;
+}
+
+/* Hover normal */
+.boton-filtro-custom:hover:not(:disabled) {
+    background: var(--azul-claro, #eff6ff);
+    border-color: var(--azul, #006ea4);
+    color: var(--azul, #006ea4);
+}
+
+.boton-filtro-custom:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Desplegable abierto */
+.desplegable-personalizado.activo .boton-filtro-custom {
+    background: var(--blanco, #ffffff);
+    border-color: var(--azul, #006ea4);
+    box-shadow: 0 0 0 3px rgba(0, 110, 164, 0.15), var(--sombra, 0 4px 12px rgba(0, 0, 0, 0.05));
+    color: var(--azul, #006ea4);
+}
+
+/* Estado activo: cuando hay un filtro aplicado o selección activa */
+.desplegable-personalizado.filtro-aplicado .boton-filtro-custom {
+    background: var(--azul, #006ea4);
+    color: var(--blanco, #ffffff);
+    border-color: var(--azul, #006ea4);
+    box-shadow: 0 4px 12px rgba(0, 110, 164, 0.25);
+}
+
+.desplegable-personalizado.filtro-aplicado .boton-filtro-custom:hover:not(:disabled) {
+    background: var(--azul-oscuro, #014179);
+    border-color: var(--azul-oscuro, #014179);
+}
+
+.boton-filtro-custom i {
+    font-size: 10px;
+    transition: transform 0.2s ease;
+    color: inherit;
+}
+
+.desplegable-personalizado.activo .boton-filtro-custom i {
+    transform: rotate(180deg);
+}
+
+/* Lista de opciones flotante estilizada */
+.opciones-desplegable {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    min-width: 220px;
+    background: var(--blanco, #ffffff);
+    border: 1px solid var(--borde, #e4e7ef);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.03);
+    z-index: 1100;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    animation: aparecerDesplegable 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: top center;
+}
+
+@keyframes aparecerDesplegable {
+    from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Elementos de la opción */
+.opcion-item {
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--azul-oscuro, #014179);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.15s ease;
+}
+
+.opcion-item:hover {
+    background: var(--gris-fondo, #f5f6fa);
+    color: var(--azul, #006ea4);
+}
+
+.opcion-item.seleccionado {
+    background: var(--azul-claro, #eff6ff);
+    color: var(--azul, #006ea4);
+}
+
+.opcion-item i {
+    font-size: 12px;
+    color: var(--azul, #006ea4);
+}
