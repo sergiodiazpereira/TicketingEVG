@@ -26,12 +26,10 @@ export class FormularioOperarioComponent implements OnInit {
 
   /** Categorías disponibles (cargadas estáticamente; pueden venir de una API futura). */
   categorias = [
-    { id: 1, nombre: 'Soporte Nivel 1' },
-    { id: 2, nombre: 'Soporte Nivel 2' },
-    { id: 3, nombre: 'Mantenimiento General' },
-    { id: 4, nombre: 'Redes y Sistemas' },
-    { id: 5, nombre: 'Seguridad Perimetral' },
-    { id: 6, nombre: 'Gestión Operativa' }
+    { id: 1, nombre: 'Software' },
+    { id: 2, nombre: 'Redes' },
+    { id: 3, nombre: 'Mantenimiento' },
+    { id: 4, nombre: 'Otros' }
   ];
 
   constructor(private fb: FormBuilder) {}
