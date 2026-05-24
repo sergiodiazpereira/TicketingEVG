@@ -78,11 +78,13 @@ export class CrearTicketComponent implements OnInit {
     const payload = {
       tipo: valores.tipo,
       prioridad: this.PRIORIDAD_MAP[valores.prioridad] ?? 'm',
-      id_Categoria: this.CATEGORIA_MAP[valores.categoria] ?? 1,
+      id_categoria: this.CATEGORIA_MAP[valores.categoria] ?? 1,
       titulo: valores.titulo,
       descripcion: valores.descripcion,
-      id_Usuario_Creador: usuario.id,
-      estado: 'pendiente' as const
+      id_usuario_creador: usuario.id,
+      estado: 'pendiente' as const,
+      ubicacion: valores.ubicacion || null,
+      fecha_prevista: valores.fecha_limite || null
     };
 
     this.enviando = true;

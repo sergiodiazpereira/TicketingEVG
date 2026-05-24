@@ -1,5 +1,5 @@
 /*
- * Alumno: Sergio Díaz Pereira
+ * Alumnos: Sergio Díaz Pereira - Joseph Joel Quispe Alvarez
  * Asignatura: Desarrollo de Aplicaciones Web
  * Curso: 2025-2026
  * Descripción: Script de creación de la base de datos para TicketingEVG.
@@ -40,10 +40,10 @@ CREATE TABLE Usuario (
 	correo VARCHAR(100) NOT NULL,
 	activo BIT NOT NULL DEFAULT 1,
 	visitas_totales SMALLINT UNSIGNED NOT NULL DEFAULT 0,
-	id_Rol TINYINT UNSIGNED NOT NULL,
+	id_rol TINYINT UNSIGNED NOT NULL,
 	CONSTRAINT PK_Usuario PRIMARY KEY (id),
 	CONSTRAINT UQ_correo UNIQUE (correo),
-	CONSTRAINT FK_Usuario_Rol FOREIGN KEY (id_Rol) REFERENCES Rol (id) ON DELETE RESTRICT ON UPDATE CASCADE
+	CONSTRAINT FK_Usuario_Rol FOREIGN KEY (id_rol) REFERENCES Rol (id) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -52,12 +52,12 @@ CREATE TABLE Usuario (
 
 CREATE TABLE Categoria_Usuario (
 	id SMALLINT UNSIGNED AUTO_INCREMENT,
-	id_Categoria TINYINT UNSIGNED NOT NULL,
-	id_Usuario SMALLINT UNSIGNED NOT NULL,
+	id_categoria TINYINT UNSIGNED NOT NULL,
+	id_usuario SMALLINT UNSIGNED NOT NULL,
 	CONSTRAINT PK_Categoria_Usuario PRIMARY KEY (id),
-	CONSTRAINT UQ_Categoria_usuario UNIQUE (id_Categoria, id_Usuario),
-	CONSTRAINT FK_Categoria_Usuario_Categoria FOREIGN KEY (id_Categoria) REFERENCES Categoria (id) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT FK_Categoria_Usuario_Usuario FOREIGN KEY (id_Usuario) REFERENCES Usuario (id) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT UQ_Categoria_usuario UNIQUE (id_categoria, id_usuario),
+	CONSTRAINT FK_Categoria_Usuario_Categoria FOREIGN KEY (id_categoria) REFERENCES Categoria (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT FK_Categoria_Usuario_Usuario FOREIGN KEY (id_usuario) REFERENCES Usuario (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -66,18 +66,19 @@ CREATE TABLE Categoria_Usuario (
 
 CREATE TABLE Ticket (
 	id CHAR(20) NOT NULL,
-	id_Categoria TINYINT UNSIGNED NOT NULL,
+	id_categoria TINYINT UNSIGNED NOT NULL,
 	titulo VARCHAR(50) NOT NULL,
 	descripcion VARCHAR(500) NOT NULL,
 	prioridad CHAR(1) NOT NULL,
-	id_Usuario_Creador SMALLINT UNSIGNED NOT NULL,
+	id_usuario_creador SMALLINT UNSIGNED NOT NULL,
 	estado ENUM('pendiente', 'asignado', 'proceso', 'resuelto', 'no aplica') NOT NULL DEFAULT 'pendiente',
-	id_Usuario_Encargado SMALLINT UNSIGNED DEFAULT NULL,
+	id_usuario_encargado SMALLINT UNSIGNED DEFAULT NULL,
 	fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	fecha_prevista DATETIME DEFAULT NULL,
+	ubicacion VARCHAR(100) DEFAULT NULL,
 	CONSTRAINT PK_Ticket PRIMARY KEY (id),
 	CONSTRAINT CHECK_prioridad CHECK (prioridad IN ('a', 'm', 'b')),
-	CONSTRAINT FK_Ticket_Categoria FOREIGN KEY (id_Categoria) REFERENCES Categoria (id) ON DELETE RESTRICT ON UPDATE CASCADE,
-	CONSTRAINT FK_Ticket_Usuario_Creador FOREIGN KEY (id_Usuario_Creador) REFERENCES Usuario (id) ON DELETE RESTRICT ON UPDATE CASCADE,
-	CONSTRAINT FK_Ticket_Usuario_Encargado FOREIGN KEY (id_Usuario_Encargado) REFERENCES Usuario (id) ON DELETE SET NULL ON UPDATE CASCADE
+	CONSTRAINT FK_Ticket_Categoria FOREIGN KEY (id_categoria) REFERENCES Categoria (id) ON DELETE RESTRICT ON UPDATE CASCADE,
+	CONSTRAINT FK_Ticket_Usuario_Creador FOREIGN KEY (id_usuario_creador) REFERENCES Usuario (id) ON DELETE RESTRICT ON UPDATE CASCADE,
+	CONSTRAINT FK_Ticket_Usuario_Encargado FOREIGN KEY (id_usuario_encargado) REFERENCES Usuario (id) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

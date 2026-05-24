@@ -33,7 +33,8 @@ class C_Ticket {
      * @param array $json_data Datos decodificados del cuerpo de la petición.
      */
     public function guardar($json_data) {
-        if (!isset($json_data['titulo']) || !isset($json_data['id_Usuario_Creador'])) {
+        $id_usuario_creador = $json_data['id_usuario_creador'] ?? $json_data['id_Usuario_Creador'] ?? null;
+        if (!isset($json_data['titulo']) || !$id_usuario_creador) {
             return ["status" => "error", "message" => "Faltan campos obligatorios"];
         }
 

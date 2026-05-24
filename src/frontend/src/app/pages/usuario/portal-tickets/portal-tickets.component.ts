@@ -110,8 +110,8 @@ export class PortalTicketsComponent implements OnInit {
       descripcion: this.nuevoTicket.descripcion,
       tipo: this.nuevoTicket.tipo,
       prioridad: mapaPrioridad[this.nuevoTicket.prioridad] || 'm',
-      id_Categoria: this.nuevoTicket.categoriaId,
-      id_Usuario_Creador: this.usuario_actual.id,
+      id_categoria: this.nuevoTicket.categoriaId,
+      id_usuario_creador: this.usuario_actual.id,
       estado: 'pendiente'
     };
 

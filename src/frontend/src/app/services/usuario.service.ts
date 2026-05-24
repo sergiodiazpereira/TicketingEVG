@@ -52,6 +52,6 @@ export class UsuarioService {
    * @returns Observable con la respuesta del servidor.
    */
   eliminarUsuario(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}?entidad=usuario&accion=eliminar&id=${id}`);
+    return this.http.delete(`${this.apiUrl}?entidad=usuario&accion=borrar&id=${id}`);
   }
 }

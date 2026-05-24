@@ -23,6 +23,6 @@ export class DashboardService {
    * Obtiene todas las estadísticas globales para las tarjetas del dashboard.
    */
   getEstadisticas(): Observable<Estadisticas> {
-    return this.http.get<Estadisticas>(`${this.apiUrl}?entidad=dashboard&accion=obtener_datos`);
+    return this.http.get<Estadisticas>(`${this.apiUrl}?entidad=dashboard&accion=obtenerDatos`);
   }
 }
