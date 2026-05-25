@@ -3,45 +3,48 @@
  * Alumno: Joseph Joel Quispe Alvarez
  * Asignatura: DAW
  * Curso: 2025-2026
- * Descripción: Controlador para la gestión de acceso al sistema (Login).
+ * Descripción: Controlador para la gestión de acceso al sistema (Login) mediante Google Sign-In.
  */
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { SocialAuthService, SocialUser, SocialLoginModule, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { AuthService } from '../../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [GoogleSigninButtonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
-  /** Correo electrónico introducido en el formulario */
-  email: string = '';
-  /** Contraseña introducida en el formulario */
-  password: string = '';
-  /** Mensaje de error a mostrar si falla la validación */
+export class LoginComponent implements OnInit, OnDestroy {
   error: string = '';
+  private sub!: Subscription;
 
-  /**
-   * Inyecta los servicios necesarios para la navegación y validación.
-   * @param router Servicio de enrutamiento de Angular.
-   * @param authService Servicio de gestión de usuarios y autenticación.
-   */
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router, 
+    private authService: AuthService,
+    private socialAuthService: SocialAuthService
+  ) {}
 
-  /**
-   * Procesa el intento de inicio de sesión.
-   * Si es exitoso, redirige a la pantalla de acceso. Si falla, muestra un error.
-   */
-  login() {
-    const usuario = this.authService.login(this.email, this.password);
-    if (usuario) {
-      this.router.navigate(['/acceso']);
-    } else {
-      this.error = 'Credenciales incorrectas. Inténtalo de nuevo.';
-    }
+  ngOnInit() {
+    this.sub = this.socialAuthService.authState.subscribe((user: SocialUser) => {
+      if (user?.idToken) {
+        this.authService.loginConGoogle(user.idToken).subscribe({
+          next: (res) => {
+            this.router.navigate(['/acceso']);
+          },
+          error: (err) => {
+            console.error('Error al hacer login con Google', err);
+            this.error = 'No se pudo iniciar sesión con Google.';
+          }
+        });
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.sub) this.sub.unsubscribe();
   }
 }

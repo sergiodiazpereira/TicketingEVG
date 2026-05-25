@@ -7,48 +7,58 @@
  */
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
 import { Usuario } from '../models/usuario.model';
+
+// A dummy jwt-decode to avoid type errors if not fully configured
+function decodeToken(token: string): any {
+  try {
+    return JSON.parse(atob(token.split('.')[1]));
+  } catch {
+    return null;
+  }
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private usuarios: Usuario[] = [
-    { id: 1, nombre: 'Administrador', email: 'admin@evg.es', password: 'admin', rol: 'admin' },
-    { id: 2, nombre: 'Joseph Joel', email: 'joseph@evg.es', password: 'joseph', rol: 'admin' },
-    { id: 3, nombre: 'Profesor Test', email: 'profesor@evg.es', password: 'profesor', rol: 'profesor' },
-    { id: 4, nombre: 'Responsable Test', email: 'responsable@evg.es', password: 'responsable', rol: 'responsable' },
-    { id: 5, nombre: 'Trabajador Test', email: 'trabajador@evg.es', password: 'trabajador', rol: 'trabajador' }
-
-  ];
-
+  private apiUrl = 'http://localhost/backend/index.php'; // Adjust this URL based on actual deployment
   private usuarioAutenticado: Usuario | null = null;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private http: HttpClient
+  ) {
     if (isPlatformBrowser(this.platformId)) {
-      const storedUser = localStorage.getItem('usuario_actual');
-      if (storedUser) {
-        this.usuarioAutenticado = JSON.parse(storedUser);
+      const token = localStorage.getItem('token');
+      if (token && this.isTokenValid(token)) {
+        const payload = decodeToken(token);
+        if (payload && payload.data) {
+          this.usuarioAutenticado = payload.data as Usuario;
+        }
+      } else {
+        this.logout();
       }
     }
   }
 
   /**
-   * Intenta iniciar sesion con las credenciales proporcionadas.
-   * @param email Correo del usuario.
-   * @param password Contrasena del usuario.
-   * @returns El usuario si las credenciales son validas, null en caso contrario.
+   * Intenta iniciar sesion con el token de Google.
    */
-  login(email: string, password: string): Usuario | null {
-    const usuario = this.usuarios.find(u => u.email === email && u.password === password);
-    if (usuario) {
-      this.usuarioAutenticado = usuario;
-      if (isPlatformBrowser(this.platformId)) {
-        localStorage.setItem('usuario_actual', JSON.stringify(usuario));
-      }
-      return usuario;
-    }
-    return null;
+  loginConGoogle(idToken: string): Observable<{ status: string, token: string, usuario: Usuario }> {
+    return this.http.post<{ status: string, token: string, usuario: Usuario }>(
+      `${this.apiUrl}?entidad=auth&accion=google`,
+      { token: idToken }
+    ).pipe(
+      tap(res => {
+        if (res && res.token && isPlatformBrowser(this.platformId)) {
+          localStorage.setItem('token', res.token);
+          this.usuarioAutenticado = res.usuario;
+        }
+      })
+    );
   }
 
   /**
@@ -57,7 +67,7 @@ export class AuthService {
   logout(): void {
     this.usuarioAutenticado = null;
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.removeItem('usuario_actual');
+      localStorage.removeItem('token');
     }
   }
 
@@ -69,9 +79,17 @@ export class AuthService {
   }
 
   /**
-   * Verifica si hay un usuario autenticado.
+   * Verifica si hay un usuario autenticado y el token es valido.
    */
   isAutenticado(): boolean {
-    return this.usuarioAutenticado !== null;
+    if (!isPlatformBrowser(this.platformId)) return false;
+    const token = localStorage.getItem('token');
+    return token ? this.isTokenValid(token) : false;
+  }
+
+  private isTokenValid(token: string): boolean {
+    const payload = decodeToken(token);
+    if (!payload) return false;
+    return payload.exp > (Date.now() / 1000);
   }
 }

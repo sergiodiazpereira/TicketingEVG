@@ -10,15 +10,59 @@ error_reporting(E_ALL);
  * Descripción: Enrutador dinámico para la API PHP. 
  */
 
-// Cabeceras y CORS
-header("Access-Control-Allow-Origin: *");
+require_once __DIR__ . '/vendor/autoload.php';
+
+// Intentar cargar .env si existe
+if (file_exists(__DIR__ . '/.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+}
+
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+$allowedOrigins = [$_ENV['URL_FRONTEND_ORIGIN'] ?? 'http://localhost:4200', 'http://localhost'];
+
+if (in_array($origin, $allowedOrigins)) {
+    header("Access-Control-Allow-Origin: $origin");
+} else {
+    header("Access-Control-Allow-Origin: *");
+}
+
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Auth-Token");
+header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json; charset=utf-8");
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    echo json_encode(["status" => "ok"]);
+    http_response_code(204);
     exit;
+}
+
+// Función para validar JWT (protección de rutas)
+function validarJWT() {
+    if (!isset($_ENV['JWT_SECRET'])) return null; // Si no hay secret, omitir por ahora (modo pruebas sin .env)
+    
+    $headers = getallheaders();
+    $auth = $headers['Authorization'] ?? $headers['authorization'] ?? '';
+    
+    $token = '';
+    if (str_starts_with($auth, 'Bearer ')) {
+        $token = substr($auth, 7);
+    }
+
+    if (empty($token)) {
+        http_response_code(401);
+        echo json_encode(['error' => 'Token no proporcionado']);
+        exit;
+    }
+
+    try {
+        $decoded = \Firebase\JWT\JWT::decode($token, new \Firebase\JWT\Key($_ENV['JWT_SECRET'], 'HS256'));
+        return (array) $decoded->data;
+    } catch (Exception $e) {
+        http_response_code(401);
+        echo json_encode(['error' => 'Token inválido o expirado']);
+        exit;
+    }
 }
 
 // 1. Obtener controlador y método directamente de la URL
@@ -34,6 +78,12 @@ if (!file_exists($archivo)) {
     exit;
 }
 require_once $archivo;
+
+// Validar JWT para todos los controladores excepto Auth
+if (strtolower($entidad) !== 'auth') {
+    validarJWT();
+}
+
 $ctrl = new $clase();
 
 if (!method_exists($ctrl, $metodo)) {

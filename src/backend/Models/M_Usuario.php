@@ -121,6 +121,22 @@ class M_Usuario {
     }
 
     /**
+     * Busca un usuario por su correo electrónico.
+     * @param string $correo
+     * @return array|null
+     */
+    public function buscar_por_correo($correo) {
+        $stmt = $this->db->prepare("SELECT u.*, LOWER(r.nombre) as rol FROM Usuario u JOIN Rol r ON u.id_rol = r.id WHERE u.correo = ?");
+        $stmt->bind_param("s", $correo);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        if ($res && $row = $res->fetch_assoc()) {
+            return $row;
+        }
+        return null;
+    }
+
+    /**
      * Actualiza los datos de un usuario existente.
      * @param int $id ID del usuario.
      * @param array $datos Datos a actualizar (nombre, correo, rol).
