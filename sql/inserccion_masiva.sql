@@ -22,11 +22,11 @@ INSERT INTO Categoria (nombre, descripcion) VALUES
 ('Otros', 'Cualquier otro tipo de solicitud no clasificada');
 
 -- Inserción de datos en `Usuario`
-INSERT INTO Usuario (nombre, correo, activo, visitas_totales, id_rol) VALUES 
-('Julio', 'julioadmin@fundacionloyola.es', 1, 10, 1),
-('UsuarioR', 'uresponsable@fundacionloyola.es', 1, 5, 2),
-('UsuarioT', 'uprofesor@fundacionloyola.es', 1, 2, 3),
-('Alberto Domínguez', 'albertodominguez@fundacionloyola.es', 1, 8, 4);
+INSERT INTO Usuario (visitas_totales, id_rol) VALUES 
+(10, 1),
+(5, 2),
+(2, 3),
+(8, 4);
 
 -- Inserción de datos en `Categoria_Usuario`
 INSERT INTO Categoria_Usuario (id_categoria, id_usuario) VALUES 
