@@ -17,20 +17,23 @@
 	<div class="container">
 		<div class="row justify-content-center g-4">
 			<!-- Opción: Consola Admin -->
-			<div class="col-12 col-md-5 col-lg-4">
-				<a [routerLink]="['/admin/dashboard']" class="tarjeta-entorno">
-					<div class="icono-entorno">
-						<i class="bi bi-grid-fill"></i>
-					</div>
-					<h2 class="titulo-entorno">Consola Admin</h2>
-					<p class="desc-entorno">
-						Gestión de la aplicación TicketingEVG
-					</p>
-					<div class="link-acceso">
-						Acceder ahora <i class="bi bi-arrow-right"></i>
-					</div>
-				</a>
-			</div>
+			@if (usuario_actual?.rol === 'administrador') {
+				<div class="col-12 col-md-5 col-lg-4">
+					<a [routerLink]="['/admin/dashboard']" class="tarjeta-entorno">
+						<div class="icono-entorno">
+							<i class="bi bi-grid-fill"></i>
+						</div>
+						<h2 class="titulo-entorno">Consola Admin</h2>
+						<p class="desc-entorno">
+							Gestión de la aplicación TicketingEVG
+						</p>
+						<div class="link-acceso">
+							Acceder ahora <i class="bi bi-arrow-right"></i>
+						</div>
+					</a>
+				</div>
+			}
+
 
 			<!-- Opción: Portal Tickets -->
 			<div class="col-12 col-md-5 col-lg-4">

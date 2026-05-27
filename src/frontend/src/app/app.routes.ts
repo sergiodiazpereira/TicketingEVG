@@ -4,6 +4,7 @@ import { CategoriasComponent } from './pages/admin/categorias/categorias.compone
 import { OperariosComponent } from './pages/admin/operarios/operarios.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AccesoComponent } from './pages/acceso/acceso.component';
+import { SsoCallbackComponent } from './pages/sso-callback/sso-callback.component';
 import { PortalTicketsComponent } from './pages/usuario/portal-tickets/portal-tickets.component';
 import { ListaTicketsComponent } from './pages/usuario/lista-tickets/lista-tickets.component';
 import { CrearTicketComponent } from './pages/usuario/crear-ticket/crear-ticket.component';
@@ -12,7 +13,9 @@ import { authGuard } from './guards/auth.guard';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { path: 'sso-callback', component: SsoCallbackComponent },
   { path: 'acceso', component: AccesoComponent, canActivate: [authGuard] },
+
   { path: 'portal-tickets', component: PortalTicketsComponent, canActivate: [authGuard] },
   { path: 'portal-tickets/tickets', component: ListaTicketsComponent, canActivate: [authGuard] },
   { path: 'portal-tickets/crear', component: CrearTicketComponent, canActivate: [authGuard] },

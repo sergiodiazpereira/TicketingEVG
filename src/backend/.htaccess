@@ -1,0 +1,15 @@
+# ----------------------------------------------------------------------
+# Proyecto: TicketingEVG
+# Alumno: Joseph Joel Quispe Alvarez
+# Asignatura: DAW
+# Curso: 2025-2026
+# Descripción: Configuración de Apache para redirigir cabeceras HTTP.
+# ----------------------------------------------------------------------
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Habilitar el paso de la cabecera Authorization a entornos PHP / FastCGI / CGI
+    RewriteCond %{HTTP:Authorization} ^(.*)
+    RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+</IfModule>

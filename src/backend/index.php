@@ -41,8 +41,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 function validarJWT() {
     if (!isset($_ENV['JWT_SECRET'])) return null; // Si no hay secret, omitir por ahora (modo pruebas sin .env)
     
+    // Obtener la cabecera buscando en todos los métodos posibles de Apache / FastCGI
     $headers = getallheaders();
-    $auth = $headers['Authorization'] ?? $headers['authorization'] ?? '';
+    $auth = '';
+    
+    if (isset($headers['Authorization'])) {
+        $auth = $headers['Authorization'];
+    } elseif (isset($headers['authorization'])) {
+        $auth = $headers['authorization'];
+    } elseif (isset($_SERVER['HTTP_AUTHORIZATION'])) {
+        $auth = $_SERVER['HTTP_AUTHORIZATION'];
+    } elseif (isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) {
+        $auth = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+    }
     
     $token = '';
     if (str_starts_with($auth, 'Bearer ')) {
@@ -51,7 +62,7 @@ function validarJWT() {
 
     if (empty($token)) {
         http_response_code(401);
-        echo json_encode(['error' => 'Token no proporcionado']);
+        echo json_encode(['error' => 'Token no proporcionado o bloqueado por Apache']);
         exit;
     }
 
@@ -60,10 +71,11 @@ function validarJWT() {
         return (array) $decoded->data;
     } catch (Exception $e) {
         http_response_code(401);
-        echo json_encode(['error' => 'Token inválido o expirado']);
+        echo json_encode(['error' => 'Token inválido o expirado: ' . $e->getMessage()]);
         exit;
     }
 }
+
 
 // 1. Obtener controlador y método directamente de la URL
 $entidad = $_GET['entidad'] ?? 'ticket';

@@ -34,10 +34,8 @@
             "security": {
               "allowedHosts": []
             },
-            "prerender": true,
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            "prerender": false,
+            "ssr": false
           },
           "configurations": {
             "production": {

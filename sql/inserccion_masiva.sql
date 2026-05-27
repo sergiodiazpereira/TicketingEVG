@@ -5,7 +5,8 @@
  * Descripción: Script de inserción masiva de datos para pruebas.
  */
 
-USE TicketingEVG;
+-- USE TicketingEVG;
+
 
 -- Inserción de datos en `Rol`
 INSERT INTO Rol (nombre) VALUES 

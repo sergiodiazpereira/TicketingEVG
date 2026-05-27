@@ -5,9 +5,10 @@
  * Descripción: Script de creación de la base de datos para TicketingEVG.
  */
 
-DROP SCHEMA IF EXISTS TicketingEVG;
-CREATE SCHEMA TicketingEVG;
-USE TicketingEVG;
+-- DROP SCHEMA IF EXISTS TicketingEVG;
+-- CREATE SCHEMA TicketingEVG;
+-- USE TicketingEVG;
+
 
 --
 -- Estructura de tabla para la tabla `Rol`

@@ -3,15 +3,16 @@
  * Alumno: Joseph Joel Quispe Alvarez
  * Asignatura: DAW
  * Curso: 2025-2026
- * Descripción: Servicio de autenticación con usuarios estáticos.
+ * Descripción: Servicio de autenticación mediante SSO conectado con la Intranet Escolar.
  */
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Usuario } from '../models/usuario.model';
+import { environment } from '../../enviroments/environment';
 
-// A dummy jwt-decode to avoid type errors if not fully configured
+// Descodificador JWT auxiliar
 function decodeToken(token: string): any {
   try {
     return JSON.parse(atob(token.split('.')[1]));
@@ -24,7 +25,7 @@ function decodeToken(token: string): any {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost/backend/index.php'; // Adjust this URL based on actual deployment
+  private apiUrl = environment.apiUrl;
   private usuarioAutenticado: Usuario | null = null;
 
   constructor(
@@ -45,12 +46,14 @@ export class AuthService {
   }
 
   /**
-   * Intenta iniciar sesion con el token de Google.
+   * Valida el token de la intranet y sincroniza la sesión local en el backend.
+   * 
+   * @param tokenIntranet Token provisto por la Intranet.
    */
-  loginConGoogle(idToken: string): Observable<{ status: string, token: string, usuario: Usuario }> {
+  loginConSSO(tokenIntranet: string): Observable<{ status: string, token: string, usuario: Usuario }> {
     return this.http.post<{ status: string, token: string, usuario: Usuario }>(
-      `${this.apiUrl}?entidad=auth&accion=google`,
-      { token: idToken }
+      `${this.apiUrl}?entidad=auth&accion=sso`,
+      { token: tokenIntranet }
     ).pipe(
       tap(res => {
         if (res && res.token && isPlatformBrowser(this.platformId)) {
@@ -62,7 +65,7 @@ export class AuthService {
   }
 
   /**
-   * Cierra la sesion del usuario actual.
+   * Cierra la sesión activa en el navegador.
    */
   logout(): void {
     this.usuarioAutenticado = null;
@@ -72,14 +75,14 @@ export class AuthService {
   }
 
   /**
-   * Obtiene el usuario autenticado actualmente.
+   * Obtiene el perfil de datos del usuario autenticado localmente.
    */
   getUsuarioActual(): Usuario | null {
     return this.usuarioAutenticado;
   }
 
   /**
-   * Verifica si hay un usuario autenticado y el token es valido.
+   * Valida si el usuario actual tiene una sesión activa y vigente.
    */
   isAutenticado(): boolean {
     if (!isPlatformBrowser(this.platformId)) return false;

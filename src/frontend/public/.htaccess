@@ -1,0 +1,18 @@
+# ----------------------------------------------------------------------
+# Proyecto: TicketingEVG
+# Alumno: Joseph Joel Quispe Alvarez
+# Asignatura: DAW
+# Curso: 2025-2026
+# Descripción: Regla de Apache para redireccionar rutas virtuales de Angular (SPA) a index.html.
+# ----------------------------------------------------------------------
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  
+  # Si el archivo o directorio solicitado no existe físicamente en el servidor
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  
+  # Redirigir de forma interna a index.html para que el Router de Angular tome el control
+  RewriteRule ^ index.html [L]
+</IfModule>

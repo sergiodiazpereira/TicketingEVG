@@ -3,41 +3,85 @@
  * Alumno: Joseph Joel Quispe Alvarez
  * Asignatura: DAW
  * Curso: 2025-2026
- * Descripción: Estilos para el inicio de sesión.
+ * Descripción: Estilos premium para la pantalla de Login mediante SSO.
  */
-.login-container {
-	background: linear-gradient(135deg, #003366 0%, #006ea4 100%);
-}
 
-.login-card {
-	width: 100%;
-	max-width: 400px;
-	border: none;
-	border-radius: 20px;
-}
-
-.login-icon {
-	width: 70px;
-	height: 70px;
-	background-color: var(--dorado-activo);
-	color: white;
-	display: inline-flex;
-	align-items: center;
+.login-wrapper {
+	position: relative;
+	display: flex;
 	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	width: 100%;
+	background-color: #070a13;
+	overflow: hidden;
+	font-family: 'Inter', sans-serif;
+}
+
+/* Fondo animado con luces difuminadas */
+.glow-bg {
+	position: absolute;
+	top: -10%;
+	left: -10%;
+	width: 60%;
+	height: 60%;
+	background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(0,0,0,0) 70%);
+	filter: blur(80px);
+	z-index: 1;
+	pointer-events: none;
+}
+
+.glow-bg-2 {
+	top: auto;
+	left: auto;
+	bottom: -10%;
+	right: -10%;
+	background: radial-gradient(circle, rgba(167, 139, 250, 0.12) 0%, rgba(0,0,0,0) 70%);
+}
+
+/* Contenedor del Cargador */
+.loader-container {
+	position: relative;
+	z-index: 2;
+	text-align: center;
+	padding: 2.5rem;
+	background: rgba(17, 24, 39, 0.7);
+	border-radius: 20px;
+	backdrop-filter: blur(16px);
+	-webkit-backdrop-filter: blur(16px);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+	max-width: 440px;
+	width: 90%;
+}
+
+/* Spinner Animado */
+.spinner-growth {
+	margin: 0 auto 1.5rem auto;
+	width: 50px;
+	height: 50px;
+	border: 3px solid rgba(59, 130, 246, 0.1);
+	border-top-color: #3b82f6;
 	border-radius: 50%;
-	font-size: 2rem;
-	box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+	animation: spin 1s infinite linear;
 }
 
-.input-group-text {
-	border: 1px solid #dee2e6;
+.loading-text {
+	font-size: 1.2rem;
+	font-weight: 600;
+	margin-bottom: 0.5rem;
+	background: linear-gradient(90deg, #60a5fa, #a78bfa);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
-.form-control:focus {
-	box-shadow: none;
-	border-color: var(--azul-btn);
+.sub-text {
+	font-size: 0.9rem;
+	color: #9ca3af;
+	margin: 0;
 }
 
-.btn-evg {
-	letter-spacing: 1px;
+@keyframes spin {
+	to { transform: rotate(360deg); }
 }
+
