@@ -17,7 +17,7 @@
 	<div class="container">
 		<div class="row justify-content-center g-4">
 			<!-- Opción: Consola Admin -->
-			@if (usuario_actual?.rol === 'administrador') {
+			@if (usuario_actual?.id_rol_local === 1 || usuario_actual?.rol === 'administrador') {
 				<div class="col-12 col-md-5 col-lg-4">
 					<a [routerLink]="['/admin/dashboard']" class="tarjeta-entorno">
 						<div class="icono-entorno">

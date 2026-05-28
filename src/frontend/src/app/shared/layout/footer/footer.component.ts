@@ -1,20 +1,15 @@
-/**
- * Proyecto: TicketingEVG
- * Alumno: Joseph Joel Quispe Alvarez
- * Asignatura: DAW
- * Curso: 2025-2026
- * Descripción: Controlador para el componente Footer.
- */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../../services/auth.service';
 
-interface UserData {
-  nombre?: string;
-  email?: string;
-  foto?: string;
-  rol?: string;
-}
+const ROL_MAP: Record<string, [string, string]> = {
+  super_admin:       ['Super admin',    'badge-admin'],
+  admin_global:      ['Administrador',  'badge-admin'],
+  coordinador:       ['Coordinador/a',  'badge-admin'],
+  profesor:          ['Profesor/a',     'badge-profesor'],
+  admin_financiero:  ['Adm. Financiero','badge-staff'],
+  monitor:           ['Monitor/a',      'badge-staff'],
+  tutor_legal:       ['Tutor Legal',    'badge-alumno'],
+};
 
 @Component({
   selector: 'app-footer',
@@ -23,87 +18,77 @@ interface UserData {
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css'
 })
-export class FooterComponent implements OnInit {
-  nombre: string | null = null;
-  email: string | null = null;
-  foto: string | null = null;
-  rol: string | null = null;
-  
+export class FooterComponent implements OnInit, OnDestroy {
+  user: any = null;
   rolLabel: string | null = null;
   rolClass: string = '';
-  
-  currentYear = new Date().getFullYear();
-
-  private roles: { [key: string]: [string, string] } = {
-    'admin': ['Administrador', 'badge-admin'],
-    'profesor': ['Profesor/a', 'badge-profesor'],
-    'alumno': ['Alumno/a', 'badge-alumno'],
-    'staff': ['Personal', 'badge-staff'],
-    'trabajador': ['Técnico', 'badge-staff'] // Añadimos técnico por si acaso
-  };
-
-  constructor(private authService: AuthService) {}
+  fechaHora: string = '';
+  private reloj: any;
 
   ngOnInit(): void {
-    this.loadUserData();
+    this.actualizarReloj();
+    this.reloj = setInterval(() => this.actualizarReloj(), 1000);
+    
+    // Check localStorage first, fallback to cookie
+    const token = localStorage.getItem('token') || this.getCookie('auth_token');
+    if (!token) return;
+
+    const payload = this.decodeJwt(token);
+    if (!payload?.data) return;
+
+    const d = payload.data;
+    this.user = {
+      name: d.nombre || d.email,
+      foto: d.foto
+    };
+
+    let rolesArray: string[] = [];
+    if (Array.isArray(d.roles)) {
+      rolesArray = d.roles;
+    } else if (d.roles) {
+      rolesArray = Object.values(d.roles) as string[];
+    }
+    
+    const rolKey = rolesArray.length > 0 ? rolesArray[0] : null;
+    
+    if (rolKey && ROL_MAP[rolKey]) {
+      [this.rolLabel, this.rolClass] = ROL_MAP[rolKey];
+    } else if (rolKey) {
+      this.rolLabel = rolKey;
+    }
   }
 
-  private loadUserData(): void {
-    const token = this.getCookie('auth_token');
-    if (token) {
-      const payload = this.obtenerPayloadJwt(token);
-      if (payload && payload.data) {
-        const datos = payload.data as UserData;
-        this.nombre = datos.nombre || null;
-        this.email = datos.email || null;
-        this.foto = datos.foto || null;
-        this.rol = datos.rol || null;
-      }
-    } else {
-      // Intentar cargar desde el AuthService
-      const usuario = this.authService.getUsuarioActual();
-      if (usuario) {
-        this.nombre = usuario.nombre || null;
-        this.email = usuario.email || null;
-        this.foto = null;
-        this.rol = usuario.rol || null;
-      }
-    }
+  ngOnDestroy(): void {
+    clearInterval(this.reloj);
+  }
 
-    if (this.rol && this.roles[this.rol]) {
-      this.rolLabel = this.roles[this.rol][0];
-      this.rolClass = this.roles[this.rol][1];
-    } else if (this.rol) {
-      this.rolLabel = this.rol;
-      this.rolClass = '';
-    }
+  private actualizarReloj(): void {
+    const ahora = new Date();
+    const fecha = ahora.toLocaleDateString('es-ES', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+    const hora  = ahora.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    this.fechaHora = `${fecha} | ${hora}`;
   }
 
   private getCookie(name: string): string | null {
-    if (typeof document === 'undefined') return null; // Prevenir errores en SSR
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) {
-      return parts.pop()?.split(';').shift() || null;
-    }
-    return null;
+    const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+    return match ? decodeURIComponent(match[1]) : null;
   }
 
-  private obtenerPayloadJwt(token: string): any {
+  private decodeJwt(token: string): any {
     try {
-      const partes = token.split('.');
-      if (partes.length !== 3) return null;
-
-      let b64 = partes[1].replace(/-/g, '+').replace(/_/g, '/');
-      const pad = b64.length % 4;
-      if (pad) {
-        b64 += new Array(5 - pad).join('=');
+      const base64Url = token.split('.')[1];
+      let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      while (base64.length % 4) {
+        base64 += '=';
       }
-
-      // decodeURIComponent(escape(atob())) maneja caracteres utf-8 mejor
-      const raw = decodeURIComponent(escape(atob(b64)));
-      return JSON.parse(raw);
-    } catch (e) {
+      const jsonPayload = decodeURIComponent(
+        window.atob(base64)
+          .split('')
+          .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join('')
+      );
+      return JSON.parse(jsonPayload);
+    } catch {
       return null;
     }
   }

@@ -12,6 +12,7 @@ export interface Usuario {
   correo?: string; // Según BBDD
   password?: string;
   rol: string;
+  id_rol_local?: number | null;
   num_categorias?: number;
   tickets_asignados?: number;
   categorias_nombres?: string[];

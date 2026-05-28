@@ -210,5 +210,49 @@ class M_Usuario {
         }
         return true;
     }
+
+    /**
+     * Busca un usuario por su ID.
+     * @param int $id
+     * @return array|null
+     */
+    public function buscar_por_id($id) {
+        $stmt = $this->db->prepare("SELECT u.*, LOWER(r.nombre) as rol FROM Usuario u LEFT JOIN Rol r ON u.id_rol = r.id WHERE u.id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        if ($res && $row = $res->fetch_assoc()) {
+            return $row;
+        }
+        return null;
+    }
+
+    /**
+     * Incrementa el contador de visitas de un usuario local.
+     * @param int $id
+     * @return bool
+     */
+    public function incrementar_visitas($id) {
+        $stmt = $this->db->prepare("UPDATE Usuario SET visitas_totales = visitas_totales + 1 WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        return $stmt->execute();
+    }
+
+    /**
+     * Crea un usuario local usando el ID proporcionado por la Intranet.
+     * @param int $id
+     * @param int|null $id_rol
+     * @return bool
+     */
+    public function crear_con_id($id, $id_rol) {
+        if ($id_rol === null) {
+            $stmt = $this->db->prepare("INSERT INTO Usuario (id) VALUES (?)");
+            $stmt->bind_param("i", $id);
+        } else {
+            $stmt = $this->db->prepare("INSERT INTO Usuario (id, id_rol) VALUES (?, ?)");
+            $stmt->bind_param("ii", $id, $id_rol);
+        }
+        return $stmt->execute();
+    }
 }
 ?>

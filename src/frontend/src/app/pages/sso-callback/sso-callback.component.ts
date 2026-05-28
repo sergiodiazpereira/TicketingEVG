@@ -76,7 +76,7 @@ export class SsoCallbackComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Capturar el parámetro token desde la URL de redirección
+    // Capturar el token de la URL de redirección de la Intranet
     this.route.queryParams.subscribe(params => {
       const token = params['token'];
       
@@ -84,8 +84,9 @@ export class SsoCallbackComponent implements OnInit {
         this.authService.loginConSSO(token).subscribe({
           next: (res) => {
             // Sincronización exitosa, redirección inteligente directa según el rol local
-            const rol = res.usuario.rol;
-            if (rol === 'administrador') {
+            // id_rol_local === 1 corresponde a administrador en la BD de TicketingEVG
+            const idRolLocal = res.usuario.id_rol_local;
+            if (idRolLocal === 1) {
               // El administrador ve la landing intermedia para escoger entre Consola Admin y Portal Tickets
               this.router.navigate(['/acceso']);
             } else {

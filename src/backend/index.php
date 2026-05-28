@@ -19,12 +19,16 @@ if (file_exists(__DIR__ . '/.env')) {
 }
 
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-$allowedOrigins = [$_ENV['URL_FRONTEND_ORIGIN'] ?? 'http://localhost:4200', 'http://localhost'];
+$allowedOrigins = [$_ENV['URL_FRONTEND_ORIGIN'] ?? 'http://localhost:4200', 'http://localhost', 'https://03.proyectos.esvirgua.com'];
 
 if (in_array($origin, $allowedOrigins)) {
     header("Access-Control-Allow-Origin: $origin");
 } else {
-    header("Access-Control-Allow-Origin: *");
+    if (!empty($origin)) {
+        header("Access-Control-Allow-Origin: $origin");
+    } else {
+        header("Access-Control-Allow-Origin: *");
+    }
 }
 
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
