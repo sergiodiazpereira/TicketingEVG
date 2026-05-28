@@ -54,4 +54,12 @@ export class UsuarioService {
   eliminarUsuario(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}?entidad=usuario&accion=borrar&id=${id}`);
   }
+
+  /**
+   * Obtiene el personal de la intranet que no está registrado en el sistema.
+   * @returns Observable con la lista de personal.
+   */
+  getPersonalIntranet(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}?entidad=usuario&accion=listar_personal_intranet`);
+  }
 }

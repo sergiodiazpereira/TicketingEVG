@@ -52,20 +52,25 @@ class C_Auth {
 			}
 		}
 
-
-		$email = $datos_payload['email'] ?? '';
+		$id = (int) ($datos_payload['id'] ?? 0);
+		$email = $datos_payload['email'] ?? $datos_payload['correo'] ?? '';
 		$nombre = $datos_payload['nombre'] ?? '';
 		$apellidos = $datos_payload['apellidos'] ?? '';
 		$nombre_completo = trim($nombre . ' ' . $apellidos);
 		$roles_intranet = (array) ($datos_payload['roles'] ?? []);
+
+		if (!$id) {
+			http_response_code(400);
+			return ['error' => 'El token de la intranet no contiene un ID de usuario válido'];
+		}
 
 		if (empty($email)) {
 			http_response_code(400);
 			return ['error' => 'El token de la intranet no contiene un correo válido'];
 		}
 
-		// Buscar si el usuario ya existe en nuestra base de datos local
-		$usuario = $this->modelo_usuario->buscar_por_correo($email);
+		// Buscar si el usuario ya existe en nuestra base de datos local por su ID
+		$usuario = $this->modelo_usuario->buscar_por_id($id);
 
 		if (!$usuario) {
 			// Mapear los roles de la intranet a nuestro rol de Ticketing local por defecto
@@ -78,10 +83,9 @@ class C_Auth {
 			elseif (in_array('profesor', $roles_intranet) || in_array('profesor_dualex', $roles_intranet))
 				$rol_local = 'trabajador';
 
-			// Crear usuario local de forma transparente
+			// Crear usuario local de forma transparente con el ID heredado
 			$datos_nuevo = [
-				'nombre' => $nombre_completo,
-				'correo' => $email,
+				'id' => $id,
 				'rol' => $rol_local
 			];
 
@@ -91,12 +95,11 @@ class C_Auth {
 				return ['error' => 'Error al crear el perfil local de usuario'];
 			}
 
-			// Recuperar el usuario recién insertado con su rol mapeado
-			$usuario = $this->modelo_usuario->buscar_por_correo($email);
+			// Recuperar el usuario recién insertado
+			$usuario = $this->modelo_usuario->buscar_por_id($id);
 		}
 
 		// Incrementar el contador de visitas local si procede
-		// (Para mantener estadísticas vivas en el Dashboard)
 		$this->incrementar_visitas_usuario((int) $usuario['id']);
 
 		// Generar JWT de sesión interno de TicketingEVG
@@ -106,8 +109,8 @@ class C_Auth {
 			'exp' => $iat + (int) ($_ENV['JWT_EXPIRATION'] ?? 86400),
 			'data' => [
 				'id' => (int) $usuario['id'],
-				'email' => $usuario['correo'],
-				'nombre' => $usuario['nombre'],
+				'email' => $email, // Se toma dinámicamente del token de la intranet
+				'nombre' => $nombre_completo, // Se toma dinámicamente del token de la intranet
 				'rol' => $usuario['rol'] // Gobernado por el ROL LOCAL de nuestra BD
 			]
 		];
