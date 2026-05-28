@@ -12,7 +12,6 @@
 INSERT INTO Rol (nombre) VALUES 
 ('Administrador'),
 ('Responsable'),
-('Profesor'),
 ('Trabajador');
 
 -- Inserción de datos en `Categoria`
@@ -21,21 +20,6 @@ INSERT INTO Categoria (nombre, descripcion) VALUES
 ('Redes', 'Problemas de conectividad y equipos de red'),
 ('Mantenimiento', 'Mantenimiento preventivo y correctivo de hardware'),
 ('Otros', 'Cualquier otro tipo de solicitud no clasificada');
-
--- Inserción de datos en `Usuario`
-INSERT INTO Usuario (visitas_totales, id_rol) VALUES 
-(10, 1),
-(5, 2),
-(2, 3),
-(8, 4);
-
--- Inserción de datos en `Categoria_Usuario`
-INSERT INTO Categoria_Usuario (id_categoria, id_usuario) VALUES 
-(1, 1), 
-(1, 3), 
-(2, 1), 
-(2, 4),
-(3, 1);
 
 -- Inserción de datos en `Ticket`
 INSERT INTO Ticket (id, id_categoria, titulo, descripcion, prioridad, id_usuario_creador, estado, id_usuario_encargado, fecha_creacion, ubicacion) VALUES 
