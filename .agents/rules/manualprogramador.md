@@ -81,3 +81,19 @@ Las constantes se escribirán íntegramente en mayúsculas. Por ejemplo: FICHERO
     *   **Usuarios Técnicos (Operario, Responsable, Administrador):**
         *   Pueden editar cualquier ticket en curso.
         *   Pueden cambiar el estado de los tickets, incluyendo marcarlos como `resuelto` o cancelarlos pasándolos a `no aplica`.
+
+*   **Mapeo de Nombres Reales y Desasignación:**
+    *   **Backend (`M_Ticket.php`):** Se mapean los IDs del encargado (`id_usuario_encargado`) y del creador (`id_usuario_creador`) a sus nombres reales en texto plano (`encargado_nombre`, `creador_nombre`) extrayéndolos desde `M_Intranet::listar_personal()`, evitando así mostrar cadenas como "TRABAJADOR 31" en la interfaz.
+    *   **Desasignación Completa:** Se modificaron los métodos del backend y frontend para permitir pasar el valor `0` o `null` en la asignación de técnicos, devolviendo el ticket al estado de `pendiente` de forma automática.
+
+*   **Edición Dinámica In-Place y Controladores:**
+    *   **Dualidad del Modal:** Se creó el Modo Lectura / Modo Edición (Opción A) en el modal unificado de tickets, permitiendo la edición reactiva de Título, Descripción, Ubicación, Categoría y Prioridad bajo la validación del getter `puedeEditar`.
+    *   **Compatibilidad de Roles ('admin' vs 'administrador'):** Se corrigió la discrepancia de roles en `C_Ticket::asignar()` admitiendo de manera transparente ambos alias para evitar el bloqueo del backend al reasignar técnicos.
+
+*   **Hilo Cronológico de Comentarios y Notas Técnicas:**
+    *   **Persistencia:** Implementada la tabla `Comentario` asociada a `Ticket` y `Usuario` mediante claves externas en cascada.
+    *   **Comunicación Interna:** Diseñado un feed de comentarios con scroll vertical limitado a `200px` y envío dinámico reactivo integrado en la parte inferior del modal de detalles para operarios y creadores del ticket.
+
+*   **Superposición de Modales y Captura de Eventos (Event Bubbling):**
+    *   **Overflow Clipping:** Los modales colocados dentro de contenedores transformados (`transform: scale(...)`) con animaciones de apertura sufren recortes debido al contexto de apilamiento CSS. Se extrajeron los modales personalizados de confirmación (`<app-confirmacion-eliminar>`) como hermanos externos del contenedor animado.
+    *   **Propagación de Clics:** Se implementó `(click)="$event.stopPropagation()"` en los límites de los modales internos para evitar que el evento click suba por el DOM y active el cierre accidental del modal padre administrado por `@HostListener('click')`.
