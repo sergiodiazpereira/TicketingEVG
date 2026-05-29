@@ -20,7 +20,15 @@ class Conexion {
             $config = [];
             $ruta_env = __DIR__ . '/../.env';
             if (file_exists($ruta_env)) {
-                $config = parse_ini_file($ruta_env);
+                $lineas = file($ruta_env, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+                foreach ($lineas as $linea) {
+                    $linea = trim($linea);
+                    if (empty($linea) || $linea[0] === '#' || $linea[0] === ';') continue;
+                    if (strpos($linea, '=') !== false) {
+                        list($key, $val) = explode('=', $linea, 2);
+                        $config[trim($key)] = trim($val, " \t\n\r\0\x0B\"");
+                    }
+                }
             }
             
             $servidor = $config['SERVIDOR'] ?? '127.0.0.1';
