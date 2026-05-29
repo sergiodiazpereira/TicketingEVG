@@ -73,7 +73,7 @@ export class PortalTicketsComponent implements OnInit {
     this.usuario_actual = this.authService.getUsuarioActual();
     if (this.usuario_actual) {
       this.cargarTickets();
-      if (this.usuario_actual.rol === 'admin' || this.usuario_actual.rol === 'responsable') {
+      if (this.usuario_actual.rol === 'administrador' || this.usuario_actual.rol === 'responsable') {
         this.cargarOperarios();
       }
     }
@@ -104,17 +104,27 @@ export class PortalTicketsComponent implements OnInit {
   }
 
   /**
-   * Obtiene los tickets del servicio filtrados por el usuario logueado.
+   * Obtiene los tickets del servicio filtrados por el usuario logueado o todos si es admin.
    */
   cargarTickets(): void {
     if (this.usuario_actual) {
-      this.ticketService.getTicketsPorUsuario(this.usuario_actual.id).subscribe({
-        next: (data) => {
-          this.tickets = data;
-          this.calcularStats();
-        },
-        error: (err) => console.error('Error al cargar tickets', err)
-      });
+      if (this.usuario_actual.rol === 'administrador') {
+        this.ticketService.getTickets().subscribe({
+          next: (data) => {
+            this.tickets = data;
+            this.calcularStats();
+          },
+          error: (err) => console.error('Error al cargar todos los tickets', err)
+        });
+      } else {
+        this.ticketService.getTicketsPorUsuario(this.usuario_actual.id).subscribe({
+          next: (data) => {
+            this.tickets = data;
+            this.calcularStats();
+          },
+          error: (err) => console.error('Error al cargar tickets por usuario', err)
+        });
+      }
     }
   }
 

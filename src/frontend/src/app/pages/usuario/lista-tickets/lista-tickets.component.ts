@@ -52,7 +52,7 @@ export class ListaTicketsComponent implements OnInit {
   ngOnInit(): void {
     this.usuario_actual = this.authService.getUsuarioActual();
     this.cargarTickets();
-    if (this.usuario_actual && (this.usuario_actual.rol === 'admin' || this.usuario_actual.rol === 'responsable')) {
+    if (this.usuario_actual && (this.usuario_actual.rol === 'administrador' || this.usuario_actual.rol === 'responsable')) {
       this.cargarOperarios();
     }
   }
@@ -83,17 +83,31 @@ export class ListaTicketsComponent implements OnInit {
 
   cargarTickets(): void {
     if (this.usuario_actual) {
-      this.ticketService.getTicketsPorUsuario(this.usuario_actual.id).subscribe({
-        next: (data) => {
-          this.tickets = data;
-          this.filtrarTickets();
-        },
-        error: (err) => {
-          console.error('Error al cargar tickets', err);
-          this.tickets = [];
-          this.ticketsFiltrados = [];
-        }
-      });
+      if (this.usuario_actual.rol === 'administrador') {
+        this.ticketService.getTickets().subscribe({
+          next: (data) => {
+            this.tickets = data;
+            this.filtrarTickets();
+          },
+          error: (err) => {
+            console.error('Error al cargar tickets globales', err);
+            this.tickets = [];
+            this.ticketsFiltrados = [];
+          }
+        });
+      } else {
+        this.ticketService.getTicketsPorUsuario(this.usuario_actual.id).subscribe({
+          next: (data) => {
+            this.tickets = data;
+            this.filtrarTickets();
+          },
+          error: (err) => {
+            console.error('Error al cargar tickets por usuario', err);
+            this.tickets = [];
+            this.ticketsFiltrados = [];
+          }
+        });
+      }
     }
   }
 

@@ -68,7 +68,7 @@
         </div>
 
         <!-- SELECTOR TÉCNICO (Admin o Responsable) -->
-        <ng-container *ngIf="(rolUsuario === 'admin' || rolUsuario === 'responsable') && ticket.estado !== 'resuelto' && ticket.estado !== 'no aplica'">
+        <ng-container *ngIf="(rolUsuario === 'administrador' || rolUsuario === 'responsable') && ticket.estado !== 'resuelto' && ticket.estado !== 'no aplica'">
             <hr class="divider-light">
             <div class="form-group full-width" style="margin-bottom: 25px;">
                 <label class="form-label">

@@ -93,7 +93,7 @@ export class CrearTicketComponent implements OnInit {
 
     // Cargar operarios si el usuario actual es admin o responsable
     const usuario = this.authService.getUsuarioActual();
-    if (usuario && (usuario.rol === 'admin' || usuario.rol === 'responsable')) {
+    if (usuario && (usuario.rol === 'administrador' || usuario.rol === 'responsable')) {
       this.esAdminOResponsable = true;
       this.usuarioService.getOperarios().subscribe({
         next: (data: any) => this.operarios = data,
