@@ -128,10 +128,22 @@
 						</div>
 						<div class="col-md-6" *ngIf="esAdminOResponsable">
 							<label class="etiqueta-form" for="campo-encargado">Asignar Técnico / Responsable (Opcional)</label>
-							<select id="campo-encargado" class="control-form" formControlName="id_usuario_encargado" style="appearance: auto;">
-								<option value="">-- Sin asignar --</option>
-								<option *ngFor="let op of operarios" [value]="op.id">{{ op.nombre }} ({{ op.rol | uppercase }})</option>
-							</select>
+							<div class="desplegable-personalizado w-100" [class.activo]="desplegableEncargadoAbierto">
+								<button type="button" class="boton-filtro-custom w-100" (click)="toggleDesplegableEncargado($event)">
+									<span>{{ getEncargadoEtiqueta() }}</span>
+									<i class="fa-solid fa-chevron-down"></i>
+								</button>
+								<div class="opciones-desplegable" *ngIf="desplegableEncargadoAbierto">
+									<div class="opcion-item" [class.seleccionado]="formulario.get('id_usuario_encargado')?.value === ''" (click)="seleccionarEncargado('')">
+										<span>-- Sin asignar --</span>
+										<i class="fa-solid fa-check" *ngIf="formulario.get('id_usuario_encargado')?.value === ''"></i>
+									</div>
+									<div class="opcion-item" *ngFor="let op of operarios" [class.seleccionado]="formulario.get('id_usuario_encargado')?.value === op.id" (click)="seleccionarEncargado(op.id)">
+										<span>{{ op.nombre }} ({{ op.rol | uppercase }})</span>
+										<i class="fa-solid fa-check" *ngIf="formulario.get('id_usuario_encargado')?.value === op.id"></i>
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="col-12">
 							<label class="etiqueta-form" for="campo-titulo">

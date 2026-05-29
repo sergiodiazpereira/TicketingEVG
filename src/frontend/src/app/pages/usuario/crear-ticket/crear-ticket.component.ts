@@ -33,6 +33,7 @@ export class CrearTicketComponent implements OnInit {
   desplegableTipoAbierto = false;
   desplegablePrioridadAbierto = false;
   desplegableCategoriaAbierto = false;
+  desplegableEncargadoAbierto = false;
 
   /** Fecha mínima para el selector de fecha límite (hoy) */
   fechaMinima = '';
@@ -158,6 +159,7 @@ export class CrearTicketComponent implements OnInit {
     this.desplegableTipoAbierto = !this.desplegableTipoAbierto;
     this.desplegablePrioridadAbierto = false;
     this.desplegableCategoriaAbierto = false;
+    this.desplegableEncargadoAbierto = false;
   }
 
   toggleDesplegablePrioridad(event: Event): void {
@@ -165,6 +167,7 @@ export class CrearTicketComponent implements OnInit {
     this.desplegablePrioridadAbierto = !this.desplegablePrioridadAbierto;
     this.desplegableTipoAbierto = false;
     this.desplegableCategoriaAbierto = false;
+    this.desplegableEncargadoAbierto = false;
   }
 
   toggleDesplegableCategoria(event: Event): void {
@@ -172,6 +175,15 @@ export class CrearTicketComponent implements OnInit {
     this.desplegableCategoriaAbierto = !this.desplegableCategoriaAbierto;
     this.desplegableTipoAbierto = false;
     this.desplegablePrioridadAbierto = false;
+    this.desplegableEncargadoAbierto = false;
+  }
+
+  toggleDesplegableEncargado(event: Event): void {
+    event.stopPropagation();
+    this.desplegableEncargadoAbierto = !this.desplegableEncargadoAbierto;
+    this.desplegableTipoAbierto = false;
+    this.desplegablePrioridadAbierto = false;
+    this.desplegableCategoriaAbierto = false;
   }
 
   seleccionarTipo(tipo: string): void {
@@ -188,6 +200,11 @@ export class CrearTicketComponent implements OnInit {
     this.formulario.get('id_categoria')?.setValue(id);
     this.formulario.get('id_categoria')?.markAsTouched();
     this.desplegableCategoriaAbierto = false;
+  }
+
+  seleccionarEncargado(id: number | string): void {
+    this.formulario.get('id_usuario_encargado')?.setValue(id);
+    this.desplegableEncargadoAbierto = false;
   }
 
   getTipoEtiqueta(): string {
@@ -212,11 +229,19 @@ export class CrearTicketComponent implements OnInit {
     return cat ? cat.nombre : 'Selecciona una categoría';
   }
 
+  getEncargadoEtiqueta(): string {
+    const id = this.formulario.get('id_usuario_encargado')?.value;
+    if (!id) return '-- Sin asignar --';
+    const op = this.operarios.find(o => o.id == id);
+    return op ? op.nombre + ' (' + op.rol.toUpperCase() + ')' : '-- Sin asignar --';
+  }
+
   @HostListener('document:click', ['$event'])
   cerrarDesplegables(): void {
     this.desplegableTipoAbierto = false;
     this.desplegablePrioridadAbierto = false;
     this.desplegableCategoriaAbierto = false;
+    this.desplegableEncargadoAbierto = false;
   }
 }
 

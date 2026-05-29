@@ -18,17 +18,22 @@
             <div class="form-row" *ngIf="!operario">
                 <div class="form-group full-width">
                     <label class="form-label" for="campo-personal">Seleccionar Personal de la Intranet</label>
-                    <select
-                        id="campo-personal"
-                        class="form-control"
-                        formControlName="id"
-                        [class.is-invalid]="formulario.get('id')?.invalid && formulario.get('id')?.touched"
-                    >
-                        <option value="">-- Elige un miembro de la plantilla docente o de servicios --</option>
-                        <option *ngFor="let p of personalIntranet" [value]="p.id">
-                            {{ p.nombre }} ({{ p.correo }})
-                        </option>
-                    </select>
+                    <div class="desplegable-personalizado w-100" [class.activo]="desplegablePersonalAbierto">
+                        <button type="button" class="boton-filtro-custom w-100" (click)="toggleDesplegablePersonal($event)" [class.border-danger]="formulario.get('id')?.invalid && formulario.get('id')?.touched">
+                            <span>{{ getPersonalEtiqueta() }}</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div class="opciones-desplegable" *ngIf="desplegablePersonalAbierto">
+                            <div class="opcion-item" [class.seleccionado]="formulario.get('id')?.value === ''" (click)="seleccionarPersonal('')">
+                                <span>-- Elige un miembro de la plantilla docente o de servicios --</span>
+                                <i class="fa-solid fa-check" *ngIf="formulario.get('id')?.value === ''"></i>
+                            </div>
+                            <div class="opcion-item" *ngFor="let p of personalIntranet" [class.seleccionado]="formulario.get('id')?.value === p.id" (click)="seleccionarPersonal(p.id)">
+                                <span>{{ p.nombre }} ({{ p.correo }})</span>
+                                <i class="fa-solid fa-check" *ngIf="formulario.get('id')?.value === p.id"></i>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Spinner de carga de personal -->
                     <div *ngIf="cargandoPersonal" class="text-muted small mt-1">
                         <span class="spinner-border spinner-border-sm me-1"></span> Cargando plantilla de la Intranet...
@@ -67,14 +72,22 @@
             <div class="form-row">
                 <div class="form-group full-width">
                     <label class="form-label" for="campo-rol">Tipo de Perfil en Ticketing</label>
-                    <select
-                        id="campo-rol"
-                        class="form-control"
-                        formControlName="rol"
-                    >
-                        <option value="responsable">Responsable</option>
-                        <option value="trabajador">Trabajador</option>
-                    </select>
+                    <div class="desplegable-personalizado w-100" [class.activo]="desplegableRolAbierto">
+                        <button type="button" class="boton-filtro-custom w-100" (click)="toggleDesplegableRol($event)">
+                            <span>{{ getRolEtiqueta() }}</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div class="opciones-desplegable" *ngIf="desplegableRolAbierto">
+                            <div class="opcion-item" [class.seleccionado]="formulario.get('rol')?.value === 'responsable'" (click)="seleccionarRol('responsable')">
+                                <span>Responsable</span>
+                                <i class="fa-solid fa-check" *ngIf="formulario.get('rol')?.value === 'responsable'"></i>
+                            </div>
+                            <div class="opcion-item" [class.seleccionado]="formulario.get('rol')?.value === 'trabajador'" (click)="seleccionarRol('trabajador')">
+                                <span>Trabajador</span>
+                                <i class="fa-solid fa-check" *ngIf="formulario.get('rol')?.value === 'trabajador'"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

@@ -5,7 +5,7 @@
  * Curso: 2025-2026
  * Descripción: Modal de formulario para crear o editar un operario conectando con Intranet.
  */
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoriasService } from '../../../services/categorias.service';
@@ -97,6 +97,52 @@ export class FormularioOperarioComponent implements OnInit {
       ? actuales.filter(id => id !== idCategoria)
       : [...actuales, idCategoria];
     this.formulario.patchValue({ categorias: nuevas });
+  }
+
+  // --- Lógica para selects personalizados ---
+  desplegablePersonalAbierto = false;
+  desplegableRolAbierto = false;
+
+  toggleDesplegablePersonal(event: Event): void {
+    event.stopPropagation();
+    this.desplegablePersonalAbierto = !this.desplegablePersonalAbierto;
+    this.desplegableRolAbierto = false;
+  }
+
+  toggleDesplegableRol(event: Event): void {
+    event.stopPropagation();
+    this.desplegableRolAbierto = !this.desplegableRolAbierto;
+    this.desplegablePersonalAbierto = false;
+  }
+
+  seleccionarPersonal(id: string): void {
+    this.formulario.get('id')?.setValue(id);
+    this.formulario.get('id')?.markAsTouched();
+    this.desplegablePersonalAbierto = false;
+  }
+
+  seleccionarRol(rol: string): void {
+    this.formulario.get('rol')?.setValue(rol);
+    this.desplegableRolAbierto = false;
+  }
+
+  getPersonalEtiqueta(): string {
+    if (this.cargandoPersonal) return 'Cargando plantilla de la Intranet...';
+    const id = this.formulario.get('id')?.value;
+    if (!id) return '-- Elige un miembro de la plantilla --';
+    const personal = this.personalIntranet.find(p => p.id == id);
+    return personal ? `${personal.nombre} (${personal.correo})` : '-- Elige un miembro de la plantilla --';
+  }
+
+  getRolEtiqueta(): string {
+    const rol = this.formulario.get('rol')?.value;
+    return rol === 'responsable' ? 'Responsable' : 'Trabajador';
+  }
+
+  @HostListener('document:click', ['$event'])
+  cerrarDesplegables(): void {
+    this.desplegablePersonalAbierto = false;
+    this.desplegableRolAbierto = false;
   }
 
   /** Emite los datos del formulario si es válido. */
