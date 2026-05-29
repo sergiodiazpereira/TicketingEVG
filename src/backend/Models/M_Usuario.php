@@ -229,12 +229,13 @@ class M_Usuario {
 		$stmt_cat->bind_param("i", $id);
 		$stmt_cat->execute();
 
-		// Luego eliminar el usuario
-		$stmt_usr = $this->db->prepare("DELETE FROM Usuario WHERE id = ?");
+		// En lugar de borrar el usuario de la BBDD local (lo que rompería la integridad de los tickets creados),
+		// simplemente le quitamos el rol de operario (id_rol = NULL), dejándolo como usuario básico ("profesor").
+		$stmt_usr = $this->db->prepare("UPDATE Usuario SET id_rol = NULL WHERE id = ?");
 		$stmt_usr->bind_param("i", $id);
 		if ($stmt_usr->execute())
-			return ['status' => 'success', 'message' => 'Operario eliminado correctamente.'];
-		return ['status' => 'error', 'message' => 'Error al eliminar el operario.'];
+			return ['status' => 'success', 'message' => 'Rol de operario revocado correctamente.'];
+		return ['status' => 'error', 'message' => 'Error al revocar los permisos de operario.'];
 	}
 
 	/**
