@@ -92,7 +92,7 @@ Las constantes se escribirán íntegramente en mayúsculas. Por ejemplo: FICHERO
 
 *   **Hilo Cronológico de Comentarios y Notas Técnicas:**
     *   **Persistencia:** Implementada la tabla `Comentario` asociada a `Ticket` y `Usuario` mediante claves externas en cascada.
-    *   **Comunicación Interna:** Diseñado un feed de comentarios con scroll vertical limitado a `200px` y envío dinámico reactivo integrado en la parte inferior del modal de detalles para operarios y creadores del ticket.
+    *   **Comunicación Interna y Diseño Ergonométrico:** Diseñado un feed de comentarios con envío dinámico reactivo integrado. El panel de comentarios se posiciona de forma **adyacente (lado a lado)** al modal de detalles principales, evitando la saturación vertical del modal principal y asegurando que ninguna información técnica quede fuera del visor de pantalla. En resoluciones pequeñas, el layout se apila responsivamente de forma vertical de manera elegante.
 
 *   **Superposición de Modales y Captura de Eventos (Event Bubbling):**
     *   **Overflow Clipping:** Los modales colocados dentro de contenedores transformados (`transform: scale(...)`) con animaciones de apertura sufren recortes debido al contexto de apilamiento CSS. Se extrajeron los modales personalizados de confirmación (`<app-confirmacion-eliminar>`) como hermanos externos del contenedor animado.
