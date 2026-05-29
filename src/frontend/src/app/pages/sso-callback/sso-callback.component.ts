@@ -78,7 +78,7 @@ export class SsoCallbackComponent implements OnInit {
   ngOnInit(): void {
     // Capturar el parámetro token desde la URL de redirección
     this.route.queryParams.subscribe(params => {
-      const token = params['token'];
+      const token = params['auth_token'] || params['token'];
       
       if (token) {
         this.authService.loginConSSO(token).subscribe({

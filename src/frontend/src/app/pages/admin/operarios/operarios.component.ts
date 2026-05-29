@@ -84,7 +84,7 @@ export class OperariosComponent implements OnInit {
    * @param datos Objeto con nombre, correo, rol y categorias enviado por el formulario.
    */
   guardarOperario(datos: any) {
-    if (datos.id) {
+    if (this.operarioAEditar) {
       // Actualizar operario existente
       this.usuarioService.actualizarUsuario(datos.id, datos).subscribe({
         next: (res) => {

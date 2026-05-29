@@ -58,6 +58,7 @@ export class AuthService {
       tap(res => {
         if (res && res.token && isPlatformBrowser(this.platformId)) {
           localStorage.setItem('token', res.token);
+          localStorage.setItem('token_intranet', tokenIntranet);
           this.usuarioAutenticado = res.usuario;
         }
       })
@@ -71,6 +72,7 @@ export class AuthService {
     this.usuarioAutenticado = null;
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('token');
+      localStorage.removeItem('token_intranet');
     }
   }
 

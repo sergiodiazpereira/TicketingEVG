@@ -3,37 +3,70 @@
   Alumno: Joseph Joel Quispe Alvarez
   Asignatura: DAW
   Curso: 2 DAW
-  Descripción: Modal de formulario para crear o editar un operario.
+  Descripción: Modal de formulario para crear o editar un operario conectando con Intranet.
 -->
 <div class="modal-overlay">
     <div class="modal-container modal-form shadow-lg">
         <div class="modal-header">
             <button class="btn-close" (click)="cerrar.emit()">&times;</button>
             <h2 class="modal-title">{{ operario ? 'Modificar Operario' : 'Nuevo Operario' }}</h2>
-            <p class="modal-subtitle">{{ operario ? 'Actualiza la información del técnico en el sistema.' : 'Completa los datos para añadir un nuevo técnico.' }}</p>
+            <p class="modal-subtitle">{{ operario ? 'Actualiza la información del técnico en el sistema.' : 'Selecciona un miembro del personal de la Intranet para registrarlo.' }}</p>
         </div>
 
         <div class="modal-body" [formGroup]="formulario">
-            <div class="form-row">
+            <!-- Modo Creación: Mostrar Select de la Intranet -->
+            <div class="form-row" *ngIf="!operario">
+                <div class="form-group full-width">
+                    <label class="form-label" for="campo-personal">Seleccionar Personal de la Intranet</label>
+                    <select
+                        id="campo-personal"
+                        class="form-control"
+                        formControlName="id"
+                        [class.is-invalid]="formulario.get('id')?.invalid && formulario.get('id')?.touched"
+                    >
+                        <option value="">-- Elige un miembro de la plantilla docente o de servicios --</option>
+                        <option *ngFor="let p of personalIntranet" [value]="p.id">
+                            {{ p.nombre }} ({{ p.correo }})
+                        </option>
+                    </select>
+                    <!-- Spinner de carga de personal -->
+                    <div *ngIf="cargandoPersonal" class="text-muted small mt-1">
+                        <span class="spinner-border spinner-border-sm me-1"></span> Cargando plantilla de la Intranet...
+                    </div>
+                    <div class="invalid-feedback" *ngIf="formulario.get('id')?.errors?.['required'] && formulario.get('id')?.touched">
+                        Es obligatorio seleccionar un miembro del personal.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modo Edición: Mostrar datos nominales de solo lectura -->
+            <div class="form-row" *ngIf="operario">
                 <div class="form-group">
                     <label class="form-label" for="campo-nombre">Nombre Completo</label>
                     <input
                         id="campo-nombre"
                         type="text"
-                        class="form-control"
+                        class="form-control bg-light text-muted"
                         formControlName="nombre"
-                        placeholder="Ej: Administrador Sistema"
-                        [class.is-invalid]="formulario.get('nombre')?.invalid && formulario.get('nombre')?.touched"
+                        placeholder="Cargando nombre..."
                     >
-                    <div class="invalid-feedback" *ngIf="formulario.get('nombre')?.errors?.['required'] && formulario.get('nombre')?.touched">
-                        El nombre es obligatorio.
-                    </div>
-                    <div class="invalid-feedback" *ngIf="formulario.get('nombre')?.errors?.['minlength'] && formulario.get('nombre')?.touched">
-                        El nombre debe tener al menos 3 caracteres.
-                    </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="campo-rol">Tipo de Perfil</label>
+                    <label class="form-label" for="campo-correo">Correo Corporativo</label>
+                    <input
+                        id="campo-correo"
+                        type="email"
+                        class="form-control bg-light text-muted"
+                        formControlName="correo"
+                        placeholder="Cargando correo..."
+                    >
+                </div>
+            </div>
+
+            <!-- Rol de Operario (Común a ambos modos) -->
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label class="form-label" for="campo-rol">Tipo de Perfil en Ticketing</label>
                     <select
                         id="campo-rol"
                         class="form-control"
@@ -45,26 +78,7 @@
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="form-group full-width">
-                    <label class="form-label" for="campo-correo">Correo Corporativo</label>
-                    <input
-                        id="campo-correo"
-                        type="email"
-                        class="form-control"
-                        formControlName="correo"
-                        placeholder="ejemplo@ticketing.com"
-                        [class.is-invalid]="formulario.get('correo')?.invalid && formulario.get('correo')?.touched"
-                    >
-                    <div class="invalid-feedback" *ngIf="formulario.get('correo')?.errors?.['required'] && formulario.get('correo')?.touched">
-                        El correo es obligatorio.
-                    </div>
-                    <div class="invalid-feedback" *ngIf="formulario.get('correo')?.errors?.['email'] && formulario.get('correo')?.touched">
-                        Introduce un correo electrónico válido.
-                    </div>
-                </div>
-            </div>
-
+            <!-- Categorías Asignadas (Común a ambos modos) -->
             <div class="form-group full-width">
                 <label class="form-label">Categorías Asignadas</label>
                 <div class="categories-container">
