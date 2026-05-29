@@ -18,6 +18,7 @@ import { CommonModule } from '@angular/common';
 })
 export class LoginComponent implements OnInit {
   error: string = '';
+  redirigiendo: boolean = false;
 
   constructor(
     private router: Router,
@@ -28,13 +29,21 @@ export class LoginComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       const token = params['auth_token'] || params['token'];
       if (token) {
+        // La Intranet nos ha devuelto un token: procesarlo en el callback
         this.router.navigate(['/sso-callback'], { queryParams: { token } });
       } else if (params['error'] === 'sso_failed') {
-        this.error = 'No se pudo validar tu sesión con la Intranet Escolar.';
-      } else {
-        // Redirigir al SSO real de la Intranet para obtener un token fresco
-        window.location.href = 'https://17.daw.esvirgua.com';
+        // El SSO falló: mostrar error sin redirigir (evita el bucle)
+        this.error = 'No se pudo validar tu sesión con la Intranet Escolar. Por favor, inténtalo de nuevo.';
       }
+      // En cualquier otro caso: mostrar pantalla con botón, NO redirigir automáticamente
     });
+  }
+
+  /**
+   * Inicia la redirección manual al portal SSO de la Intranet.
+   */
+  iraAlIntranet(): void {
+    this.redirigiendo = true;
+    window.location.href = 'https://17.daw.esvirgua.com';
   }
 }

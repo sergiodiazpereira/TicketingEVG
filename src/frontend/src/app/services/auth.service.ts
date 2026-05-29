@@ -57,8 +57,8 @@ export class AuthService {
     ).pipe(
       tap(res => {
         if (res && res.token && isPlatformBrowser(this.platformId)) {
+          // Guardar sólo el JWT interno de TicketingEVG. El token de la Intranet es de un solo uso.
           localStorage.setItem('token', res.token);
-          localStorage.setItem('token_intranet', tokenIntranet);
           this.usuarioAutenticado = res.usuario;
         }
       })
@@ -72,7 +72,6 @@ export class AuthService {
     this.usuarioAutenticado = null;
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('token');
-      localStorage.removeItem('token_intranet');
     }
   }
 

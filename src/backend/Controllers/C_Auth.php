@@ -36,10 +36,29 @@ class C_Auth {
 		$intranet_secret = $_ENV['INTRANET_JWT_SECRET'] ?? 'super_secret_key_12345678901234567890_para_pruebas';
 
 		try {
+			// Tolerancia de 60 s para desfases de reloj entre el servidor de la Intranet y este servidor
+			JWT::$leeway = 60;
+
 			// Validar firma del token de la intranet
 			$decoded = JWT::decode($token, new Key($intranet_secret, 'HS256'));
 			$datos_payload = (array) $decoded->data;
 		} catch (Exception $e) {
+			$log_msg = date('Y-m-d H:i:s') . " - Error de validación JWT: " . $e->getMessage() . "\n";
+			$log_msg .= "Hora actual del servidor (time()): " . time() . "\n";
+
+			if (substr_count($token, '.') === 2) {
+				$payload_base64 = explode('.', $token)[1];
+				// Añadir padding de base64 si es necesario
+				$payload_json = base64_decode(str_pad(strtr($payload_base64, '-_', '+/'), strlen($payload_base64) % 4 === 0 ? strlen($payload_base64) : strlen($payload_base64) + (4 - strlen($payload_base64) % 4), '='));
+				$payload_arr = json_decode($payload_json, true);
+				$log_msg .= "Payload: " . $payload_json . "\n";
+				if (isset($payload_arr['iat']))
+					$log_msg .= "  iat (emitido): " . $payload_arr['iat'] . " => " . date('Y-m-d H:i:s', $payload_arr['iat']) . "\n";
+				if (isset($payload_arr['exp']))
+					$log_msg .= "  exp (expira):  " . $payload_arr['exp'] . " => " . date('Y-m-d H:i:s', $payload_arr['exp']) . "\n";
+			}
+			file_put_contents(__DIR__ . '/../error_sso.log', $log_msg . "--------------------------\n", FILE_APPEND);
+			
 			http_response_code(401);
 			return ['error' => 'Token de la Intranet inválido o expirado: ' . $e->getMessage()];
 		}

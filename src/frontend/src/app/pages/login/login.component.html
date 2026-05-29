@@ -3,19 +3,53 @@
  * Alumno: Joseph Joel Quispe Alvarez
  * Asignatura: DAW
  * Curso: 2025-2026
- * Descripción: Vista de transición y carga silenciosa de SSO. Sin botones de login para acceso directo.
+ * Descripción: Pantalla de inicio de sesión con acceso SSO mediante la Intranet Escolar.
  -->
 <div class="login-wrapper">
 	<div class="glow-bg"></div>
 	<div class="glow-bg glow-bg-2"></div>
-	
+
 	<div class="loader-container text-center">
-		<div *ngIf="error" class="alert alert-danger" style="position:relative; z-index:9999; margin-bottom: 2rem; font-weight: bold; background-color: #ffcccc; color: #cc0000; padding: 15px; border-radius: 8px;">
-			{{ error }}
+
+		<!-- Mensaje de error SSO con botón de reintento -->
+		<div *ngIf="error" class="error-box">
+			<span class="error-icon">⚠</span>
+			<p class="error-msg">{{ error }}</p>
+			<button
+				id="btn-reintentar-sso"
+				class="btn-sso"
+				(click)="iraAlIntranet()"
+				[disabled]="redirigiendo"
+			>
+				<span *ngIf="!redirigiendo">🔁 Reintentar con la Intranet</span>
+				<span *ngIf="redirigiendo">Redirigiendo...</span>
+			</button>
 		</div>
-		<div class="spinner-growth"></div>
-		<p class="loading-text">Iniciando sesión segura mediante SSO...</p>
-		<p class="sub-text">Por favor, espera mientras te redirigimos.</p>
+
+		<!-- Pantalla normal de login cuando no hay error ni token -->
+		<ng-container *ngIf="!error">
+			<div class="logo-wrapper">
+				<div class="logo-ring"></div>
+				<span class="logo-icon">🎫</span>
+			</div>
+			<h1 class="app-title">TicketingEVG</h1>
+			<p class="app-subtitle">Sistema de gestión de incidencias del centro</p>
+
+			<button
+				id="btn-login-intranet"
+				class="btn-sso"
+				(click)="iraAlIntranet()"
+				[disabled]="redirigiendo"
+			>
+				<span *ngIf="!redirigiendo">
+					<img src="https://www.svgrepo.com/show/303108/google-icon-logo.svg" alt="Google" class="google-icon" />
+					Iniciar sesión con la Intranet
+				</span>
+				<span *ngIf="redirigiendo" class="spinner-inline"></span>
+				<span *ngIf="redirigiendo">Redirigiendo a la Intranet...</span>
+			</button>
+
+			<p class="hint-text">Accede con tu cuenta de Google del centro escolar.</p>
+		</ng-container>
 	</div>
 </div>
-

@@ -7,12 +7,18 @@
  * Descripción: Interceptor de SSO para recibir peticiones POST de la Intranet y redirigirlas a la SPA Angular.
  */
 
+// Construir la URL base del servidor actual de forma dinámica
+// (evita depender de variables de entorno que pueden apuntar a localhost)
+$protocolo = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$host = $_SERVER['HTTP_HOST'];
+$url_frontend = $protocolo . '://' . $host;
+
 // Posibles nombres de parámetro que pueda estar usando la Intranet
 $token = $_POST['auth_token'] ?? $_POST['token'] ?? $_POST['jwt'] ?? $_POST['id_token'] ?? $_GET['auth_token'] ?? $_GET['token'] ?? $_GET['jwt'] ?? '';
 
 if (!empty($token)) {
-	// Si encontramos el token, redirigimos a la ruta Hash de Angular
-	$url_destino = '/#/sso-callback?token=' . urlencode($token);
+	// Redirigir a la URL absoluta del frontend para que Angular gestione la ruta
+	$url_destino = $url_frontend . '/sso-callback?token=' . urlencode($token);
 	header('Location: ' . $url_destino);
 	exit;
 }
@@ -32,3 +38,4 @@ echo "</pre>";
 
 echo "</div>";
 ?>
+

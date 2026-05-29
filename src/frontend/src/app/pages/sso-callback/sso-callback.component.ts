@@ -79,8 +79,17 @@ export class SsoCallbackComponent implements OnInit {
     // Capturar el parámetro token desde la URL de redirección
     this.route.queryParams.subscribe(params => {
       const token = params['auth_token'] || params['token'];
-      
+
       if (token) {
+        // Validar la caducidad del token de la Intranet localmente antes de enviarlo al backend.
+        // Así evitamos enviar tokens antiguos que el usuario pueda tener en el historial del navegador.
+        if (this.tokenIntranetExpirado(token)) {
+          console.warn('Token de la Intranet expirado detectado en el cliente. Redirigiendo para obtener uno fresco.');
+          // Redirigir al portal de la Intranet para que emita un token nuevo
+          window.location.href = 'https://17.daw.esvirgua.com';
+          return;
+        }
+
         this.authService.loginConSSO(token).subscribe({
           next: (res) => {
             // Sincronización exitosa, redirección inteligente directa según el rol local
@@ -104,6 +113,30 @@ export class SsoCallbackComponent implements OnInit {
         this.router.navigate(['/login']);
       }
     });
+  }
+
+  /**
+   * Decodifica el payload del token de la Intranet y comprueba si ya expiró.
+   * No valida la firma (eso es tarea del backend), sólo el campo exp.
+   *
+   * @param token Token JWT de la Intranet.
+   * @returns true si el token ya ha caducado.
+   */
+  private tokenIntranetExpirado(token: string): boolean {
+    try {
+      const partes = token.split('.');
+      if (partes.length !== 3)
+        return true;
+
+      const payload = JSON.parse(atob(partes[1]));
+      if (!payload.exp)
+        return false; // Si no tiene exp, dejar que el backend decida
+
+      // Comparar con la hora actual en segundos (con margen de 10 s)
+      return payload.exp < (Date.now() / 1000) - 10;
+    } catch {
+      return false; // En caso de error de parseo, dejar que el backend decida
+    }
   }
 
 }

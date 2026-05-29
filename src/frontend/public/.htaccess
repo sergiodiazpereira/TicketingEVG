@@ -8,11 +8,15 @@
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  
+
   # Si el archivo o directorio solicitado no existe físicamente en el servidor
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  
+
   # Redirigir de forma interna a index.html para que el Router de Angular tome el control
   RewriteRule ^ index.html [L]
 </IfModule>
+
+# Fallback por si mod_rewrite está deshabilitado o AllowOverride no permite .htaccess:
+# Apache sirve index.html cuando no encuentra la ruta, Angular gestiona el 404 internamente.
+ErrorDocument 404 /index.html
