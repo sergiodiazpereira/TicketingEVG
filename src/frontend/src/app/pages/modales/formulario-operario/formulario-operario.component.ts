@@ -121,6 +121,21 @@ export class FormularioOperarioComponent implements OnInit {
     this.desplegablePersonalAbierto = false;
   }
 
+  terminoBusquedaPersonal: string = '';
+  get personalFiltrado(): any[] {
+    if (!this.terminoBusquedaPersonal.trim()) {
+      return this.personalIntranet;
+    }
+    const term = this.terminoBusquedaPersonal.toLowerCase();
+    return this.personalIntranet.filter(p => 
+      p.nombre.toLowerCase().includes(term) || p.correo.toLowerCase().includes(term)
+    );
+  }
+
+  actualizarBusqueda(event: Event): void {
+    this.terminoBusquedaPersonal = (event.target as HTMLInputElement).value;
+  }
+
   seleccionarRol(rol: string): void {
     this.formulario.get('rol')?.setValue(rol);
     this.desplegableRolAbierto = false;

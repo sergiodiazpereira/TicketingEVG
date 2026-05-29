@@ -62,6 +62,10 @@ export class CrearTicketComponent implements OnInit {
     private router: Router
   ) {}
 
+  get isAdministrador(): boolean {
+    return this.authService.getUsuarioActual()?.rol === 'administrador';
+  }
+
   ngOnInit(): void {
     const hoy = new Date();
     const anio = hoy.getFullYear();

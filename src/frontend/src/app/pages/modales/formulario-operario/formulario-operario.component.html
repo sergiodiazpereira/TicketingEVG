@@ -18,25 +18,38 @@
             <div class="form-row" *ngIf="!operario">
                 <div class="form-group full-width">
                     <label class="form-label" for="campo-personal">Seleccionar Personal de la Intranet</label>
-                    <div class="desplegable-personalizado w-100" [class.activo]="desplegablePersonalAbierto">
-                        <button type="button" class="boton-filtro-custom w-100" (click)="toggleDesplegablePersonal($event)" [class.border-danger]="formulario.get('id')?.invalid && formulario.get('id')?.touched">
-                            <span>{{ getPersonalEtiqueta() }}</span>
-                            <i class="fa-solid fa-chevron-down"></i>
-                        </button>
-                        <div class="opciones-desplegable" *ngIf="desplegablePersonalAbierto">
-                            <div class="opcion-item" [class.seleccionado]="formulario.get('id')?.value === ''" (click)="seleccionarPersonal('')">
-                                <span>-- Elige un miembro de la plantilla docente o de servicios --</span>
-                                <i class="fa-solid fa-check" *ngIf="formulario.get('id')?.value === ''"></i>
-                            </div>
-                            <div class="opcion-item" *ngFor="let p of personalIntranet" [class.seleccionado]="formulario.get('id')?.value === p.id" (click)="seleccionarPersonal(p.id)">
-                                <span>{{ p.nombre }} ({{ p.correo }})</span>
-                                <i class="fa-solid fa-check" *ngIf="formulario.get('id')?.value === p.id"></i>
-                            </div>
-                        </div>
+                    <!-- Buscador -->
+                    <div class="input-group mb-2">
+                        <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
+                        <input type="text" class="form-control border-start-0 ps-0" placeholder="Buscar por nombre o correo..." (input)="actualizarBusqueda($event)">
                     </div>
-                    <!-- Spinner de carga de personal -->
-                    <div *ngIf="cargandoPersonal" class="text-muted small mt-1">
-                        <span class="spinner-border spinner-border-sm me-1"></span> Cargando plantilla de la Intranet...
+                    <!-- Lista Scrolleable -->
+                    <div class="lista-personal border rounded" style="max-height: 200px; overflow-y: auto;">
+                        <div class="list-group list-group-flush">
+                            <!-- Estado de carga -->
+                            <div *ngIf="cargandoPersonal" class="list-group-item text-muted text-center py-4">
+                                <span class="spinner-border spinner-border-sm me-2"></span>Cargando plantilla...
+                            </div>
+                            <!-- Sin resultados -->
+                            <div *ngIf="!cargandoPersonal && personalFiltrado.length === 0" class="list-group-item text-muted text-center py-4">
+                                No se encontraron usuarios con ese término.
+                            </div>
+                            <!-- Lista de usuarios -->
+                            <button type="button" class="list-group-item list-group-item-action d-flex align-items-center py-2" 
+                                *ngFor="let p of personalFiltrado"
+                                [class.active]="formulario.get('id')?.value === p.id"
+                                [class.bg-light]="formulario.get('id')?.value === p.id"
+                                (click)="seleccionarPersonal(p.id)">
+                                <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-3" style="width: 32px; height: 32px; font-size: 0.8rem; flex-shrink: 0;">
+                                    {{ p.nombre.charAt(0) | uppercase }}
+                                </div>
+                                <div class="text-truncate">
+                                    <div class="fw-bold mb-0 text-truncate" [class.text-primary]="formulario.get('id')?.value === p.id" style="font-size: 0.9rem;">{{ p.nombre }}</div>
+                                    <div class="text-muted text-truncate" style="font-size: 0.8rem;">{{ p.correo }}</div>
+                                </div>
+                                <i class="bi bi-check-circle-fill ms-auto text-primary" *ngIf="formulario.get('id')?.value === p.id" style="font-size: 1.2rem;"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="invalid-feedback" *ngIf="formulario.get('id')?.errors?.['required'] && formulario.get('id')?.touched">
                         Es obligatorio seleccionar un miembro del personal.

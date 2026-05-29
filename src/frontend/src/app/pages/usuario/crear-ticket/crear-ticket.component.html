@@ -23,6 +23,10 @@
 			<span class="etiqueta-nav">Mis tickets</span>
 		</a>
 		<div class="flex-grow-1"></div>
+		<a *ngIf="isAdministrador" routerLink="/admin/dashboard" class="btn-cerrar-sesion me-2 text-warning border-warning bg-transparent shadow-none btn-cambio-vista">
+			<i class="fa-solid fa-arrow-right-arrow-left"></i>
+			<span class="etiqueta-nav">Consola Admin</span>
+		</a>
 		<a routerLink="/acceso" class="btn-cerrar-sesion">
 			<i class="fa-solid fa-right-from-bracket"></i>
 			<span class="etiqueta-nav">Cerrar sesión</span>
