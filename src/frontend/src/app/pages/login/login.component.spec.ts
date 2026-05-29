@@ -42,13 +42,17 @@ describe('LoginComponent', () => {
 		expect(component).toBeTruthy();
 	});
 
-	it('debería redirigir automáticamente a sso-callback con el token por defecto', () => {
+	it('debería redirigir a sso-callback si recibe un token en los query params', () => {
+		mockActivatedRoute.queryParams = of({ token: 'test-token' });
+		fixture = TestBed.createComponent(LoginComponent);
+		component = fixture.componentInstance;
 		fixture.detectChanges();
+		
 		expect(mockRouter.navigate).toHaveBeenCalledWith(
 			['/sso-callback'],
 			jasmine.objectContaining({
 				queryParams: jasmine.objectContaining({
-					token: jasmine.any(String)
+					token: 'test-token'
 				})
 			})
 		);
@@ -62,7 +66,7 @@ describe('LoginComponent', () => {
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 
-		expect(component.error).toEqual('No se pudo validar tu sesión con la Intranet Escolar.');
+		expect(component.error).toEqual('No se pudo validar tu sesión con la Intranet Escolar. Por favor, inténtalo de nuevo.');
 		expect(mockRouter.navigate).not.toHaveBeenCalled();
 	});
 });

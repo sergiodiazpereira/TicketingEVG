@@ -64,3 +64,20 @@ Se utilizará notación C (con subrayado bajo).
 Las clases se nombrarán con la primera letra mayúscula. Por ejemplo: Usuario, Usuario_Administracion.
 Las variables y objetos se nombrarán con minúsculas. Por ejemplo: $contador, $fecha_apertura.
 Las constantes se escribirán íntegramente en mayúsculas. Por ejemplo: FICHERO, FICHERO_USUARIOS
+
+### Apuntes Técnicos y Decisiones de Arquitectura
+*   **Integración SSO (Intranet):**
+    *   **Interceptor POST/GET:** La Intranet envía el JWT mediante una petición POST (o parámetros GET) a la ruta raíz. Dado que Angular es una SPA, pierde estos datos al cargar. Se implementó `sso_catch.php` para atrapar estas peticiones antes de cargar el frontend y realizar una redirección Hash (`/#/sso-callback?token=...`) que Angular pueda leer.
+    *   **Validación Local en Frontend:** Debido a problemas con el historial y la caché del navegador que reenviaban tokens antiguos caducados, Angular (`sso-callback.component.ts`) decodifica el token localmente para revisar su fecha de expiración (`exp`). Si está caducado, el usuario es devuelto a la Intranet de forma transparente antes de molestar al backend.
+    *   **Validación Backend (`C_Auth.php`):** La validación de la firma del token se hace de forma robusta con Firebase JWT. El `id` y el `rol` mapeado del JWT de la Intranet gobiernan los permisos de acceso en TicketingEVG.
+    *   **Gestión de Entorno (`.env`):** Las claves JWT de la intranet se guardan en `.env`. Se ha abandonado el uso de `parse_ini_file()` en `Conexion.php` en favor de un parseo manual, evitando errores fatales con comentarios (`#`) introducidos en PHP 8.
+
+*   **Permisos y Ciclo de Vida de los Tickets:**
+    *   **Usuarios Solicitantes (Rol null / 'profesor'):** 
+        *   Pueden crear tickets.
+        *   Pueden editar sus propios tickets únicamente si no han entrado en estado `proceso`, `resuelto` o `no aplica` (es decir, en `pendiente` o `asignado`).
+        *   Pueden cancelar sus tickets (pasarlos a estado `no aplica`) siempre y cuando no estén en `proceso`. Requiere confirmación modal en el frontend.
+        *   Tienen terminantemente prohibido marcar tickets como `resuelto`.
+    *   **Usuarios Técnicos (Operario, Responsable, Administrador):**
+        *   Pueden editar cualquier ticket en curso.
+        *   Pueden cambiar el estado de los tickets, incluyendo marcarlos como `resuelto` o cancelarlos pasándolos a `no aplica`.

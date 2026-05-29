@@ -46,11 +46,78 @@ class C_Ticket {
     }
 
     /**
+     * Comprueba si el usuario en sesión tiene permisos sobre un ticket.
+     * @param array $ticket Datos actuales del ticket.
+     * @param bool $es_edicion_o_cancelacion Indica si la acción es editar o cancelar.
+     * @return bool|string Devuelve true si tiene permiso, o un mensaje de error si no.
+     */
+    private function verificar_permisos_solicitante($ticket, $es_edicion_o_cancelacion = false) {
+        $usuario = $GLOBALS['usuario_sesion'] ?? null;
+        if (!$usuario) return "No autenticado";
+
+        $rol = $usuario['rol'] ?? 'profesor';
+
+        // Técnicos tienen poder absoluto
+        if ($rol !== 'profesor') return true;
+
+        // Reglas para el profesor (solicitante)
+        if ((int)$ticket['id_usuario_creador'] !== (int)$usuario['id']) {
+            return "No tienes permiso para modificar un ticket que no es tuyo";
+        }
+
+        if ($es_edicion_o_cancelacion) {
+            $estado = $ticket['estado'];
+            if ($estado === 'proceso' || $estado === 'resuelto' || $estado === 'no aplica') {
+                return "No puedes modificar ni cancelar un ticket que está en " . $estado;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Actualiza los datos generales de un ticket.
+     * @param string $id Identificador del ticket.
+     * @param array $json_data Nuevos datos.
+     */
+    public function actualizar($id, $json_data) {
+        $ticket_actual = $this->modelo->buscar_por_id($id);
+        if (!$ticket_actual) return ["status" => "error", "message" => "Ticket no encontrado"];
+
+        $permiso = $this->verificar_permisos_solicitante($ticket_actual, true);
+        if ($permiso !== true) return ["status" => "error", "message" => $permiso];
+
+        if ($this->modelo->actualizar($id, $json_data)) {
+            return ["status" => "success", "message" => "Ticket actualizado correctamente"];
+        }
+        return ["status" => "error", "message" => "Error al actualizar el ticket"];
+    }
+
+    /**
      * Gestiona el cambio de estado de un ticket.
      * @param string $id Identificador del ticket.
      * @param string $estado Nuevo estado.
      */
     public function cambiar_estado($id, $estado) {
+        $ticket_actual = $this->modelo->buscar_por_id($id);
+        if (!$ticket_actual) return ["status" => "error", "message" => "Ticket no encontrado"];
+
+        $usuario = $GLOBALS['usuario_sesion'] ?? null;
+        $rol = $usuario['rol'] ?? 'profesor';
+
+        if ($rol === 'profesor') {
+            if ($estado === 'resuelto') {
+                return ["status" => "error", "message" => "No tienes permisos para marcar un ticket como resuelto"];
+            }
+            if ($estado === 'no aplica') {
+                $permiso = $this->verificar_permisos_solicitante($ticket_actual, true);
+                if ($permiso !== true) return ["status" => "error", "message" => $permiso];
+            } elseif ($estado !== $ticket_actual['estado']) {
+                // El profesor no puede cambiar el estado a asignado o pendiente directamente
+                return ["status" => "error", "message" => "No tienes permisos para cambiar a este estado"];
+            }
+        }
+
         if ($this->modelo->actualizar_estado($id, $estado)) {
             return ["status" => "success", "message" => "Estado actualizado"];
         }
@@ -62,6 +129,14 @@ class C_Ticket {
      * @param string $id Identificador del ticket.
      */
     public function borrar($id) {
+        $usuario = $GLOBALS['usuario_sesion'] ?? null;
+        $rol = $usuario['rol'] ?? 'profesor';
+        
+        // Solo un técnico o administrador podría borrar físicamente un ticket (o ni eso, pero lo bloqueamos para profes)
+        if ($rol === 'profesor') {
+            return ["status" => "error", "message" => "No tienes permisos para eliminar tickets físicamente. Usa cancelar en su lugar."];
+        }
+
         if ($this->modelo->eliminar($id)) {
             return ["status" => "success", "message" => "Ticket eliminado"];
         }

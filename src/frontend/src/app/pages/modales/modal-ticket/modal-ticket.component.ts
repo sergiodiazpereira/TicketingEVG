@@ -61,15 +61,19 @@ export class ModalTicketComponent {
   }
 
   /**
-   * Cancela el ticket (solo el creador puede hacerlo, si está pendiente).
+   * Cancela el ticket. Pide confirmación y lo pasa a 'no aplica'.
    */
   onCancelar() {
+    if (!window.confirm('¿Estás seguro de que quieres cancelar este ticket? Esta acción no se puede deshacer.')) {
+      return;
+    }
+    
     this.procesando = true;
-    this.ticketService.actualizarEstado(this.ticket.id, 'resuelto').subscribe({
+    this.ticketService.actualizarEstado(this.ticket.id, 'no aplica').subscribe({
       next: (res) => {
         this.procesando = false;
         if (res.status === 'success') {
-          this.ticket.estado = 'resuelto';
+          this.ticket.estado = 'no aplica';
           this.resolver.emit(this.ticket);
           this.mostrarMensaje('Ticket cancelado correctamente.', false);
         } else {

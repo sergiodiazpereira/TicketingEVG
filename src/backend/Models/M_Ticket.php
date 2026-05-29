@@ -113,6 +113,40 @@ class M_Ticket {
     }
 
     /**
+     * Busca un ticket por su ID.
+     * @param string $id
+     * @return array|null
+     */
+    public function buscar_por_id($id) {
+        $stmt = $this->db->prepare("SELECT * FROM Ticket WHERE id = ?");
+        $stmt->bind_param("s", $id);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        return $res ? $res->fetch_assoc() : null;
+    }
+
+    /**
+     * Actualiza los datos generales de un ticket.
+     * @param string $id ID del ticket.
+     * @param array $datos Datos a actualizar.
+     */
+    public function actualizar($id, $datos) {
+        $id_categoria = $datos['id_categoria'] ?? 1;
+        $ubicacion = $datos['ubicacion'] ?? null;
+        $sql = "UPDATE Ticket SET id_categoria = ?, titulo = ?, descripcion = ?, prioridad = ?, ubicacion = ? WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("isssss", 
+            $id_categoria, 
+            $datos['titulo'], 
+            $datos['descripcion'], 
+            $datos['prioridad'], 
+            $ubicacion,
+            $id
+        );
+        return $stmt->execute();
+    }
+
+    /**
      * Elimina un ticket por su identificador.
      * @param string $id ID del ticket.
      */

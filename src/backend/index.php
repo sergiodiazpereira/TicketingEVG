@@ -93,7 +93,7 @@ require_once $archivo;
 
 // Validar JWT para todos los controladores excepto Auth
 if (strtolower($entidad) !== 'auth') {
-    validarJWT();
+    $GLOBALS['usuario_sesion'] = validarJWT();
 }
 
 $ctrl = new $clase();
