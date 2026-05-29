@@ -58,11 +58,18 @@ class C_Auth {
 
 		if (empty($email)) {
 			http_response_code(400);
+			file_put_contents(__DIR__ . '/../error_sso.log', date('Y-m-d H:i:s') . " - Error: Falta el email en el payload.\n", FILE_APPEND);
 			return ['error' => 'El token de la intranet no contiene un correo válido'];
 		}
 
 		// Buscar si el usuario ya existe en nuestra base de datos local por su ID
-		$usuario = $this->modelo_usuario->buscar_por_id($id);
+		try {
+			$usuario = $this->modelo_usuario->buscar_por_id($id);
+		} catch (Exception $e) {
+			file_put_contents(__DIR__ . '/../error_sso.log', date('Y-m-d H:i:s') . " - BD Error buscar_por_id: " . $e->getMessage() . "\n", FILE_APPEND);
+			http_response_code(500);
+			return ['error' => 'Error de base de datos'];
+		}
 
 		if (!$usuario) {
 			// Mapear los roles de la intranet a nuestro rol de Ticketing local por defecto
