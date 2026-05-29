@@ -306,5 +306,53 @@ class M_Ticket {
         $stmt->bind_param("s", $id);
         return $stmt->execute();
     }
+
+	/**
+	 * Obtiene los comentarios de un ticket mapeados con el nombre del usuario de la intranet.
+	 * @param string $id_ticket ID del ticket.
+	 * @return array Lista de comentarios.
+	 */
+	public function obtener_comentarios($id_ticket) {
+		$stmt = $this->db->prepare("SELECT * FROM Comentario WHERE id_ticket = ? ORDER BY fecha_creacion ASC");
+		$stmt->bind_param("s", $id_ticket);
+		$stmt->execute();
+		$resultado = $stmt->get_result();
+		if (!$resultado)
+			return [];
+		$comentarios = $resultado->fetch_all(MYSQLI_ASSOC);
+
+		try {
+			require_once __DIR__ . '/M_Intranet.php';
+			$m_intranet = new M_Intranet();
+			$personal_intranet = $m_intranet->listar_personal();
+			$personal_indexado = [];
+			foreach ($personal_intranet as $p)
+				$personal_indexado[$p['id']] = $p;
+			foreach ($comentarios as &$c) {
+				$id_usr = (int)$c['id_usuario'];
+				if (isset($personal_indexado[$id_usr]))
+					$c['usuario_nombre'] = $personal_indexado[$id_usr]['nombre'];
+				else
+					$c['usuario_nombre'] = 'Usuario ' . $id_usr;
+			}
+		} catch (Exception $e) {
+			// Ignorar y dejar solo ids
+		}
+		return $comentarios;
+	}
+
+	/**
+	 * Crea un nuevo comentario para un ticket.
+	 * @param string $id_ticket ID del ticket.
+	 * @param int $id_usuario ID del usuario creador del comentario.
+	 * @param string $texto Texto del comentario.
+	 * @return bool True si se insertó correctamente, false en caso contrario.
+	 */
+	public function crear_comentario($id_ticket, $id_usuario, $texto) {
+		$stmt = $this->db->prepare("INSERT INTO Comentario (id_ticket, id_usuario, texto) VALUES (?, ?, ?)");
+		$stmt->bind_param("sis", $id_ticket, $id_usuario, $texto);
+		return $stmt->execute();
+	}
 }
 ?>
+

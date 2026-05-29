@@ -48,6 +48,10 @@ export class ModalTicketComponent implements OnInit {
   categoriaEditada = 0;
   prioridadEditada = '';
 
+  /** Variables para la sección de comentarios */
+  comentariosList: any[] = [];
+  nuevoComentarioText = '';
+
   constructor(
     private ticketService: TicketService,
     private categoriasService: CategoriasService
@@ -57,6 +61,19 @@ export class ModalTicketComponent implements OnInit {
     this.categoriasService.obtenerCategorias().subscribe({
       next: (res: any) => this.categorias = res,
       error: (err) => console.error('Error al cargar categorías', err)
+    });
+    this.cargarComentarios();
+  }
+
+  cargarComentarios() {
+    if (!this.ticket || !this.ticket.id) return;
+    this.ticketService.obtenerComentarios(this.ticket.id).subscribe({
+      next: (res: any) => {
+        if (res.status === 'success') {
+          this.comentariosList = res.data;
+        }
+      },
+      error: (err) => console.error('Error al cargar comentarios', err)
     });
   }
 
@@ -254,6 +271,28 @@ export class ModalTicketComponent implements OnInit {
       error: () => {
         this.procesando = false;
         this.mostrarMensaje('Error de conexión al guardar cambios.', true);
+      }
+    });
+  }
+
+  onAgregarComentario() {
+    if (!this.nuevoComentarioText || !this.nuevoComentarioText.trim()) return;
+    const texto = this.nuevoComentarioText.trim();
+    this.procesando = true;
+    this.ticketService.guardarComentario(this.ticket.id, texto).subscribe({
+      next: (res: any) => {
+        this.procesando = false;
+        if (res.status === 'success') {
+          this.nuevoComentarioText = '';
+          this.cargarComentarios();
+          this.mostrarMensaje('Comentario añadido correctamente.', false);
+        } else {
+          this.mostrarMensaje(res.message || 'Error al añadir comentario.', true);
+        }
+      },
+      error: () => {
+        this.procesando = false;
+        this.mostrarMensaje('Error de conexión al añadir comentario.', true);
       }
     });
   }

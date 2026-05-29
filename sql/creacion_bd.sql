@@ -80,3 +80,18 @@ CREATE TABLE Ticket (
 	CONSTRAINT FK_Ticket_Usuario_Creador FOREIGN KEY (id_usuario_creador) REFERENCES Usuario (id) ON DELETE RESTRICT ON UPDATE CASCADE,
 	CONSTRAINT FK_Ticket_Usuario_Encargado FOREIGN KEY (id_usuario_encargado) REFERENCES Usuario (id) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Estructura de tabla para la tabla `Comentario`
+--
+
+CREATE TABLE Comentario (
+	id INT UNSIGNED AUTO_INCREMENT,
+	id_ticket CHAR(20) NOT NULL,
+	id_usuario SMALLINT UNSIGNED NOT NULL,
+	texto VARCHAR(1000) NOT NULL,
+	fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT PK_Comentario PRIMARY KEY (id),
+	CONSTRAINT FK_Comentario_Ticket FOREIGN KEY (id_ticket) REFERENCES Ticket (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT FK_Comentario_Usuario FOREIGN KEY (id_usuario) REFERENCES Usuario (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

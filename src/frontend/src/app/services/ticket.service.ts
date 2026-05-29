@@ -80,4 +80,22 @@ export class TicketService {
   asignarTicket(id: string, id_usuario_encargado: number): Observable<any> {
     return this.http.put(`${this.apiUrl}?accion=asignar`, { id, id_usuario_encargado });
   }
+
+  /**
+   * Obtiene la lista de comentarios para un ticket específico.
+   * @param idTicket ID del ticket.
+   */
+  obtenerComentarios(idTicket: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?accion=listar_comentarios&id_ticket=${idTicket}`);
+  }
+
+  /**
+   * Crea un nuevo comentario en un ticket.
+   * @param idTicket ID del ticket.
+   * @param texto Contenido del comentario.
+   */
+  guardarComentario(idTicket: string, texto: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}?accion=guardar_comentario`, { id_ticket: idTicket, texto });
+  }
 }
+

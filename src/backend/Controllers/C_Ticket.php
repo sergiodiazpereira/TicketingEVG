@@ -164,5 +164,45 @@ class C_Ticket {
         }
         return ["status" => "error", "message" => "No se pudo asignar el ticket"];
     }
+
+	/**
+	 * Lista los comentarios asociados a un ticket.
+	 * @param string $id_ticket Identificador del ticket.
+	 */
+	public function listar_comentarios($id_ticket) {
+		$usuario = $GLOBALS['usuario_sesion'] ?? null;
+		if (!$usuario)
+			return ["status" => "error", "message" => "Usuario no autenticado"];
+
+		$comentarios = $this->modelo->obtener_comentarios($id_ticket);
+		return ["status" => "success", "data" => $comentarios];
+	}
+
+	/**
+	 * Guarda un nuevo comentario en un ticket.
+	 * @param array $json_data Datos del comentario.
+	 */
+	public function guardar_comentario($json_data) {
+		$usuario = $GLOBALS['usuario_sesion'] ?? null;
+		if (!$usuario)
+			return ["status" => "error", "message" => "Usuario no autenticado"];
+
+		$id_ticket = $json_data['id_ticket'] ?? null;
+		$texto = $json_data['texto'] ?? null;
+
+		if (!$id_ticket || !$texto || empty(trim($texto)))
+			return ["status" => "error", "message" => "Faltan campos obligatorios o el comentario está vacío"];
+
+		// Validar que el ticket existe
+		$ticket = $this->modelo->buscar_por_id($id_ticket);
+		if (!$ticket)
+			return ["status" => "error", "message" => "El ticket no existe"];
+
+		if ($this->modelo->crear_comentario($id_ticket, (int)$usuario['id'], trim($texto)))
+			return ["status" => "success", "message" => "Comentario guardado correctamente"];
+		
+		return ["status" => "error", "message" => "Error al guardar el comentario en la base de datos"];
+	}
 }
 ?>
+
