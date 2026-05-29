@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { TicketService } from '../../../services/ticket.service';
+import { UsuarioService } from '../../../services/usuario.service';
 import { ModalTicketComponent } from '../../modales/modal-ticket/modal-ticket.component';
 import { Ticket } from '../../../models/ticket.model';
 import { Usuario } from '../../../models/usuario.model';
@@ -40,15 +41,44 @@ export class ListaTicketsComponent implements OnInit {
   /** Gestión del modal de detalles */
   mostrarModalTicket: boolean = false;
   ticketSeleccionado: any = null;
+  operarios: Usuario[] = [];
 
   constructor(
     private authService: AuthService,
-    private ticketService: TicketService
+    private ticketService: TicketService,
+    private usuarioService: UsuarioService
   ) {}
 
   ngOnInit(): void {
     this.usuario_actual = this.authService.getUsuarioActual();
     this.cargarTickets();
+    if (this.usuario_actual && (this.usuario_actual.rol === 'admin' || this.usuario_actual.rol === 'responsable')) {
+      this.cargarOperarios();
+    }
+  }
+
+  cargarOperarios(): void {
+    this.usuarioService.getOperarios().subscribe({
+      next: (data) => this.operarios = data,
+      error: (err) => console.error('Error al cargar operarios', err)
+    });
+  }
+
+  onAsignarTicket(event: {idTicket: number, idOperario: number}) {
+    this.ticketService.asignarTicket(event.idTicket.toString(), event.idOperario).subscribe({
+      next: (res) => {
+        if (res.status === 'success') {
+          if (this.ticketSeleccionado) {
+            this.ticketSeleccionado.id_usuario_encargado = event.idOperario;
+            this.ticketSeleccionado.estado = 'asignado';
+          }
+          this.cargarTickets(); // Recargar la lista
+        } else {
+          alert('Error al asignar el ticket: ' + res.message);
+        }
+      },
+      error: () => alert('Error de conexión al asignar.')
+    });
   }
 
   cargarTickets(): void {

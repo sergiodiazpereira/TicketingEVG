@@ -67,8 +67,8 @@
             </div>
         </div>
 
-        <!-- SELECTOR TÉCNICO (Admin o Responsable si no hay técnico) -->
-        <ng-container *ngIf="(rolUsuario === 'admin' || rolUsuario === 'responsable') && !ticket.id_usuario_encargado">
+        <!-- SELECTOR TÉCNICO (Admin o Responsable) -->
+        <ng-container *ngIf="(rolUsuario === 'admin' || rolUsuario === 'responsable') && ticket.estado !== 'resuelto' && ticket.estado !== 'no aplica'">
             <hr class="divider-light">
             <div class="form-group full-width" style="margin-bottom: 25px;">
                 <label class="form-label">
@@ -76,11 +76,11 @@
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                         <circle cx="12" cy="7" r="4"></circle>
                     </svg>
-                    Asignar Técnico (Responsable)
+                    Asignar / Reasignar Técnico
                 </label>
                 <select class="form-control" (change)="onAsignar($event)">
-                    <option value="" selected>Seleccionar operario...</option>
-                    <option *ngFor="let op of operarios" [value]="op.id">{{ op.nombre }}</option>
+                    <option value="" [selected]="!ticket.id_usuario_encargado">Seleccionar operario...</option>
+                    <option *ngFor="let op of operarios" [value]="op.id" [selected]="op.id == ticket.id_usuario_encargado">{{ op.nombre }}</option>
                 </select>
             </div>
         </ng-container>

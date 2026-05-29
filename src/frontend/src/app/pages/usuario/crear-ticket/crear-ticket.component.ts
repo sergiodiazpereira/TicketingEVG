@@ -12,7 +12,9 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { TicketService } from '../../../services/ticket.service';
 import { AuthService } from '../../../services/auth.service';
 import { CategoriasService } from '../../../services/categorias.service';
+import { UsuarioService } from '../../../services/usuario.service';
 import { Categoria } from '../../../models/categoria.model';
+import { Usuario } from '../../../models/usuario.model';
 
 @Component({
   selector: 'app-crear-ticket',
@@ -46,11 +48,16 @@ export class CrearTicketComponent implements OnInit {
   categorias: Categoria[] = [];
   cargandoCategorias = true;
 
+  /** Operarios para administradores o responsables */
+  operarios: Usuario[] = [];
+  esAdminOResponsable = false;
+
   constructor(
     private fb: FormBuilder,
     private ticketService: TicketService,
     private authService: AuthService,
     private categoriasService: CategoriasService,
+    private usuarioService: UsuarioService,
     private router: Router
   ) {}
 
@@ -65,6 +72,7 @@ export class CrearTicketComponent implements OnInit {
       tipo: ['incidencia', Validators.required],
       prioridad: ['media', Validators.required],
       id_categoria: ['', Validators.required],
+      id_usuario_encargado: [''],
       ubicacion: [''],
       fecha_limite: [''],
       titulo: ['', [Validators.required, Validators.minLength(5)]],
@@ -82,6 +90,16 @@ export class CrearTicketComponent implements OnInit {
         this.mensajeError = 'No se pudieron cargar las categorías.';
       }
     });
+
+    // Cargar operarios si el usuario actual es admin o responsable
+    const usuario = this.authService.getUsuarioActual();
+    if (usuario && (usuario.rol === 'admin' || usuario.rol === 'responsable')) {
+      this.esAdminOResponsable = true;
+      this.usuarioService.getOperarios().subscribe({
+        next: (data: any) => this.operarios = data,
+        error: () => console.error('Error al cargar operarios')
+      });
+    }
   }
 
   /** Envía el formulario al backend si es válido. */
@@ -99,17 +117,21 @@ export class CrearTicketComponent implements OnInit {
     }
 
     const valores = this.formulario.value;
-    const payload = {
+    const payload: any = {
       tipo: valores.tipo,
       prioridad: this.PRIORIDAD_MAP[valores.prioridad] ?? 'm',
       id_categoria: valores.id_categoria,
       titulo: valores.titulo,
       descripcion: valores.descripcion,
       id_usuario_creador: usuario.id,
-      estado: 'pendiente' as const,
+      estado: 'pendiente',
       ubicacion: valores.ubicacion || null,
       fecha_prevista: valores.fecha_limite || null
     };
+
+    if (this.esAdminOResponsable && valores.id_usuario_encargado) {
+      payload.id_usuario_encargado = parseInt(valores.id_usuario_encargado);
+    }
 
     this.enviando = true;
     this.mensajeError = null;

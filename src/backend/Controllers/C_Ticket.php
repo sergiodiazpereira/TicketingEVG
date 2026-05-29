@@ -142,5 +142,27 @@ class C_Ticket {
         }
         return ["status" => "error", "message" => "No se pudo eliminar el ticket"];
     }
+
+    /**
+     * Asigna un técnico/responsable a un ticket.
+     * @param string $id Identificador del ticket.
+     * @param int $id_usuario_encargado Identificador del usuario a asignar.
+     */
+    public function asignar($id, $id_usuario_encargado) {
+        $usuario = $GLOBALS['usuario_sesion'] ?? null;
+        $rol = $usuario['rol'] ?? 'profesor';
+
+        if ($rol !== 'admin' && $rol !== 'responsable') {
+            return ["status" => "error", "message" => "Solo administradores y responsables pueden asignar tickets"];
+        }
+
+        $ticket_actual = $this->modelo->buscar_por_id($id);
+        if (!$ticket_actual) return ["status" => "error", "message" => "Ticket no encontrado"];
+
+        if ($this->modelo->asignar_operario($id, $id_usuario_encargado)) {
+            return ["status" => "success", "message" => "Ticket asignado correctamente"];
+        }
+        return ["status" => "error", "message" => "No se pudo asignar el ticket"];
+    }
 }
 ?>

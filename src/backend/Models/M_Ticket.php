@@ -78,27 +78,42 @@ class M_Ticket {
 
         $ubicacion = $datos['ubicacion'] ?? null;
         $fecha_prevista = $datos['fecha_prevista'] ?? null;
+        $id_usuario_encargado = $datos['id_usuario_encargado'] ?? null;
+        $estado = $id_usuario_encargado ? 'asignado' : ($datos['estado'] ?? 'pendiente');
 
-        $sql = "INSERT INTO Ticket (id, id_categoria, titulo, descripcion, prioridad, id_usuario_creador, estado, ubicacion, fecha_prevista) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO Ticket (id, id_categoria, titulo, descripcion, prioridad, id_usuario_creador, estado, ubicacion, fecha_prevista, id_usuario_encargado) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("sisssisss", 
+        // Los tipos son: String, Integer, String, String, String, Integer, String, String, String, Integer
+        $stmt->bind_param("sisssisssi", 
             $id_nuevo, 
             $id_categoria, 
             $datos['titulo'], 
             $datos['descripcion'], 
             $datos['prioridad'], 
             $id_usuario_creador,
-            $datos['estado'],
+            $estado,
             $ubicacion,
-            $fecha_prevista
+            $fecha_prevista,
+            $id_usuario_encargado
         );
 
         if ($stmt->execute()) {
             return $id_nuevo;
         }
         return false;
+    }
+
+    /**
+     * Asigna un operario a un ticket y cambia su estado a asignado.
+     * @param string $id_ticket
+     * @param int $id_usuario_encargado
+     */
+    public function asignar_operario($id_ticket, $id_usuario_encargado) {
+        $stmt = $this->db->prepare("UPDATE Ticket SET id_usuario_encargado = ?, estado = 'asignado' WHERE id = ?");
+        $stmt->bind_param("is", $id_usuario_encargado, $id_ticket);
+        return $stmt->execute();
     }
 
     /**

@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../../shared/layout/footer/footer.component';
 import { AuthService } from '../../../services/auth.service';
 import { TicketService } from '../../../services/ticket.service';
+import { UsuarioService } from '../../../services/usuario.service';
 import { ModalTicketComponent } from '../../modales/modal-ticket/modal-ticket.component';
 import { Usuario } from '../../../models/usuario.model';
 import { Ticket } from '../../../models/ticket.model';
@@ -28,6 +29,7 @@ export class PortalTicketsComponent implements OnInit {
   usuario_actual: Usuario | null = null;
   /** Lista de tickets del usuario */
   tickets: Ticket[] = [];
+  operarios: Usuario[] = [];
   
   /** Gestión del modal de detalles */
   mostrarModalTicket: boolean = false;
@@ -53,6 +55,7 @@ export class PortalTicketsComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private ticketService: TicketService,
+    private usuarioService: UsuarioService,
     private router: Router
   ) {}
 
@@ -68,8 +71,36 @@ export class PortalTicketsComponent implements OnInit {
    */
   ngOnInit(): void {
     this.usuario_actual = this.authService.getUsuarioActual();
-    if (this.usuario_actual)
+    if (this.usuario_actual) {
       this.cargarTickets();
+      if (this.usuario_actual.rol === 'admin' || this.usuario_actual.rol === 'responsable') {
+        this.cargarOperarios();
+      }
+    }
+  }
+
+  cargarOperarios(): void {
+    this.usuarioService.getOperarios().subscribe({
+      next: (data) => this.operarios = data,
+      error: (err) => console.error('Error al cargar operarios', err)
+    });
+  }
+
+  onAsignarTicket(event: {idTicket: number, idOperario: number}) {
+    this.ticketService.asignarTicket(event.idTicket.toString(), event.idOperario).subscribe({
+      next: (res) => {
+        if (res.status === 'success') {
+          if (this.ticketSeleccionado) {
+            this.ticketSeleccionado.id_usuario_encargado = event.idOperario;
+            this.ticketSeleccionado.estado = 'asignado';
+          }
+          this.cargarTickets(); // Recargar la lista
+        } else {
+          alert('Error al asignar el ticket: ' + res.message);
+        }
+      },
+      error: () => alert('Error de conexión al asignar.')
+    });
   }
 
   /**

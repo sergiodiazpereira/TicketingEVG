@@ -126,6 +126,13 @@
 							<input id="campo-ubicacion" type="text" class="control-form" formControlName="ubicacion"
 								placeholder="Ej: Aula 101, Biblioteca, Sala de reuniones...">
 						</div>
+						<div class="col-md-6" *ngIf="esAdminOResponsable">
+							<label class="etiqueta-form" for="campo-encargado">Asignar Técnico / Responsable (Opcional)</label>
+							<select id="campo-encargado" class="control-form" formControlName="id_usuario_encargado" style="appearance: auto;">
+								<option value="">-- Sin asignar --</option>
+								<option *ngFor="let op of operarios" [value]="op.id">{{ op.nombre }} ({{ op.rol | uppercase }})</option>
+							</select>
+						</div>
 						<div class="col-12">
 							<label class="etiqueta-form" for="campo-titulo">
 								Título breve del asunto <span class="text-danger">*</span>

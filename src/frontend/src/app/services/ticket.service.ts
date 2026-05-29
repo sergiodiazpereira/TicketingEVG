@@ -62,4 +62,13 @@ export class TicketService {
   eliminarTicket(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}?accion=borrar&id=${id}`);
   }
+
+  /**
+   * Asigna un operario a un ticket.
+   * @param id Identificador del ticket.
+   * @param id_usuario_encargado Identificador del trabajador/responsable asignado.
+   */
+  asignarTicket(id: string, id_usuario_encargado: number): Observable<any> {
+    return this.http.put(`${this.apiUrl}?accion=asignar`, { id, id_usuario_encargado });
+  }
 }

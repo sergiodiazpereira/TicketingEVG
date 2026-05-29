@@ -151,5 +151,7 @@
     *ngIf="mostrarModalTicket" 
     [ticket]="ticketSeleccionado" 
     [rolUsuario]="usuario_actual?.rol || 'profesor'" 
+    [operarios]="operarios"
+    (asignar)="onAsignarTicket($event)"
     (cerrar)="cerrarModalTicket()">
 </app-modal-ticket>
