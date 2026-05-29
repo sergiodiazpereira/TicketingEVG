@@ -275,17 +275,37 @@ class M_Usuario {
 		$usuarios_api = $m_intranet->listar_personal();
 
 		if (!empty($usuarios_api)) {
-			$res_local = $this->db->query("SELECT id FROM Usuario");
-			$registrados = [];
+			$res_local = $this->db->query("SELECT id, id_rol FROM Usuario");
+			$registrados_con_rol = [];
+			$registrados_sin_rol = [];
+
 			if ($res_local) {
 				while ($row = $res_local->fetch_assoc()) {
-					$registrados[] = (int) $row['id'];
+					if ($row['id_rol'] === null) {
+						$registrados_sin_rol[] = (int) $row['id'];
+					} else {
+						$registrados_con_rol[] = (int) $row['id'];
+					}
 				}
 			}
 
 			$disponibles = [];
 			foreach ($usuarios_api as $u) {
-				if (!in_array($u['id'], $registrados)) {
+				$id_u = $u['id'];
+				
+				// Si ya tiene un rol asignado en Ticketing (ya es operario responsable/trabajador), lo omitimos
+				if (in_array($id_u, $registrados_con_rol)) {
+					continue;
+				}
+				
+				// Si está en Ticketing pero con rol NULL (es profesor/usuario normal), lo incluimos
+				if (in_array($id_u, $registrados_sin_rol)) {
+					$disponibles[] = $u;
+					continue;
+				}
+				
+				// Si no está en Ticketing (nuevo usuario), solo lo incluimos si es tipo_personal_id = 3 (Servicio)
+				if (isset($u['tipo_personal_id']) && $u['tipo_personal_id'] == 3) {
 					$disponibles[] = $u;
 				}
 			}

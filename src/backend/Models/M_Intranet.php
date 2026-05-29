@@ -23,7 +23,7 @@ class M_Intranet {
      */
     public function listar_personal() {
         try {
-            $sql = "SELECT id, nombre, apellidos, email FROM personal WHERE tipo_personal = 'servicio'";
+            $sql = "SELECT id, nombre, apellidos, email, tipo_personal_id FROM personal";
             $resultado = $this->db->query($sql);
             if (!$resultado) {
                 return [];
@@ -33,7 +33,8 @@ class M_Intranet {
                 $usuarios_api[] = [
                     'id'     => (int) $row['id'],
                     'nombre' => trim(($row['nombre'] ?? '') . ' ' . ($row['apellidos'] ?? '')),
-                    'correo' => $row['email'] ?? ''
+                    'correo' => $row['email'] ?? '',
+                    'tipo_personal_id' => (int) ($row['tipo_personal_id'] ?? 0)
                 ];
             }
             return $usuarios_api;
