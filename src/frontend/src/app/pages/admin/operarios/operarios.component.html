@@ -98,14 +98,13 @@
 															</div>
 														</td>
 														<td class="border-0 border-bottom text-end pe-4 align-top pt-4">
-															<div class="dropdown">
-																<button class="btn btn-link text-muted p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-																	<i class="bi bi-three-dots-vertical"></i>
+															<div class="d-flex justify-content-end gap-2">
+																<button class="btn btn-sm btn-outline-primary shadow-sm border-0 bg-light" title="Editar" (click)="abrirModalFormulario(operario)">
+																	<i class="bi bi-pencil-fill" style="color: #003366;"></i>
 																</button>
-																<ul class="dropdown-menu dropdown-menu-end shadow-sm">
-																	<li><a class="dropdown-item fw-bold" style="color: #003366;" href="#" (click)="abrirModalFormulario(operario); $event.preventDefault()">Editar</a></li>
-																	<li><a class="dropdown-item text-danger fw-bold" href="#" (click)="abrirModalEliminar(operario); $event.preventDefault()">Eliminar</a></li>
-																</ul>
+																<button class="btn btn-sm btn-outline-danger shadow-sm border-0 bg-light" title="Eliminar" (click)="abrirModalEliminar(operario)">
+																	<i class="bi bi-trash-fill text-danger"></i>
+																</button>
 															</div>
 														</td>
 													</tr>
