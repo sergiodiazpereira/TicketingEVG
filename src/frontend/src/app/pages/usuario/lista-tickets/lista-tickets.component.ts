@@ -12,7 +12,7 @@ import { FooterComponent } from '../../../shared/layout/footer/footer.component'
 
 /**
  * Proyecto: TicketingEVG
- * Alumno: Sergio Díaz Pereira
+ * Alumno: Joseph Joel Quispe Alvarez
  * Asignatura: DAW
  * Curso: 2025-2026
  * Descripción: Componente para el listado detallado de mis tickets.
@@ -37,6 +37,21 @@ export class ListaTicketsComponent implements OnInit {
   /** Estado de los desplegables personalizados */
   desplegableTipoAbierto = false;
   desplegableEstadoAbierto = false;
+  desplegableCreadorAbierto = false;
+
+  filtroCreador: string = 'todos';
+
+  get creadoresUnicos(): { id: number; nombre: string }[] {
+    const mapa = new Map<number, string>();
+    this.tickets.forEach(t => {
+      if (t.id_usuario_creador) {
+        if (Number(t.id_usuario_creador) !== Number(this.usuario_actual?.id)) {
+          mapa.set(Number(t.id_usuario_creador), t.creador_nombre || `Usuario #${t.id_usuario_creador}`);
+        }
+      }
+    });
+    return Array.from(mapa.entries()).map(([id, nombre]) => ({ id, nombre })).sort((a, b) => a.nombre.localeCompare(b.nombre));
+  }
 
   /** Gestión del modal de detalles */
   mostrarModalTicket: boolean = false;
@@ -52,9 +67,7 @@ export class ListaTicketsComponent implements OnInit {
   ngOnInit(): void {
     this.usuario_actual = this.authService.getUsuarioActual();
     this.cargarTickets();
-    if (this.usuario_actual && (this.usuario_actual.rol === 'administrador' || this.usuario_actual.rol === 'responsable')) {
-      this.cargarOperarios();
-    }
+    this.cargarOperarios();
   }
 
   cargarOperarios(): void {
@@ -62,6 +75,12 @@ export class ListaTicketsComponent implements OnInit {
       next: (data) => this.operarios = data,
       error: (err) => console.error('Error al cargar operarios', err)
     });
+  }
+
+  getNombreEncargado(idEncargado: any): string {
+    if (!idEncargado) return '';
+    const tech = this.operarios.find(op => Number(op.id) === Number(idEncargado));
+    return tech ? tech.nombre : `Técnico #${idEncargado}`;
   }
 
   onAsignarTicket(event: {idTicket: number, idOperario: number}) {
@@ -136,7 +155,17 @@ export class ListaTicketsComponent implements OnInit {
         }
       }
 
-      return coincideBusqueda && coincideTipo && coincideEstado;
+      // Filtrar por creador (solo para administradores)
+      let coincideCreador = true;
+      if (this.usuario_actual && this.usuario_actual.rol === 'administrador') {
+        if (this.filtroCreador === 'mis-tickets') {
+          coincideCreador = Number(ticket.id_usuario_creador) === Number(this.usuario_actual.id);
+        } else if (this.filtroCreador !== 'todos') {
+          coincideCreador = Number(ticket.id_usuario_creador) === Number(this.filtroCreador);
+        }
+      }
+
+      return coincideBusqueda && coincideTipo && coincideEstado && coincideCreador;
     });
   }
 
@@ -193,9 +222,31 @@ export class ListaTicketsComponent implements OnInit {
     return mapa[this.filtroEstado] || 'TODOS';
   }
 
+  toggleDesplegableCreador(event: Event): void {
+    event.stopPropagation();
+    this.desplegableCreadorAbierto = !this.desplegableCreadorAbierto;
+    this.desplegableTipoAbierto = false;
+    this.desplegableEstadoAbierto = false;
+  }
+
+  seleccionarCreador(creador: string): void {
+    this.filtroCreador = creador;
+    this.desplegableCreadorAbierto = false;
+    this.filtrarTickets();
+  }
+
+  getCreadorEtiqueta(): string {
+    if (this.filtroCreador === 'todos') return 'TODOS';
+    if (this.filtroCreador === 'mis-tickets') return 'MIS TICKETS CREADOS';
+    const idNum = Number(this.filtroCreador);
+    const c = this.creadoresUnicos.find(x => x.id === idNum);
+    return c ? c.nombre.toUpperCase() : `USUARIO #${this.filtroCreador}`;
+  }
+
   @HostListener('document:click', ['$event'])
   cerrarDesplegables(): void {
     this.desplegableTipoAbierto = false;
     this.desplegableEstadoAbierto = false;
+    this.desplegableCreadorAbierto = false;
   }
 }

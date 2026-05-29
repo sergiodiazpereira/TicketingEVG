@@ -200,10 +200,35 @@ export class CrearTicketComponent implements OnInit {
     this.desplegablePrioridadAbierto = false;
   }
 
+  get operariosFiltrados(): Usuario[] {
+    const idCat = this.formulario.get('id_categoria')?.value;
+    if (!idCat) {
+      return [];
+    }
+    const idCatNum = Number(idCat);
+    return this.operarios.filter(op => {
+      if (!op.categorias_ids) return false;
+      const ids = String(op.categorias_ids).split(',').map(Number);
+      return ids.includes(idCatNum);
+    });
+  }
+
   seleccionarCategoria(id: number): void {
     this.formulario.get('id_categoria')?.setValue(id);
     this.formulario.get('id_categoria')?.markAsTouched();
     this.desplegableCategoriaAbierto = false;
+
+    // Verificar si el operario seleccionado sigue siendo válido para la nueva categoría
+    const idOperario = this.formulario.get('id_usuario_encargado')?.value;
+    if (idOperario) {
+      const op = this.operarios.find(o => o.id == idOperario);
+      if (op) {
+        const ids = op.categorias_ids ? String(op.categorias_ids).split(',').map(Number) : [];
+        if (!ids.includes(Number(id))) {
+          this.formulario.get('id_usuario_encargado')?.setValue('');
+        }
+      }
+    }
   }
 
   seleccionarEncargado(id: number | string): void {

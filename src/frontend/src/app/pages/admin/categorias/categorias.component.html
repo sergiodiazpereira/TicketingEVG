@@ -11,7 +11,7 @@
 		<app-sidebar></app-sidebar>
 
 		<!-- Contenido Principal -->
-		<main class="flex-grow-1 overflow-auto">
+		<main class="flex-grow-1 overflow-auto contenido-principal">
 			<div class="flex-grow-1">
 				<!-- Cabecera de página -->
 				<header class="bg-white p-4 mb-4 border-bottom shadow-sm d-flex justify-content-between align-items-center sticky-top">
@@ -29,7 +29,7 @@
 					</div>
 
 					<!-- Título y Botón de Acción -->
-					<div class="row align-items-center mb-4 mt-3">
+					<div class="row align-items-center mb-4 mt-3 anim-slide-up" style="animation-delay: 0.1s">
 						<div class="col-12 col-md-9">
 							<h2 class="fw-bold titulo-primario text-uppercase">LISTADO DE CATEGORÍAS</h2>
 							<p class="text-muted small">Aquí podrás gestionar las categorías del sistema de ticketing.</p>
@@ -45,9 +45,10 @@
 					<!-- Tabla de Categorías -->
 					<div class="row mb-5">
 						<div class="col-12">
-							<div class="card card-premium">
+							<div class="card card-premium anim-slide-up" style="animation-delay: 0.2s">
 								<div class="card-body p-0">
-									<div class="table-responsive">
+									<!-- Vista Escritorio: Tabla clásica -->
+									<div class="d-none d-md-block table-responsive">
 										<table class="table table-hover align-middle mb-0 tabla-operarios">
 											<thead class="text-uppercase">
 												<tr>
@@ -74,7 +75,7 @@
 														</td>
 
 														<!-- Operarios -->
-														<td class="border-0 border-bottom text-center align-middle py-3">
+ 														<td class="border-0 border-bottom text-center align-middle py-3">
 															<div class="d-flex flex-column align-items-center justify-content-center">
 																<span class="fw-bold fs-5 text-dark lh-1 mb-1">{{ categoria.operarios || 0 }}</span>
 																<span class="text-muted small fw-bold etiqueta-min">OPERARIOS</span>
@@ -104,6 +105,47 @@
 												</ng-container>
 											</tbody>
 										</table>
+									</div>
+
+									<!-- Vista Móvil: Tarjetas apiladas -->
+									<div class="d-block d-md-none p-3 mobile-cards-container bg-light bg-opacity-10">
+										<div *ngFor="let categoria of categorias" class="card-mobile-item border rounded-3 p-3 mb-3 bg-white shadow-sm">
+											<!-- Fila superior: Icono, Nombre y Acciones -->
+											<div class="d-flex align-items-center justify-content-between mb-2">
+												<div class="d-flex align-items-center">
+													<div class="icono-categoria rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 34px; height: 34px;">
+														<i class="bi bi-tag"></i>
+													</div>
+													<div>
+														<h6 class="fw-bold text-dark mb-0 small">{{ categoria.nombre }}</h6>
+													</div>
+												</div>
+												<!-- Acciones -->
+												<div class="d-flex gap-2">
+													<button class="btn btn-sm btn-outline-primary border-0 bg-light rounded-2" title="Editar" (click)="abrirModalFormulario(categoria)">
+														<i class="bi bi-pencil-fill" style="color: #003366;"></i>
+													</button>
+													<button class="btn btn-sm btn-outline-danger border-0 bg-light rounded-2" title="Eliminar" (click)="abrirModalEliminar(categoria)">
+														<i class="bi bi-trash-fill text-danger"></i>
+													</button>
+												</div>
+											</div>
+											<!-- Fila central: Descripción -->
+											<p class="text-muted small mb-3 border-top pt-2 text-wrap" *ngIf="categoria.descripcion" style="font-size: 0.8rem; line-height: 1.4;">
+												{{ categoria.descripcion }}
+											</p>
+											<!-- Fila inferior: Info Operarios y Tickets -->
+											<div class="border-top pt-2 d-flex justify-content-between text-center bg-light bg-opacity-50 p-2 rounded-2">
+												<div class="flex-grow-1 border-end">
+													<span class="fw-bold d-block text-dark lh-1 mb-1 small">{{ categoria.operarios || 0 }}</span>
+													<span class="text-muted small fw-bold lh-1" style="font-size: 0.55rem; letter-spacing: 0.5px;">OPERARIOS</span>
+												</div>
+												<div class="flex-grow-1">
+													<span class="fw-bold d-block text-dark lh-1 mb-1 small">{{ categoria.tickets || 0 }}</span>
+													<span class="text-muted small fw-bold lh-1" style="font-size: 0.55rem; letter-spacing: 0.5px;">TICKETS</span>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>

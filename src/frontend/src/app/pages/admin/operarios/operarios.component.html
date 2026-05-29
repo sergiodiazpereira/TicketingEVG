@@ -11,7 +11,7 @@
 		<app-sidebar></app-sidebar>
 
 		<!-- Contenido Principal -->
-		<main class="flex-grow-1 overflow-auto">
+		<main class="flex-grow-1 overflow-auto contenido-principal">
 			<div class="flex-grow-1">
 				<!-- Cabecera de página (Unificada) -->
 				<header class="bg-white p-4 mb-4 border-bottom shadow-sm d-flex justify-content-between align-items-center sticky-top">
@@ -28,7 +28,7 @@
 						{{ mensajeFeedback }}
 					</div>
 					<!-- Título y Botón de Acción -->
-					<div class="row align-items-center mb-4">
+					<div class="row align-items-center mb-4 anim-slide-up" style="animation-delay: 0.1s">
 						<div class="col-12 col-md-9">
 							<h2 class="fw-bold titulo-primario text-uppercase">LISTADO DE PERSONAL TÉCNICO</h2>
 							<p class="text-muted small">Aquí podrás gestionar los responsables y trabajadores del sistema de ticketing.</p>
@@ -44,9 +44,10 @@
 					<!-- Tabla de Operarios -->
 					<div class="row mb-5">
 						<div class="col-12">
-							<div class="card card-premium">
+							<div class="card card-premium anim-slide-up" style="animation-delay: 0.2s">
 								<div class="card-body p-0">
-									<div class="table-responsive">
+									<!-- Vista Escritorio: Tabla clásica -->
+									<div class="d-none d-md-block table-responsive">
 										<table class="table table-hover align-middle mb-0 tabla-operarios">
 											<thead class="text-uppercase">
 												<tr>
@@ -125,6 +126,54 @@
 												</ng-container>
 											</tbody>
 										</table>
+									</div>
+
+									<!-- Vista Móvil: Tarjetas apiladas -->
+									<div class="d-block d-md-none p-3 mobile-cards-container bg-light bg-opacity-10">
+										<div *ngFor="let operario of operarios; trackBy: trackByOperarioId" class="card-mobile-item border rounded-3 p-3 mb-3 bg-white shadow-sm">
+											<!-- Fila superior: Avatar, Nombre y Rol -->
+											<div class="d-flex align-items-center justify-content-between mb-3">
+												<div class="d-flex align-items-center">
+													<img [src]="'https://ui-avatars.com/api/?name=' + operario.nombre + '&background=random'"
+														class="rounded-circle me-3 shadow-sm" width="38" height="38" alt="Avatar">
+													<div>
+														<h6 class="fw-bold text-dark mb-1 small">{{ operario.nombre }}</h6>
+														<span class="badge rounded-pill px-2 py-0.5 etiqueta-rol" style="font-size: 0.6rem; letter-spacing: 0.5px;"
+															[ngClass]="operario.rol === 'responsable' ? 'badge-responsable' : 'badge-trabajador'">
+															{{ operario.rol | uppercase }}
+														</span>
+													</div>
+												</div>
+												<!-- Acciones -->
+												<div class="d-flex gap-2">
+													<button class="btn btn-sm btn-outline-primary border-0 bg-light rounded-2" title="Editar" (click)="abrirModalFormulario(operario)">
+														<i class="bi bi-pencil-fill" style="color: #003366;"></i>
+													</button>
+													<button class="btn btn-sm btn-outline-danger border-0 bg-light rounded-2" title="Eliminar" (click)="abrirModalEliminar(operario)">
+														<i class="bi bi-trash-fill text-danger"></i>
+													</button>
+												</div>
+											</div>
+											<!-- Fila central: Correo e info de tickets -->
+											<div class="text-muted small mb-3 border-top pt-2">
+												<div class="mb-1 text-truncate"><i class="bi bi-envelope me-2"></i> {{ operario.email }}</div>
+												<div><i class="bi bi-ticket-perforated me-2"></i> <strong>{{ operario.tickets_asignados || 0 }}</strong> asignados</div>
+											</div>
+											<!-- Fila inferior: Categorías y toggle -->
+											<div class="border-top pt-2">
+												<div class="d-flex align-items-center justify-content-between cursor-pointer" (click)="toggleCategorias(operario.id)">
+													<span class="fw-bold text-secondary small" style="font-size: 0.65rem;">{{ operario.num_categorias || 0 }} CATEGORÍAS</span>
+													<i class="bi small" [ngClass]="operarioExpandido === operario.id ? 'bi-chevron-up text-primary' : 'bi-chevron-down'"></i>
+												</div>
+												<!-- Categorías desplegadas -->
+												<div *ngIf="operarioExpandido === operario.id" class="mt-2 d-flex flex-wrap gap-2 slide-down-anim">
+													<span *ngFor="let cat of operario.categorias_nombres" class="badge border text-secondary fw-medium px-2 py-1 bg-light"
+														style="font-size: 0.7rem;">
+														<i class="bi bi-tag text-muted me-1"></i>{{ cat }}
+													</span>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>

@@ -6,10 +6,10 @@
   Descripción: Barra lateral de navegación (Literalmente del PHP).
 -->
 
-<!-- Truco CSS puro: Checkbox oculto para colapsar el sidebar sin JS -->
-<input type="checkbox" id="toggle-sidebar" class="d-none">
+<!-- Truco CSS puro con persistencia de estado de Angular: Checkbox oculto para colapsar el sidebar -->
+<input type="checkbox" id="toggle-sidebar" class="d-none" [checked]="estaColapsado" (change)="toggleSidebar()">
 
-<nav id="sidebarMenu" class="sidebar d-flex flex-column vh-100 sticky-top">
+<nav id="sidebarMenu" class="sidebar d-flex flex-column vh-100 sticky-top" [class.sin-transicion]="iniciarSinTransicion">
 	<!-- Header Sidebar -->
 	<div class="sidebar-header p-4 mb-3 d-flex align-items-center">
 		<label for="toggle-sidebar" class="boton-candado rounded-3 p-2 me-3 flex-shrink-0"
@@ -43,9 +43,9 @@
 			</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link text-warning" routerLink="/portal-tickets" title="Ir al Portal de Tickets">
+			<a class="nav-link" routerLink="/portal-tickets" title="Ir al Portal de Tickets">
 				<i class="bi bi-arrow-left-right me-3"></i>
-				<span class="link-texto fw-bold">Portal de Tickets</span>
+				<span class="link-texto">Portal de Tickets</span>
 			</a>
 		</li>
 		<li class="nav-item">

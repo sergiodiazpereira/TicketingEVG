@@ -132,3 +132,71 @@
     font-size: 12px;
     color: var(--azul, #006ea4);
 }
+
+/* =============================================
+   Header Responsivo para Portal de Tickets (Usuario)
+   ============================================= */
+@media (max-width: 768px) {
+    .sergio header {
+        height: auto !important;
+        min-height: 60px !important;
+        padding: 8px 12px !important;
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+        justify-content: space-between !important;
+    }
+    
+    /* Ocultar el subtítulo del logo para ahorrar espacio horizontal */
+    .sergio .icono-texto span {
+        display: none !important;
+    }
+    
+    .sergio .icono-texto strong {
+        font-size: 1.05rem !important;
+    }
+    
+    /* Ocultar el texto de las etiquetas de navegación */
+    .sergio .boton-nav .etiqueta-nav,
+    .sergio .btn-cerrar-sesion .etiqueta-nav {
+        display: none !important;
+    }
+    
+    .sergio .boton-nav {
+        padding: 8px 12px !important;
+        font-size: 1.15rem !important; /* Agrandar el icono para uso táctil */
+        gap: 0 !important;
+    }
+    
+    .sergio .btn-cerrar-sesion {
+        padding: 8px 12px !important;
+        font-size: 1.15rem !important;
+        gap: 0 !important;
+        border-radius: 8px !important;
+    }
+
+    /* Omitir el flex-grow del espaciador en móviles para permitir que todo quepa en una sola línea horizontal si es posible */
+    .sergio header .flex-grow-1 {
+        display: none !important;
+    }
+    
+    /* Ajuste para el margen superior del contenido principal al reducir la altura del header */
+    .sergio main {
+        margin-top: 60px !important;
+    }
+}
+
+/* =============================================
+   Estilo corporativo premium para el botón de cambio de vista
+   ============================================= */
+.sergio .btn-cambio-vista {
+    border-color: var(--azul, #006ea4) !important;
+    color: var(--azul, #006ea4) !important;
+    box-shadow: 0 4px 10px rgba(0, 110, 164, 0.08) !important;
+    background-color: transparent !important;
+    transition: all 0.2s ease !important;
+}
+
+.sergio .btn-cambio-vista:hover {
+    background-color: var(--azul, #006ea4) !important;
+    color: #ffffff !important;
+}

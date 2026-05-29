@@ -152,7 +152,7 @@ class C_Ticket {
         $usuario = $GLOBALS['usuario_sesion'] ?? null;
         $rol = $usuario['rol'] ?? 'profesor';
 
-        if ($rol !== 'administrador' && $rol !== 'responsable') {
+        if ($rol !== 'administrador' && $rol !== 'admin' && $rol !== 'responsable') {
             return ["status" => "error", "message" => "Solo administradores y responsables pueden asignar tickets"];
         }
 

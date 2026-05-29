@@ -16,7 +16,7 @@
 			<span class="etiqueta-nav">Mis tickets</span>
 		</a>
 		<div class="flex-grow-1"></div>
-		<a *ngIf="usuario_actual?.rol === 'administrador'" routerLink="/admin/dashboard" class="btn-cerrar-sesion me-2 text-warning border-warning bg-transparent shadow-none btn-cambio-vista">
+		<a *ngIf="usuario_actual?.rol === 'administrador'" routerLink="/admin/dashboard" class="btn-cerrar-sesion me-2 btn-cambio-vista">
 			<i class="fa-solid fa-arrow-right-arrow-left"></i>
 			<span class="etiqueta-nav">Consola Admin</span>
 		</a>
@@ -90,12 +90,39 @@
 						</div>
 					</div>
 				</div>
+
+				<!-- Filtro Creador Custom (Solo Admin) -->
+				<div class="desplegable-personalizado" *ngIf="usuario_actual?.rol === 'administrador'" [class.activo]="desplegableCreadorAbierto" [class.filtro-aplicado]="filtroCreador !== 'todos'">
+					<button type="button" class="boton-filtro-custom" (click)="toggleDesplegableCreador($event)">
+						<span>CREADOR: {{ getCreadorEtiqueta() }}</span>
+						<i class="fa-solid fa-chevron-down"></i>
+					</button>
+					<div class="opciones-desplegable" *ngIf="desplegableCreadorAbierto" style="max-height: 235px; overflow-y: auto;">
+						<div class="opcion-item" [class.seleccionado]="filtroCreador === 'todos'" (click)="seleccionarCreador('todos')">
+							<span>TICKETS GENERALES</span>
+							<i class="fa-solid fa-check" *ngIf="filtroCreador === 'todos'"></i>
+						</div>
+						<div class="opcion-item" [class.seleccionado]="filtroCreador === 'mis-tickets'" (click)="seleccionarCreador('mis-tickets')">
+							<span>👤 MIS TICKETS CREADOS</span>
+							<i class="fa-solid fa-check" *ngIf="filtroCreador === 'mis-tickets'"></i>
+						</div>
+						
+						<!-- Separador Visual -->
+						<div style="border-top: 1.5px solid #f1f5f9; margin: 6px 0;"></div>
+						
+						<!-- Listado de creadores únicos -->
+						<div class="opcion-item" *ngFor="let c of creadoresUnicos" [class.seleccionado]="filtroCreador === c.id.toString()" (click)="seleccionarCreador(c.id.toString())">
+							<span>📄 {{ c.nombre | uppercase }}</span>
+							<i class="fa-solid fa-check" *ngIf="filtroCreador === c.id.toString()"></i>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			@if (ticketsFiltrados.length > 0) {
 				<div class="listado-tickets">
 					@for (ticket of ticketsFiltrados; track ticket.id) {
-						<div class="tarjeta-ticket-detallada" [ngClass]="ticket.tipo === 'incidencia' ? 'incidencia' : 'peticion'">
+						<div class="tarjeta-ticket-detallada" [ngClass]="ticket.tipo === 'incidencia' ? 'incidencia' : 'peticion'" (click)="abrirModalTicket(ticket)">
 							<div class="cabecera-card-ticket">
 								<div class="tipo-ticket">
 									<i class="fa-solid" [ngClass]="ticket.tipo === 'incidencia' ? 'fa-circle-exclamation' : 'fa-circle-info'"></i> 
@@ -116,7 +143,7 @@
 							@if (ticket.id_usuario_encargado) {
 								<div class="asignacion-ticket">
 									<i class="fa-solid fa-user-gear"></i> 
-									<span>ASIGNADO A: <strong>TÉCNICO #{{ ticket.id_usuario_encargado }}</strong></span>
+									<span>ASIGNADO A: <strong>{{ (ticket.encargado_nombre || getNombreEncargado(ticket.id_usuario_encargado)) | uppercase }}</strong></span>
 								</div>
 							}
 
@@ -130,7 +157,7 @@
 								</div>
 								<div class="info-derecha-ticket">
 									<span class="localizacion">FECHA: <strong>{{ ticket.fecha_creacion | date:'dd/MM/yyyy HH:mm' }}</strong></span>
-									<a (click)="abrirModalTicket(ticket)" class="enlace-detalles" style="cursor: pointer;">
+									<a class="enlace-detalles">
 										DETALLES <i class="fa-solid fa-arrow-right"></i>
 									</a>
 								</div>
@@ -157,5 +184,6 @@
     [rolUsuario]="usuario_actual?.rol || 'profesor'" 
     [operarios]="operarios"
     (asignar)="onAsignarTicket($event)"
+    (resolver)="cargarTickets()"
     (cerrar)="cerrarModalTicket()">
 </app-modal-ticket>

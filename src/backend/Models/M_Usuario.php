@@ -21,6 +21,7 @@ class M_Usuario {
 			$sql = "SELECT u.id, LOWER(r.nombre) as rol,
 				   (SELECT COUNT(*) FROM Categoria_Usuario cu WHERE cu.id_usuario = u.id) as num_categorias,
 				   (SELECT GROUP_CONCAT(c.nombre SEPARATOR ', ') FROM Categoria_Usuario cu JOIN Categoria c ON cu.id_categoria = c.id WHERE cu.id_usuario = u.id) as categorias_nombres,
+				   (SELECT GROUP_CONCAT(cu.id_categoria SEPARATOR ',') FROM Categoria_Usuario cu WHERE cu.id_usuario = u.id) as categorias_ids,
 				   (SELECT COUNT(*) FROM Ticket t WHERE t.id_usuario_encargado = u.id AND t.estado != 'resuelto') as tickets_asignados
 				FROM Usuario u 
 				JOIN Rol r ON u.id_rol = r.id

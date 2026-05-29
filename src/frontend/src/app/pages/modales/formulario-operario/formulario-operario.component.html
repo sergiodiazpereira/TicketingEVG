@@ -6,136 +6,183 @@
   Descripción: Modal de formulario para crear o editar un operario conectando con Intranet.
 -->
 <div class="modal-overlay">
-    <div class="modal-container modal-form shadow-lg">
-        <div class="modal-header">
-            <button class="btn-close" (click)="cerrar.emit()">&times;</button>
-            <h2 class="modal-title">{{ operario ? 'Modificar Operario' : 'Nuevo Operario' }}</h2>
-            <p class="modal-subtitle">{{ operario ? 'Actualiza la información del técnico en el sistema.' : 'Selecciona un miembro del personal de la Intranet para registrarlo.' }}</p>
-        </div>
+	<div class="modal-card">
 
-        <div class="modal-body" [formGroup]="formulario">
-            <!-- Modo Creación: Mostrar Select de la Intranet -->
-            <div class="form-row" *ngIf="!operario">
-                <div class="form-group full-width">
-                    <label class="form-label" for="campo-personal">Seleccionar Personal de la Intranet</label>
-                    <!-- Buscador -->
-                    <div class="input-group mb-2">
-                        <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
-                        <input type="text" class="form-control border-start-0 ps-0" placeholder="Buscar por nombre o correo..." (input)="actualizarBusqueda($event)">
-                    </div>
-                    <!-- Lista Scrolleable -->
-                    <div class="lista-personal border rounded" style="max-height: 200px; overflow-y: auto;">
-                        <div class="list-group list-group-flush">
-                            <!-- Estado de carga -->
-                            <div *ngIf="cargandoPersonal" class="list-group-item text-muted text-center py-4">
-                                <span class="spinner-border spinner-border-sm me-2"></span>Cargando plantilla...
-                            </div>
-                            <!-- Sin resultados -->
-                            <div *ngIf="!cargandoPersonal && personalFiltrado.length === 0" class="list-group-item text-muted text-center py-4">
-                                No se encontraron usuarios con ese término.
-                            </div>
-                            <!-- Lista de usuarios -->
-                            <button type="button" class="list-group-item list-group-item-action d-flex align-items-center py-2" 
-                                *ngFor="let p of personalFiltrado"
-                                [class.active]="formulario.get('id')?.value === p.id"
-                                [class.bg-light]="formulario.get('id')?.value === p.id"
-                                (click)="seleccionarPersonal(p.id)">
-                                <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-3" style="width: 32px; height: 32px; font-size: 0.8rem; flex-shrink: 0;">
-                                    {{ p.nombre.charAt(0) | uppercase }}
-                                </div>
-                                <div class="text-truncate">
-                                    <div class="fw-bold mb-0 text-truncate" [class.text-primary]="formulario.get('id')?.value === p.id" style="font-size: 0.9rem;">{{ p.nombre }}</div>
-                                    <div class="text-muted text-truncate" style="font-size: 0.8rem;">{{ p.correo }}</div>
-                                </div>
-                                <i class="bi bi-check-circle-fill ms-auto text-primary" *ngIf="formulario.get('id')?.value === p.id" style="font-size: 1.2rem;"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="invalid-feedback" *ngIf="formulario.get('id')?.errors?.['required'] && formulario.get('id')?.touched">
-                        Es obligatorio seleccionar un miembro del personal.
-                    </div>
-                </div>
-            </div>
+		<!-- Cabecera unificada sin gradiente -->
+		<div class="modal-header">
+			<button class="btn-close" (click)="cerrar.emit()">&times;</button>
+			<h2 class="modal-title">{{ operario ? 'Modificar Operario' : 'Nuevo Operario' }}</h2>
+			<p class="modal-subtitle">
+				{{ operario ? 'Actualiza la información del técnico en el sistema' : 'Selecciona un miembro del personal de la Intranet' }}
+			</p>
+		</div>
 
-            <!-- Modo Edición: Mostrar datos nominales de solo lectura -->
-            <div class="form-row" *ngIf="operario">
-                <div class="form-group">
-                    <label class="form-label" for="campo-nombre">Nombre Completo</label>
-                    <input
-                        id="campo-nombre"
-                        type="text"
-                        class="form-control bg-light text-muted"
-                        formControlName="nombre"
-                        placeholder="Cargando nombre..."
-                    >
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="campo-correo">Correo Corporativo</label>
-                    <input
-                        id="campo-correo"
-                        type="email"
-                        class="form-control bg-light text-muted"
-                        formControlName="correo"
-                        placeholder="Cargando correo..."
-                    >
-                </div>
-            </div>
+		<!-- Cuerpo -->
+		<div class="modal-cuerpo" [formGroup]="formulario">
 
-            <!-- Rol de Operario (Común a ambos modos) -->
-            <div class="form-row">
-                <div class="form-group full-width">
-                    <label class="form-label" for="campo-rol">Tipo de Perfil en Ticketing</label>
-                    <div class="desplegable-personalizado w-100" [class.activo]="desplegableRolAbierto">
-                        <button type="button" class="boton-filtro-custom w-100" (click)="toggleDesplegableRol($event)">
-                            <span>{{ getRolEtiqueta() }}</span>
-                            <i class="fa-solid fa-chevron-down"></i>
-                        </button>
-                        <div class="opciones-desplegable" *ngIf="desplegableRolAbierto">
-                            <div class="opcion-item" [class.seleccionado]="formulario.get('rol')?.value === 'responsable'" (click)="seleccionarRol('responsable')">
-                                <span>Responsable</span>
-                                <i class="fa-solid fa-check" *ngIf="formulario.get('rol')?.value === 'responsable'"></i>
-                            </div>
-                            <div class="opcion-item" [class.seleccionado]="formulario.get('rol')?.value === 'trabajador'" (click)="seleccionarRol('trabajador')">
-                                <span>Trabajador</span>
-                                <i class="fa-solid fa-check" *ngIf="formulario.get('rol')?.value === 'trabajador'"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+			<!-- MODO CREACIÓN: selector de personal de la Intranet -->
+			<div *ngIf="!operario" class="seccion">
+				<label class="campo-label">
+					<i class="fa-solid fa-users fa-xs"></i>
+					Personal de la Intranet
+				</label>
 
-            <!-- Categorías Asignadas (Común a ambos modos) -->
-            <div class="form-group full-width">
-                <label class="form-label">Categorías Asignadas</label>
-                <div class="categories-container">
-                    <!-- Cargando -->
-                    <div *ngIf="cargandoCategorias" class="text-center py-3 text-muted small">
-                        <span class="spinner-border spinner-border-sm me-2"></span>Cargando categorías...
-                    </div>
-                    <!-- Sin categorías -->
-                    <div *ngIf="!cargandoCategorias && categorias.length === 0" class="text-center py-3 text-muted small">
-                        No hay categorías disponibles.
-                    </div>
-                    <!-- Lista de categorías de la BD -->
-                    <div class="categories-grid" *ngIf="!cargandoCategorias && categorias.length > 0">
-                        <label class="category-item" *ngFor="let cat of categorias">
-                            <input
-                                type="checkbox"
-                                [checked]="estaSeleccionada(cat.id)"
-                                (change)="toggleCategoria(cat.id)"
-                            >
-                            <span class="category-label">{{ cat.nombre }}</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
+				<!-- Buscador -->
+				<div class="buscador-wrap">
+					<i class="fa-solid fa-magnifying-glass buscador-icono"></i>
+					<input
+						id="campo-personal"
+						type="text"
+						class="buscador-input"
+						placeholder="Buscar por nombre o correo..."
+						(input)="actualizarBusqueda($event)"
+					>
+				</div>
 
-        <div class="modal-footer">
-            <button class="btn btn-text" type="button" (click)="cerrar.emit()">Cancelar</button>
-            <button class="btn btn-primary shadow-sm" type="button" (click)="onGuardar()">
-                {{ operario ? 'Guardar Cambios' : 'Crear Operario' }}
-            </button>
-        </div>
-    </div>
+				<!-- Lista scrolleable -->
+				<div class="lista-personal">
+					<!-- Cargando -->
+					<div *ngIf="cargandoPersonal" class="lista-estado">
+						<span class="spinner-sm"></span>
+						<span>Cargando plantilla...</span>
+					</div>
+					<!-- Sin resultados -->
+					<div *ngIf="!cargandoPersonal && personalFiltrado.length === 0" class="lista-estado">
+						<i class="fa-solid fa-circle-info"></i>
+						<span>No se encontraron usuarios.</span>
+					</div>
+					<!-- Items de personal -->
+					<button
+						type="button"
+						class="item-personal"
+						*ngFor="let p of personalFiltrado"
+						[class.item-personal--activo]="formulario.get('id')?.value === p.id"
+						(click)="seleccionarPersonal(p.id)"
+					>
+						<div class="item-avatar" [class.item-avatar--activo]="formulario.get('id')?.value === p.id">
+							{{ p.nombre.charAt(0) | uppercase }}
+						</div>
+						<div class="item-info">
+							<span class="item-nombre">{{ p.nombre }}</span>
+							<span class="item-correo">{{ p.correo }}</span>
+						</div>
+						<i class="fa-solid fa-circle-check item-check" *ngIf="formulario.get('id')?.value === p.id"></i>
+					</button>
+				</div>
+
+				<p class="campo-error" *ngIf="formulario.get('id')?.errors?.['required'] && formulario.get('id')?.touched">
+					Debes seleccionar un miembro del personal.
+				</p>
+			</div>
+
+			<!-- MODO EDICIÓN: campos de solo lectura -->
+			<div *ngIf="operario" class="seccion grid-2col">
+				<div class="campo-wrap">
+					<label class="campo-label" for="campo-nombre">
+						<i class="fa-solid fa-id-card fa-xs"></i>
+						Nombre Completo
+					</label>
+					<input
+						id="campo-nombre"
+						type="text"
+						class="campo-input campo-input--readonly"
+						formControlName="nombre"
+						placeholder="Cargando nombre..."
+						readonly
+					>
+				</div>
+				<div class="campo-wrap">
+					<label class="campo-label" for="campo-correo">
+						<i class="fa-solid fa-envelope fa-xs"></i>
+						Correo Corporativo
+					</label>
+					<input
+						id="campo-correo"
+						type="email"
+						class="campo-input campo-input--readonly"
+						formControlName="correo"
+						placeholder="Cargando correo..."
+						readonly
+					>
+				</div>
+			</div>
+
+			<!-- ROL (común a ambos modos) -->
+			<div class="seccion">
+				<label class="campo-label" for="campo-rol">
+					<i class="fa-solid fa-shield-halved fa-xs"></i>
+					Tipo de Perfil en Ticketing
+				</label>
+				<div class="desplegable-personalizado w-100" [class.activo]="desplegableRolAbierto">
+					<button type="button" class="boton-filtro-custom w-100" (click)="toggleDesplegableRol($event)">
+						<span>{{ getRolEtiqueta() }}</span>
+						<i class="fa-solid fa-chevron-down"></i>
+					</button>
+					<div class="opciones-desplegable" *ngIf="desplegableRolAbierto">
+						<div
+							class="opcion-item"
+							[class.seleccionado]="formulario.get('rol')?.value === 'responsable'"
+							(click)="seleccionarRol('responsable')"
+						>
+							<span>Responsable</span>
+							<i class="fa-solid fa-check" *ngIf="formulario.get('rol')?.value === 'responsable'"></i>
+						</div>
+						<div
+							class="opcion-item"
+							[class.seleccionado]="formulario.get('rol')?.value === 'trabajador'"
+							(click)="seleccionarRol('trabajador')"
+						>
+							<span>Trabajador</span>
+							<i class="fa-solid fa-check" *ngIf="formulario.get('rol')?.value === 'trabajador'"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- CATEGORÍAS (común a ambos modos) -->
+			<div class="seccion">
+				<label class="campo-label">
+					<i class="fa-solid fa-tags fa-xs"></i>
+					Categorías Asignadas
+				</label>
+				<div class="categorias-wrap">
+					<!-- Cargando -->
+					<div *ngIf="cargandoCategorias" class="lista-estado">
+						<span class="spinner-sm"></span>
+						<span>Cargando categorías...</span>
+					</div>
+					<!-- Sin categorías -->
+					<div *ngIf="!cargandoCategorias && categorias.length === 0" class="lista-estado">
+						<i class="fa-solid fa-circle-info"></i>
+						<span>No hay categorías disponibles.</span>
+					</div>
+					<!-- Grid de categorías -->
+					<div class="categorias-grid" *ngIf="!cargandoCategorias && categorias.length > 0">
+						<label
+							class="cat-chip"
+							*ngFor="let cat of categorias"
+							[class.cat-chip--activo]="estaSeleccionada(cat.id)"
+						>
+							<input
+								type="checkbox"
+								[checked]="estaSeleccionada(cat.id)"
+								(change)="toggleCategoria(cat.id)"
+								hidden
+							>
+							<i class="fa-solid fa-check cat-chip-check" *ngIf="estaSeleccionada(cat.id)"></i>
+							{{ cat.nombre }}
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Pie unificado -->
+		<div class="modal-footer">
+			<button type="button" class="btn btn-text" (click)="cerrar.emit()">Cancelar</button>
+			<button type="button" class="btn btn-primary shadow-sm" (click)="onGuardar()">
+				{{ operario ? 'Guardar Cambios' : 'Crear Operario' }}
+			</button>
+		</div>
+	</div>
 </div>

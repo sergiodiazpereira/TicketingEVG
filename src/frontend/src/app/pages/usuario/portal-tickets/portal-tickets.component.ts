@@ -1,6 +1,6 @@
 /**
  * Proyecto: TicketingEVG
- * Alumno: Sergio Díaz Pereira
+ * Alumno: Joseph Joel Quispe Alvarez
  * Asignatura: DAW
  * Curso: 2025-2026
  * Descripción: Portal de gestión de tickets para usuarios (profesores/alumnos).
@@ -73,9 +73,7 @@ export class PortalTicketsComponent implements OnInit {
     this.usuario_actual = this.authService.getUsuarioActual();
     if (this.usuario_actual) {
       this.cargarTickets();
-      if (this.usuario_actual.rol === 'administrador' || this.usuario_actual.rol === 'responsable') {
-        this.cargarOperarios();
-      }
+      this.cargarOperarios();
     }
   }
 
@@ -84,6 +82,12 @@ export class PortalTicketsComponent implements OnInit {
       next: (data) => this.operarios = data,
       error: (err) => console.error('Error al cargar operarios', err)
     });
+  }
+
+  getNombreEncargado(idEncargado: any): string {
+    if (!idEncargado) return '';
+    const tech = this.operarios.find(op => Number(op.id) === Number(idEncargado));
+    return tech ? tech.nombre : `Técnico #${idEncargado}`;
   }
 
   onAsignarTicket(event: {idTicket: number, idOperario: number}) {

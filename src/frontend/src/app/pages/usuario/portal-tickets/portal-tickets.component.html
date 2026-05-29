@@ -23,7 +23,7 @@
 			<span class="etiqueta-nav">Mis tickets</span>
 		</a>
 		<div class="flex-grow-1"></div>
-		<a *ngIf="usuario_actual?.rol === 'administrador'" routerLink="/admin/dashboard" class="btn-cerrar-sesion me-2 text-warning border-warning bg-transparent shadow-none btn-cambio-vista">
+		<a *ngIf="usuario_actual?.rol === 'administrador'" routerLink="/admin/dashboard" class="btn-cerrar-sesion me-2 btn-cambio-vista">
 			<i class="fa-solid fa-arrow-right-arrow-left"></i>
 			<span class="etiqueta-nav">Consola Admin</span>
 		</a>
@@ -102,7 +102,7 @@
 								<div class="info-ticket">
 									<strong>{{ ticket.titulo }}</strong>
 									@if (ticket.id_usuario_encargado) {
-										<small>Asignado a: Trabajador {{ ticket.id_usuario_encargado }}</small>
+										<small>Asignado a: {{ (ticket.encargado_nombre || getNombreEncargado(ticket.id_usuario_encargado)) | uppercase }}</small>
 									}
 								</div>
 								<span class="etiqueta-estado" [ngClass]="ticket.estado">
@@ -129,5 +129,6 @@
     [rolUsuario]="usuario_actual?.rol || 'profesor'" 
     [operarios]="operarios"
     (asignar)="onAsignarTicket($event)"
+    (resolver)="cargarTickets()"
     (cerrar)="cerrarModalTicket()">
 </app-modal-ticket>

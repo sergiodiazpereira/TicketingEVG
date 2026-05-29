@@ -3,7 +3,7 @@
  * Alumno: Joseph Joel Quispe Alvarez
  * Asignatura: Desarrollo de Aplicaciones Web
  * Curso: 2025-2026
- * Descripción: Estilos para el Dashboard de administración (Importados de estiloAdmin.css).
+ * Descripción: Estilos y animaciones premium para el Dashboard de administración.
  */
 
 :host {
@@ -16,19 +16,26 @@
 	--blanco: #ffffff;
 }
 
-/* --- Títulos --- */
+/* =============================================
+   Títulos
+   ============================================= */
 .titulo-primario {
 	color: var(--azul-oscuro);
 }
 
-/* --- Tarjetas Principales --- */
-.card-premium {
-	border: none;
-	border-radius: 15px;
-	box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-	overflow: hidden;
-}
+/* =============================================
+   Tarjetas KPI — entrada escalonada
+   ============================================= */
 
+/* Animación de entrada escalonada para cada col */
+.row.g-4.mb-5 .col-12:nth-child(1) .card-premium { animation: cardEntry 0.5s 0.05s ease both; }
+.row.g-4.mb-5 .col-12:nth-child(2) .card-premium { animation: cardEntry 0.5s 0.15s ease both; }
+.row.g-4.mb-5 .col-12:nth-child(3) .card-premium { animation: cardEntry 0.5s 0.25s ease both; }
+.row.g-4.mb-5 .col-12:nth-child(4) .card-premium { animation: cardEntry 0.5s 0.35s ease both; }
+
+/* =============================================
+   Icono de las KPI — efecto de zoom al hover
+   ============================================= */
 .icono-circulo {
 	width: 45px;
 	height: 45px;
@@ -38,52 +45,138 @@
 	border-radius: 10px;
 	background-color: #f8f9fa;
 	border: 1px solid #eee;
+	transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.25s;
+}
+
+.card-premium:hover .icono-circulo {
+	transform: scale(1.15) rotate(-4deg);
+	background-color: #eef6fb;
+}
+
+/* Número KPI — animación de escala suave al hover */
+.card-premium:hover .h3 {
+	color: var(--azul-oscuro);
+	transition: color 0.2s;
 }
 
 .etiqueta-espaciada {
 	letter-spacing: 1px;
 }
 
-/* --- Rendimiento y Progreso --- */
+/* =============================================
+   Barra de progreso animada
+   ============================================= */
 .progreso-personalizado {
 	height: 8px;
 	border-radius: 10px;
 	background-color: #e9ecef;
+	overflow: hidden;
 }
 
+.progreso-personalizado .progress-bar {
+	border-radius: 10px;
+	animation: growBar 1s 0.4s ease both;
+	transform-origin: left;
+}
+
+@keyframes growBar {
+	from { width: 0 !important; }
+}
+
+/* =============================================
+   Tarjetas internas (Incidencias / Peticiones)
+   ============================================= */
 .tarjeta-interna {
 	background-color: #f8f9fa;
 	border: 1px solid #edf2f9;
 	border-radius: 12px;
 	text-align: center;
 	padding: 15px;
+	transition:
+		transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+		box-shadow 0.22s ease,
+		border-color 0.22s ease;
+	cursor: default;
 }
 
-/* --- Prioridades y Listados --- */
+.tarjeta-interna:hover {
+	transform: translateY(-3px) scale(1.02);
+	box-shadow: 0 6px 18px rgba(0, 110, 164, 0.1);
+	border-color: #bdd8f0;
+}
+
+.tarjeta-interna i {
+	transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.tarjeta-interna:hover i {
+	transform: scale(1.25);
+}
+
+/* =============================================
+   Prioridades — hover por fila
+   ============================================= */
 .prioridad-item {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 10px 0;
+	padding: 10px 8px;
 	border-bottom: 1px solid #f1f4f8;
+	border-radius: 8px;
+	transition: background 0.18s ease, padding-left 0.18s ease;
+	cursor: default;
+}
+
+.prioridad-item:hover {
+	background: #f8fbff;
+	padding-left: 14px;
 }
 
 .prioridad-item:last-child {
 	border-bottom: none;
 }
 
-.nota-informativa {
-	font-size: 0.8rem;
-	color: #888;
-	font-style: italic;
+/* Badge de tickets con micro-animación al hover */
+.prioridad-item:hover .badge {
+	transform: scale(1.1);
+	transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* --- Tarjeta Informativa Inferior --- */
+/* =============================================
+   Fila de operarios disponibles
+   ============================================= */
+.d-flex.justify-content-between.align-items-center.p-3.border.rounded-3 {
+	transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.d-flex.justify-content-between.align-items-center.p-3.border.rounded-3:hover {
+	background: #edfcf4 !important;
+	box-shadow: 0 2px 10px rgba(25, 195, 125, 0.12);
+}
+
+/* =============================================
+   Tarjeta informativa inferior
+   ============================================= */
 .tarjeta-informativa {
 	background-color: #f0f7ff;
 	border: 1px solid #d0e5ff;
+	transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.tarjeta-informativa:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 16px rgba(0, 110, 164, 0.1);
 }
 
 .texto-informativo {
 	color: #4a7ab5;
+}
+
+/* =============================================
+   Nota informativa al pie
+   ============================================= */
+.nota-informativa {
+	font-size: 0.8rem;
+	color: #888;
+	font-style: italic;
 }

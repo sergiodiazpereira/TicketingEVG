@@ -254,8 +254,34 @@ main {
     box-shadow: var(--sombra);
     position: relative;
     overflow: hidden;
-    animation: aparecerArriba 0.4s ease both;
     flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* Entrada escalonada: primeras 6 tarjetas con delay incremental */
+.listado-tickets .tarjeta-ticket-detallada:nth-child(1) { animation: entradaCard 0.4s 0.05s ease both; }
+.listado-tickets .tarjeta-ticket-detallada:nth-child(2) { animation: entradaCard 0.4s 0.12s ease both; }
+.listado-tickets .tarjeta-ticket-detallada:nth-child(3) { animation: entradaCard 0.4s 0.19s ease both; }
+.listado-tickets .tarjeta-ticket-detallada:nth-child(4) { animation: entradaCard 0.4s 0.26s ease both; }
+.listado-tickets .tarjeta-ticket-detallada:nth-child(5) { animation: entradaCard 0.4s 0.33s ease both; }
+.listado-tickets .tarjeta-ticket-detallada:nth-child(n+6) { animation: entradaCard 0.4s 0.38s ease both; }
+
+@keyframes entradaCard {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tarjeta-ticket-detallada:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.09);
+    border-color: #d0dff0;
 }
 
 .tarjeta-ticket-detallada::before {
@@ -393,13 +419,14 @@ main {
     padding: 4px 12px;
     border-radius: 8px;
     text-decoration: none;
-    transition: all 0.3s;
+    transition: background 0.2s ease, color 0.2s ease, gap 0.2s ease;
     text-transform: uppercase;
 }
 
 .enlace-detalles:hover {
     background: var(--azul);
     color: #fff;
+    gap: 10px;
 }
 
 .etiqueta-estado {

@@ -20,13 +20,7 @@
 	color: var(--azul-oscuro);
 }
 
-/* --- Tarjetas y Contenedores --- */
-.card-premium {
-	border: none;
-	border-radius: 15px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-	overflow: hidden;
-}
+
 
 .btn-evg {
 	background-color: var(--azul);

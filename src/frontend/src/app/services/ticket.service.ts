@@ -56,6 +56,15 @@ export class TicketService {
   }
 
   /**
+   * Actualiza los datos generales de un ticket en la base de datos.
+   * @param id Identificador del ticket.
+   * @param ticket Objeto con los nuevos valores a actualizar.
+   */
+  actualizarTicket(id: string, ticket: Partial<Ticket>): Observable<any> {
+    return this.http.put(`${this.apiUrl}?accion=actualizar`, { id, ...ticket });
+  }
+
+  /**
    * Elimina un ticket físicamente.
    * @param id Identificador del ticket.
    */

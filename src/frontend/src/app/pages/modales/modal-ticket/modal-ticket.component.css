@@ -13,6 +13,19 @@
     width: 100%;
     overflow: hidden;
     position: relative;
+    animation: slideInModal 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+@keyframes slideInModal {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 .modal-details {
@@ -157,6 +170,70 @@
 .btn-no-aplica:hover { background-color: #4a6a8c; }
 .btn-outline-custom { background-color: #ffffff; color: #1e293b; border: 1px solid #e2e8f0; }
 
+/* Selector desplegable premium unificado */
+select.form-control, input.form-control {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 12px;
+    background-color: #ffffff;
+    color: #1e293b;
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+select.form-control {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+    padding-right: 40px;
+}
+
+select.form-control:focus, input.form-control:focus {
+    border-color: #006ea4;
+    box-shadow: 0 0 0 3px rgba(0, 110, 164, 0.15);
+}
+
+/* Botón de Editar Detalles (Lapicito) */
+.btn-editar-lapiz {
+    background-color: #f8fafc;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    margin-left: auto;
+}
+
+.btn-editar-lapiz:hover {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    border-color: #cbd5e1;
+    transform: translateY(-1px);
+}
+
+select.form-control option {
+    font-weight: 600;
+    color: #1e293b;
+    padding: 8px;
+}
+
 
 :host {
     position: fixed;
@@ -164,4 +241,43 @@
     background-color: rgba(44, 62, 80, 0.7);
     display: flex; justify-content: center; align-items: center;
     z-index: 2000;
+    transition: opacity 0.2s ease;
+    animation: fadeInOverlay 0.2s ease both;
+}
+
+@keyframes fadeInOverlay {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Salida (Animaciones al cerrar el modal) */
+:host.modal-closing {
+    opacity: 0 !important;
+}
+
+:host.modal-closing .modal-container {
+    opacity: 0 !important;
+    transform: scale(0.95) translateY(15px) !important;
+}
+
+/* Botón de desasignación rápida */
+.btn-desasignar {
+    background: none;
+    border: none;
+    font-size: 28px;
+    font-weight: 700;
+    color: #94a3b8;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 8px;
+    margin-left: auto;
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-desasignar:hover {
+    color: #e11d48;
+    transform: scale(1.2);
 }

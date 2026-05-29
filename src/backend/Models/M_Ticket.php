@@ -29,7 +29,46 @@ class M_Ticket {
                 LEFT JOIN Categoria c ON t.id_categoria = c.id 
                 ORDER BY t.fecha_creacion DESC";
         $resultado = $this->db->query($sql);
-        return $resultado->fetch_all(MYSQLI_ASSOC);
+        if (!$resultado) return [];
+        $tickets = $resultado->fetch_all(MYSQLI_ASSOC);
+        
+        try {
+            require_once __DIR__ . '/M_Intranet.php';
+            $m_intranet = new M_Intranet();
+            $personal_intranet = $m_intranet->listar_personal();
+            $personal_indexado = [];
+            foreach ($personal_intranet as $p) {
+                $personal_indexado[$p['id']] = $p;
+            }
+            foreach ($tickets as &$t) {
+                $id_enc = (int)($t['id_usuario_encargado'] ?? 0);
+                if ($id_enc > 0) {
+                    if (isset($personal_indexado[$id_enc])) {
+                        $t['encargado_nombre'] = $personal_indexado[$id_enc]['nombre'];
+                    } else {
+                        $t['encargado_nombre'] = 'TRABAJADOR ' . $id_enc;
+                    }
+                } else {
+                    $t['encargado_nombre'] = null;
+                }
+                
+                // Mapear el nombre del creador
+                $id_cre = (int)($t['id_usuario_creador'] ?? 0);
+                if ($id_cre > 0) {
+                    if (isset($personal_indexado[$id_cre])) {
+                        $t['creador_nombre'] = $personal_indexado[$id_cre]['nombre'];
+                    } else {
+                        $t['creador_nombre'] = 'USUARIO ' . $id_cre;
+                    }
+                } else {
+                    $t['creador_nombre'] = null;
+                }
+            }
+        } catch (Exception $e) {
+            // Ignorar
+        }
+        
+        return $tickets;
     }
 
     /**
@@ -48,7 +87,47 @@ class M_Ticket {
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("i", $id_usuario);
         $stmt->execute();
-        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $resultado = $stmt->get_result();
+        if (!$resultado) return [];
+        $tickets = $resultado->fetch_all(MYSQLI_ASSOC);
+        
+        try {
+            require_once __DIR__ . '/M_Intranet.php';
+            $m_intranet = new M_Intranet();
+            $personal_intranet = $m_intranet->listar_personal();
+            $personal_indexado = [];
+            foreach ($personal_intranet as $p) {
+                $personal_indexado[$p['id']] = $p;
+            }
+            foreach ($tickets as &$t) {
+                $id_enc = (int)($t['id_usuario_encargado'] ?? 0);
+                if ($id_enc > 0) {
+                    if (isset($personal_indexado[$id_enc])) {
+                        $t['encargado_nombre'] = $personal_indexado[$id_enc]['nombre'];
+                    } else {
+                        $t['encargado_nombre'] = 'TRABAJADOR ' . $id_enc;
+                    }
+                } else {
+                    $t['encargado_nombre'] = null;
+                }
+                
+                // Mapear el nombre del creador
+                $id_cre = (int)($t['id_usuario_creador'] ?? 0);
+                if ($id_cre > 0) {
+                    if (isset($personal_indexado[$id_cre])) {
+                        $t['creador_nombre'] = $personal_indexado[$id_cre]['nombre'];
+                    } else {
+                        $t['creador_nombre'] = 'USUARIO ' . $id_cre;
+                    }
+                } else {
+                    $t['creador_nombre'] = null;
+                }
+            }
+        } catch (Exception $e) {
+            // Ignorar
+        }
+        
+        return $tickets;
     }
 
     /**
@@ -111,8 +190,13 @@ class M_Ticket {
      * @param int $id_usuario_encargado
      */
     public function asignar_operario($id_ticket, $id_usuario_encargado) {
-        $stmt = $this->db->prepare("UPDATE Ticket SET id_usuario_encargado = ?, estado = 'asignado' WHERE id = ?");
-        $stmt->bind_param("is", $id_usuario_encargado, $id_ticket);
+        if (empty($id_usuario_encargado) || $id_usuario_encargado === 'null' || $id_usuario_encargado == 0) {
+            $stmt = $this->db->prepare("UPDATE Ticket SET id_usuario_encargado = NULL, estado = 'pendiente' WHERE id = ?");
+            $stmt->bind_param("s", $id_ticket);
+        } else {
+            $stmt = $this->db->prepare("UPDATE Ticket SET id_usuario_encargado = ?, estado = 'asignado' WHERE id = ?");
+            $stmt->bind_param("is", $id_usuario_encargado, $id_ticket);
+        }
         return $stmt->execute();
     }
 
@@ -137,7 +221,59 @@ class M_Ticket {
         $stmt->bind_param("s", $id);
         $stmt->execute();
         $res = $stmt->get_result();
-        return $res ? $res->fetch_assoc() : null;
+        if ($res && $t = $res->fetch_assoc()) {
+            $tipo_prefijo = substr($t['id'], 0, 1) === 'I' ? 'incidencia' : 'peticion';
+            $t['tipo'] = $tipo_prefijo;
+            
+            // Get categoria_nombre
+            $stmt_cat = $this->db->prepare("SELECT nombre FROM Categoria WHERE id = ?");
+            $stmt_cat->bind_param("i", $t['id_categoria']);
+            $stmt_cat->execute();
+            $res_cat = $stmt_cat->get_result();
+            if ($res_cat && $row_cat = $res_cat->fetch_assoc()) {
+                $t['categoria_nombre'] = $row_cat['nombre'];
+            } else {
+                $t['categoria_nombre'] = null;
+            }
+            
+            // Get encargado_nombre and creador_nombre
+            try {
+                require_once __DIR__ . '/M_Intranet.php';
+                $m_intranet = new M_Intranet();
+                $personal_intranet = $m_intranet->listar_personal();
+                $personal_indexado = [];
+                foreach ($personal_intranet as $p) {
+                    $personal_indexado[$p['id']] = $p;
+                }
+                
+                $id_enc = (int)($t['id_usuario_encargado'] ?? 0);
+                if ($id_enc > 0) {
+                    if (isset($personal_indexado[$id_enc])) {
+                        $t['encargado_nombre'] = $personal_indexado[$id_enc]['nombre'];
+                    } else {
+                        $t['encargado_nombre'] = 'TRABAJADOR ' . $id_enc;
+                    }
+                } else {
+                    $t['encargado_nombre'] = null;
+                }
+                
+                $id_cre = (int)($t['id_usuario_creador'] ?? 0);
+                if ($id_cre > 0) {
+                    if (isset($personal_indexado[$id_cre])) {
+                        $t['creador_nombre'] = $personal_indexado[$id_cre]['nombre'];
+                    } else {
+                        $t['creador_nombre'] = 'USUARIO ' . $id_cre;
+                    }
+                } else {
+                    $t['creador_nombre'] = null;
+                }
+            } catch (Exception $e) {
+                $t['encargado_nombre'] = $id_enc > 0 ? 'TRABAJADOR ' . $id_enc : null;
+                $t['creador_nombre'] = $id_cre > 0 ? 'USUARIO ' . $id_cre : null;
+            }
+            return $t;
+        }
+        return null;
     }
 
     /**

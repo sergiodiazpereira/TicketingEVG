@@ -14,5 +14,6 @@ export interface Usuario {
   rol: string;
   num_categorias?: number;
   tickets_asignados?: number;
+  categorias_ids?: string; // Categorías asociadas al operario de forma de string separado por coma
   categorias_nombres?: string[];
 }

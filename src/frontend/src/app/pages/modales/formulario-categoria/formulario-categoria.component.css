@@ -170,3 +170,28 @@
 .btn-text:hover {
     color: var(--texto-gris, #94a3b8);
 }
+
+/* =============================================
+   Responsive para móviles y tablets
+   ============================================= */
+@media (max-width: 576px) {
+    .modal-container {
+        width: calc(100% - 24px) !important;
+        margin: 12px !important;
+        max-height: 94vh !important;
+        overflow-y: auto !important;
+    }
+    
+    .modal-header {
+        padding: 16px 20px !important;
+    }
+    
+    .modal-body {
+        padding: 20px !important;
+    }
+    
+    .modal-footer {
+        padding: 16px 20px !important;
+        gap: 12px !important;
+    }
+}
