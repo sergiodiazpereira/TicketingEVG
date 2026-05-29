@@ -100,7 +100,7 @@ describe('FormularioOperarioComponent', () => {
 
 		component.onGuardar();
 		expect(component.guardar.emit).toHaveBeenCalledWith(jasmine.objectContaining({
-			id: '26', // getRawValue() devuelve el valor como string del form
+			id: 26,
 			rol: 'responsable',
 			categorias: [1]
 		}));

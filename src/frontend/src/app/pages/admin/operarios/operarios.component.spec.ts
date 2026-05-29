@@ -96,6 +96,7 @@ describe('OperariosComponent', () => {
 
 	it('debería actualizar un operario existente llamando al servicio', () => {
 		fixture.detectChanges();
+		component.operarioAEditar = { id: 101, nombre: 'María Reyes' };
 		const editOperario = { id: 101, rol: 'responsable', categorias: [1] };
 
 		component.guardarOperario(editOperario);

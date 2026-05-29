@@ -109,7 +109,7 @@ $datos = array_merge($_GET, $_POST, json_decode(file_get_contents('php://input')
 // 4. Inyectar parámetros mediante Reflexión (para pasar argumentos al método)
 $ref = new ReflectionMethod($ctrl, $metodo);
 $args = [];
-$payload = array_diff_key($datos, array_flip(['entidad', 'accion']));
+$payload = array_diff_key($datos, array_flip(['entidad', 'accion', 'token_intranet']));
 
 foreach ($ref->getParameters() as $p) {
     $nombre = $p->getName();

@@ -35,28 +35,7 @@ class M_Usuario {
 			$resultado = $this->db->query($sql);
 			return $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
 		} catch (Exception $e) {
-			// Fallback para desarrollo local si no existe la base de datos de la intranet daw_05_BD2
-			$sql = "SELECT u.id, LOWER(r.nombre) as rol,
-				   (SELECT COUNT(*) FROM Categoria_Usuario cu WHERE cu.id_usuario = u.id) as num_categorias,
-				   (SELECT GROUP_CONCAT(c.nombre SEPARATOR ', ') FROM Categoria_Usuario cu JOIN Categoria c ON cu.id_categoria = c.id WHERE cu.id_usuario = u.id) as categorias_nombres,
-				   (SELECT COUNT(*) FROM Ticket t WHERE t.id_usuario_encargado = u.id AND t.estado != 'resuelto') as tickets_asignados
-				FROM Usuario u 
-				JOIN Rol r ON u.id_rol = r.id
-				WHERE LOWER(r.nombre) IN ('responsable', 'trabajador', 'operario')
-				ORDER BY u.id ASC";
-			$resultado = $this->db->query($sql);
-			$operarios = $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
-
-			foreach ($operarios as &$op) {
-				if ((int)$op['id'] === 26) {
-					$op['nombre'] = 'Joseph Joel Quispe Alvarez';
-					$op['email'] = 'josephqa3131@gmail.com';
-				} else {
-					$op['nombre'] = 'Operario Local Simulador ' . $op['id'];
-					$op['email'] = 'operario_local_' . $op['id'] . '@evg.es';
-				}
-			}
-			return $operarios;
+			return ['error' => 'Error al listar operarios: ' . $e->getMessage()];
 		}
 	}
 	
@@ -125,10 +104,13 @@ class M_Usuario {
 
 	/**
 	 * Obtiene el id_Rol a partir del nombre del rol.
+	 * Devuelve null si es el rol genérico 'profesor' (solicitante) u otro inexistente.
 	 * @param string $nombre_rol Nombre del rol (responsable, trabajador...).
 	 * @return int|null
 	 */
 	private function obtener_id_rol($nombre_rol) {
+		if (empty($nombre_rol) || strtolower($nombre_rol) === 'profesor')
+			return null;
 		$stmt = $this->db->prepare("SELECT id FROM Rol WHERE LOWER(nombre) = ?");
 		$stmt->bind_param("s", $nombre_rol);
 		$stmt->execute();
@@ -139,19 +121,27 @@ class M_Usuario {
 	}
 
 	/**
-	 * Crea un nuevo usuario en el sistema con el ID provisto por la Intranet.
+	 * Crea un nuevo usuario en el sistema con el ID provisto por la Intranet y rol opcional.
 	 * @param array $datos Datos del formulario (id, rol).
 	 * @return int|false ID insertado o false en caso de error.
 	 */
 	public function crear($datos) {
-		$id_rol = $this->obtener_id_rol(strtolower($datos['rol'] ?? 'trabajador'));
-		if (!$id_rol || empty($datos['id']))
+		$id_rol = $this->obtener_id_rol(strtolower($datos['rol'] ?? ''));
+		if (empty($datos['id']))
 			return false;
 
-		$stmt = $this->db->prepare(
-			"INSERT INTO Usuario (id, id_rol) VALUES (?, ?)"
-		);
-		$stmt->bind_param("ii", $datos['id'], $id_rol);
+		if ($id_rol === null) {
+			$stmt = $this->db->prepare(
+				"INSERT INTO Usuario (id, id_rol) VALUES (?, NULL)"
+			);
+			$stmt->bind_param("i", $datos['id']);
+		} else {
+			$stmt = $this->db->prepare(
+				"INSERT INTO Usuario (id, id_rol) VALUES (?, ?)"
+			);
+			$stmt->bind_param("ii", $datos['id'], $id_rol);
+		}
+
 		if ($stmt->execute())
 			return (int) $datos['id'];
 		return false;
@@ -163,7 +153,7 @@ class M_Usuario {
 	 * @return array|null
 	 */
 	public function buscar_por_id($id) {
-		$stmt = $this->db->prepare("SELECT u.*, LOWER(r.nombre) as rol FROM Usuario u JOIN Rol r ON u.id_rol = r.id WHERE u.id = ?");
+		$stmt = $this->db->prepare("SELECT u.*, LOWER(r.nombre) as rol FROM Usuario u LEFT JOIN Rol r ON u.id_rol = r.id WHERE u.id = ?");
 		$stmt->bind_param("i", $id);
 		$stmt->execute();
 		$res = $stmt->get_result();
@@ -173,20 +163,25 @@ class M_Usuario {
 	}
 
 	/**
-	 * Actualiza los datos de un usuario existente (únicamente el rol).
+	 * Actualiza los datos de un usuario existente (únicamente el rol, admitiendo NULL).
 	 * @param int $id ID del usuario.
 	 * @param array $datos Datos a actualizar (rol).
 	 * @return bool
 	 */
 	public function actualizar($id, $datos) {
-		$id_rol = $this->obtener_id_rol(strtolower($datos['rol'] ?? 'trabajador'));
-		if (!$id_rol)
-			return false;
+		$id_rol = $this->obtener_id_rol(strtolower($datos['rol'] ?? ''));
 
-		$stmt = $this->db->prepare(
-			"UPDATE Usuario SET id_rol = ? WHERE id = ?"
-		);
-		$stmt->bind_param("ii", $id_rol, $id);
+		if ($id_rol === null) {
+			$stmt = $this->db->prepare(
+				"UPDATE Usuario SET id_rol = NULL WHERE id = ?"
+			);
+			$stmt->bind_param("i", $id);
+		} else {
+			$stmt = $this->db->prepare(
+				"UPDATE Usuario SET id_rol = ? WHERE id = ?"
+			);
+			$stmt->bind_param("ii", $id_rol, $id);
+		}
 		return $stmt->execute();
 	}
 
@@ -253,39 +248,69 @@ class M_Usuario {
 	 * @return array
 	 */
 	public function listar_personal_intranet_no_registrado() {
-		try {
-			$sql = "SELECT p.id, CONCAT(p.nombre, ' ', p.apellidos) AS nombre, p.email AS correo 
-				FROM daw_05_BD2.personal p 
-				WHERE p.id NOT IN (SELECT id FROM Usuario) 
-				ORDER BY p.nombre ASC";
-			$resultado = $this->db->query($sql);
-			return $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
-		} catch (Exception $e) {
-			// Simulación local para pruebas en entornos sin intranet
-			$personal = [
-				['id' => 1, 'nombre' => 'Sergio Díaz Pereira', 'correo' => 'sergiodiaz@fundacionloyola.es'],
-				['id' => 2, 'nombre' => 'Julio Alberto Domínguez', 'correo' => 'julioadmin@fundacionloyola.es'],
-				['id' => 26, 'nombre' => 'Joseph Joel Quispe Alvarez', 'correo' => 'josephqa3131@gmail.com'],
-				['id' => 101, 'nombre' => 'María del Carmen Reyes', 'correo' => 'mcreyes@fundacionloyola.es'],
-				['id' => 102, 'nombre' => 'Francisco Javier García', 'correo' => 'fjgarcia@fundacionloyola.es'],
-				['id' => 103, 'nombre' => 'Ana Belén Martínez', 'correo' => 'abmartinez@fundacionloyola.es']
-			];
-			
-			// Excluir a los que ya están registrados
-			$sql_local = "SELECT id FROM Usuario";
-			$res_local = $this->db->query($sql_local);
-			$registrados = [];
-			if ($res_local)
-				while ($row = $res_local->fetch_assoc())
-					$registrados[] = (int) $row['id'];
-					
-			$disponibles = [];
-			foreach ($personal as $p)
-				if (!in_array((int) $p['id'], $registrados))
-					$disponibles[] = $p;
-					
-			return $disponibles;
+		// Fuente 1: query param (más fiable, no depende de cabeceras Apache)
+		$token_intranet = $_GET['token_intranet'] ?? '';
+
+		// Fuente 2: $_SERVER
+		if (empty($token_intranet))
+			$token_intranet = $_SERVER['HTTP_X_AUTH_TOKEN'] ?? '';
+
+		// Fuente 3: getallheaders()
+		if (empty($token_intranet) && function_exists('getallheaders')) {
+			$headers = getallheaders();
+			$token_intranet = $headers['X-Auth-Token'] ?? $headers['x-auth-token'] ?? '';
 		}
+
+		if (!empty($token_intranet)) {
+			$ch = curl_init('https://17.daw.esvirgua.com/api/index.php?c=Usuarios&m=listar');
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, [
+				'Content-Type: application/json',
+				'X-Auth-Token: ' . $token_intranet
+			]);
+			$respuesta = curl_exec($ch);
+			$codigo_http = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			curl_close($ch);
+
+			if ($codigo_http === 200) {
+				$json = json_decode($respuesta, true);
+
+				$lista_api = null;
+				if (is_array($json) && isset($json[0]))
+					$lista_api = $json;
+				elseif ($json && isset($json['status']) && $json['status'] === 'success' && isset($json['usuarios']))
+					$lista_api = $json['usuarios'];
+				elseif ($json && isset($json['data']) && is_array($json['data']))
+					$lista_api = $json['data'];
+
+				if ($lista_api !== null) {
+					$usuarios_api = [];
+					foreach ($lista_api as $u)
+						$usuarios_api[] = [
+							'id'     => (int) $u['id'],
+							'nombre' => trim(($u['nombre'] ?? '') . ' ' . ($u['apellidos'] ?? '')),
+							'correo' => $u['email'] ?? $u['correo'] ?? ''
+						];
+
+					$res_local = $this->db->query("SELECT id FROM Usuario");
+					$registrados = [];
+					if ($res_local)
+						while ($row = $res_local->fetch_assoc())
+							$registrados[] = (int) $row['id'];
+
+					$disponibles = [];
+					foreach ($usuarios_api as $u)
+						if (!in_array($u['id'], $registrados))
+							$disponibles[] = $u;
+
+					return $disponibles;
+				}
+			}
+		}
+
+		return [];
 	}
 }
 ?>

@@ -15,6 +15,16 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <!-- Google Fonts: Open Sans & Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Detección temprana y normalización del token SSO -->
+  <script>
+    (function() {
+      var urlParams = new URLSearchParams(window.location.search);
+      var token = urlParams.get('auth_token') || urlParams.get('token');
+      if (token) {
+        window.location.replace(window.location.origin + '/#/sso-callback?token=' + encodeURIComponent(token));
+      }
+    })();
+  </script>
 </head>
 
 <body>

@@ -60,6 +60,10 @@ export class UsuarioService {
    * @returns Observable con la lista de personal.
    */
   getPersonalIntranet(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}?entidad=usuario&accion=listar_personal_intranet`);
+    const tokenIntranet = typeof window !== 'undefined' ? localStorage.getItem('token_intranet') || '' : '';
+    return this.http.get<any[]>(
+      `${this.apiUrl}?entidad=usuario&accion=listar_personal_intranet&token_intranet=${encodeURIComponent(tokenIntranet)}`,
+      { headers: { 'X-Auth-Token': tokenIntranet } }
+    );
   }
 }

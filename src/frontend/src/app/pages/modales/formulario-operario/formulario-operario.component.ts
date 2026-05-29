@@ -75,7 +75,7 @@ export class FormularioOperarioComponent implements OnInit {
       this.cargandoPersonal = true;
       this.usuarioService.getPersonalIntranet().subscribe({
         next: (data: any) => {
-          this.personalIntranet = data;
+          this.personalIntranet = Array.isArray(data) ? data : [];
           this.cargandoPersonal = false;
         },
         error: () => {

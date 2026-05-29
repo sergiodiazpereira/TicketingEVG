@@ -35,21 +35,13 @@ class C_Auth {
 
 		$intranet_secret = $_ENV['INTRANET_JWT_SECRET'] ?? 'super_secret_key_12345678901234567890_para_pruebas';
 
-		// Bypass de validación de firma exclusivo para el Token de Pruebas exacto de Joseph en desarrollo
-		$token_ejemplo = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3Nzk5MTQwNzAsImV4cCI6MTc4MDAwMDQ3MCwiZGF0YSI6eyJpZCI6MjYsIm5vbWJyZSI6Ikpvc2VwaCIsImFwZWxsaWRvcyI6IlF1aXNwZSBBbHZhcmV6IiwiZW1haWwiOiJqb3NlcGhxYTMxMzFAZ21haWwuY29tIiwiZm90byI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0lVWElDTmV0QXVtcllQRlFzNHR4Umh3bjNPQjF6QmhxcFBMZGUxRW9SSzROaEx0UT1zOTYtYyIsInJvbGVzIjpbInN1cGVyX2FkbWluIl19fQ.kodU7Vnk7qNLlve3QbGZz9zk0v4k8hHYGP2eLdxXZuo';
-
-		if ($token === $token_ejemplo || $token === 'TOKEN_SIMULADO') {
-			$payload_data = json_decode(base64_decode(explode('.', $token)[1]), true);
-			$datos_payload = (array) ($payload_data['data'] ?? []);
-		} else {
-			try {
-				// Validar firma del token de la intranet
-				$decoded = JWT::decode($token, new Key($intranet_secret, 'HS256'));
-				$datos_payload = (array) $decoded->data;
-			} catch (Exception $e) {
-				http_response_code(401);
-				return ['error' => 'Token de la Intranet inválido o expirado: ' . $e->getMessage()];
-			}
+		try {
+			// Validar firma del token de la intranet
+			$decoded = JWT::decode($token, new Key($intranet_secret, 'HS256'));
+			$datos_payload = (array) $decoded->data;
+		} catch (Exception $e) {
+			http_response_code(401);
+			return ['error' => 'Token de la Intranet inválido o expirado: ' . $e->getMessage()];
 		}
 
 		$id = (int) ($datos_payload['id'] ?? 0);
@@ -74,14 +66,12 @@ class C_Auth {
 
 		if (!$usuario) {
 			// Mapear los roles de la intranet a nuestro rol de Ticketing local por defecto
-			$rol_local = 'trabajador'; // Rol base
+			$rol_local = 'profesor'; // Rol base de solicitante por defecto (id_rol = NULL)
 
 			if (in_array('super_admin', $roles_intranet) || in_array('administrador_secretaria', $roles_intranet))
 				$rol_local = 'administrador';
 			elseif (in_array('coordinador_aula_matinal', $roles_intranet) || in_array('coordinador_comedor', $roles_intranet) || in_array('coordinador_inscripciones', $roles_intranet) || in_array('coordinador_dualex', $roles_intranet))
 				$rol_local = 'responsable';
-			elseif (in_array('profesor', $roles_intranet) || in_array('profesor_dualex', $roles_intranet))
-				$rol_local = 'trabajador';
 
 			// Crear usuario local de forma transparente con el ID heredado
 			$datos_nuevo = [
@@ -111,7 +101,7 @@ class C_Auth {
 				'id' => (int) $usuario['id'],
 				'email' => $email, // Se toma dinámicamente del token de la intranet
 				'nombre' => $nombre_completo, // Se toma dinámicamente del token de la intranet
-				'rol' => $usuario['rol'] // Gobernado por el ROL LOCAL de nuestra BD
+				'rol' => $usuario['rol'] ?? 'profesor' // Si id_rol es NULL localmente, se asigna 'profesor'
 			]
 		];
 
