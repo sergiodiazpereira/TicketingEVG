@@ -116,7 +116,11 @@ export class FormularioOperarioComponent implements OnInit {
   }
 
   seleccionarPersonal(id: string): void {
-    this.formulario.get('id')?.setValue(id);
+    if (this.formulario.get('id')?.value === id) {
+      this.formulario.get('id')?.setValue('');
+    } else {
+      this.formulario.get('id')?.setValue(id);
+    }
     this.formulario.get('id')?.markAsTouched();
     this.desplegablePersonalAbierto = false;
   }
