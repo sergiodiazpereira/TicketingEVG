@@ -16,24 +16,46 @@ class M_Usuario {
 		$this->db = Conexion::conectar();
 	}
 
-	/**
-	 * Obtiene la lista completa de operarios y sus estadísticas de carga.
-	 * Realiza un cruce dinámico con la intranet para obtener datos nominales.
-	 * @return array
-	 */
 	public function listar_operarios() {
 		try {
-			$sql = "SELECT u.id, p.nombre, p.email as email, LOWER(r.nombre) as rol,
+			$sql = "SELECT u.id, LOWER(r.nombre) as rol,
 				   (SELECT COUNT(*) FROM Categoria_Usuario cu WHERE cu.id_usuario = u.id) as num_categorias,
 				   (SELECT GROUP_CONCAT(c.nombre SEPARATOR ', ') FROM Categoria_Usuario cu JOIN Categoria c ON cu.id_categoria = c.id WHERE cu.id_usuario = u.id) as categorias_nombres,
 				   (SELECT COUNT(*) FROM Ticket t WHERE t.id_usuario_encargado = u.id AND t.estado != 'resuelto') as tickets_asignados
 				FROM Usuario u 
 				JOIN Rol r ON u.id_rol = r.id
-				LEFT JOIN daw_05_BD2.personal p ON u.id = p.id
-				WHERE LOWER(r.nombre) IN ('responsable', 'trabajador', 'operario')
-				ORDER BY p.nombre ASC";
+				WHERE LOWER(r.nombre) IN ('responsable', 'trabajador', 'operario')";
 			$resultado = $this->db->query($sql);
-			return $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
+			if (!$resultado) return [];
+			
+			$operarios = $resultado->fetch_all(MYSQLI_ASSOC);
+
+			// Ahora sacamos el personal de la Intranet para asignar nombre y email
+			require_once __DIR__ . '/M_Intranet.php';
+			$m_intranet = new M_Intranet();
+			$personal_intranet = $m_intranet->listar_personal();
+			
+			$personal_indexado = [];
+			foreach ($personal_intranet as $p) {
+				$personal_indexado[$p['id']] = $p;
+			}
+
+			foreach ($operarios as &$op) {
+				$id = (int)$op['id'];
+				if (isset($personal_indexado[$id])) {
+					$op['nombre'] = $personal_indexado[$id]['nombre'];
+					$op['email'] = $personal_indexado[$id]['correo'];
+				} else {
+					$op['nombre'] = 'TRABAJADOR-' . $id;
+					$op['email'] = '';
+				}
+			}
+
+			usort($operarios, function($a, $b) {
+				return strcasecmp($a['nombre'], $b['nombre']);
+			});
+
+			return $operarios;
 		} catch (Exception $e) {
 			return ['error' => 'Error al listar operarios: ' . $e->getMessage()];
 		}
@@ -243,71 +265,32 @@ class M_Usuario {
 	}
 
 	/**
-	 * Obtiene la plantilla del personal de la Intranet que aún no está registrada en Ticketing.
-	 * Cuenta con un fallback tolerante a fallos si no existe el esquema externo en local.
+	 * Obtiene la plantilla del personal de la Intranet que aún no está registrada en Ticketing,
+	 * consultando directamente la base de datos de la Intranet mediante M_Intranet.
 	 * @return array
 	 */
 	public function listar_personal_intranet_no_registrado() {
-		// Fuente 1: query param (más fiable, no depende de cabeceras Apache)
-		$token_intranet = $_GET['token_intranet'] ?? '';
+		require_once __DIR__ . '/M_Intranet.php';
+		$m_intranet = new M_Intranet();
+		$usuarios_api = $m_intranet->listar_personal();
 
-		// Fuente 2: $_SERVER
-		if (empty($token_intranet))
-			$token_intranet = $_SERVER['HTTP_X_AUTH_TOKEN'] ?? '';
-
-		// Fuente 3: getallheaders()
-		if (empty($token_intranet) && function_exists('getallheaders')) {
-			$headers = getallheaders();
-			$token_intranet = $headers['X-Auth-Token'] ?? $headers['x-auth-token'] ?? '';
-		}
-
-		if (!empty($token_intranet)) {
-			$ch = curl_init('https://17.daw.esvirgua.com/api/index.php?c=Usuarios&m=listar');
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-			curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, [
-				'Content-Type: application/json',
-				'X-Auth-Token: ' . $token_intranet
-			]);
-			$respuesta = curl_exec($ch);
-			$codigo_http = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-			curl_close($ch);
-
-			if ($codigo_http === 200) {
-				$json = json_decode($respuesta, true);
-
-				$lista_api = null;
-				if (is_array($json) && isset($json[0]))
-					$lista_api = $json;
-				elseif ($json && isset($json['status']) && $json['status'] === 'success' && isset($json['usuarios']))
-					$lista_api = $json['usuarios'];
-				elseif ($json && isset($json['data']) && is_array($json['data']))
-					$lista_api = $json['data'];
-
-				if ($lista_api !== null) {
-					$usuarios_api = [];
-					foreach ($lista_api as $u)
-						$usuarios_api[] = [
-							'id'     => (int) $u['id'],
-							'nombre' => trim(($u['nombre'] ?? '') . ' ' . ($u['apellidos'] ?? '')),
-							'correo' => $u['email'] ?? $u['correo'] ?? ''
-						];
-
-					$res_local = $this->db->query("SELECT id FROM Usuario");
-					$registrados = [];
-					if ($res_local)
-						while ($row = $res_local->fetch_assoc())
-							$registrados[] = (int) $row['id'];
-
-					$disponibles = [];
-					foreach ($usuarios_api as $u)
-						if (!in_array($u['id'], $registrados))
-							$disponibles[] = $u;
-
-					return $disponibles;
+		if (!empty($usuarios_api)) {
+			$res_local = $this->db->query("SELECT id FROM Usuario");
+			$registrados = [];
+			if ($res_local) {
+				while ($row = $res_local->fetch_assoc()) {
+					$registrados[] = (int) $row['id'];
 				}
 			}
+
+			$disponibles = [];
+			foreach ($usuarios_api as $u) {
+				if (!in_array($u['id'], $registrados)) {
+					$disponibles[] = $u;
+				}
+			}
+
+			return $disponibles;
 		}
 
 		return [];
