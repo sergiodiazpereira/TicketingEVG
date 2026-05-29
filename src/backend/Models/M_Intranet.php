@@ -23,7 +23,7 @@ class M_Intranet {
      */
     public function listar_personal() {
         try {
-            $sql = "SELECT id, nombre, apellidos, email FROM personal";
+            $sql = "SELECT id, nombre, apellidos, email FROM personal WHERE tipo_personal = 'servicio'";
             $resultado = $this->db->query($sql);
             if (!$resultado) {
                 return [];
