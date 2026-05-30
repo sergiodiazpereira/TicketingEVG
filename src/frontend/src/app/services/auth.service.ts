@@ -40,7 +40,10 @@ export class AuthService {
           this.usuarioAutenticado = payload.data as Usuario;
         }
       } else {
-        this.logout();
+        // En lugar de llamar a logout() y provocar una redirección en bucle al iniciar,
+        // simplemente limpiamos el almacenamiento del token expirado o ausente localmente de forma silenciosa.
+        localStorage.removeItem('token');
+        this.usuarioAutenticado = null;
       }
     }
   }
@@ -71,9 +74,8 @@ export class AuthService {
   logout(): void {
     this.usuarioAutenticado = null;
     if (isPlatformBrowser(this.platformId)) {
-      // Revertido/comentado por petición del usuario para evitar redirección en bucle al cargar la app sin token aún procesado
       localStorage.removeItem('token');
-      // window.location.href = 'https://17.daw.esvirgua.com';
+      window.location.href = 'https://17.daw.esvirgua.com';
     }
   }
 

@@ -209,7 +209,6 @@ export class PortalTicketsComponent implements OnInit {
   }
 
   logout(): void {
-    // Revertido/comentado por el usuario
-    // this.authService.logout();
+    this.authService.logout();
   }
 }
