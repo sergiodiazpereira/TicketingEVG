@@ -191,8 +191,20 @@
 
             <!-- BOTONES MODO LECTURA -->
             <ng-container *ngIf="!editando">
-                <!-- Botón Resolver: visible para todos los roles EXCEPTO profesor si el ticket no está resuelto ni no aplica -->
-                <button *ngIf="ticket.estado !== 'resuelto' && ticket.estado !== 'no aplica' && rolUsuario !== 'profesor'"
+                <!-- Botón En Proceso: visible para todos los roles técnicos si el ticket está en pendiente o asignado -->
+                <button *ngIf="(ticket.estado === 'pendiente' || ticket.estado === 'asignado') && esTecnico"
+                        class="btn btn-warning text-white" (click)="onEnProceso()" [disabled]="procesando"
+                        style="min-width: 150px; justify-content: center; font-size: 11px; background-color: var(--amarillo); border-color: var(--amarillo); gap: 6px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span *ngIf="!procesando">Iniciar Proceso</span>
+                    <span *ngIf="procesando">Procesando...</span>
+                </button>
+
+                <!-- Botón Resolver: visible para todos los roles técnicos si el ticket no está resuelto ni no aplica -->
+                <button *ngIf="ticket.estado !== 'resuelto' && ticket.estado !== 'no aplica' && esTecnico"
                         class="btn btn-success" (click)="onResolver()" [disabled]="procesando"
                         style="min-width: 150px; justify-content: center; font-size: 11px;">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -204,11 +216,11 @@
                 </button>
 
                 <!-- Botón Cancelar/No aplica: 
-                     - Profesores solo si está pendiente o asignado.
-                     - Técnicos siempre si no está cerrado. -->
+                     - Solicitantes solo si está pendiente o asignado.
+                     - Técnicos siempre si no está cerrado. Pero excluyendo a los trabajadores. -->
                 <button *ngIf="
-                          (rolUsuario === 'profesor' && (ticket.estado === 'pendiente' || ticket.estado === 'asignado')) ||
-                          (rolUsuario !== 'profesor' && ticket.estado !== 'resuelto' && ticket.estado !== 'no aplica')
+                          (!esTecnico && (ticket.estado === 'pendiente' || ticket.estado === 'asignado')) ||
+                          (esTecnico && rolUsuario !== 'trabajador' && ticket.estado !== 'resuelto' && ticket.estado !== 'no aplica')
                         "
                         class="btn btn-no-aplica" (click)="onCancelar()" [disabled]="procesando"
                         style="min-width: 150px; justify-content: center; font-size: 11px;">
@@ -217,7 +229,7 @@
                         <line x1="15" y1="9" x2="9" y2="15"></line>
                         <line x1="9" y1="9" x2="15" y2="15"></line>
                     </svg>
-                    {{ rolUsuario === 'profesor' ? 'Cancelar ticket' : 'Marcar No Aplica' }}
+                    {{ !esTecnico ? 'Cancelar ticket' : 'Marcar No Aplica' }}
                 </button>
 
                 <!-- Botón Volver -->

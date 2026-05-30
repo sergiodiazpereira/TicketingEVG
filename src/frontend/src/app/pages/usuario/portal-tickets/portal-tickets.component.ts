@@ -132,6 +132,15 @@ export class PortalTicketsComponent implements OnInit {
     }
   }
 
+  get esVistaTecnico(): boolean {
+    const rol = this.usuario_actual?.rol;
+    return rol === 'administrador' || 
+           rol === 'admin' || 
+           rol === 'responsable' || 
+           rol === 'trabajador' || 
+           rol === 'operario';
+  }
+
   /**
    * Recorre la lista de tickets para actualizar los contadores del dashboard.
    */
@@ -139,7 +148,11 @@ export class PortalTicketsComponent implements OnInit {
     this.stats.total = this.tickets.length;
     this.stats.incidencias = this.tickets.filter(t => t.tipo === 'incidencia').length;
     this.stats.peticiones = this.tickets.filter(t => t.tipo === 'peticion').length;
-    this.stats.enProceso = this.tickets.filter(t => t.estado === 'proceso' || t.estado === 'asignado').length;
+    if (this.esVistaTecnico) {
+      this.stats.enProceso = this.tickets.filter(t => t.estado === 'pendiente' || t.estado === 'asignado').length;
+    } else {
+      this.stats.enProceso = this.tickets.filter(t => t.estado === 'proceso' || t.estado === 'asignado').length;
+    }
   }
 
   /**
@@ -193,5 +206,9 @@ export class PortalTicketsComponent implements OnInit {
   cerrarModalTicket() {
     this.mostrarModalTicket = false;
     this.ticketSeleccionado = null;
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 }

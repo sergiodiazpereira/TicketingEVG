@@ -122,15 +122,44 @@ export class CrearTicketComponent implements OnInit {
     }
 
     const valores = this.formulario.value;
+    const tituloTrimeado = (valores.titulo || '').trim();
+    const descripcionTrimeada = (valores.descripcion || '').trim();
+    const ubicacionTrimeada = (valores.ubicacion || '').trim();
+
+    if (!tituloTrimeado) {
+      this.mensajeError = 'El título no puede contener sólo espacios en blanco.';
+      return;
+    }
+    if (tituloTrimeado.length < 5) {
+      this.mensajeError = 'El título debe tener al menos 5 caracteres.';
+      return;
+    }
+
+    if (!descripcionTrimeada) {
+      this.mensajeError = 'La descripción no puede contener sólo espacios en blanco.';
+      return;
+    }
+    if (descripcionTrimeada.length < 10) {
+      this.mensajeError = 'La descripción debe tener al menos 10 caracteres.';
+      return;
+    }
+
+    if (valores.ubicacion !== undefined && valores.ubicacion !== null && valores.ubicacion !== '') {
+      if (!ubicacionTrimeada) {
+        this.mensajeError = 'La ubicación no puede contener sólo espacios en blanco.';
+        return;
+      }
+    }
+
     const payload: any = {
       tipo: valores.tipo,
       prioridad: this.PRIORIDAD_MAP[valores.prioridad] ?? 'm',
       id_categoria: valores.id_categoria,
-      titulo: valores.titulo,
-      descripcion: valores.descripcion,
+      titulo: tituloTrimeado,
+      descripcion: descripcionTrimeada,
       id_usuario_creador: usuario.id,
       estado: 'pendiente',
-      ubicacion: valores.ubicacion || null,
+      ubicacion: ubicacionTrimeada || null,
       fecha_prevista: valores.fecha_limite || null
     };
 
@@ -263,6 +292,10 @@ export class CrearTicketComponent implements OnInit {
     if (!id) return '-- Sin asignar --';
     const op = this.operarios.find(o => o.id == id);
     return op ? op.nombre + ' (' + op.rol.toUpperCase() + ')' : '-- Sin asignar --';
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 
   @HostListener('document:click', ['$event'])

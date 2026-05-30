@@ -38,6 +38,20 @@ class C_Ticket {
             return ["status" => "error", "message" => "Faltan campos obligatorios"];
         }
 
+        $titulo = trim($json_data['titulo'] ?? '');
+        $descripcion = trim($json_data['descripcion'] ?? '');
+        $ubicacion = isset($json_data['ubicacion']) ? trim($json_data['ubicacion']) : '';
+
+        if (empty($titulo)) {
+            return ["status" => "error", "message" => "El título no puede estar vacío ni contener sólo espacios en blanco"];
+        }
+        if (empty($descripcion)) {
+            return ["status" => "error", "message" => "La descripción no puede estar vacía ni contener sólo espacios en blanco"];
+        }
+        if (isset($json_data['ubicacion']) && $json_data['ubicacion'] !== '' && $json_data['ubicacion'] !== null && empty($ubicacion)) {
+            return ["status" => "error", "message" => "La ubicación no puede contener sólo espacios en blanco"];
+        }
+
         $id = $this->modelo->crear($json_data);
         if ($id) {
             return ["status" => "success", "id" => $id, "message" => "Ticket creado correctamente"];
@@ -58,7 +72,8 @@ class C_Ticket {
         $rol = $usuario['rol'] ?? 'profesor';
 
         // Técnicos tienen poder absoluto
-        if ($rol !== 'profesor') return true;
+        $es_tecnico = in_array(strtolower($rol ?? ''), ['administrador', 'admin', 'responsable', 'trabajador', 'operario']);
+        if ($es_tecnico) return true;
 
         // Reglas para el profesor (solicitante)
         if ((int)$ticket['id_usuario_creador'] !== (int)$usuario['id']) {
@@ -105,7 +120,8 @@ class C_Ticket {
         $usuario = $GLOBALS['usuario_sesion'] ?? null;
         $rol = $usuario['rol'] ?? 'profesor';
 
-        if ($rol === 'profesor') {
+        $es_tecnico = in_array(strtolower($rol ?? ''), ['administrador', 'admin', 'responsable', 'trabajador', 'operario']);
+        if (!$es_tecnico) {
             if ($estado === 'resuelto') {
                 return ["status" => "error", "message" => "No tienes permisos para marcar un ticket como resuelto"];
             }
@@ -133,7 +149,8 @@ class C_Ticket {
         $rol = $usuario['rol'] ?? 'profesor';
         
         // Solo un técnico o administrador podría borrar físicamente un ticket (o ni eso, pero lo bloqueamos para profes)
-        if ($rol === 'profesor') {
+        $es_tecnico = in_array(strtolower($rol ?? ''), ['administrador', 'admin', 'responsable', 'trabajador', 'operario']);
+        if (!$es_tecnico) {
             return ["status" => "error", "message" => "No tienes permisos para eliminar tickets físicamente. Usa cancelar en su lugar."];
         }
 

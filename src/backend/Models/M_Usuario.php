@@ -25,7 +25,7 @@ class M_Usuario {
 				   (SELECT COUNT(*) FROM Ticket t WHERE t.id_usuario_encargado = u.id AND t.estado != 'resuelto') as tickets_asignados
 				FROM Usuario u 
 				JOIN Rol r ON u.id_rol = r.id
-				WHERE LOWER(r.nombre) IN ('responsable', 'trabajador', 'operario')";
+				WHERE LOWER(r.nombre) IN ('responsable', 'trabajador', 'operario', 'administrador', 'admin')";
 			$resultado = $this->db->query($sql);
 			if (!$resultado) return [];
 			

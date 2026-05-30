@@ -20,7 +20,7 @@
 			<i class="fa-solid fa-arrow-right-arrow-left"></i>
 			<span class="etiqueta-nav">Consola Admin</span>
 		</a>
-		<a routerLink="/acceso" class="btn-cerrar-sesion">
+		<a (click)="logout()" style="cursor: pointer;" class="btn-cerrar-sesion">
 			<i class="fa-solid fa-right-from-bracket"></i>
 			<span class="etiqueta-nav">Cerrar sesión</span>
 		</a>
@@ -79,6 +79,10 @@
 						<div class="opcion-item" [class.seleccionado]="filtroEstado === 'pendiente'" (click)="seleccionarEstado('pendiente')">
 							<span>⚪ PENDIENTES</span>
 							<i class="fa-solid fa-check" *ngIf="filtroEstado === 'pendiente'"></i>
+						</div>
+						<div class="opcion-item" [class.seleccionado]="filtroEstado === 'asignado'" (click)="seleccionarEstado('asignado')">
+							<span>🔵 ASIGNADOS</span>
+							<i class="fa-solid fa-check" *ngIf="filtroEstado === 'asignado'"></i>
 						</div>
 						<div class="opcion-item" [class.seleccionado]="filtroEstado === 'proceso'" (click)="seleccionarEstado('proceso')">
 							<span>🟢 EN PROCESO</span>

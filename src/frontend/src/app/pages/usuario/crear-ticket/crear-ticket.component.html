@@ -11,7 +11,7 @@
 			<div class="icono-logo"><i class="fa-solid fa-school"></i></div>
 			<div class="icono-texto">
 				<strong>TicketingEVG</strong>
-				<span class="info-estadistica">Portal de gestión</span>
+				<span class="info-estadistica"><strong>Portal de gestión</strong></span>
 			</div>
 		</div>
 		<a routerLink="/portal-tickets" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}" #rlaInicio="routerLinkActive" [class.fantasma]="!rlaInicio.isActive" class="boton-nav">
@@ -27,7 +27,7 @@
 			<i class="fa-solid fa-arrow-right-arrow-left"></i>
 			<span class="etiqueta-nav">Consola Admin</span>
 		</a>
-		<a routerLink="/acceso" class="btn-cerrar-sesion">
+		<a (click)="logout()" style="cursor: pointer;" class="btn-cerrar-sesion">
 			<i class="fa-solid fa-right-from-bracket"></i>
 			<span class="etiqueta-nav">Cerrar sesión</span>
 		</a>

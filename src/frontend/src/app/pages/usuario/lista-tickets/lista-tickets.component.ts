@@ -148,11 +148,7 @@ export class ListaTicketsComponent implements OnInit {
       // Filtrar por estado
       let coincideEstado = true;
       if (this.filtroEstado !== 'todos') {
-        if (this.filtroEstado === 'proceso') {
-          coincideEstado = ticket.estado === 'proceso' || ticket.estado === 'asignado';
-        } else {
-          coincideEstado = ticket.estado === this.filtroEstado;
-        }
+        coincideEstado = ticket.estado === this.filtroEstado;
       }
 
       // Filtrar por creador (solo para administradores)
@@ -216,6 +212,7 @@ export class ListaTicketsComponent implements OnInit {
     const mapa: Record<string, string> = {
       todos: 'TODOS',
       pendiente: 'PENDIENTES',
+      asignado: 'ASIGNADOS',
       proceso: 'EN PROCESO',
       resuelto: 'RESUELTOS'
     };
@@ -241,6 +238,10 @@ export class ListaTicketsComponent implements OnInit {
     const idNum = Number(this.filtroCreador);
     const c = this.creadoresUnicos.find(x => x.id === idNum);
     return c ? c.nombre.toUpperCase() : `USUARIO #${this.filtroCreador}`;
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 
   @HostListener('document:click', ['$event'])

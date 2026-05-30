@@ -77,15 +77,47 @@ class M_Ticket {
      * @return array Lista de tickets filtrada.
      */
     public function listar_por_usuario($id_usuario) {
-        $sql = "SELECT t.*, 
-                       CASE WHEN t.id LIKE 'I%' THEN 'incidencia' ELSE 'peticion' END AS tipo,
-                       c.nombre AS categoria_nombre 
-                FROM Ticket t 
-                LEFT JOIN Categoria c ON t.id_categoria = c.id 
-                WHERE t.id_usuario_creador = ? 
-                ORDER BY t.fecha_creacion DESC";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("i", $id_usuario);
+        // Determinar el rol del usuario
+        $es_trabajador = false;
+        $sql_rol = "SELECT LOWER(r.nombre) as rol_nombre 
+                    FROM Usuario u 
+                    JOIN Rol r ON u.id_rol = r.id 
+                    WHERE u.id = ?";
+        $stmt_rol = $this->db->prepare($sql_rol);
+        if ($stmt_rol) {
+            $stmt_rol->bind_param("i", $id_usuario);
+            $stmt_rol->execute();
+            $res_rol = $stmt_rol->get_result();
+            if ($res_rol && $row_rol = $res_rol->fetch_assoc()) {
+                $rol_nombre = $row_rol['rol_nombre'] ?? '';
+                if ($rol_nombre === 'trabajador' || $rol_nombre === 'operario') {
+                    $es_trabajador = true;
+                }
+            }
+        }
+
+        // Ejecutar la consulta correspondiente
+        if ($es_trabajador) {
+            $sql = "SELECT t.*, 
+                           CASE WHEN t.id LIKE 'I%' THEN 'incidencia' ELSE 'peticion' END AS tipo,
+                           c.nombre AS categoria_nombre 
+                    FROM Ticket t 
+                    LEFT JOIN Categoria c ON t.id_categoria = c.id 
+                    WHERE t.id_usuario_creador = ? OR t.id_usuario_encargado = ?
+                    ORDER BY t.fecha_creacion DESC";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bind_param("ii", $id_usuario, $id_usuario);
+        } else {
+            $sql = "SELECT t.*, 
+                           CASE WHEN t.id LIKE 'I%' THEN 'incidencia' ELSE 'peticion' END AS tipo,
+                           c.nombre AS categoria_nombre 
+                    FROM Ticket t 
+                    LEFT JOIN Categoria c ON t.id_categoria = c.id 
+                    WHERE t.id_usuario_creador = ? 
+                    ORDER BY t.fecha_creacion DESC";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bind_param("i", $id_usuario);
+        }
         $stmt->execute();
         $resultado = $stmt->get_result();
         if (!$resultado) return [];
@@ -282,7 +314,32 @@ class M_Ticket {
      * @param array $datos Datos a actualizar.
      */
     public function actualizar($id, $datos) {
-        $id_categoria = $datos['id_categoria'] ?? 1;
+        $id_categoria = (int)($datos['id_categoria'] ?? 1);
+        
+        // Comprobar si el operario asignado actualmente tiene la nueva categoría
+        $ticket_actual = $this->buscar_por_id($id);
+        if ($ticket_actual && !empty($ticket_actual['id_usuario_encargado'])) {
+            $id_operario = (int)$ticket_actual['id_usuario_encargado'];
+            $sql_check = "SELECT COUNT(*) as total FROM Categoria_Usuario WHERE id_usuario = ? AND id_categoria = ?";
+            $stmt_check = $this->db->prepare($sql_check);
+            if ($stmt_check) {
+                $stmt_check->bind_param("ii", $id_operario, $id_categoria);
+                $stmt_check->execute();
+                $res_check = $stmt_check->get_result();
+                if ($res_check && $row_check = $res_check->fetch_assoc()) {
+                    if ((int)($row_check['total'] ?? 0) === 0) {
+                        // Desasignar y volver a pendiente
+                        $sql_unassign = "UPDATE Ticket SET id_usuario_encargado = NULL, estado = 'pendiente' WHERE id = ?";
+                        $stmt_unassign = $this->db->prepare($sql_unassign);
+                        if ($stmt_unassign) {
+                            $stmt_unassign->bind_param("s", $id);
+                            $stmt_unassign->execute();
+                        }
+                    }
+                }
+            }
+        }
+
         $ubicacion = $datos['ubicacion'] ?? null;
         $sql = "UPDATE Ticket SET id_categoria = ?, titulo = ?, descripcion = ?, prioridad = ?, ubicacion = ? WHERE id = ?";
         $stmt = $this->db->prepare($sql);

@@ -72,6 +72,7 @@ export class AuthService {
     this.usuarioAutenticado = null;
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('token');
+      window.location.href = 'https://17.daw.esvirgua.com';
     }
   }
 

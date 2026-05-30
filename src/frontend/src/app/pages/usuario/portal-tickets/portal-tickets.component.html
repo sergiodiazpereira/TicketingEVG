@@ -27,7 +27,7 @@
 			<i class="fa-solid fa-arrow-right-arrow-left"></i>
 			<span class="etiqueta-nav">Consola Admin</span>
 		</a>
-		<a routerLink="/acceso" class="btn-cerrar-sesion">
+		<a (click)="logout()" style="cursor: pointer;" class="btn-cerrar-sesion">
 			<i class="fa-solid fa-right-from-bracket"></i>
 			<span class="etiqueta-nav">Cerrar sesión</span>
 		</a>
@@ -68,10 +68,10 @@
 				<div class="col-6 col-md-3">
 					<div class="tarjeta-stats" style="animation-delay:.2s">
 						<div class="icono-stats verde">
-							<i class="fa-solid" [ngClass]="(usuario_actual?.rol === 'operario' || usuario_actual?.rol === 'admin') ? 'fa-stopwatch' : 'fa-gear'"></i>
+							<i class="fa-solid" [ngClass]="esVistaTecnico ? 'fa-stopwatch' : 'fa-gear'"></i>
 						</div>
 						<div class="info-estadistica">
-								{{ (usuario_actual?.rol === 'operario' || usuario_actual?.rol === 'admin') ? 'Tickets pendientes' : 'En proceso' }}
+								{{ esVistaTecnico ? 'Tickets pendientes' : 'En proceso' }}
 						</div>
 						<div class="valor-stats">{{ stats.enProceso }}</div>
 					</div>
@@ -83,7 +83,7 @@
 					<div>
 						<h2>Tickets recientes</h2>
 						<p>
-							@if (usuario_actual?.rol === 'operario' || usuario_actual?.rol === 'admin') {
+							@if (esVistaTecnico) {
 								Últimas solicitudes y actualizaciones de estado.
 							} @else {
 								Tus últimos tickets y actualizaciones de estado.

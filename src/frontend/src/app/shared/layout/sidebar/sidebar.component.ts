@@ -7,6 +7,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -18,6 +19,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 export class SidebarComponent implements OnInit {
   estaColapsado: boolean = false;
   iniciarSinTransicion: boolean = true;
+
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -34,5 +37,9 @@ export class SidebarComponent implements OnInit {
     if (typeof window !== 'undefined' && window.localStorage) {
       localStorage.setItem('sidebarCollapsed', String(this.estaColapsado));
     }
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 }

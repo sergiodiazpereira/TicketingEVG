@@ -113,6 +113,26 @@ export class ModalTicketComponent implements OnInit {
     });
   }
 
+  onEnProceso() {
+    this.procesando = true;
+    this.ticketService.actualizarEstado(this.ticket.id, 'proceso').subscribe({
+      next: (res) => {
+        this.procesando = false;
+        if (res.status === 'success') {
+          this.ticket.estado = 'proceso';
+          this.resolver.emit(this.ticket);
+          this.mostrarMensaje('Ticket marcado como en proceso.', false);
+        } else {
+          this.mostrarMensaje(res.message || 'Error al iniciar proceso.', true);
+        }
+      },
+      error: () => {
+        this.procesando = false;
+        this.mostrarMensaje('Error de conexión al iniciar proceso.', true);
+      }
+    });
+  }
+
   /**
    * Cancela el ticket. Abre el modal de confirmación.
    */
@@ -195,17 +215,20 @@ export class ModalTicketComponent implements OnInit {
     });
   }
 
+  get esTecnico(): boolean {
+    return this.rolUsuario === 'administrador' || 
+           this.rolUsuario === 'responsable' || 
+           this.rolUsuario === 'trabajador';
+  }
+
   get puedeEditar(): boolean {
     if (!this.ticket || this.ticket.estado === 'resuelto' || this.ticket.estado === 'no aplica') {
       return false;
     }
-    if (this.rolUsuario === 'administrador' || this.rolUsuario === 'responsable') {
+    if (this.esTecnico) {
       return true;
     }
-    if (this.rolUsuario === 'profesor' || this.rolUsuario === 'alumno') {
-      return (this.ticket.estado === 'pendiente' || this.ticket.estado === 'asignado');
-    }
-    return false;
+    return (this.ticket.estado === 'pendiente' || this.ticket.estado === 'asignado');
   }
 
   onActivarEdicion() {
