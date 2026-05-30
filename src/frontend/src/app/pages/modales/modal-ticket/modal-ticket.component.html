@@ -1,4 +1,4 @@
-<div class="modal-wrapper" (click)="$event.stopPropagation()">
+<div class="modal-wrapper" [class.chat-abierto]="mostrarChatMovil" (click)="$event.stopPropagation()">
     <div class="modal-container modal-details">
         <!-- Botón X siempre absoluto -->
         <button class="btn-close" (click)="onCerrar()">&times;</button>
