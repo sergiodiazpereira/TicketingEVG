@@ -239,6 +239,7 @@ class M_Usuario {
 		return ['status' => 'error', 'message' => 'Error al revocar los permisos de operario.'];
 	}
 
+
 	/**
 	 * Reemplaza las categorías asignadas a un usuario.
 	 * Borra las existentes e inserta las nuevas.
@@ -252,8 +253,16 @@ class M_Usuario {
 		$stmt->bind_param("i", $id_usuario);
 		$stmt->execute();
 
-		if (empty($ids_categorias))
+		if (empty($ids_categorias)) {
+			// Si se le quitan todas las categorías, desasignar de todos sus tickets activos
+			$stmt_des = $this->db->prepare(
+				"UPDATE Ticket SET id_usuario_encargado = NULL, estado = 'pendiente' 
+				 WHERE id_usuario_encargado = ? AND estado NOT IN ('resuelto', 'no aplica')"
+			);
+			$stmt_des->bind_param("i", $id_usuario);
+			$stmt_des->execute();
 			return true;
+		}
 
 		// Insertar las nuevas asignaciones
 		$stmt_ins = $this->db->prepare(
@@ -263,6 +272,17 @@ class M_Usuario {
 			$stmt_ins->bind_param("ii", $id_usuario, $id_cat);
 			$stmt_ins->execute();
 		}
+
+		// Desasignar de tickets activos cuyas categorías ya no pertenezcan al operario
+		$placeholders = implode(',', array_map('intval', $ids_categorias));
+		$sql_des = "UPDATE Ticket SET id_usuario_encargado = NULL, estado = 'pendiente' 
+					WHERE id_usuario_encargado = ? 
+					AND id_categoria NOT IN ($placeholders) 
+					AND estado NOT IN ('resuelto', 'no aplica')";
+		$stmt_des = $this->db->prepare($sql_des);
+		$stmt_des->bind_param("i", $id_usuario);
+		$stmt_des->execute();
+
 		return true;
 	}
 

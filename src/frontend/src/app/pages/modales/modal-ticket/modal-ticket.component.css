@@ -139,6 +139,7 @@
     align-items: center;
     gap: 15px;
     border: 1px solid #fef3c7;
+    min-width: 0; /* Evita que el contenedor desborde horizontalmente */
 }
 
 .tech-icon {
@@ -149,11 +150,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0; /* Impide que el icono se encoja */
 }
 
 .tech-icon svg { width: 22px; height: 22px; stroke: white; fill: none; stroke-width: 2; }
 .tech-label { font-size: 10px; font-weight: 800; color: #d99339; text-transform: uppercase; letter-spacing: 0.5px; }
-.tech-name { font-size: 16px; font-weight: 800; color: #04437a; }
+.tech-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-grow: 1;
+    min-width: 0; /* Clave para habilitar el text-overflow ellipsis del flex hijo */
+}
+.tech-name { 
+    font-size: 16px; 
+    font-weight: 800; 
+    color: #04437a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Puntos suspensivos premium */
+}
 
 .btn {
     padding: 12px 30px;
@@ -416,6 +432,8 @@ select.form-control option {
     font-weight: 600;
     text-align: left;
     white-space: pre-line;
+    word-break: break-word; /* Evita desbordamiento si la palabra es extremadamente larga */
+    overflow-wrap: break-word;
 }
 
 .panel-footer {

@@ -48,6 +48,10 @@ export class ModalTicketComponent implements OnInit {
   ubicacionEditada = '';
   categoriaEditada = 0;
   prioridadEditada = '';
+  
+  errorTitulo: string | null = null;
+  errorDescripcion: string | null = null;
+  errorCategoria: string | null = null;
 
   /** Variables para la sección de comentarios */
   comentariosList: any[] = [];
@@ -250,23 +254,40 @@ export class ModalTicketComponent implements OnInit {
     this.ubicacionEditada = this.ticket.ubicacion || '';
     this.categoriaEditada = Number(this.ticket.id_categoria);
     this.prioridadEditada = this.ticket.prioridad;
+    
+    // Limpiar posibles errores antiguos
+    this.errorTitulo = null;
+    this.errorDescripcion = null;
+    this.errorCategoria = null;
   }
 
   onCancelarEdicion() {
     this.editando = false;
+    this.errorTitulo = null;
+    this.errorDescripcion = null;
+    this.errorCategoria = null;
   }
 
   onGuardarEdicion() {
+    this.errorTitulo = null;
+    this.errorDescripcion = null;
+    this.errorCategoria = null;
+    let tieneErrores = false;
+
     if (!this.tituloEditado || this.tituloEditado.trim().length < 5) {
-      this.mostrarMensaje('El título debe tener al menos 5 caracteres.', true);
-      return;
+      this.errorTitulo = 'El título debe tener al menos 5 caracteres.';
+      tieneErrores = true;
     }
     if (!this.descripcionEditada || this.descripcionEditada.trim().length < 10) {
-      this.mostrarMensaje('La descripción debe tener al menos 10 caracteres.', true);
-      return;
+      this.errorDescripcion = 'La descripción debe tener al menos 10 caracteres.';
+      tieneErrores = true;
     }
     if (!this.categoriaEditada) {
-      this.mostrarMensaje('Por favor, selecciona una categoría.', true);
+      this.errorCategoria = 'Por favor, selecciona una categoría.';
+      tieneErrores = true;
+    }
+
+    if (tieneErrores) {
       return;
     }
 

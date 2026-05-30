@@ -30,8 +30,15 @@
 		<i class="fa-solid fa-house"></i>
 		<span class="etiqueta-nav">Volver</span>
 	</a>
-	<a (click)="logout()" style="cursor: pointer;" class="btn-cerrar-sesion">
+	<a (click)="abrirModalLogout()" style="cursor: pointer;" class="btn-cerrar-sesion">
 		<i class="fa-solid fa-right-from-bracket"></i>
 		<span class="etiqueta-nav">Cerrar sesión</span>
 	</a>
 </header>
+
+<app-confirmacion-eliminar 
+    *ngIf="mostrarModalLogout" 
+    [tipo]="'cerrar-sesion'" 
+    (cancelar)="cancelarLogout()" 
+    (confirmar)="confirmarLogout()">
+</app-confirmacion-eliminar>

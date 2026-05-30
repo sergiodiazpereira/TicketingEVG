@@ -7,13 +7,15 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { environment } from '../../../../enviroments/environment';
+import { ConfirmacionEliminarComponent } from '../../../pages/modales/confirmacion-eliminar/confirmacion-eliminar.component';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, CommonModule, ConfirmacionEliminarComponent],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
@@ -21,6 +23,7 @@ export class SidebarComponent implements OnInit {
   landingUrl = environment.ssoLandingIntranet;
   estaColapsado: boolean = false;
   iniciarSinTransicion: boolean = true;
+  mostrarModalLogout = false;
 
   constructor(private authService: AuthService) {}
 
@@ -41,7 +44,16 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  logout(): void {
+  abrirModalLogout(): void {
+    this.mostrarModalLogout = true;
+  }
+
+  confirmarLogout(): void {
+    this.mostrarModalLogout = false;
     this.authService.logout();
+  }
+
+  cancelarLogout(): void {
+    this.mostrarModalLogout = false;
   }
 }

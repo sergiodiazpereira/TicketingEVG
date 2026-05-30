@@ -70,14 +70,23 @@ class M_Categoria {
 	 * @return array Resultado con status y message.
 	 */
 	public function eliminar($id) {
-		// Comprobar si hay tickets asociados a esta categoría
-	$stmt = $this->db->prepare("SELECT COUNT(*) as total FROM Ticket WHERE id_Categoria = ?");
-	$stmt->bind_param("i", $id);
-	$stmt->execute();
-	$res = $stmt->get_result()->fetch_assoc();
+		// Comprobar si hay operarios asociados a esta categoría
+		$stmt_op = $this->db->prepare("SELECT COUNT(*) as total FROM Categoria_Usuario WHERE id_categoria = ?");
+		$stmt_op->bind_param("i", $id);
+		$stmt_op->execute();
+		$res_op = $stmt_op->get_result()->fetch_assoc();
 
-	if ($res['total'] > 0)
-		return ['status' => 'error', 'message' => 'No se puede eliminar: la categoría tiene tickets asociados.'];
+		if ($res_op['total'] > 0)
+			return ['status' => 'error', 'message' => 'No se puede eliminar: la categoría tiene operarios asociados.'];
+
+		// Comprobar si hay tickets asociados a esta categoría
+		$stmt = $this->db->prepare("SELECT COUNT(*) as total FROM Ticket WHERE id_Categoria = ?");
+		$stmt->bind_param("i", $id);
+		$stmt->execute();
+		$res = $stmt->get_result()->fetch_assoc();
+
+		if ($res['total'] > 0)
+			return ['status' => 'error', 'message' => 'No se puede eliminar: la categoría tiene tickets asociados.'];
 
 		// Primero eliminar las relaciones con los usuarios operarios
 		$stmt_rel = $this->db->prepare("DELETE FROM Categoria_Usuario WHERE id_Categoria = ?");

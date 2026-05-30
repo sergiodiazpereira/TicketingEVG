@@ -15,6 +15,7 @@ import { Categoria } from '../../../models/categoria.model';
 import { ConfirmacionEliminarComponent } from '../../modales/confirmacion-eliminar/confirmacion-eliminar.component';
 import { FormularioCategoriaComponent } from '../../modales/formulario-categoria/formulario-categoria.component';
 import { CategoriasService } from '../../../services/categorias.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-categorias',
@@ -30,6 +31,10 @@ export class CategoriasComponent implements OnInit {
   mostrarModalFormulario = false;
   categoriaAEditar: any = null;
   categoriaAEliminarId: number | null = null;
+
+  // Propiedades para eliminación masiva
+  categoriasSeleccionadas: number[] = [];
+  mostrarModalEliminarVarios = false;
 
   /** Mensaje de feedback para el usuario (éxito o error). */
   mensajeFeedback: string | null = null;
@@ -142,6 +147,81 @@ export class CategoriasComponent implements OnInit {
         console.error('Error de conexión', err);
         this.mostrarMensaje('Error de conexión al intentar eliminar la categoría.', true);
         this.cerrarModal();
+      }
+    });
+  }
+
+  // Métodos para selección masiva y eliminación en bloque
+  toggleSeleccion(id: number): void {
+    const index = this.categoriasSeleccionadas.indexOf(id);
+    if (index > -1) {
+      this.categoriasSeleccionadas.splice(index, 1);
+    } else {
+      this.categoriasSeleccionadas.push(id);
+    }
+  }
+
+  isSeleccionada(id: number): boolean {
+    return this.categoriasSeleccionadas.includes(id);
+  }
+
+  estanTodasSeleccionadas(): boolean {
+    return this.categorias.length > 0 && this.categoriasSeleccionadas.length === this.categorias.length;
+  }
+
+  toggleSeleccionarTodos(): void {
+    if (this.estanTodasSeleccionadas()) {
+      this.categoriasSeleccionadas = [];
+    } else {
+      this.categoriasSeleccionadas = this.categorias.map(c => c.id);
+    }
+  }
+
+  abrirModalEliminarVarios() {
+    if (this.categoriasSeleccionadas.length === 0) return;
+    this.mostrarModalEliminarVarios = true;
+  }
+
+  cerrarModalEliminarVarios() {
+    this.mostrarModalEliminarVarios = false;
+  }
+
+  confirmarEliminarVarios() {
+    if (this.categoriasSeleccionadas.length === 0) return;
+    
+    const llamadas = this.categoriasSeleccionadas.map(id => this.categoriasService.eliminarCategoria(id));
+    
+    forkJoin(llamadas).subscribe({
+      next: (resultados: any[]) => {
+        let exitos = 0;
+        let fallidos = 0;
+        let mensajeErrorUltimo = '';
+
+        resultados.forEach((res) => {
+          if (res.status === 'success') {
+            exitos++;
+          } else {
+            fallidos++;
+            mensajeErrorUltimo = res.message || '';
+          }
+        });
+
+        this.categoriasSeleccionadas = [];
+        this.cerrarModalEliminarVarios();
+        this.cargarCategorias();
+
+        if (exitos > 0 && fallidos === 0) {
+          this.mostrarMensaje(`Se han eliminado ${exitos} categorías correctamente.`, false);
+        } else if (exitos > 0 && fallidos > 0) {
+          this.mostrarMensaje(`Se eliminaron ${exitos} categorías, pero ${fallidos} no pudieron eliminarse (por operarios/tickets asociados).`, true);
+        } else {
+          this.mostrarMensaje(mensajeErrorUltimo || `No se pudo eliminar ninguna de las ${fallidos} categorías seleccionadas.`, true);
+        }
+      },
+      error: (err: any) => {
+        console.error('Error en eliminación múltiple', err);
+        this.mostrarMensaje('Error de conexión al intentar eliminar las categorías.', true);
+        this.cerrarModalEliminarVarios();
       }
     });
   }

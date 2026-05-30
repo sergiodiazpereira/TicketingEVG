@@ -94,7 +94,7 @@ class C_Auth {
 			// Mapear los roles de la intranet a nuestro rol de Ticketing local por defecto
 			$rol_local = 'profesor'; // Rol base de solicitante por defecto (id_rol = NULL)
 
-			if (in_array('super_admin', $roles_intranet) || in_array('administrador_secretaria', $roles_intranet)) {
+			if (in_array('super_admin', $roles_intranet) || in_array('administrador_secretaria', $roles_intranet) || in_array('coordinador_ticketing', $roles_intranet)) {
 				$rol_local = 'administrador';
 			} elseif (in_array('coordinador_aula_matinal', $roles_intranet) || in_array('coordinador_comedor', $roles_intranet) || in_array('coordinador_inscripciones', $roles_intranet) || in_array('coordinador_dualex', $roles_intranet)) {
 				$rol_local = 'responsable';

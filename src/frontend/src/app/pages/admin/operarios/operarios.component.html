@@ -6,6 +6,21 @@
   Descripción: Gestión de personal técnico (Versión Angular unificada).
 -->
 <div class="d-flex flex-column vh-100 overflow-hidden">
+	<!-- Toast Alerta Premium (Flotante Arriba a la Derecha - Nivel Raíz) -->
+	<div *ngIf="mensajeFeedback" class="toast-alerta-contenedor" [class.toast-error]="esMensajeError" [class.toast-exito]="!esMensajeError" (click)="mensajeFeedback = null">
+		<div class="toast-alerta-icono">
+			<i class="fa-solid" [ngClass]="esMensajeError ? 'fa-circle-exclamation' : 'fa-circle-check'"></i>
+		</div>
+		<div class="toast-alerta-cuerpo">
+			<span class="toast-alerta-titulo">{{ esMensajeError ? 'ERROR' : 'ÉXITO' }}</span>
+			<span class="toast-alerta-mensaje">{{ mensajeFeedback }}</span>
+		</div>
+		<button class="toast-alerta-cerrar" (click)="mensajeFeedback = null">
+			<i class="fa-solid fa-xmark"></i>
+		</button>
+		<div class="toast-alerta-progreso"></div>
+	</div>
+
 	<div class="d-flex flex-grow-1 overflow-hidden">
 		<!-- Sidebar Componente -->
 		<app-sidebar></app-sidebar>
@@ -21,28 +36,20 @@
 				</header>
 
 				<div class="container-fluid px-4">
-					<!-- Toast Alerta Premium (Flotante Arriba a la Derecha) -->
-					<div *ngIf="mensajeFeedback" class="toast-alerta-contenedor" [class.toast-error]="esMensajeError" [class.toast-exito]="!esMensajeError" (click)="mensajeFeedback = null">
-						<div class="toast-alerta-icono">
-							<i class="fa-solid" [ngClass]="esMensajeError ? 'fa-circle-exclamation' : 'fa-circle-check'"></i>
-						</div>
-						<div class="toast-alerta-cuerpo">
-							<span class="toast-alerta-titulo">{{ esMensajeError ? 'ERROR' : 'ÉXITO' }}</span>
-							<span class="toast-alerta-mensaje">{{ mensajeFeedback }}</span>
-						</div>
-						<button class="toast-alerta-cerrar" (click)="mensajeFeedback = null">
-							<i class="fa-solid fa-xmark"></i>
-						</button>
-						<div class="toast-alerta-progreso"></div>
-					</div>
 					<!-- Título y Botón de Acción -->
 					<div class="row align-items-center mb-4 anim-slide-up" style="animation-delay: 0.1s">
-						<div class="col-12 col-md-9">
+						<div class="col-12 col-md-6">
 							<h2 class="fw-bold titulo-primario text-uppercase">LISTADO DE PERSONAL TÉCNICO</h2>
 							<p class="text-muted small">Aquí podrás gestionar los responsables y trabajadores del sistema de ticketing.</p>
 						</div>
-						<div class="col-12 col-md-3 mt-3 mt-md-0">
-							<button type="button" class="btn btn-evg w-100 p-3 rounded-4 shadow-sm fw-bold text-uppercase" (click)="abrirModalFormulario()">
+						<div class="col-12 col-md-6 mt-3 mt-md-0 d-flex gap-3 justify-content-md-end">
+							<button *ngIf="operariosSeleccionados.length > 0" type="button" 
+								class="btn btn-danger px-4 py-3 rounded-4 shadow-sm fw-bold text-uppercase d-flex align-items-center justify-content-center animate-pulse" 
+								(click)="abrirModalEliminarVarios()">
+								<i class="bi bi-trash-fill me-2"></i>
+								REVOCAR SELECCIONADOS ({{ operariosSeleccionados.length }})
+							</button>
+							<button type="button" class="btn btn-evg px-4 py-3 rounded-4 shadow-sm fw-bold text-uppercase d-flex align-items-center justify-content-center" (click)="abrirModalFormulario()">
 								<i class="bi bi-plus-circle me-2"></i>
 								AÑADIR OPERARIOS
 							</button>
@@ -59,7 +66,14 @@
 										<table class="table table-hover align-middle mb-0 tabla-operarios">
 											<thead class="text-uppercase">
 												<tr>
-													<th scope="col" class="border-0 ps-4 py-3">Personal y tipo</th>
+													<!-- Selección múltiple -->
+													<th scope="col" class="border-0 ps-4 py-3" style="width: 50px;">
+														<div class="form-check d-flex align-items-center justify-content-center">
+															<input class="form-check-input select-premium-checkbox" type="checkbox" 
+																[checked]="estanTodosSeleccionados()" (change)="toggleSeleccionarTodos()">
+														</div>
+													</th>
+													<th scope="col" class="border-0 py-3">Personal y tipo</th>
 													<th scope="col" class="border-0 py-3">Categorías</th>
 													<th scope="col" class="border-0 py-3">Correo electrónico</th>
 													<th scope="col" class="border-0 py-3 text-center">Tickets</th>
@@ -69,8 +83,15 @@
 											<tbody class="border-top-0">
 												<ng-container *ngFor="let operario of operarios; trackBy: trackByOperarioId">
 													<!-- Fila principal del operario -->
-													<tr>
-														<td class="ps-4 border-0 border-bottom align-top pt-4">
+													<tr [class.fila-seleccionada]="isSeleccionada(operario.id)">
+														<!-- Checkbox individual -->
+														<td class="ps-4 border-0 border-bottom align-top pt-4" style="width: 50px;">
+															<div class="form-check d-flex align-items-center justify-content-center">
+																<input class="form-check-input select-premium-checkbox" type="checkbox"
+																	[checked]="isSeleccionada(operario.id)" (change)="toggleSeleccion(operario.id)">
+															</div>
+														</td>
+														<td class="border-0 border-bottom align-top pt-4">
 															<div class="d-flex align-items-center">
 																<img [src]="'https://ui-avatars.com/api/?name=' + operario.nombre + '&background=random'"
 																	class="rounded-circle me-3 shadow-sm" width="42" height="42" alt="Avatar">
@@ -84,7 +105,10 @@
 															</div>
 														</td>
 														<td class="border-0 border-bottom align-top pt-4">
-															<div class="d-flex align-items-center text-muted cursor-pointer" (click)="toggleCategorias(operario.id)">
+															<div class="d-flex align-items-center text-muted"
+																[class.cursor-pointer]="(operario.categorias_nombres?.length ?? 0) > 0"
+																[style.opacity]="(operario.categorias_nombres?.length ?? 0) === 0 ? '0.5' : '1'"
+																(click)="toggleCategorias(operario.id)">
 																<div class="icono-categoria rounded-circle d-flex align-items-center justify-content-center me-3">
 																	<i class="bi"
 																		[ngClass]="operario.rol === 'responsable' ? 'bi-person' : 'bi-briefcase'"
@@ -93,7 +117,7 @@
 																		style="font-size: 1.1rem;"></i>
 																</div>
 																<span class="fw-medium text-dark me-1 small">{{ operario.num_categorias || 0 }} CATEGORÍAS</span>
-																<i class="bi small ms-1 transition-transform"
+																<i *ngIf="(operario.categorias_nombres?.length ?? 0) > 0" class="bi small ms-1 transition-transform"
 																	[ngClass]="operarioExpandido === operario.id ? 'bi-chevron-up text-primary' : 'bi-chevron-down'"></i>
 															</div>
 														</td>
@@ -119,12 +143,13 @@
 													</tr>
 
 													<!-- Fila expandible de categorías -->
-													<tr *ngIf="operarioExpandido === operario.id">
-														<td colspan="5" class="border-0">
-															<div class="mt-2 ps-5 d-flex flex-wrap gap-2">
+													<tr *ngIf="operarioExpandido === operario.id && (operario.categorias_nombres?.length ?? 0) > 0">
+														<td colspan="6" class="border-0 p-0">
+															<div class="px-5 py-3 d-flex flex-wrap gap-2 slide-down-anim"
+																style="background-color: #f1f3f5; border-bottom: 2px solid #e4e7ef;">
 																<ng-container *ngFor="let cat of operario.categorias_nombres">
-																	<span class="badge border text-secondary fw-medium px-2 py-1"
-																		style="background-color: #f8f9fa; font-size: 0.75rem;">
+																	<span class="badge border text-dark fw-medium px-2 py-1 bg-white shadow-sm"
+																		style="font-size: 0.75rem; border-color: #ced4da !important;">
 																		<i class="bi bi-tag text-muted me-1"></i>{{ cat }}
 																	</span>
 																</ng-container>
@@ -169,14 +194,18 @@
 											</div>
 											<!-- Fila inferior: Categorías y toggle -->
 											<div class="border-top pt-2">
-												<div class="d-flex align-items-center justify-content-between cursor-pointer" (click)="toggleCategorias(operario.id)">
+												<div class="d-flex align-items-center justify-content-between"
+													[class.cursor-pointer]="(operario.categorias_nombres?.length ?? 0) > 0"
+													[style.opacity]="(operario.categorias_nombres?.length ?? 0) === 0 ? '0.5' : '1'"
+													(click)="toggleCategorias(operario.id)">
 													<span class="fw-bold text-secondary small" style="font-size: 0.65rem;">{{ operario.num_categorias || 0 }} CATEGORÍAS</span>
-													<i class="bi small" [ngClass]="operarioExpandido === operario.id ? 'bi-chevron-up text-primary' : 'bi-chevron-down'"></i>
+													<i *ngIf="(operario.categorias_nombres?.length ?? 0) > 0" class="bi small" [ngClass]="operarioExpandido === operario.id ? 'bi-chevron-up text-primary' : 'bi-chevron-down'"></i>
 												</div>
 												<!-- Categorías desplegadas -->
-												<div *ngIf="operarioExpandido === operario.id" class="mt-2 d-flex flex-wrap gap-2 slide-down-anim">
-													<span *ngFor="let cat of operario.categorias_nombres" class="badge border text-secondary fw-medium px-2 py-1 bg-light"
-														style="font-size: 0.7rem;">
+												<div *ngIf="operarioExpandido === operario.id && (operario.categorias_nombres?.length ?? 0) > 0" class="mt-2 d-flex flex-wrap gap-2 slide-down-anim p-2 rounded-2"
+													style="background-color: #f1f3f5; border: 1px solid #dee2e6;">
+													<span *ngFor="let cat of operario.categorias_nombres" class="badge border text-dark fw-medium px-2 py-1 bg-white shadow-sm"
+														style="font-size: 0.7rem; border-color: #ced4da !important;">
 														<i class="bi bi-tag text-muted me-1"></i>{{ cat }}
 													</span>
 												</div>
@@ -214,5 +243,13 @@
 		[tipo]="'operario'"
 		(cancelar)="cerrarModal()"
 		(confirmar)="confirmarEliminar()">
+	</app-confirmacion-eliminar>
+
+	<!-- Modal Confirmación Eliminar Varios Operarios -->
+	<app-confirmacion-eliminar
+		*ngIf="mostrarModalEliminarVarios"
+		[tipo]="'eliminar-multiple-operarios'"
+		(cancelar)="cerrarModalEliminarVarios()"
+		(confirmar)="confirmarEliminarVarios()">
 	</app-confirmacion-eliminar>
 </div>

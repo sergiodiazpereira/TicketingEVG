@@ -14,6 +14,7 @@ import { SidebarComponent } from '../../../shared/layout/sidebar/sidebar.compone
 import { UsuarioService } from '../../../services/usuario.service';
 import { ConfirmacionEliminarComponent } from '../../modales/confirmacion-eliminar/confirmacion-eliminar.component';
 import { FormularioOperarioComponent } from '../../modales/formulario-operario/formulario-operario.component';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-operarios',
@@ -28,9 +29,13 @@ export class OperariosComponent implements OnInit {
   mostrarModalEliminar = false;
   mostrarModalFormulario = false;
   operarioAEditar: any = null;
-  /** ID del operario seleccionado para eliminar. */
   operarioAEliminarId: number | null = null;
   operarioExpandido: number | null = null;
+
+  // Propiedades para eliminación masiva
+  operariosSeleccionados: number[] = [];
+  mostrarModalEliminarVarios = false;
+
   /** Mensaje de feedback para el usuario (éxito o error). */
   mensajeFeedback: string | null = null;
   esMensajeError = false;
@@ -63,6 +68,10 @@ export class OperariosComponent implements OnInit {
   }
 
   toggleCategorias(id: number) {
+    const operario = this.operarios.find(op => op.id === id);
+    if (!operario || !operario.categorias_nombres || operario.categorias_nombres.length === 0) {
+      return;
+    }
     if (this.operarioExpandido === id)
       this.operarioExpandido = null;
     else
@@ -140,6 +149,82 @@ export class OperariosComponent implements OnInit {
         }
       },
       error: () => this.mostrarMensaje('Error de conexión al eliminar.', true)
+    });
+  }
+
+  // Métodos para selección masiva y eliminación en bloque de operarios
+  toggleSeleccion(id: number): void {
+    const index = this.operariosSeleccionados.indexOf(id);
+    if (index > -1) {
+      this.operariosSeleccionados.splice(index, 1);
+    } else {
+      this.operariosSeleccionados.push(id);
+    }
+  }
+
+  isSeleccionada(id: number): boolean {
+    return this.operariosSeleccionados.includes(id);
+  }
+
+  estanTodosSeleccionados(): boolean {
+    return this.operarios.length > 0 && this.operariosSeleccionados.length === this.operarios.length;
+  }
+
+  toggleSeleccionarTodos(): void {
+    if (this.estanTodosSeleccionados()) {
+      this.operariosSeleccionados = [];
+    } else {
+      this.operariosSeleccionados = this.operarios.map(op => op.id);
+    }
+  }
+
+  abrirModalEliminarVarios() {
+    if (this.operariosSeleccionados.length === 0) return;
+    this.mostrarModalEliminarVarios = true;
+  }
+
+  cerrarModalEliminarVarios() {
+    this.mostrarModalEliminarVarios = false;
+  }
+
+  confirmarEliminarVarios() {
+    if (this.operariosSeleccionados.length === 0) return;
+    
+    // Ejecutar la petición para cada operario seleccionado
+    const llamadas = this.operariosSeleccionados.map(id => this.usuarioService.eliminarUsuario(id));
+    
+    forkJoin(llamadas).subscribe({
+      next: (resultados: any[]) => {
+        let exitos = 0;
+        let fallidos = 0;
+        let mensajeErrorUltimo = '';
+
+        resultados.forEach((res) => {
+          if (res.status === 'success') {
+            exitos++;
+          } else {
+            fallidos++;
+            mensajeErrorUltimo = res.message || '';
+          }
+        });
+
+        this.operariosSeleccionados = [];
+        this.cerrarModalEliminarVarios();
+        this.cargarOperarios();
+
+        if (exitos > 0 && fallidos === 0) {
+          this.mostrarMensaje(`Se han revocado los permisos de ${exitos} operarios correctamente.`, false);
+        } else if (exitos > 0 && fallidos > 0) {
+          this.mostrarMensaje(`Se revocaron ${exitos} operarios, pero ${fallidos} no pudieron modificarse (por tickets activos asignados).`, true);
+        } else {
+          this.mostrarMensaje(mensajeErrorUltimo || `No se pudo revocar a ninguno de los ${fallidos} operarios seleccionados.`, true);
+        }
+      },
+      error: (err: any) => {
+        console.error('Error en revocación múltiple', err);
+        this.mostrarMensaje('Error de conexión al intentar revocar los permisos de los operarios.', true);
+        this.cerrarModalEliminarVarios();
+      }
     });
   }
 

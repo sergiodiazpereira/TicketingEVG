@@ -146,11 +146,17 @@
                     <div class="form-group">
                         <label class="form-label">Asunto del ticket <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" [(ngModel)]="tituloEditado" placeholder="Título descriptivo del ticket...">
+                        <div *ngIf="errorTitulo" class="text-danger small mt-1" style="font-weight: 600;">
+                            {{ errorTitulo }}
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Descripción detallada <span class="text-danger">*</span></label>
                         <textarea class="form-control" [(ngModel)]="descripcionEditada" rows="4" placeholder="Explica detalladamente la incidencia..." style="resize: vertical; min-height: 100px; padding: 12px 16px; border-radius: 12px; border: 1.5px solid #cbd5e1; outline: none; width: 100%; box-sizing: border-box; font-family: inherit; font-size: 14px; font-weight: 600; color: #1e293b;"></textarea>
+                        <div *ngIf="errorDescripcion" class="text-danger small mt-1" style="font-weight: 600;">
+                            {{ errorDescripcion }}
+                        </div>
                     </div>
 
                     <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
@@ -173,6 +179,9 @@
                         <select class="form-control" [(ngModel)]="categoriaEditada">
                             <option *ngFor="let cat of categorias" [value]="cat.id">{{ cat.nombre }}</option>
                         </select>
+                        <div *ngIf="errorCategoria" class="text-danger small mt-1" style="font-weight: 600;">
+                            {{ errorCategoria }}
+                        </div>
                     </div>
                 </div>
             </div>

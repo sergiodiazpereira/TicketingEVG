@@ -6,6 +6,21 @@
   Descripción: Gestión de categorías (Versión Angular unificada).
 -->
 <div class="d-flex flex-column vh-100 overflow-hidden">
+	<!-- Toast Alerta Premium (Flotante Arriba a la Derecha - Nivel Raíz) -->
+	<div *ngIf="mensajeFeedback" class="toast-alerta-contenedor" [class.toast-error]="esMensajeError" [class.toast-exito]="!esMensajeError" (click)="mensajeFeedback = null">
+		<div class="toast-alerta-icono">
+			<i class="fa-solid" [ngClass]="esMensajeError ? 'fa-circle-exclamation' : 'fa-circle-check'"></i>
+		</div>
+		<div class="toast-alerta-cuerpo">
+			<span class="toast-alerta-titulo">{{ esMensajeError ? 'ERROR' : 'ÉXITO' }}</span>
+			<span class="toast-alerta-mensaje">{{ mensajeFeedback }}</span>
+		</div>
+		<button class="toast-alerta-cerrar" (click)="mensajeFeedback = null">
+			<i class="fa-solid fa-xmark"></i>
+		</button>
+		<div class="toast-alerta-progreso"></div>
+	</div>
+
 	<div class="d-flex flex-grow-1 overflow-hidden">
 		<!-- Sidebar Componente -->
 		<app-sidebar></app-sidebar>
@@ -21,29 +36,20 @@
 				</header>
 
 				<div class="container-fluid px-4">
-					<!-- Toast Alerta Premium (Flotante Arriba a la Derecha) -->
-					<div *ngIf="mensajeFeedback" class="toast-alerta-contenedor" [class.toast-error]="esMensajeError" [class.toast-exito]="!esMensajeError" (click)="mensajeFeedback = null">
-						<div class="toast-alerta-icono">
-							<i class="fa-solid" [ngClass]="esMensajeError ? 'fa-circle-exclamation' : 'fa-circle-check'"></i>
-						</div>
-						<div class="toast-alerta-cuerpo">
-							<span class="toast-alerta-titulo">{{ esMensajeError ? 'ERROR' : 'ÉXITO' }}</span>
-							<span class="toast-alerta-mensaje">{{ mensajeFeedback }}</span>
-						</div>
-						<button class="toast-alerta-cerrar" (click)="mensajeFeedback = null">
-							<i class="fa-solid fa-xmark"></i>
-						</button>
-						<div class="toast-alerta-progreso"></div>
-					</div>
-
 					<!-- Título y Botón de Acción -->
 					<div class="row align-items-center mb-4 mt-3 anim-slide-up" style="animation-delay: 0.1s">
-						<div class="col-12 col-md-9">
+						<div class="col-12 col-md-6">
 							<h2 class="fw-bold titulo-primario text-uppercase">LISTADO DE CATEGORÍAS</h2>
 							<p class="text-muted small">Aquí podrás gestionar las categorías del sistema de ticketing.</p>
 						</div>
-						<div class="col-12 col-md-3 mt-3 mt-md-0">
-							<button type="button" class="btn btn-evg w-100 p-3 rounded-4 shadow-sm fw-bold text-uppercase" (click)="abrirModalFormulario()">
+						<div class="col-12 col-md-6 mt-3 mt-md-0 d-flex gap-3 justify-content-md-end">
+							<button *ngIf="categoriasSeleccionadas.length > 0" type="button" 
+								class="btn btn-danger px-4 py-3 rounded-4 shadow-sm fw-bold text-uppercase d-flex align-items-center justify-content-center animate-pulse" 
+								(click)="abrirModalEliminarVarios()">
+								<i class="bi bi-trash-fill me-2"></i>
+								ELIMINAR SELECCIONADAS ({{ categoriasSeleccionadas.length }})
+							</button>
+							<button type="button" class="btn btn-evg px-4 py-3 rounded-4 shadow-sm fw-bold text-uppercase d-flex align-items-center justify-content-center" (click)="abrirModalFormulario()">
 								<i class="bi bi-plus-circle me-2"></i>
 								AÑADIR CATEGORÍA
 							</button>
@@ -60,7 +66,14 @@
 										<table class="table table-hover align-middle mb-0 tabla-operarios">
 											<thead class="text-uppercase">
 												<tr>
-													<th scope="col" class="border-0 ps-4 py-3">Nombre</th>
+													<!-- Selección múltiple -->
+													<th scope="col" class="border-0 ps-4 py-3" style="width: 50px;">
+														<div class="form-check d-flex align-items-center justify-content-center">
+															<input class="form-check-input select-premium-checkbox" type="checkbox" 
+																[checked]="estanTodasSeleccionadas()" (change)="toggleSeleccionarTodos()">
+														</div>
+													</th>
+													<th scope="col" class="border-0 py-3">Nombre</th>
 													<th scope="col" class="border-0 py-3 text-center">Operarios</th>
 													<th scope="col" class="border-0 py-3 text-center">Tickets</th>
 													<th scope="col" class="border-0 py-3"></th>
@@ -68,9 +81,16 @@
 											</thead>
 											<tbody class="border-top-0">
 												<ng-container *ngFor="let categoria of categorias">
-													<tr>
+													<tr [class.fila-seleccionada]="isSeleccionada(categoria.id)">
+														<!-- Checkbox individual -->
+														<td class="ps-4 border-0 border-bottom align-middle py-3" style="width: 50px;">
+															<div class="form-check d-flex align-items-center justify-content-center">
+																<input class="form-check-input select-premium-checkbox" type="checkbox"
+																	[checked]="isSeleccionada(categoria.id)" (change)="toggleSeleccion(categoria.id)">
+															</div>
+														</td>
 														<!-- Nombre -->
-														<td class="ps-4 border-0 border-bottom align-middle py-3">
+														<td class="border-0 border-bottom align-middle py-3">
 															<div class="d-flex align-items-center">
 																<div class="icono-categoria rounded-circle d-flex align-items-center justify-content-center me-3">
 																	<i class="bi bi-tag"></i>
@@ -188,5 +208,13 @@
 		[tipo]="'categoria'"
 		(cancelar)="cerrarModal()"
 		(confirmar)="confirmarEliminar()">
+	</app-confirmacion-eliminar>
+
+	<!-- Modal Confirmación Eliminar Varios -->
+	<app-confirmacion-eliminar
+		*ngIf="mostrarModalEliminarVarios"
+		[tipo]="'eliminar-multiple'"
+		(cancelar)="cerrarModalEliminarVarios()"
+		(confirmar)="confirmarEliminarVarios()">
 	</app-confirmacion-eliminar>
 </div>

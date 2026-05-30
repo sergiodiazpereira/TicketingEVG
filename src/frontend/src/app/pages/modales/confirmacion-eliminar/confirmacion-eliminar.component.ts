@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './confirmacion-eliminar.component.css'
 })
 export class ConfirmacionEliminarComponent {
-  @Input() tipo: 'categoria' | 'operario' | 'desasignar' | 'cancelar-ticket' | 'cambio-categoria-desasignar' = 'categoria';
+  @Input() tipo: 'categoria' | 'operario' | 'desasignar' | 'cancelar-ticket' | 'cambio-categoria-desasignar' | 'cerrar-sesion' | 'eliminar-multiple' | 'eliminar-multiple-operarios' = 'categoria';
   @Output() cancelar = new EventEmitter<void>();
   @Output() confirmar = new EventEmitter<void>();
 

@@ -134,3 +134,15 @@
     transform: translateY(-2px);
 }
 
+.btn-primary-confirm {
+    background-color: var(--azul, #006ea4);
+    color: var(--blanco, #ffffff);
+    flex: 1;
+}
+
+.btn-primary-confirm:hover {
+    background-color: var(--azul-oscuro, #014179);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 110, 164, 0.3) !important;
+}
+
