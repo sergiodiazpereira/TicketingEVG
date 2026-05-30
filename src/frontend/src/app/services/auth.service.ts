@@ -71,8 +71,9 @@ export class AuthService {
   logout(): void {
     this.usuarioAutenticado = null;
     if (isPlatformBrowser(this.platformId)) {
+      // Revertido/comentado por petición del usuario para evitar redirección en bucle al cargar la app sin token aún procesado
       localStorage.removeItem('token');
-      window.location.href = 'https://17.daw.esvirgua.com';
+      // window.location.href = 'https://17.daw.esvirgua.com';
     }
   }
 

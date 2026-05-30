@@ -243,7 +243,8 @@ export class ListaTicketsComponent implements OnInit {
   }
 
   logout(): void {
-    this.authService.logout();
+    // Revertido/comentado por el usuario
+    // this.authService.logout();
   }
 
   @HostListener('document:click', ['$event'])

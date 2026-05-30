@@ -34,8 +34,10 @@ export class LoginComponent implements OnInit {
       } else if (params['error'] === 'sso_failed') {
         // El SSO falló: mostrar error sin redirigir (evita el bucle)
         this.error = 'No se pudo validar tu sesión con la Intranet Escolar. Por favor, inténtalo de nuevo.';
+      } else {
+        // Redirigir de forma automática e inmediata a la Intranet sin mostrar pantalla de botón
+        this.iraAlIntranet();
       }
-      // En cualquier otro caso: mostrar pantalla con botón, NO redirigir automáticamente
     });
   }
 

@@ -40,6 +40,7 @@ export class SidebarComponent implements OnInit {
   }
 
   logout(): void {
-    this.authService.logout();
+    // Revertido/comentado por el usuario
+    // this.authService.logout();
   }
 }
