@@ -488,7 +488,7 @@ select.form-control option {
     .modal-wrapper.chat-abierto .modal-comments-panel {
         display: flex !important;
         position: relative !important;
-        width: 100% !important;
+        
         max-width: 550px !important;
         height: auto !important;
         max-height: 90vh !important;
