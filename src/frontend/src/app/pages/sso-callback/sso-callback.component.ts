@@ -14,59 +14,8 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-sso-callback',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <div class="sso-container">
-      <div class="loader-box">
-        <div class="spinner"></div>
-        <p class="loading-text">Estableciendo conexión segura con la Intranet...</p>
-        <p class="sub-text">Por favor, espera un momento.</p>
-      </div>
-    </div>
-  `,
-  styles: [`
-    .sso-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #0b0f19;
-      color: #f3f4f6;
-      font-family: 'Inter', sans-serif;
-    }
-    .loader-box {
-      text-align: center;
-      padding: 2.5rem;
-      background: rgba(17, 24, 39, 0.7);
-      border-radius: 16px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    .spinner {
-      margin: 0 auto 1.5rem auto;
-      width: 50px;
-      height: 50px;
-      border: 3px solid rgba(59, 130, 246, 0.1);
-      border-top-color: #3b82f6;
-      border-radius: 50%;
-      animation: spin 1s infinite linear;
-    }
-    .loading-text {
-      font-size: 1.15rem;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(90deg, #60a5fa, #a78bfa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .sub-text {
-      font-size: 0.875rem;
-      color: #9ca3af;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-  `]
+  template: '',
+  styles: []
 })
 export class SsoCallbackComponent implements OnInit {
   constructor(
