@@ -1,0 +1,901 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  SidebarComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/shared/layout/sidebar/sidebar.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-sidebar</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/router/RouterLink" target="_blank" >RouterLink</a></code>
+                                <code><a href="https://angular.io/api/router/RouterLinkActive" target="_blank" >RouterLinkActive</a></code>
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="../components/ConfirmacionEliminarComponent.html" target="_self" >ConfirmacionEliminarComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./sidebar.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./sidebar.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#estaColapsado" >estaColapsado</a>
+                            </li>
+                            <li>
+                                <a href="#iniciarSinTransicion" >iniciarSinTransicion</a>
+                            </li>
+                            <li>
+                                <a href="#landingUrl" >landingUrl</a>
+                            </li>
+                            <li>
+                                <a href="#mostrarModalLogout" >mostrarModalLogout</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#abrirModalLogout" >abrirModalLogout</a>
+                            </li>
+                            <li>
+                                <a href="#cancelarLogout" >cancelarLogout</a>
+                            </li>
+                            <li>
+                                <a href="#confirmarLogout" >confirmarLogout</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#toggleSidebar" >toggleSidebar</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/shared/layout/sidebar/sidebar.component.ts:26</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="abrirModalLogout"></a>
+                    <span class="name">
+                        <span ><b>abrirModalLogout</b></span>
+                        <a href="#abrirModalLogout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>abrirModalLogout()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="47"
+                                    class="link-to-prism">src/app/shared/layout/sidebar/sidebar.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cancelarLogout"></a>
+                    <span class="name">
+                        <span ><b>cancelarLogout</b></span>
+                        <a href="#cancelarLogout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cancelarLogout()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="56"
+                                    class="link-to-prism">src/app/shared/layout/sidebar/sidebar.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="confirmarLogout"></a>
+                    <span class="name">
+                        <span ><b>confirmarLogout</b></span>
+                        <a href="#confirmarLogout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>confirmarLogout()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="51"
+                                    class="link-to-prism">src/app/shared/layout/sidebar/sidebar.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="30"
+                                    class="link-to-prism">src/app/shared/layout/sidebar/sidebar.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleSidebar"></a>
+                    <span class="name">
+                        <span ><b>toggleSidebar</b></span>
+                        <a href="#toggleSidebar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleSidebar()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="40"
+                                    class="link-to-prism">src/app/shared/layout/sidebar/sidebar.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="estaColapsado"></a>
+                    <span class="name">
+                        <span ><b>estaColapsado</b></span>
+                        <a href="#estaColapsado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/shared/layout/sidebar/sidebar.component.ts:24</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="iniciarSinTransicion"></a>
+                    <span class="name">
+                        <span ><b>iniciarSinTransicion</b></span>
+                        <a href="#iniciarSinTransicion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/shared/layout/sidebar/sidebar.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="landingUrl"></a>
+                    <span class="name">
+                        <span ><b>landingUrl</b></span>
+                        <a href="#landingUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>environment.ssoLandingIntranet</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/shared/layout/sidebar/sidebar.component.ts:23</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mostrarModalLogout"></a>
+                    <span class="name">
+                        <span ><b>mostrarModalLogout</b></span>
+                        <a href="#mostrarModalLogout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/shared/layout/sidebar/sidebar.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { RouterLink, RouterLinkActive } from &#x27;@angular/router&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { AuthService } from &#x27;../../../services/auth.service&#x27;;
+import { environment } from &#x27;../../../../enviroments/environment&#x27;;
+import { ConfirmacionEliminarComponent } from &#x27;../../../pages/modales/confirmacion-eliminar/confirmacion-eliminar.component&#x27;;
+
+@Component({
+  selector: &#x27;app-sidebar&#x27;,
+  standalone: true,
+  imports: [RouterLink, RouterLinkActive, CommonModule, ConfirmacionEliminarComponent],
+  templateUrl: &#x27;./sidebar.component.html&#x27;,
+  styleUrl: &#x27;./sidebar.component.css&#x27;
+})
+export class SidebarComponent implements OnInit {
+  landingUrl &#x3D; environment.ssoLandingIntranet;
+  estaColapsado: boolean &#x3D; false;
+  iniciarSinTransicion: boolean &#x3D; true;
+  mostrarModalLogout &#x3D; false;
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    if (typeof window !&#x3D;&#x3D; &#x27;undefined&#x27; &amp;&amp; window.localStorage) {
+      this.estaColapsado &#x3D; localStorage.getItem(&#x27;sidebarCollapsed&#x27;) &#x3D;&#x3D;&#x3D; &#x27;true&#x27;;
+    }
+    // Desactivar el bloqueo de transiciones después de que se monte la vista inicial
+    setTimeout(() &#x3D;&gt; {
+      this.iniciarSinTransicion &#x3D; false;
+    }, 100);
+  }
+
+  toggleSidebar() {
+    this.estaColapsado &#x3D; !this.estaColapsado;
+    if (typeof window !&#x3D;&#x3D; &#x27;undefined&#x27; &amp;&amp; window.localStorage) {
+      localStorage.setItem(&#x27;sidebarCollapsed&#x27;, String(this.estaColapsado));
+    }
+  }
+
+  abrirModalLogout(): void {
+    this.mostrarModalLogout &#x3D; true;
+  }
+
+  confirmarLogout(): void {
+    this.mostrarModalLogout &#x3D; false;
+    this.authService.logout();
+  }
+
+  cancelarLogout(): void {
+    this.mostrarModalLogout &#x3D; false;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- 
+  Proyecto: TicketingEVG
+  Alumno: Joseph Joel Quispe Alvarez
+  Asignatura: 
+  Curso: 2 DAW
+  Descripción: Barra lateral de navegación (Literalmente del PHP).
+--&gt;
+
+&lt;!-- Truco CSS puro con persistencia de estado de Angular: Checkbox oculto para colapsar el sidebar --&gt;
+&lt;input type&#x3D;&quot;checkbox&quot; id&#x3D;&quot;toggle-sidebar&quot; class&#x3D;&quot;d-none&quot; [checked]&#x3D;&quot;estaColapsado&quot; (change)&#x3D;&quot;toggleSidebar()&quot;&gt;
+
+&lt;nav id&#x3D;&quot;sidebarMenu&quot; class&#x3D;&quot;sidebar d-flex flex-column vh-100 sticky-top&quot; [class.sin-transicion]&#x3D;&quot;iniciarSinTransicion&quot;&gt;
+	&lt;!-- Header Sidebar --&gt;
+	&lt;div class&#x3D;&quot;sidebar-header p-4 mb-3 d-flex align-items-center&quot;&gt;
+		&lt;label for&#x3D;&quot;toggle-sidebar&quot; class&#x3D;&quot;boton-candado rounded-3 p-2 me-3 flex-shrink-0&quot;
+			style&#x3D;&quot;cursor: pointer; background-color: var(--amarillo);&quot; title&#x3D;&quot;Abrir/Cerrar menú&quot;&gt;
+			&lt;i class&#x3D;&quot;bi bi-shield-lock-fill text-white fs-4&quot;&gt;&lt;/i&gt;
+		&lt;/label&gt;
+		&lt;div class&#x3D;&quot;sidebar-header-texto&quot;&gt;
+			&lt;div class&#x3D;&quot;fw-bold text-white small lh-1&quot;&gt;Administración de&lt;/div&gt;
+			&lt;div class&#x3D;&quot;fw-bold text-white&quot;&gt;TicketingEVG&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+
+	&lt;!-- Links de Navegación --&gt;
+	&lt;ul class&#x3D;&quot;nav flex-column mb-auto&quot;&gt;
+		&lt;li class&#x3D;&quot;nav-item&quot;&gt;
+			&lt;a class&#x3D;&quot;nav-link&quot; routerLink&#x3D;&quot;/admin/dashboard&quot; routerLinkActive&#x3D;&quot;active&quot; title&#x3D;&quot;Dashboard&quot;&gt;
+				&lt;i class&#x3D;&quot;bi bi-grid-fill me-3&quot;&gt;&lt;/i&gt;
+				&lt;span class&#x3D;&quot;link-texto&quot;&gt;Dashboard&lt;/span&gt;
+			&lt;/a&gt;
+		&lt;/li&gt;
+		&lt;li class&#x3D;&quot;nav-item&quot;&gt;
+			&lt;a class&#x3D;&quot;nav-link&quot; routerLink&#x3D;&quot;/admin/operarios&quot; routerLinkActive&#x3D;&quot;active&quot; title&#x3D;&quot;Operarios&quot;&gt;
+				&lt;i class&#x3D;&quot;bi bi-person-badge-fill me-3&quot;&gt;&lt;/i&gt;
+				&lt;span class&#x3D;&quot;link-texto&quot;&gt;Operarios&lt;/span&gt;
+			&lt;/a&gt;
+		&lt;/li&gt;
+		&lt;li class&#x3D;&quot;nav-item&quot;&gt;
+			&lt;a class&#x3D;&quot;nav-link&quot; routerLink&#x3D;&quot;/admin/categorias&quot; routerLinkActive&#x3D;&quot;active&quot; title&#x3D;&quot;Categorías&quot;&gt;
+				&lt;i class&#x3D;&quot;bi bi-tag-fill me-3&quot;&gt;&lt;/i&gt;
+				&lt;span class&#x3D;&quot;link-texto&quot;&gt;Categorías&lt;/span&gt;
+			&lt;/a&gt;
+		&lt;/li&gt;
+		&lt;li class&#x3D;&quot;nav-item&quot;&gt;
+			&lt;a class&#x3D;&quot;nav-link&quot; routerLink&#x3D;&quot;/portal-tickets&quot; title&#x3D;&quot;Ir al Portal de Tickets&quot;&gt;
+				&lt;i class&#x3D;&quot;bi bi-arrow-left-right me-3&quot;&gt;&lt;/i&gt;
+				&lt;span class&#x3D;&quot;link-texto&quot;&gt;Portal de Tickets&lt;/span&gt;
+			&lt;/a&gt;
+		&lt;/li&gt;
+		&lt;li class&#x3D;&quot;nav-item&quot;&gt;
+			&lt;a class&#x3D;&quot;nav-link&quot; href&#x3D;&quot;https://17.daw.esvirgua.com/dashboard-inicio&quot; [href]&#x3D;&quot;landingUrl&quot; title&#x3D;&quot;Volver al Landing&quot;&gt;
+				&lt;i class&#x3D;&quot;bi bi-house-door-fill me-3&quot;&gt;&lt;/i&gt;
+				&lt;span class&#x3D;&quot;link-texto&quot;&gt;Volver al Landing&lt;/span&gt;
+			&lt;/a&gt;
+		&lt;/li&gt;
+		&lt;li class&#x3D;&quot;nav-item&quot;&gt;
+			&lt;a class&#x3D;&quot;nav-link&quot; (click)&#x3D;&quot;abrirModalLogout()&quot; style&#x3D;&quot;cursor: pointer;&quot; title&#x3D;&quot;Cerrar sesión&quot;&gt;
+				&lt;i class&#x3D;&quot;bi bi-box-arrow-left me-3&quot;&gt;&lt;/i&gt;
+				&lt;span class&#x3D;&quot;link-texto&quot;&gt;Cerrar sesión&lt;/span&gt;
+			&lt;/a&gt;
+		&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;app-confirmacion-eliminar 
+    *ngIf&#x3D;&quot;mostrarModalLogout&quot; 
+    [tipo]&#x3D;&quot;&#x27;cerrar-sesion&#x27;&quot; 
+    (cancelar)&#x3D;&quot;cancelarLogout()&quot; 
+    (confirmar)&#x3D;&quot;confirmarLogout()&quot;&gt;
+&lt;/app-confirmacion-eliminar&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!--   Proyecto: TicketingEVG  Alumno: Joseph Joel Quispe Alvarez  Asignatura:   Curso: 2 DAW  Descripción: Barra lateral de navegación (Literalmente del PHP).--><!-- Truco CSS puro con persistencia de estado de Angular: Checkbox oculto para colapsar el sidebar --><input type="checkbox" id="toggle-sidebar" class="d-none" [checked]="estaColapsado" (change)="toggleSidebar()"><nav id="sidebarMenu" class="sidebar d-flex flex-column vh-100 sticky-top" [class.sin-transicion]="iniciarSinTransicion">	<!-- Header Sidebar -->	<div class="sidebar-header p-4 mb-3 d-flex align-items-center">		<label for="toggle-sidebar" class="boton-candado rounded-3 p-2 me-3 flex-shrink-0"			style="cursor: pointer; background-color: var(--amarillo);" title="Abrir/Cerrar menú">			<i class="bi bi-shield-lock-fill text-white fs-4"></i>		</label>		<div class="sidebar-header-texto">			<div class="fw-bold text-white small lh-1">Administración de</div>			<div class="fw-bold text-white">TicketingEVG</div>		</div>	</div>	<!-- Links de Navegación -->	<ul class="nav flex-column mb-auto">		<li class="nav-item">			<a class="nav-link" routerLink="/admin/dashboard" routerLinkActive="active" title="Dashboard">				<i class="bi bi-grid-fill me-3"></i>				<span class="link-texto">Dashboard</span>			</a>		</li>		<li class="nav-item">			<a class="nav-link" routerLink="/admin/operarios" routerLinkActive="active" title="Operarios">				<i class="bi bi-person-badge-fill me-3"></i>				<span class="link-texto">Operarios</span>			</a>		</li>		<li class="nav-item">			<a class="nav-link" routerLink="/admin/categorias" routerLinkActive="active" title="Categorías">				<i class="bi bi-tag-fill me-3"></i>				<span class="link-texto">Categorías</span>			</a>		</li>		<li class="nav-item">			<a class="nav-link" routerLink="/portal-tickets" title="Ir al Portal de Tickets">				<i class="bi bi-arrow-left-right me-3"></i>				<span class="link-texto">Portal de Tickets</span>			</a>		</li>		<li class="nav-item">			<a class="nav-link" href="https://17.daw.esvirgua.com/dashboard-inicio" [href]="landingUrl" title="Volver al Landing">				<i class="bi bi-house-door-fill me-3"></i>				<span class="link-texto">Volver al Landing</span>			</a>		</li>		<li class="nav-item">			<a class="nav-link" (click)="abrirModalLogout()" style="cursor: pointer;" title="Cerrar sesión">				<i class="bi bi-box-arrow-left me-3"></i>				<span class="link-texto">Cerrar sesión</span>			</a>		</li>	</ul></nav><app-confirmacion-eliminar     *ngIf="mostrarModalLogout"     [tipo]="\'cerrar-sesion\'"     (cancelar)="cancelarLogout()"     (confirmar)="confirmarLogout()"></app-confirmacion-eliminar></div>'
+    var COMPONENTS = [{'name': 'AccesoComponent', 'selector': 'app-acceso'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CategoriasComponent', 'selector': 'app-categorias'},{'name': 'ConfirmacionEliminarComponent', 'selector': 'app-confirmacion-eliminar'},{'name': 'CrearTicketComponent', 'selector': 'app-crear-ticket'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FormularioCategoriaComponent', 'selector': 'app-formulario-categoria'},{'name': 'FormularioOperarioComponent', 'selector': 'app-formulario-operario'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'ListaTicketsComponent', 'selector': 'app-lista-tickets'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ModalTicketComponent', 'selector': 'app-modal-ticket'},{'name': 'OperariosComponent', 'selector': 'app-operarios'},{'name': 'PortalTicketsComponent', 'selector': 'app-portal-tickets'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SsoCallbackComponent', 'selector': 'app-sso-callback'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'SidebarComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SidebarComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

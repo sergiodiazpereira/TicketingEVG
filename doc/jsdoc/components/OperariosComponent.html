@@ -1,0 +1,2324 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  OperariosComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/admin/operarios/operarios.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-operarios</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="../components/FooterComponent.html" target="_self" >FooterComponent</a></code>
+                                <code><a href="../components/SidebarComponent.html" target="_self" >SidebarComponent</a></code>
+                                <code><a href="../components/ConfirmacionEliminarComponent.html" target="_self" >ConfirmacionEliminarComponent</a></code>
+                                <code><a href="../components/FormularioOperarioComponent.html" target="_self" >FormularioOperarioComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./operarios.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./operarios.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#esMensajeError" >esMensajeError</a>
+                            </li>
+                            <li>
+                                <a href="#mensajeFeedback" >mensajeFeedback</a>
+                            </li>
+                            <li>
+                                <a href="#mostrarModalEliminar" >mostrarModalEliminar</a>
+                            </li>
+                            <li>
+                                <a href="#mostrarModalEliminarVarios" >mostrarModalEliminarVarios</a>
+                            </li>
+                            <li>
+                                <a href="#mostrarModalFormulario" >mostrarModalFormulario</a>
+                            </li>
+                            <li>
+                                <a href="#operarioAEditar" >operarioAEditar</a>
+                            </li>
+                            <li>
+                                <a href="#operarioAEliminarId" >operarioAEliminarId</a>
+                            </li>
+                            <li>
+                                <a href="#operarioExpandido" >operarioExpandido</a>
+                            </li>
+                            <li>
+                                <a href="#operarios" >operarios</a>
+                            </li>
+                            <li>
+                                <a href="#operariosSeleccionados" >operariosSeleccionados</a>
+                            </li>
+                            <li>
+                                <a href="#usuario_actual" >usuario_actual</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#abrirModalEliminar" >abrirModalEliminar</a>
+                            </li>
+                            <li>
+                                <a href="#abrirModalEliminarVarios" >abrirModalEliminarVarios</a>
+                            </li>
+                            <li>
+                                <a href="#abrirModalFormulario" >abrirModalFormulario</a>
+                            </li>
+                            <li>
+                                <a href="#cargarOperarios" >cargarOperarios</a>
+                            </li>
+                            <li>
+                                <a href="#cerrarModal" >cerrarModal</a>
+                            </li>
+                            <li>
+                                <a href="#cerrarModalEliminarVarios" >cerrarModalEliminarVarios</a>
+                            </li>
+                            <li>
+                                <a href="#cerrarModalFormulario" >cerrarModalFormulario</a>
+                            </li>
+                            <li>
+                                <a href="#confirmarEliminar" >confirmarEliminar</a>
+                            </li>
+                            <li>
+                                <a href="#confirmarEliminarVarios" >confirmarEliminarVarios</a>
+                            </li>
+                            <li>
+                                <a href="#estanTodosSeleccionados" >estanTodosSeleccionados</a>
+                            </li>
+                            <li>
+                                <a href="#guardarOperario" >guardarOperario</a>
+                            </li>
+                            <li>
+                                <a href="#isSeleccionada" >isSeleccionada</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#mostrarMensaje" >mostrarMensaje</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#toggleCategorias" >toggleCategorias</a>
+                            </li>
+                            <li>
+                                <a href="#toggleSeleccion" >toggleSeleccion</a>
+                            </li>
+                            <li>
+                                <a href="#toggleSeleccionarTodos" >toggleSeleccionarTodos</a>
+                            </li>
+                            <li>
+                                <a href="#trackByOperarioId" >trackByOperarioId</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, usuarioService: <a href="../injectables/UsuarioService.html" target="_self">UsuarioService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:41</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>usuarioService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UsuarioService.html" target="_self" >UsuarioService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="abrirModalEliminar"></a>
+                    <span class="name">
+                        <span ><b>abrirModalEliminar</b></span>
+                        <a href="#abrirModalEliminar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>abrirModalEliminar(operario: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="127"
+                                    class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:127</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>operario</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="abrirModalEliminarVarios"></a>
+                    <span class="name">
+                        <span ><b>abrirModalEliminarVarios</b></span>
+                        <a href="#abrirModalEliminarVarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>abrirModalEliminarVarios()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="181"
+                                    class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:181</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="abrirModalFormulario"></a>
+                    <span class="name">
+                        <span ><b>abrirModalFormulario</b></span>
+                        <a href="#abrirModalFormulario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>abrirModalFormulario(operario?: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="81"
+                                    class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:81</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>operario</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarOperarios"></a>
+                    <span class="name">
+                        <span ><b>cargarOperarios</b></span>
+                        <a href="#cargarOperarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarOperarios()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="55"
+                                    class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Carga la lista de operarios desde la API.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cerrarModal"></a>
+                    <span class="name">
+                        <span ><b>cerrarModal</b></span>
+                        <a href="#cerrarModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cerrarModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="132"
+                                    class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:132</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cerrarModalEliminarVarios"></a>
+                    <span class="name">
+                        <span ><b>cerrarModalEliminarVarios</b></span>
+                        <a href="#cerrarModalEliminarVarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cerrarModalEliminarVarios()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="186"
+                                    class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:186</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cerrarModalFormulario"></a>
+                    <span class="name">
+                        <span ><b>cerrarModalFormulario</b></span>
+                        <a href="#cerrarModalFormulario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cerrarModalFormulario()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="86"
+                                    class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="confirmarEliminar"></a>
+                    <span class="name">
+                        <span ><b>confirmarEliminar</b></span>
+                        <a href="#confirmarEliminar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>confirmarEliminar()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="138"
+                                    class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:138</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Confirma y ejecuta la eliminación del operario seleccionado.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="confirmarEliminarVarios"></a>
+                    <span class="name">
+                        <span ><b>confirmarEliminarVarios</b></span>
+                        <a href="#confirmarEliminarVarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>confirmarEliminarVarios()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="190"
+                                    class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:190</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="estanTodosSeleccionados"></a>
+                    <span class="name">
+                        <span ><b>estanTodosSeleccionados</b></span>
+                        <a href="#estanTodosSeleccionados"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>estanTodosSeleccionados()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="169"
+                                    class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:169</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="guardarOperario"></a>
+                    <span class="name">
+                        <span ><b>guardarOperario</b></span>
+                        <a href="#guardarOperario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>guardarOperario(datos: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="95"
+                                    class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:95</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Recibe los datos del modal y llama al servicio para crear o actualizar.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>datos</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Objeto con nombre, correo, rol y categorias enviado por el formulario.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isSeleccionada"></a>
+                    <span class="name">
+                        <span ><b>isSeleccionada</b></span>
+                        <a href="#isSeleccionada"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isSeleccionada(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="165"
+                                    class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:165</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mostrarMensaje"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>mostrarMensaje</b></span>
+                        <a href="#mostrarMensaje"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>mostrarMensaje(texto: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, esError: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="236"
+                                    class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:236</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Muestra un mensaje de feedback temporal durante 4 segundos.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>texto</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>esError</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="50"
+                                    class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleCategorias"></a>
+                    <span class="name">
+                        <span ><b>toggleCategorias</b></span>
+                        <a href="#toggleCategorias"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleCategorias(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="70"
+                                    class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleSeleccion"></a>
+                    <span class="name">
+                        <span ><b>toggleSeleccion</b></span>
+                        <a href="#toggleSeleccion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleSeleccion(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="156"
+                                    class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:156</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleSeleccionarTodos"></a>
+                    <span class="name">
+                        <span ><b>toggleSeleccionarTodos</b></span>
+                        <a href="#toggleSeleccionarTodos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleSeleccionarTodos()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="173"
+                                    class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:173</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="trackByOperarioId"></a>
+                    <span class="name">
+                        <span ><b>trackByOperarioId</b></span>
+                        <a href="#trackByOperarioId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>trackByOperarioId(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, operario: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="231"
+                                    class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:231</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>operario</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="esMensajeError"></a>
+                    <span class="name">
+                        <span ><b>esMensajeError</b></span>
+                        <a href="#esMensajeError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mensajeFeedback"></a>
+                    <span class="name">
+                        <span ><b>mensajeFeedback</b></span>
+                        <a href="#mensajeFeedback"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Mensaje de feedback para el usuario (éxito o error).</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mostrarModalEliminar"></a>
+                    <span class="name">
+                        <span ><b>mostrarModalEliminar</b></span>
+                        <a href="#mostrarModalEliminar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mostrarModalEliminarVarios"></a>
+                    <span class="name">
+                        <span ><b>mostrarModalEliminarVarios</b></span>
+                        <a href="#mostrarModalEliminarVarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mostrarModalFormulario"></a>
+                    <span class="name">
+                        <span ><b>mostrarModalFormulario</b></span>
+                        <a href="#mostrarModalFormulario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="operarioAEditar"></a>
+                    <span class="name">
+                        <span ><b>operarioAEditar</b></span>
+                        <a href="#operarioAEditar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="operarioAEliminarId"></a>
+                    <span class="name">
+                        <span ><b>operarioAEliminarId</b></span>
+                        <a href="#operarioAEliminarId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>number | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="operarioExpandido"></a>
+                    <span class="name">
+                        <span ><b>operarioExpandido</b></span>
+                        <a href="#operarioExpandido"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>number | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="operarios"></a>
+                    <span class="name">
+                        <span ><b>operarios</b></span>
+                        <a href="#operarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Usuario.html" target="_self" >Usuario[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="operariosSeleccionados"></a>
+                    <span class="name">
+                        <span ><b>operariosSeleccionados</b></span>
+                        <a href="#operariosSeleccionados"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>number[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="usuario_actual"></a>
+                    <span class="name">
+                        <span ><b>usuario_actual</b></span>
+                        <a href="#usuario_actual"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Usuario.html" target="_self" >Usuario | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/pages/admin/operarios/operarios.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { AuthService } from &#x27;../../../services/auth.service&#x27;;
+import { Usuario } from &#x27;../../../models/usuario.model&#x27;;
+import { FooterComponent } from &#x27;../../../shared/layout/footer/footer.component&#x27;;
+import { SidebarComponent } from &#x27;../../../shared/layout/sidebar/sidebar.component&#x27;;
+import { UsuarioService } from &#x27;../../../services/usuario.service&#x27;;
+import { ConfirmacionEliminarComponent } from &#x27;../../modales/confirmacion-eliminar/confirmacion-eliminar.component&#x27;;
+import { FormularioOperarioComponent } from &#x27;../../modales/formulario-operario/formulario-operario.component&#x27;;
+import { forkJoin } from &#x27;rxjs&#x27;;
+
+@Component({
+  selector: &#x27;app-operarios&#x27;,
+  standalone: true,
+  imports: [CommonModule, FooterComponent, SidebarComponent, ConfirmacionEliminarComponent, FormularioOperarioComponent],
+  templateUrl: &#x27;./operarios.component.html&#x27;,
+  styleUrl: &#x27;./operarios.component.css&#x27;
+})
+export class OperariosComponent implements OnInit {
+  usuario_actual: Usuario | null &#x3D; null;
+  operarios: Usuario[] &#x3D; [];
+  mostrarModalEliminar &#x3D; false;
+  mostrarModalFormulario &#x3D; false;
+  operarioAEditar: any &#x3D; null;
+  operarioAEliminarId: number | null &#x3D; null;
+  operarioExpandido: number | null &#x3D; null;
+
+  // Propiedades para eliminación masiva
+  operariosSeleccionados: number[] &#x3D; [];
+  mostrarModalEliminarVarios &#x3D; false;
+
+  /** Mensaje de feedback para el usuario (éxito o error). */
+  mensajeFeedback: string | null &#x3D; null;
+  esMensajeError &#x3D; false;
+
+  constructor(
+    private authService: AuthService,
+    private usuarioService: UsuarioService
+  ) {
+    this.usuario_actual &#x3D; this.authService.getUsuarioActual();
+  }
+
+  ngOnInit(): void {
+    this.cargarOperarios();
+  }
+
+  /** Carga la lista de operarios desde la API. */
+  cargarOperarios(): void {
+    this.usuarioService.getOperarios().subscribe({
+      next: (data) &#x3D;&gt; {
+        this.operarios &#x3D; data.map((op: any) &#x3D;&gt; ({
+          ...op,
+          categorias_nombres: op.categorias_nombres ? op.categorias_nombres.split(&#x27;, &#x27;) : []
+        }));
+      },
+      error: (err) &#x3D;&gt; {
+        console.error(&#x27;Error al cargar operarios&#x27;, err);
+        this.mostrarMensaje(&#x27;No se pudo conectar con el servidor.&#x27;, true);
+      }
+    });
+  }
+
+  toggleCategorias(id: number) {
+    const operario &#x3D; this.operarios.find(op &#x3D;&gt; op.id &#x3D;&#x3D;&#x3D; id);
+    if (!operario || !operario.categorias_nombres || operario.categorias_nombres.length &#x3D;&#x3D;&#x3D; 0) {
+      return;
+    }
+    if (this.operarioExpandido &#x3D;&#x3D;&#x3D; id)
+      this.operarioExpandido &#x3D; null;
+    else
+      this.operarioExpandido &#x3D; id;
+  }
+
+  abrirModalFormulario(operario?: any) {
+    this.operarioAEditar &#x3D; operario || null;
+    this.mostrarModalFormulario &#x3D; true;
+  }
+
+  cerrarModalFormulario() {
+    this.mostrarModalFormulario &#x3D; false;
+    this.operarioAEditar &#x3D; null;
+  }
+
+  /**
+   * Recibe los datos del modal y llama al servicio para crear o actualizar.
+   * @param datos Objeto con nombre, correo, rol y categorias enviado por el formulario.
+   */
+  guardarOperario(datos: any) {
+    if (this.operarioAEditar) {
+      // Actualizar operario existente
+      this.usuarioService.actualizarUsuario(datos.id, datos).subscribe({
+        next: (res) &#x3D;&gt; {
+          if (res.status &#x3D;&#x3D;&#x3D; &#x27;success&#x27;) {
+            this.mostrarMensaje(&#x27;Operario actualizado correctamente.&#x27;, false);
+            this.cerrarModalFormulario();
+            this.cargarOperarios();
+          } else {
+            this.mostrarMensaje(res.message || &#x27;Error al actualizar el operario.&#x27;, true);
+          }
+        },
+        error: () &#x3D;&gt; this.mostrarMensaje(&#x27;Error de conexión al actualizar.&#x27;, true)
+      });
+    } else {
+      // Crear nuevo operario
+      this.usuarioService.crearUsuario(datos).subscribe({
+        next: (res) &#x3D;&gt; {
+          if (res.status &#x3D;&#x3D;&#x3D; &#x27;success&#x27;) {
+            this.mostrarMensaje(&#x27;Operario creado correctamente.&#x27;, false);
+            this.cerrarModalFormulario();
+            this.cargarOperarios();
+          } else {
+            this.mostrarMensaje(res.message || &#x27;Error al crear el operario.&#x27;, true);
+          }
+        },
+        error: () &#x3D;&gt; this.mostrarMensaje(&#x27;Error de conexión al crear.&#x27;, true)
+      });
+    }
+  }
+
+  abrirModalEliminar(operario: any) {
+    this.operarioAEliminarId &#x3D; operario.id;
+    this.mostrarModalEliminar &#x3D; true;
+  }
+
+  cerrarModal() {
+    this.mostrarModalEliminar &#x3D; false;
+    this.operarioAEliminarId &#x3D; null;
+  }
+
+  /** Confirma y ejecuta la eliminación del operario seleccionado. */
+  confirmarEliminar() {
+    if (!this.operarioAEliminarId) return;
+    this.usuarioService.eliminarUsuario(this.operarioAEliminarId).subscribe({
+      next: (res) &#x3D;&gt; {
+        if (res.status &#x3D;&#x3D;&#x3D; &#x27;success&#x27;) {
+          this.mostrarMensaje(&#x27;Operario eliminado correctamente.&#x27;, false);
+          this.cerrarModal();
+          this.cargarOperarios();
+        } else {
+          this.mostrarMensaje(res.message || &#x27;No se pudo eliminar el operario.&#x27;, true);
+          this.cerrarModal();
+        }
+      },
+      error: () &#x3D;&gt; this.mostrarMensaje(&#x27;Error de conexión al eliminar.&#x27;, true)
+    });
+  }
+
+  // Métodos para selección masiva y eliminación en bloque de operarios
+  toggleSeleccion(id: number): void {
+    const index &#x3D; this.operariosSeleccionados.indexOf(id);
+    if (index &gt; -1) {
+      this.operariosSeleccionados.splice(index, 1);
+    } else {
+      this.operariosSeleccionados.push(id);
+    }
+  }
+
+  isSeleccionada(id: number): boolean {
+    return this.operariosSeleccionados.includes(id);
+  }
+
+  estanTodosSeleccionados(): boolean {
+    return this.operarios.length &gt; 0 &amp;&amp; this.operariosSeleccionados.length &#x3D;&#x3D;&#x3D; this.operarios.length;
+  }
+
+  toggleSeleccionarTodos(): void {
+    if (this.estanTodosSeleccionados()) {
+      this.operariosSeleccionados &#x3D; [];
+    } else {
+      this.operariosSeleccionados &#x3D; this.operarios.map(op &#x3D;&gt; op.id);
+    }
+  }
+
+  abrirModalEliminarVarios() {
+    if (this.operariosSeleccionados.length &#x3D;&#x3D;&#x3D; 0) return;
+    this.mostrarModalEliminarVarios &#x3D; true;
+  }
+
+  cerrarModalEliminarVarios() {
+    this.mostrarModalEliminarVarios &#x3D; false;
+  }
+
+  confirmarEliminarVarios() {
+    if (this.operariosSeleccionados.length &#x3D;&#x3D;&#x3D; 0) return;
+    
+    // Ejecutar la petición para cada operario seleccionado
+    const llamadas &#x3D; this.operariosSeleccionados.map(id &#x3D;&gt; this.usuarioService.eliminarUsuario(id));
+    
+    forkJoin(llamadas).subscribe({
+      next: (resultados: any[]) &#x3D;&gt; {
+        let exitos &#x3D; 0;
+        let fallidos &#x3D; 0;
+        let mensajeErrorUltimo &#x3D; &#x27;&#x27;;
+
+        resultados.forEach((res) &#x3D;&gt; {
+          if (res.status &#x3D;&#x3D;&#x3D; &#x27;success&#x27;) {
+            exitos++;
+          } else {
+            fallidos++;
+            mensajeErrorUltimo &#x3D; res.message || &#x27;&#x27;;
+          }
+        });
+
+        this.operariosSeleccionados &#x3D; [];
+        this.cerrarModalEliminarVarios();
+        this.cargarOperarios();
+
+        if (exitos &gt; 0 &amp;&amp; fallidos &#x3D;&#x3D;&#x3D; 0) {
+          this.mostrarMensaje(&#x60;Se han revocado los permisos de ${exitos} operarios correctamente.&#x60;, false);
+        } else if (exitos &gt; 0 &amp;&amp; fallidos &gt; 0) {
+          this.mostrarMensaje(&#x60;Se revocaron ${exitos} operarios, pero ${fallidos} no pudieron modificarse (por tickets activos asignados).&#x60;, true);
+        } else {
+          this.mostrarMensaje(mensajeErrorUltimo || &#x60;No se pudo revocar a ninguno de los ${fallidos} operarios seleccionados.&#x60;, true);
+        }
+      },
+      error: (err: any) &#x3D;&gt; {
+        console.error(&#x27;Error en revocación múltiple&#x27;, err);
+        this.mostrarMensaje(&#x27;Error de conexión al intentar revocar los permisos de los operarios.&#x27;, true);
+        this.cerrarModalEliminarVarios();
+      }
+    });
+  }
+
+  trackByOperarioId(index: number, operario: any): number {
+    return operario.id;
+  }
+
+  /** Muestra un mensaje de feedback temporal durante 4 segundos. */
+  private mostrarMensaje(texto: string, esError: boolean) {
+    this.mensajeFeedback &#x3D; texto;
+    this.esMensajeError &#x3D; esError;
+    setTimeout(() &#x3D;&gt; this.mensajeFeedback &#x3D; null, 4000);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- 
+  Proyecto: TicketingEVG
+  Alumno: Joseph Joel Quispe Alvarez
+  Asignatura: 
+  Curso: 2 DAW
+  Descripción: Gestión de personal técnico (Versión Angular unificada).
+--&gt;
+&lt;div class&#x3D;&quot;d-flex flex-column vh-100 overflow-hidden&quot;&gt;
+	&lt;!-- Toast Alerta Premium (Flotante Arriba a la Derecha - Nivel Raíz) --&gt;
+	&lt;div *ngIf&#x3D;&quot;mensajeFeedback&quot; class&#x3D;&quot;toast-alerta-contenedor&quot; [class.toast-error]&#x3D;&quot;esMensajeError&quot; [class.toast-exito]&#x3D;&quot;!esMensajeError&quot; (click)&#x3D;&quot;mensajeFeedback &#x3D; null&quot;&gt;
+		&lt;div class&#x3D;&quot;toast-alerta-icono&quot;&gt;
+			&lt;i class&#x3D;&quot;fa-solid&quot; [ngClass]&#x3D;&quot;esMensajeError ? &#x27;fa-circle-exclamation&#x27; : &#x27;fa-circle-check&#x27;&quot;&gt;&lt;/i&gt;
+		&lt;/div&gt;
+		&lt;div class&#x3D;&quot;toast-alerta-cuerpo&quot;&gt;
+			&lt;span class&#x3D;&quot;toast-alerta-titulo&quot;&gt;{{ esMensajeError ? &#x27;ERROR&#x27; : &#x27;ÉXITO&#x27; }}&lt;/span&gt;
+			&lt;span class&#x3D;&quot;toast-alerta-mensaje&quot;&gt;{{ mensajeFeedback }}&lt;/span&gt;
+		&lt;/div&gt;
+		&lt;button class&#x3D;&quot;toast-alerta-cerrar&quot; (click)&#x3D;&quot;mensajeFeedback &#x3D; null&quot;&gt;
+			&lt;i class&#x3D;&quot;fa-solid fa-xmark&quot;&gt;&lt;/i&gt;
+		&lt;/button&gt;
+		&lt;div class&#x3D;&quot;toast-alerta-progreso&quot;&gt;&lt;/div&gt;
+	&lt;/div&gt;
+
+	&lt;div class&#x3D;&quot;d-flex flex-grow-1 overflow-hidden&quot;&gt;
+		&lt;!-- Sidebar Componente --&gt;
+		&lt;app-sidebar&gt;&lt;/app-sidebar&gt;
+
+		&lt;!-- Contenido Principal --&gt;
+		&lt;main class&#x3D;&quot;flex-grow-1 overflow-auto contenido-principal&quot;&gt;
+			&lt;div class&#x3D;&quot;flex-grow-1&quot;&gt;
+				&lt;!-- Cabecera de página (Unificada) --&gt;
+				&lt;header class&#x3D;&quot;bg-white p-4 mb-4 border-bottom shadow-sm d-flex justify-content-between align-items-center sticky-top&quot;&gt;
+					&lt;div class&#x3D;&quot;d-flex align-items-center&quot;&gt;
+						&lt;h1 class&#x3D;&quot;h5 fw-bold mb-0 titulo-primario&quot;&gt;Gestión de responsables y trabajadores&lt;/h1&gt;
+					&lt;/div&gt;
+				&lt;/header&gt;
+
+				&lt;div class&#x3D;&quot;container-fluid px-4&quot;&gt;
+					&lt;!-- Título y Botón de Acción --&gt;
+					&lt;div class&#x3D;&quot;row align-items-center mb-4 anim-slide-up&quot; style&#x3D;&quot;animation-delay: 0.1s&quot;&gt;
+						&lt;div class&#x3D;&quot;col-12 col-md-6&quot;&gt;
+							&lt;h2 class&#x3D;&quot;fw-bold titulo-primario text-uppercase&quot;&gt;LISTADO DE PERSONAL TÉCNICO&lt;/h2&gt;
+							&lt;p class&#x3D;&quot;text-muted small&quot;&gt;Aquí podrás gestionar los responsables y trabajadores del sistema de ticketing.&lt;/p&gt;
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;col-12 col-md-6 mt-3 mt-md-0 d-flex gap-3 justify-content-md-end&quot;&gt;
+							&lt;button *ngIf&#x3D;&quot;operariosSeleccionados.length &gt; 0&quot; type&#x3D;&quot;button&quot; 
+								class&#x3D;&quot;btn btn-danger px-4 py-3 rounded-4 shadow-sm fw-bold text-uppercase d-flex align-items-center justify-content-center animate-pulse&quot; 
+								(click)&#x3D;&quot;abrirModalEliminarVarios()&quot;&gt;
+								&lt;i class&#x3D;&quot;bi bi-trash-fill me-2&quot;&gt;&lt;/i&gt;
+								REVOCAR SELECCIONADOS ({{ operariosSeleccionados.length }})
+							&lt;/button&gt;
+							&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-evg px-4 py-3 rounded-4 shadow-sm fw-bold text-uppercase d-flex align-items-center justify-content-center&quot; (click)&#x3D;&quot;abrirModalFormulario()&quot;&gt;
+								&lt;i class&#x3D;&quot;bi bi-plus-circle me-2&quot;&gt;&lt;/i&gt;
+								AÑADIR OPERARIOS
+							&lt;/button&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+
+					&lt;!-- Tabla de Operarios --&gt;
+					&lt;div class&#x3D;&quot;row mb-5&quot;&gt;
+						&lt;div class&#x3D;&quot;col-12&quot;&gt;
+							&lt;div class&#x3D;&quot;card card-premium anim-slide-up&quot; style&#x3D;&quot;animation-delay: 0.2s&quot;&gt;
+								&lt;div class&#x3D;&quot;card-body p-0&quot;&gt;
+									&lt;!-- Vista Escritorio: Tabla clásica --&gt;
+									&lt;div class&#x3D;&quot;d-none d-md-block table-responsive&quot;&gt;
+										&lt;table class&#x3D;&quot;table table-hover align-middle mb-0 tabla-operarios&quot;&gt;
+											&lt;thead class&#x3D;&quot;text-uppercase&quot;&gt;
+												&lt;tr&gt;
+													&lt;!-- Selección múltiple --&gt;
+													&lt;th scope&#x3D;&quot;col&quot; class&#x3D;&quot;border-0 ps-4 py-3&quot; style&#x3D;&quot;width: 50px;&quot;&gt;
+														&lt;div class&#x3D;&quot;form-check d-flex align-items-center justify-content-center&quot;&gt;
+															&lt;input class&#x3D;&quot;form-check-input select-premium-checkbox&quot; type&#x3D;&quot;checkbox&quot; 
+																[checked]&#x3D;&quot;estanTodosSeleccionados()&quot; (change)&#x3D;&quot;toggleSeleccionarTodos()&quot;&gt;
+														&lt;/div&gt;
+													&lt;/th&gt;
+													&lt;th scope&#x3D;&quot;col&quot; class&#x3D;&quot;border-0 py-3&quot;&gt;Personal y tipo&lt;/th&gt;
+													&lt;th scope&#x3D;&quot;col&quot; class&#x3D;&quot;border-0 py-3&quot;&gt;Categorías&lt;/th&gt;
+													&lt;th scope&#x3D;&quot;col&quot; class&#x3D;&quot;border-0 py-3&quot;&gt;Correo electrónico&lt;/th&gt;
+													&lt;th scope&#x3D;&quot;col&quot; class&#x3D;&quot;border-0 py-3 text-center&quot;&gt;Tickets&lt;/th&gt;
+													&lt;th scope&#x3D;&quot;col&quot; class&#x3D;&quot;border-0 py-3&quot;&gt;&lt;/th&gt;
+												&lt;/tr&gt;
+											&lt;/thead&gt;
+											&lt;tbody class&#x3D;&quot;border-top-0&quot;&gt;
+												&lt;ng-container *ngFor&#x3D;&quot;let operario of operarios; trackBy: trackByOperarioId&quot;&gt;
+													&lt;!-- Fila principal del operario --&gt;
+													&lt;tr [class.fila-seleccionada]&#x3D;&quot;isSeleccionada(operario.id)&quot;&gt;
+														&lt;!-- Checkbox individual --&gt;
+														&lt;td class&#x3D;&quot;ps-4 border-0 border-bottom align-top pt-4&quot; style&#x3D;&quot;width: 50px;&quot;&gt;
+															&lt;div class&#x3D;&quot;form-check d-flex align-items-center justify-content-center&quot;&gt;
+																&lt;input class&#x3D;&quot;form-check-input select-premium-checkbox&quot; type&#x3D;&quot;checkbox&quot;
+																	[checked]&#x3D;&quot;isSeleccionada(operario.id)&quot; (change)&#x3D;&quot;toggleSeleccion(operario.id)&quot;&gt;
+															&lt;/div&gt;
+														&lt;/td&gt;
+														&lt;td class&#x3D;&quot;border-0 border-bottom align-top pt-4&quot;&gt;
+															&lt;div class&#x3D;&quot;d-flex align-items-center&quot;&gt;
+																&lt;img [src]&#x3D;&quot;&#x27;https://ui-avatars.com/api/?name&#x3D;&#x27; + operario.nombre + &#x27;&amp;background&#x3D;random&#x27;&quot;
+																	class&#x3D;&quot;rounded-circle me-3 shadow-sm&quot; width&#x3D;&quot;42&quot; height&#x3D;&quot;42&quot; alt&#x3D;&quot;Avatar&quot;&gt;
+																&lt;div&gt;
+																	&lt;span class&#x3D;&quot;fw-bold text-dark me-2&quot;&gt;{{ operario.nombre }}&lt;/span&gt;
+																	&lt;span class&#x3D;&quot;badge rounded-pill px-2 py-1 etiqueta-rol&quot;
+																		[ngClass]&#x3D;&quot;operario.rol &#x3D;&#x3D;&#x3D; &#x27;responsable&#x27; ? &#x27;badge-responsable&#x27; : &#x27;badge-trabajador&#x27;&quot;&gt;
+																		{{ operario.rol | uppercase }}
+																	&lt;/span&gt;
+																&lt;/div&gt;
+															&lt;/div&gt;
+														&lt;/td&gt;
+														&lt;td class&#x3D;&quot;border-0 border-bottom align-top pt-4&quot;&gt;
+															&lt;div class&#x3D;&quot;d-flex align-items-center text-muted&quot;
+																[class.cursor-pointer]&#x3D;&quot;(operario.categorias_nombres?.length ?? 0) &gt; 0&quot;
+																[style.opacity]&#x3D;&quot;(operario.categorias_nombres?.length ?? 0) &#x3D;&#x3D;&#x3D; 0 ? &#x27;0.5&#x27; : &#x27;1&#x27;&quot;
+																(click)&#x3D;&quot;toggleCategorias(operario.id)&quot;&gt;
+																&lt;div class&#x3D;&quot;icono-categoria rounded-circle d-flex align-items-center justify-content-center me-3&quot;&gt;
+																	&lt;i class&#x3D;&quot;bi&quot;
+																		[ngClass]&#x3D;&quot;operario.rol &#x3D;&#x3D;&#x3D; &#x27;responsable&#x27; ? &#x27;bi-person&#x27; : &#x27;bi-briefcase&#x27;&quot;
+																		[style.color]&#x3D;&quot;operario.rol &#x3D;&#x3D;&#x3D; &#x27;responsable&#x27; ? &#x27;var(--amarillo)&#x27; : &#x27;&#x27;&quot;
+																		[class.text-secondary]&#x3D;&quot;operario.rol !&#x3D;&#x3D; &#x27;responsable&#x27;&quot;
+																		style&#x3D;&quot;font-size: 1.1rem;&quot;&gt;&lt;/i&gt;
+																&lt;/div&gt;
+																&lt;span class&#x3D;&quot;fw-medium text-dark me-1 small&quot;&gt;{{ operario.num_categorias || 0 }} CATEGORÍAS&lt;/span&gt;
+																&lt;i *ngIf&#x3D;&quot;(operario.categorias_nombres?.length ?? 0) &gt; 0&quot; class&#x3D;&quot;bi small ms-1 transition-transform&quot;
+																	[ngClass]&#x3D;&quot;operarioExpandido &#x3D;&#x3D;&#x3D; operario.id ? &#x27;bi-chevron-up text-primary&#x27; : &#x27;bi-chevron-down&#x27;&quot;&gt;&lt;/i&gt;
+															&lt;/div&gt;
+														&lt;/td&gt;
+														&lt;td class&#x3D;&quot;border-0 border-bottom text-muted small align-top pt-4&quot;&gt;
+															&lt;i class&#x3D;&quot;bi bi-envelope me-2&quot;&gt;&lt;/i&gt; {{ operario.email }}
+														&lt;/td&gt;
+														&lt;td class&#x3D;&quot;border-0 border-bottom text-center align-top pt-3&quot;&gt;
+															&lt;div class&#x3D;&quot;d-flex flex-column align-items-center justify-content-center&quot;&gt;
+																&lt;span class&#x3D;&quot;fw-bold fs-5 text-dark lh-1 mb-1&quot;&gt;{{ operario.tickets_asignados || 0 }}&lt;/span&gt;
+																&lt;span class&#x3D;&quot;text-muted small fw-bold etiqueta-min&quot;&gt;ASIGNADOS&lt;/span&gt;
+															&lt;/div&gt;
+														&lt;/td&gt;
+														&lt;td class&#x3D;&quot;border-0 border-bottom text-end pe-4 align-top pt-4&quot;&gt;
+															&lt;div class&#x3D;&quot;d-flex justify-content-end gap-2&quot;&gt;
+																&lt;button class&#x3D;&quot;btn btn-sm btn-outline-primary shadow-sm border-0 bg-light&quot; title&#x3D;&quot;Editar&quot; (click)&#x3D;&quot;abrirModalFormulario(operario)&quot;&gt;
+																	&lt;i class&#x3D;&quot;bi bi-pencil-fill&quot; style&#x3D;&quot;color: #003366;&quot;&gt;&lt;/i&gt;
+																&lt;/button&gt;
+																&lt;button class&#x3D;&quot;btn btn-sm btn-outline-danger shadow-sm border-0 bg-light&quot; title&#x3D;&quot;Eliminar&quot; (click)&#x3D;&quot;abrirModalEliminar(operario)&quot;&gt;
+																	&lt;i class&#x3D;&quot;bi bi-trash-fill text-danger&quot;&gt;&lt;/i&gt;
+																&lt;/button&gt;
+															&lt;/div&gt;
+														&lt;/td&gt;
+													&lt;/tr&gt;
+
+													&lt;!-- Fila expandible de categorías --&gt;
+													&lt;tr *ngIf&#x3D;&quot;operarioExpandido &#x3D;&#x3D;&#x3D; operario.id &amp;&amp; (operario.categorias_nombres?.length ?? 0) &gt; 0&quot;&gt;
+														&lt;td colspan&#x3D;&quot;6&quot; class&#x3D;&quot;border-0 p-0&quot;&gt;
+															&lt;div class&#x3D;&quot;px-5 py-3 d-flex flex-wrap gap-2 slide-down-anim&quot;
+																style&#x3D;&quot;background-color: #f1f3f5; border-bottom: 2px solid #e4e7ef;&quot;&gt;
+																&lt;ng-container *ngFor&#x3D;&quot;let cat of operario.categorias_nombres&quot;&gt;
+																	&lt;span class&#x3D;&quot;badge border text-dark fw-medium px-2 py-1 bg-white shadow-sm&quot;
+																		style&#x3D;&quot;font-size: 0.75rem; border-color: #ced4da !important;&quot;&gt;
+																		&lt;i class&#x3D;&quot;bi bi-tag text-muted me-1&quot;&gt;&lt;/i&gt;{{ cat }}
+																	&lt;/span&gt;
+																&lt;/ng-container&gt;
+															&lt;/div&gt;
+														&lt;/td&gt;
+													&lt;/tr&gt;
+												&lt;/ng-container&gt;
+											&lt;/tbody&gt;
+										&lt;/table&gt;
+									&lt;/div&gt;
+
+									&lt;!-- Vista Móvil: Tarjetas apiladas --&gt;
+									&lt;div class&#x3D;&quot;d-block d-md-none p-3 mobile-cards-container bg-light bg-opacity-10&quot;&gt;
+										&lt;div *ngFor&#x3D;&quot;let operario of operarios; trackBy: trackByOperarioId&quot; class&#x3D;&quot;card-mobile-item border rounded-3 p-3 mb-3 bg-white shadow-sm&quot;&gt;
+											&lt;!-- Fila superior: Avatar, Nombre y Rol --&gt;
+											&lt;div class&#x3D;&quot;d-flex align-items-center justify-content-between mb-3&quot;&gt;
+												&lt;div class&#x3D;&quot;d-flex align-items-center&quot;&gt;
+													&lt;img [src]&#x3D;&quot;&#x27;https://ui-avatars.com/api/?name&#x3D;&#x27; + operario.nombre + &#x27;&amp;background&#x3D;random&#x27;&quot;
+														class&#x3D;&quot;rounded-circle me-3 shadow-sm&quot; width&#x3D;&quot;38&quot; height&#x3D;&quot;38&quot; alt&#x3D;&quot;Avatar&quot;&gt;
+													&lt;div&gt;
+														&lt;h6 class&#x3D;&quot;fw-bold text-dark mb-1 small&quot;&gt;{{ operario.nombre }}&lt;/h6&gt;
+														&lt;span class&#x3D;&quot;badge rounded-pill px-2 py-0.5 etiqueta-rol&quot; style&#x3D;&quot;font-size: 0.6rem; letter-spacing: 0.5px;&quot;
+															[ngClass]&#x3D;&quot;operario.rol &#x3D;&#x3D;&#x3D; &#x27;responsable&#x27; ? &#x27;badge-responsable&#x27; : &#x27;badge-trabajador&#x27;&quot;&gt;
+															{{ operario.rol | uppercase }}
+														&lt;/span&gt;
+													&lt;/div&gt;
+												&lt;/div&gt;
+												&lt;!-- Acciones --&gt;
+												&lt;div class&#x3D;&quot;d-flex gap-2&quot;&gt;
+													&lt;button class&#x3D;&quot;btn btn-sm btn-outline-primary border-0 bg-light rounded-2&quot; title&#x3D;&quot;Editar&quot; (click)&#x3D;&quot;abrirModalFormulario(operario)&quot;&gt;
+														&lt;i class&#x3D;&quot;bi bi-pencil-fill&quot; style&#x3D;&quot;color: #003366;&quot;&gt;&lt;/i&gt;
+													&lt;/button&gt;
+													&lt;button class&#x3D;&quot;btn btn-sm btn-outline-danger border-0 bg-light rounded-2&quot; title&#x3D;&quot;Eliminar&quot; (click)&#x3D;&quot;abrirModalEliminar(operario)&quot;&gt;
+														&lt;i class&#x3D;&quot;bi bi-trash-fill text-danger&quot;&gt;&lt;/i&gt;
+													&lt;/button&gt;
+												&lt;/div&gt;
+											&lt;/div&gt;
+											&lt;!-- Fila central: Correo e info de tickets --&gt;
+											&lt;div class&#x3D;&quot;text-muted small mb-3 border-top pt-2&quot;&gt;
+												&lt;div class&#x3D;&quot;mb-1 text-truncate&quot;&gt;&lt;i class&#x3D;&quot;bi bi-envelope me-2&quot;&gt;&lt;/i&gt; {{ operario.email }}&lt;/div&gt;
+												&lt;div&gt;&lt;i class&#x3D;&quot;bi bi-ticket-perforated me-2&quot;&gt;&lt;/i&gt; &lt;strong&gt;{{ operario.tickets_asignados || 0 }}&lt;/strong&gt; asignados&lt;/div&gt;
+											&lt;/div&gt;
+											&lt;!-- Fila inferior: Categorías y toggle --&gt;
+											&lt;div class&#x3D;&quot;border-top pt-2&quot;&gt;
+												&lt;div class&#x3D;&quot;d-flex align-items-center justify-content-between&quot;
+													[class.cursor-pointer]&#x3D;&quot;(operario.categorias_nombres?.length ?? 0) &gt; 0&quot;
+													[style.opacity]&#x3D;&quot;(operario.categorias_nombres?.length ?? 0) &#x3D;&#x3D;&#x3D; 0 ? &#x27;0.5&#x27; : &#x27;1&#x27;&quot;
+													(click)&#x3D;&quot;toggleCategorias(operario.id)&quot;&gt;
+													&lt;span class&#x3D;&quot;fw-bold text-secondary small&quot; style&#x3D;&quot;font-size: 0.65rem;&quot;&gt;{{ operario.num_categorias || 0 }} CATEGORÍAS&lt;/span&gt;
+													&lt;i *ngIf&#x3D;&quot;(operario.categorias_nombres?.length ?? 0) &gt; 0&quot; class&#x3D;&quot;bi small&quot; [ngClass]&#x3D;&quot;operarioExpandido &#x3D;&#x3D;&#x3D; operario.id ? &#x27;bi-chevron-up text-primary&#x27; : &#x27;bi-chevron-down&#x27;&quot;&gt;&lt;/i&gt;
+												&lt;/div&gt;
+												&lt;!-- Categorías desplegadas --&gt;
+												&lt;div *ngIf&#x3D;&quot;operarioExpandido &#x3D;&#x3D;&#x3D; operario.id &amp;&amp; (operario.categorias_nombres?.length ?? 0) &gt; 0&quot; class&#x3D;&quot;mt-2 d-flex flex-wrap gap-2 slide-down-anim p-2 rounded-2&quot;
+													style&#x3D;&quot;background-color: #f1f3f5; border: 1px solid #dee2e6;&quot;&gt;
+													&lt;span *ngFor&#x3D;&quot;let cat of operario.categorias_nombres&quot; class&#x3D;&quot;badge border text-dark fw-medium px-2 py-1 bg-white shadow-sm&quot;
+														style&#x3D;&quot;font-size: 0.7rem; border-color: #ced4da !important;&quot;&gt;
+														&lt;i class&#x3D;&quot;bi bi-tag text-muted me-1&quot;&gt;&lt;/i&gt;{{ cat }}
+													&lt;/span&gt;
+												&lt;/div&gt;
+											&lt;/div&gt;
+										&lt;/div&gt;
+									&lt;/div&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;
+
+							&lt;!-- Footer Tabla --&gt;
+							&lt;div class&#x3D;&quot;text-center mt-4&quot;&gt;
+								&lt;span class&#x3D;&quot;texto-footer-tabla text-uppercase&quot;&gt;
+									Mostrando {{ operarios.length }} registros del equipo técnico y responsables de la organización
+								&lt;/span&gt;
+							&lt;/div&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/main&gt;
+	&lt;/div&gt;
+
+	&lt;!-- Footer Componente --&gt;
+	&lt;app-footer&gt;&lt;/app-footer&gt;
+
+	&lt;app-formulario-operario
+		*ngIf&#x3D;&quot;mostrarModalFormulario&quot;
+		[operario]&#x3D;&quot;operarioAEditar&quot;
+		(cerrar)&#x3D;&quot;cerrarModalFormulario()&quot;
+		(guardar)&#x3D;&quot;guardarOperario($event)&quot;&gt;
+	&lt;/app-formulario-operario&gt;
+
+	&lt;app-confirmacion-eliminar
+		*ngIf&#x3D;&quot;mostrarModalEliminar&quot;
+		[tipo]&#x3D;&quot;&#x27;operario&#x27;&quot;
+		(cancelar)&#x3D;&quot;cerrarModal()&quot;
+		(confirmar)&#x3D;&quot;confirmarEliminar()&quot;&gt;
+	&lt;/app-confirmacion-eliminar&gt;
+
+	&lt;!-- Modal Confirmación Eliminar Varios Operarios --&gt;
+	&lt;app-confirmacion-eliminar
+		*ngIf&#x3D;&quot;mostrarModalEliminarVarios&quot;
+		[tipo]&#x3D;&quot;&#x27;eliminar-multiple-operarios&#x27;&quot;
+		(cancelar)&#x3D;&quot;cerrarModalEliminarVarios()&quot;
+		(confirmar)&#x3D;&quot;confirmarEliminarVarios()&quot;&gt;
+	&lt;/app-confirmacion-eliminar&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!--   Proyecto: TicketingEVG  Alumno: Joseph Joel Quispe Alvarez  Asignatura:   Curso: 2 DAW  Descripción: Gestión de personal técnico (Versión Angular unificada).--><div class="d-flex flex-column vh-100 overflow-hidden">	<!-- Toast Alerta Premium (Flotante Arriba a la Derecha - Nivel Raíz) -->	<div *ngIf="mensajeFeedback" class="toast-alerta-contenedor" [class.toast-error]="esMensajeError" [class.toast-exito]="!esMensajeError" (click)="mensajeFeedback = null">		<div class="toast-alerta-icono">			<i class="fa-solid" [ngClass]="esMensajeError ? \'fa-circle-exclamation\' : \'fa-circle-check\'"></i>		</div>		<div class="toast-alerta-cuerpo">			<span class="toast-alerta-titulo">{{ esMensajeError ? \'ERROR\' : \'ÉXITO\' }}</span>			<span class="toast-alerta-mensaje">{{ mensajeFeedback }}</span>		</div>		<button class="toast-alerta-cerrar" (click)="mensajeFeedback = null">			<i class="fa-solid fa-xmark"></i>		</button>		<div class="toast-alerta-progreso"></div>	</div>	<div class="d-flex flex-grow-1 overflow-hidden">		<!-- Sidebar Componente -->		<app-sidebar></app-sidebar>		<!-- Contenido Principal -->		<main class="flex-grow-1 overflow-auto contenido-principal">			<div class="flex-grow-1">				<!-- Cabecera de página (Unificada) -->				<header class="bg-white p-4 mb-4 border-bottom shadow-sm d-flex justify-content-between align-items-center sticky-top">					<div class="d-flex align-items-center">						<h1 class="h5 fw-bold mb-0 titulo-primario">Gestión de responsables y trabajadores</h1>					</div>				</header>				<div class="container-fluid px-4">					<!-- Título y Botón de Acción -->					<div class="row align-items-center mb-4 anim-slide-up" style="animation-delay: 0.1s">						<div class="col-12 col-md-6">							<h2 class="fw-bold titulo-primario text-uppercase">LISTADO DE PERSONAL TÉCNICO</h2>							<p class="text-muted small">Aquí podrás gestionar los responsables y trabajadores del sistema de ticketing.</p>						</div>						<div class="col-12 col-md-6 mt-3 mt-md-0 d-flex gap-3 justify-content-md-end">							<button *ngIf="operariosSeleccionados.length > 0" type="button" 								class="btn btn-danger px-4 py-3 rounded-4 shadow-sm fw-bold text-uppercase d-flex align-items-center justify-content-center animate-pulse" 								(click)="abrirModalEliminarVarios()">								<i class="bi bi-trash-fill me-2"></i>								REVOCAR SELECCIONADOS ({{ operariosSeleccionados.length }})							</button>							<button type="button" class="btn btn-evg px-4 py-3 rounded-4 shadow-sm fw-bold text-uppercase d-flex align-items-center justify-content-center" (click)="abrirModalFormulario()">								<i class="bi bi-plus-circle me-2"></i>								AÑADIR OPERARIOS							</button>						</div>					</div>					<!-- Tabla de Operarios -->					<div class="row mb-5">						<div class="col-12">							<div class="card card-premium anim-slide-up" style="animation-delay: 0.2s">								<div class="card-body p-0">									<!-- Vista Escritorio: Tabla clásica -->									<div class="d-none d-md-block table-responsive">										<table class="table table-hover align-middle mb-0 tabla-operarios">											<thead class="text-uppercase">												<tr>													<!-- Selección múltiple -->													<th scope="col" class="border-0 ps-4 py-3" style="width: 50px;">														<div class="form-check d-flex align-items-center justify-content-center">															<input class="form-check-input select-premium-checkbox" type="checkbox" 																[checked]="estanTodosSeleccionados()" (change)="toggleSeleccionarTodos()">														</div>													</th>													<th scope="col" class="border-0 py-3">Personal y tipo</th>													<th scope="col" class="border-0 py-3">Categorías</th>													<th scope="col" class="border-0 py-3">Correo electrónico</th>													<th scope="col" class="border-0 py-3 text-center">Tickets</th>													<th scope="col" class="border-0 py-3"></th>												</tr>											</thead>											<tbody class="border-top-0">												<ng-container *ngFor="let operario of operarios; trackBy: trackByOperarioId">													<!-- Fila principal del operario -->													<tr [class.fila-seleccionada]="isSeleccionada(operario.id)">														<!-- Checkbox individual -->														<td class="ps-4 border-0 border-bottom align-top pt-4" style="width: 50px;">															<div class="form-check d-flex align-items-center justify-content-center">																<input class="form-check-input select-premium-checkbox" type="checkbox"																	[checked]="isSeleccionada(operario.id)" (change)="toggleSeleccion(operario.id)">															</div>														</td>														<td class="border-0 border-bottom align-top pt-4">															<div class="d-flex align-items-center">																<img [src]="\'https://ui-avatars.com/api/?name=\' + operario.nombre + \'&background=random\'"																	class="rounded-circle me-3 shadow-sm" width="42" height="42" alt="Avatar">																<div>																	<span class="fw-bold text-dark me-2">{{ operario.nombre }}</span>																	<span class="badge rounded-pill px-2 py-1 etiqueta-rol"																		[ngClass]="operario.rol === \'responsable\' ? \'badge-responsable\' : \'badge-trabajador\'">																		{{ operario.rol | uppercase }}																	</span>																</div>															</div>														</td>														<td class="border-0 border-bottom align-top pt-4">															<div class="d-flex align-items-center text-muted"																[class.cursor-pointer]="(operario.categorias_nombres?.length ?? 0) > 0"																[style.opacity]="(operario.categorias_nombres?.length ?? 0) === 0 ? \'0.5\' : \'1\'"																(click)="toggleCategorias(operario.id)">																<div class="icono-categoria rounded-circle d-flex align-items-center justify-content-center me-3">																	<i class="bi"																		[ngClass]="operario.rol === \'responsable\' ? \'bi-person\' : \'bi-briefcase\'"																		[style.color]="operario.rol === \'responsable\' ? \'var(--amarillo)\' : \'\'"																		[class.text-secondary]="operario.rol !== \'responsable\'"																		style="font-size: 1.1rem;"></i>																</div>																<span class="fw-medium text-dark me-1 small">{{ operario.num_categorias || 0 }} CATEGORÍAS</span>																<i *ngIf="(operario.categorias_nombres?.length ?? 0) > 0" class="bi small ms-1 transition-transform"																	[ngClass]="operarioExpandido === operario.id ? \'bi-chevron-up text-primary\' : \'bi-chevron-down\'"></i>															</div>														</td>														<td class="border-0 border-bottom text-muted small align-top pt-4">															<i class="bi bi-envelope me-2"></i> {{ operario.email }}														</td>														<td class="border-0 border-bottom text-center align-top pt-3">															<div class="d-flex flex-column align-items-center justify-content-center">																<span class="fw-bold fs-5 text-dark lh-1 mb-1">{{ operario.tickets_asignados || 0 }}</span>																<span class="text-muted small fw-bold etiqueta-min">ASIGNADOS</span>															</div>														</td>														<td class="border-0 border-bottom text-end pe-4 align-top pt-4">															<div class="d-flex justify-content-end gap-2">																<button class="btn btn-sm btn-outline-primary shadow-sm border-0 bg-light" title="Editar" (click)="abrirModalFormulario(operario)">																	<i class="bi bi-pencil-fill" style="color: #003366;"></i>																</button>																<button class="btn btn-sm btn-outline-danger shadow-sm border-0 bg-light" title="Eliminar" (click)="abrirModalEliminar(operario)">																	<i class="bi bi-trash-fill text-danger"></i>																</button>															</div>														</td>													</tr>													<!-- Fila expandible de categorías -->													<tr *ngIf="operarioExpandido === operario.id && (operario.categorias_nombres?.length ?? 0) > 0">														<td colspan="6" class="border-0 p-0">															<div class="px-5 py-3 d-flex flex-wrap gap-2 slide-down-anim"																style="background-color: #f1f3f5; border-bottom: 2px solid #e4e7ef;">																<ng-container *ngFor="let cat of operario.categorias_nombres">																	<span class="badge border text-dark fw-medium px-2 py-1 bg-white shadow-sm"																		style="font-size: 0.75rem; border-color: #ced4da !important;">																		<i class="bi bi-tag text-muted me-1"></i>{{ cat }}																	</span>																</ng-container>															</div>														</td>													</tr>												</ng-container>											</tbody>										</table>									</div>									<!-- Vista Móvil: Tarjetas apiladas -->									<div class="d-block d-md-none p-3 mobile-cards-container bg-light bg-opacity-10">										<div *ngFor="let operario of operarios; trackBy: trackByOperarioId" class="card-mobile-item border rounded-3 p-3 mb-3 bg-white shadow-sm">											<!-- Fila superior: Avatar, Nombre y Rol -->											<div class="d-flex align-items-center justify-content-between mb-3">												<div class="d-flex align-items-center">													<img [src]="\'https://ui-avatars.com/api/?name=\' + operario.nombre + \'&background=random\'"														class="rounded-circle me-3 shadow-sm" width="38" height="38" alt="Avatar">													<div>														<h6 class="fw-bold text-dark mb-1 small">{{ operario.nombre }}</h6>														<span class="badge rounded-pill px-2 py-0.5 etiqueta-rol" style="font-size: 0.6rem; letter-spacing: 0.5px;"															[ngClass]="operario.rol === \'responsable\' ? \'badge-responsable\' : \'badge-trabajador\'">															{{ operario.rol | uppercase }}														</span>													</div>												</div>												<!-- Acciones -->												<div class="d-flex gap-2">													<button class="btn btn-sm btn-outline-primary border-0 bg-light rounded-2" title="Editar" (click)="abrirModalFormulario(operario)">														<i class="bi bi-pencil-fill" style="color: #003366;"></i>													</button>													<button class="btn btn-sm btn-outline-danger border-0 bg-light rounded-2" title="Eliminar" (click)="abrirModalEliminar(operario)">														<i class="bi bi-trash-fill text-danger"></i>													</button>												</div>											</div>											<!-- Fila central: Correo e info de tickets -->											<div class="text-muted small mb-3 border-top pt-2">												<div class="mb-1 text-truncate"><i class="bi bi-envelope me-2"></i> {{ operario.email }}</div>												<div><i class="bi bi-ticket-perforated me-2"></i> <strong>{{ operario.tickets_asignados || 0 }}</strong> asignados</div>											</div>											<!-- Fila inferior: Categorías y toggle -->											<div class="border-top pt-2">												<div class="d-flex align-items-center justify-content-between"													[class.cursor-pointer]="(operario.categorias_nombres?.length ?? 0) > 0"													[style.opacity]="(operario.categorias_nombres?.length ?? 0) === 0 ? \'0.5\' : \'1\'"													(click)="toggleCategorias(operario.id)">													<span class="fw-bold text-secondary small" style="font-size: 0.65rem;">{{ operario.num_categorias || 0 }} CATEGORÍAS</span>													<i *ngIf="(operario.categorias_nombres?.length ?? 0) > 0" class="bi small" [ngClass]="operarioExpandido === operario.id ? \'bi-chevron-up text-primary\' : \'bi-chevron-down\'"></i>												</div>												<!-- Categorías desplegadas -->												<div *ngIf="operarioExpandido === operario.id && (operario.categorias_nombres?.length ?? 0) > 0" class="mt-2 d-flex flex-wrap gap-2 slide-down-anim p-2 rounded-2"													style="background-color: #f1f3f5; border: 1px solid #dee2e6;">													<span *ngFor="let cat of operario.categorias_nombres" class="badge border text-dark fw-medium px-2 py-1 bg-white shadow-sm"														style="font-size: 0.7rem; border-color: #ced4da !important;">														<i class="bi bi-tag text-muted me-1"></i>{{ cat }}													</span>												</div>											</div>										</div>									</div>								</div>							</div>							<!-- Footer Tabla -->							<div class="text-center mt-4">								<span class="texto-footer-tabla text-uppercase">									Mostrando {{ operarios.length }} registros del equipo técnico y responsables de la organización								</span>							</div>						</div>					</div>				</div>			</div>		</main>	</div>	<!-- Footer Componente -->	<app-footer></app-footer>	<app-formulario-operario		*ngIf="mostrarModalFormulario"		[operario]="operarioAEditar"		(cerrar)="cerrarModalFormulario()"		(guardar)="guardarOperario($event)">	</app-formulario-operario>	<app-confirmacion-eliminar		*ngIf="mostrarModalEliminar"		[tipo]="\'operario\'"		(cancelar)="cerrarModal()"		(confirmar)="confirmarEliminar()">	</app-confirmacion-eliminar>	<!-- Modal Confirmación Eliminar Varios Operarios -->	<app-confirmacion-eliminar		*ngIf="mostrarModalEliminarVarios"		[tipo]="\'eliminar-multiple-operarios\'"		(cancelar)="cerrarModalEliminarVarios()"		(confirmar)="confirmarEliminarVarios()">	</app-confirmacion-eliminar></div></div>'
+    var COMPONENTS = [{'name': 'AccesoComponent', 'selector': 'app-acceso'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CategoriasComponent', 'selector': 'app-categorias'},{'name': 'ConfirmacionEliminarComponent', 'selector': 'app-confirmacion-eliminar'},{'name': 'CrearTicketComponent', 'selector': 'app-crear-ticket'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FormularioCategoriaComponent', 'selector': 'app-formulario-categoria'},{'name': 'FormularioOperarioComponent', 'selector': 'app-formulario-operario'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'ListaTicketsComponent', 'selector': 'app-lista-tickets'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ModalTicketComponent', 'selector': 'app-modal-ticket'},{'name': 'OperariosComponent', 'selector': 'app-operarios'},{'name': 'PortalTicketsComponent', 'selector': 'app-portal-tickets'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SsoCallbackComponent', 'selector': 'app-sso-callback'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'OperariosComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'OperariosComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

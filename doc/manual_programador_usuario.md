@@ -200,3 +200,29 @@ Encapsula la comunicación HTTP. Expone llamadas limpias mapeadas a los métodos
 * **Integridad del Negocio**: Cualquier cambio en la lógica de eliminación del usuario debe pasar siempre por la verificación previa de tickets activos. Nunca elimine el operario directamente de la base de datos sin comprobar si tiene tickets asignados en curso, ya que causará fallas lógicas o inconsistencias en la trazabilidad del soporte técnico.
 * **Separación de Capas**: No introduzca sentencias SQL directamente en los controladores ni imprima bloques de código HTML dentro del modelo. Mantenga la pureza arquitectónica y respete el flujo del patrón MVC unificado en el router `index.php`.
 * **Codificación**: Mantenga los archivos codificados estrictamente bajo UTF-8 sin caracteres con tilde, diéresis o `ñ` en los nombres de variables y métodos de programación para garantizar la plena portabilidad en servidores Unix/Windows.
+
+---
+
+## 7. Registro de Cambios e Implementación de Mejoras (Revisión Final - 30-05-2026)
+
+Se ha integrado un conjunto de mejoras de seguridad, consistencia de datos y usabilidad en el sistema de gestión. A continuación se detallan a nivel técnico:
+
+### A. SSO y Mapeo de Roles de la Intranet (`C_Auth.php`)
+* Se ha ampliado la lógica de sincronización de roles en `C_Auth.php` para incorporar el mapeo del rol `'coordinador_ticketing'` proveniente de la Intranet, asociándole de forma automática y transparente el rol local de `'administrador'` en TicketingEVG.
+
+### B. Integridad de Datos en Cascada (`M_Categoria.php` & `M_Usuario.php`)
+* **Restricción de Borrado en Categorías:** Se añadió una validación física en `M_Categoria::eliminar($id)` que consulta la tabla `Categoria_Usuario`. Si existen operarios vinculados a dicha categoría, el borrado se bloquea de raíz retornando un código de error y mensaje preventivo.
+* **Desasignación por Pérdida de Especialidad:** En `M_Usuario::asignar_categorias($id_usuario, $ids_categorias)`, si a un técnico se le retiran especialidades de su perfil, el sistema ejecuta una actualización automática sobre la tabla `Ticket` desvinculando al encargado (`id_usuario_encargado = NULL`) y restableciendo el estado de la incidencia a `'pendiente'` para todos aquellos tickets activos de las categorías removidas.
+
+### C. Sistema de Operaciones por Lote / Selección Múltiple (Frontend & RxJS)
+* **Listados de Categorías y Operarios:** Se rediseñaron `categorias.component.html` y `operarios.component.html` añadiendo columnas con casillas de selección múltiple premium y toggles en la cabecera.
+* **Acción Masiva Dinámica:** Al seleccionar uno o más elementos, se despliega dinámicamente un botón flotante con animación de latido para eliminar/revocar los registros seleccionados.
+* **Procesamiento Concurrente RxJS (`forkJoin`):** En los controladores TypeScript, al confirmar la acción en bloque, se emiten múltiples llamadas HTTP en paralelo haciendo uso del operador `forkJoin`. Tras finalizar la ráfaga, el sistema unifica los resultados e informa de manera pormenorizada cuántas operaciones resultaron exitosas y cuántas fallaron (debido a dependencias de tickets o trabajadores asignados).
+
+### D. Securización de Cierre de Sesión (Confirmación Modal)
+* Se ha configurado la directiva standalone `<app-confirmacion-eliminar>` con el tipo `'cerrar-sesion'`. Al pulsar "Cerrar sesión" en el menú de navegación del usuario (`HeaderComponent`) o en el panel de administración (`SidebarComponent`), se despliega una modal premium de confirmación previniendo salidas accidentales.
+
+### E. Rediseño del Formulario de Edición de Tickets (`modal-ticket.component`)
+* **Validaciones In-Place en Caliente:** Se sustituyeron las alertas globales estilo Toast por etiquetas de error ad-hoc `<div class="text-danger small mt-1">` ubicadas inmediatamente debajo de los inputs de Asunto, Descripción y Categoría.
+* **Prevención de Descuadres por Nombres de Técnicos:** Se dotó de `min-width: 0;` a los contenedores y `text-overflow: ellipsis; white-space: nowrap; overflow: hidden;` a `.tech-name` en el modal de detalles, forzando a que nombres de técnicos muy largos finalicen con puntos suspensivos elegantes y nunca desplacen los botones del footer ni deformen el ancho del modal.
+* **Control de Word-Break en Comentarios:** Se añadió `word-break: break-word` y `overflow-wrap: break-word` a los comentarios del panel lateral para blindar el chat de cualquier desbordamiento si se envían URLs o palabras extremadamente largas.

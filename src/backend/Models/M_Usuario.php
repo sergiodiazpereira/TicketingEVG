@@ -242,7 +242,8 @@ class M_Usuario {
 
 	/**
 	 * Reemplaza las categorías asignadas a un usuario.
-	 * Borra las existentes e inserta las nuevas.
+	 * Borra las existentes, inserta las nuevas, y desasigna automáticamente
+	 * los tickets activos de las categorías desvinculadas.
 	 * @param int $id_usuario ID del usuario.
 	 * @param array $ids_categorias Array de IDs de categorías seleccionadas.
 	 * @return bool

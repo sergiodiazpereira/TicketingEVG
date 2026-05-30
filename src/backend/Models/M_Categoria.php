@@ -1,7 +1,7 @@
 <?php
 /**
  * Proyecto: TicketingEVG
- * Alumno: Sergio Díaz Pereira
+ * Alumno: Joseph Joel Quispe Alvarez
  * Asignatura: DAW
  * Curso: 2025-2026
  * Descripción: Modelo para gestionar las Categorías de la base de datos.
@@ -65,7 +65,7 @@ class M_Categoria {
 	}
 
 	/**
-	 * Elimina una categoría si no tiene tickets asociados.
+	 * Elimina una categoría si no tiene operarios ni tickets asociados.
 	 * @param int $id ID de la categoría.
 	 * @return array Resultado con status y message.
 	 */

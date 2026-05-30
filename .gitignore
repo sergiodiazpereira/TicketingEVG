@@ -15,3 +15,7 @@ tmp/
 
 # Agentes
 .agents/
+
+# phpDocumentor
+src/backend/phpDocumentor.phar
+src/backend/.phpdoc/

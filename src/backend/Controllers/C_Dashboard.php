@@ -1,7 +1,7 @@
 <?php
 /**
  * Proyecto: TicketingEVG
- * Alumno: Sergio Díaz Pereira
+ * Alumno: Joseph Joel Quispe Alvarez
  * Asignatura: DAW
  * Curso: 2025-2026
  * Descripción: Controlador para las peticiones de dashboard admin.

@@ -1,0 +1,1150 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  DashboardComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/admin/dashboard/dashboard.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-dashboard</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="../components/SidebarComponent.html" target="_self" >SidebarComponent</a></code>
+                                <code><a href="../components/FooterComponent.html" target="_self" >FooterComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./dashboard.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./dashboard.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#estadisticas" >estadisticas</a>
+                            </li>
+                            <li>
+                                <a href="#mostrarModalTicket" >mostrarModalTicket</a>
+                            </li>
+                            <li>
+                                <a href="#ticketSeleccionado" >ticketSeleccionado</a>
+                            </li>
+                            <li>
+                                <a href="#ticketsRecientes" >ticketsRecientes</a>
+                            </li>
+                            <li>
+                                <a href="#usuario_actual" >usuario_actual</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#abrirModalTicket" >abrirModalTicket</a>
+                            </li>
+                            <li>
+                                <a href="#cargarEstadisticas" >cargarEstadisticas</a>
+                            </li>
+                            <li>
+                                <a href="#cargarTicketsRecientes" >cargarTicketsRecientes</a>
+                            </li>
+                            <li>
+                                <a href="#cerrarModalTicket" >cerrarModalTicket</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#porcentajeResueltos" >porcentajeResueltos</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, dashboardService: <a href="../injectables/DashboardService.html" target="_self">DashboardService</a>, ticketService: <a href="../injectables/TicketService.html" target="_self">TicketService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/pages/admin/dashboard/dashboard.component.ts:33</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dashboardService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DashboardService.html" target="_self" >DashboardService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>ticketService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/TicketService.html" target="_self" >TicketService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="abrirModalTicket"></a>
+                    <span class="name">
+                        <span ><b>abrirModalTicket</b></span>
+                        <a href="#abrirModalTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>abrirModalTicket(ticket: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="70"
+                                    class="link-to-prism">src/app/pages/admin/dashboard/dashboard.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ticket</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarEstadisticas"></a>
+                    <span class="name">
+                        <span ><b>cargarEstadisticas</b></span>
+                        <a href="#cargarEstadisticas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarEstadisticas()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="48"
+                                    class="link-to-prism">src/app/pages/admin/dashboard/dashboard.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarTicketsRecientes"></a>
+                    <span class="name">
+                        <span ><b>cargarTicketsRecientes</b></span>
+                        <a href="#cargarTicketsRecientes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarTicketsRecientes()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="62"
+                                    class="link-to-prism">src/app/pages/admin/dashboard/dashboard.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cerrarModalTicket"></a>
+                    <span class="name">
+                        <span ><b>cerrarModalTicket</b></span>
+                        <a href="#cerrarModalTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cerrarModalTicket()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="75"
+                                    class="link-to-prism">src/app/pages/admin/dashboard/dashboard.component.ts:75</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="43"
+                                    class="link-to-prism">src/app/pages/admin/dashboard/dashboard.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="estadisticas"></a>
+                    <span class="name">
+                        <span ><b>estadisticas</b></span>
+                        <a href="#estadisticas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Estadisticas.html" target="_self" >Estadisticas | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/pages/admin/dashboard/dashboard.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mostrarModalTicket"></a>
+                    <span class="name">
+                        <span ><b>mostrarModalTicket</b></span>
+                        <a href="#mostrarModalTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/pages/admin/dashboard/dashboard.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Gestión del modal</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ticketSeleccionado"></a>
+                    <span class="name">
+                        <span ><b>ticketSeleccionado</b></span>
+                        <a href="#ticketSeleccionado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/pages/admin/dashboard/dashboard.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ticketsRecientes"></a>
+                    <span class="name">
+                        <span ><b>ticketsRecientes</b></span>
+                        <a href="#ticketsRecientes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Ticket.html" target="_self" >Ticket[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/pages/admin/dashboard/dashboard.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="usuario_actual"></a>
+                    <span class="name">
+                        <span ><b>usuario_actual</b></span>
+                        <a href="#usuario_actual"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Usuario.html" target="_self" >Usuario | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/pages/admin/dashboard/dashboard.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="porcentajeResueltos"></a>
+                        <span class="name"><b>porcentajeResueltos</b><a href="#porcentajeResueltos"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>porcentajeResueltos()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">src/app/pages/admin/dashboard/dashboard.component.ts:80</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { SidebarComponent } from &#x27;../../../shared/layout/sidebar/sidebar.component&#x27;;
+import { FooterComponent } from &#x27;../../../shared/layout/footer/footer.component&#x27;;
+import { AuthService } from &#x27;../../../services/auth.service&#x27;;
+import { Usuario } from &#x27;../../../models/usuario.model&#x27;;
+import { DashboardService } from &#x27;../../../services/dashboard.service&#x27;;
+import { TicketService } from &#x27;../../../services/ticket.service&#x27;;
+import { Estadisticas } from &#x27;../../../models/estadisticas.model&#x27;;
+import { Ticket } from &#x27;../../../models/ticket.model&#x27;;
+
+@Component({
+  selector: &#x27;app-dashboard&#x27;,
+  standalone: true,
+  imports: [CommonModule, SidebarComponent, FooterComponent],
+  templateUrl: &#x27;./dashboard.component.html&#x27;,
+  styleUrl: &#x27;./dashboard.component.css&#x27;
+})
+export class DashboardComponent implements OnInit {
+  usuario_actual: Usuario | null &#x3D; null;
+  estadisticas: Estadisticas | null &#x3D; null;
+  ticketsRecientes: Ticket[] &#x3D; [];
+  
+  /** Gestión del modal */
+  mostrarModalTicket: boolean &#x3D; false;
+  ticketSeleccionado: any &#x3D; null;
+
+  constructor(
+    private authService: AuthService, 
+    private dashboardService: DashboardService,
+    private ticketService: TicketService
+  ) {
+    this.usuario_actual &#x3D; this.authService.getUsuarioActual();
+  }
+
+  ngOnInit(): void {
+    this.cargarEstadisticas();
+    this.cargarTicketsRecientes();
+  }
+
+  cargarEstadisticas(): void {
+    this.dashboardService.getEstadisticas().subscribe({
+      next: (data) &#x3D;&gt; {
+        // Verificar que la respuesta sea un objeto válido y no un error
+        if (data &amp;&amp; !((data as any).error)) {
+          this.estadisticas &#x3D; data;
+        } else {
+          console.error(&#x27;La API devolvió un formato de estadísticas inválido&#x27;);
+        }
+      },
+      error: (err) &#x3D;&gt; console.error(&#x27;Error al cargar estadísticas&#x27;, err)
+    });
+  }
+
+  cargarTicketsRecientes(): void {
+    // Para el admin, traemos todos los tickets (o los más recientes)
+    this.ticketService.getTickets().subscribe({
+      next: (data) &#x3D;&gt; this.ticketsRecientes &#x3D; data.slice(0, 5),
+      error: (err) &#x3D;&gt; console.error(&#x27;Error al cargar tickets recientes&#x27;, err)
+    });
+  }
+
+  abrirModalTicket(ticket: any) {
+    this.ticketSeleccionado &#x3D; ticket;
+    this.mostrarModalTicket &#x3D; true;
+  }
+
+  cerrarModalTicket() {
+    this.mostrarModalTicket &#x3D; false;
+    this.ticketSeleccionado &#x3D; null;
+  }
+
+  get porcentajeResueltos(): number {
+    if (!this.estadisticas || this.estadisticas.total_tickets &#x3D;&#x3D; 0) return 0;
+    return Math.round((this.estadisticas.tickets_resueltos / this.estadisticas.total_tickets) * 100);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!--
+ * Proyecto: TicketingEVG
+ * Alumno: Joseph Joel Quispe Alvarez
+ * Asignatura: DAW
+ * Curso: 2025-2026
+ * Descripción: Vista del dashboard de administrador.
+ --&gt;
+&lt;div class&#x3D;&quot;d-flex flex-column vh-100 overflow-hidden&quot;&gt;
+	&lt;div class&#x3D;&quot;d-flex flex-grow-1 overflow-hidden&quot;&gt;
+		&lt;app-sidebar&gt;&lt;/app-sidebar&gt;
+
+		&lt;!-- Contenido Principal --&gt;
+		&lt;main class&#x3D;&quot;flex-grow-1 overflow-auto contenido-principal&quot;&gt;
+		&lt;div class&#x3D;&quot;flex-grow-1&quot;&gt;
+			&lt;header
+				class&#x3D;&quot;bg-white p-4 mb-4 border-bottom shadow-sm d-flex justify-content-between align-items-center sticky-top&quot;&gt;
+			&lt;div class&#x3D;&quot;d-flex align-items-center&quot;&gt;
+				&lt;h1 class&#x3D;&quot;h5 fw-bold mb-0 titulo-primario&quot;&gt;Dashboard de administrador&lt;/h1&gt;
+			&lt;/div&gt;
+		&lt;/header&gt;
+
+		&lt;div class&#x3D;&quot;container-fluid px-4 pb-4&quot;&gt;
+			&lt;div class&#x3D;&quot;row g-4 mb-5&quot;&gt;
+				&lt;div class&#x3D;&quot;col-12 col-sm-6 col-lg-3&quot;&gt;
+					&lt;div class&#x3D;&quot;card card-premium p-3 h-100 bg-white&quot;&gt;
+						&lt;div class&#x3D;&quot;icono-circulo mb-3 text-primary&quot;&gt;&lt;i class&#x3D;&quot;bi bi-eye&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+						&lt;div class&#x3D;&quot;text-uppercase text-muted fw-bold small etiqueta-espaciada&quot;&gt;Visitas
+							Totales&lt;/div&gt;
+						&lt;div class&#x3D;&quot;h3 fw-bold mb-0&quot;&gt;{{ estadisticas?.total_visitas || 0 }}&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+				&lt;div class&#x3D;&quot;col-12 col-sm-6 col-lg-3&quot;&gt;
+					&lt;div class&#x3D;&quot;card card-premium p-3 h-100 bg-white&quot;&gt;
+						&lt;div class&#x3D;&quot;icono-circulo mb-3 text-warning&quot;&gt;&lt;i class&#x3D;&quot;bi bi-people&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+						&lt;div class&#x3D;&quot;text-uppercase text-muted fw-bold small etiqueta-espaciada&quot;&gt;Operarios&lt;/div&gt;
+						&lt;div class&#x3D;&quot;h3 fw-bold mb-0&quot;&gt;{{ estadisticas?.total_usuarios || 0 }}&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+				&lt;div class&#x3D;&quot;col-12 col-sm-6 col-lg-3&quot;&gt;
+					&lt;div class&#x3D;&quot;card card-premium p-3 h-100 bg-white&quot;&gt;
+						&lt;div class&#x3D;&quot;icono-circulo mb-3 text-success&quot;&gt;&lt;i class&#x3D;&quot;bi bi-tag&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+						&lt;div class&#x3D;&quot;text-uppercase text-muted fw-bold small etiqueta-espaciada&quot;&gt;Categorías
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;h3 fw-bold mb-0&quot;&gt;{{ estadisticas?.total_categorias || 0 }}&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+				&lt;div class&#x3D;&quot;col-12 col-sm-6 col-lg-3&quot;&gt;
+					&lt;div class&#x3D;&quot;card card-premium p-3 h-100 bg-white&quot;&gt;
+						&lt;div class&#x3D;&quot;icono-circulo mb-3 text-danger&quot;&gt;&lt;i class&#x3D;&quot;bi bi-ticket-perforated&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+						&lt;div class&#x3D;&quot;text-uppercase text-muted fw-bold small etiqueta-espaciada&quot;&gt;Tickets
+							Activos&lt;/div&gt;
+						&lt;div class&#x3D;&quot;h3 fw-bold mb-0&quot;&gt;{{ estadisticas?.tickets_activos || 0 }}&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+
+			&lt;div class&#x3D;&quot;row g-4&quot;&gt;
+				&lt;div class&#x3D;&quot;col-12 col-xl-8&quot;&gt;
+					&lt;div class&#x3D;&quot;card card-premium p-4 h-100 bg-white&quot;&gt;
+						&lt;h5 class&#x3D;&quot;fw-bold mb-4&quot;&gt;Estado del servicio de soporte&lt;/h5&gt;
+						&lt;div class&#x3D;&quot;mb-5&quot;&gt;
+							&lt;div class&#x3D;&quot;d-flex justify-content-between mb-2&quot;&gt;
+								&lt;span class&#x3D;&quot;text-uppercase text-muted fw-bold small&quot;&gt;Rendimiento de resolución&lt;/span&gt;
+							&lt;/div&gt;
+							&lt;div class&#x3D;&quot;d-flex align-items-center&quot;&gt;
+								&lt;div class&#x3D;&quot;w-100 pe-3&quot;&gt;
+									&lt;div class&#x3D;&quot;text-uppercase text-muted fw-bold small&quot;&gt;Tickets resueltos&lt;/div&gt;
+									&lt;div class&#x3D;&quot;progress progreso-personalizado mt-2&quot;&gt;
+										&lt;div class&#x3D;&quot;progress-bar bg-primary&quot; [style.width.%]&#x3D;&quot;porcentajeResueltos&quot;&gt;&lt;/div&gt;
+									&lt;/div&gt;
+								&lt;/div&gt;
+								&lt;span class&#x3D;&quot;fw-bold text-success&quot;&gt;{{ porcentajeResueltos }}%&lt;/span&gt;
+							&lt;/div&gt;
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;row g-4&quot;&gt;
+							&lt;div class&#x3D;&quot;col-12&quot;&gt;
+								&lt;span class&#x3D;&quot;text-uppercase text-muted fw-bold small mb-3 d-block&quot;&gt;Carga de trabajo por
+									tipo&lt;/span&gt;
+							&lt;/div&gt;
+							&lt;div class&#x3D;&quot;col-6&quot;&gt;
+								&lt;div class&#x3D;&quot;tarjeta-interna&quot;&gt;
+									&lt;i class&#x3D;&quot;bi bi-exclamation-triangle text-danger fs-4&quot;&gt;&lt;/i&gt;
+									&lt;div class&#x3D;&quot;h3 fw-bold mb-0 mt-2&quot;&gt;{{ estadisticas?.total_incidencias || 0 }}&lt;/div&gt;
+									&lt;div class&#x3D;&quot;text-uppercase text-muted fw-bold small&quot;&gt;Incidencias&lt;/div&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;
+							&lt;div class&#x3D;&quot;col-6&quot;&gt;
+								&lt;div class&#x3D;&quot;tarjeta-interna&quot;&gt;
+									&lt;i class&#x3D;&quot;bi bi-info-circle text-primary fs-4&quot;&gt;&lt;/i&gt;
+									&lt;div class&#x3D;&quot;h3 fw-bold mb-0 mt-2&quot;&gt;{{ estadisticas?.total_peticiones || 0 }}&lt;/div&gt;
+									&lt;div class&#x3D;&quot;text-uppercase text-muted fw-bold small&quot;&gt;Peticiones&lt;/div&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;mt-auto pt-4&quot;&gt;
+							&lt;p class&#x3D;&quot;nota-informativa mb-0&quot;&gt;
+								Contarán como operarios disponibles tanto los trabajadores como los responsables que no
+								tengan ningun ticket asignado
+							&lt;/p&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+
+				&lt;div class&#x3D;&quot;col-12 col-xl-4&quot;&gt;
+					&lt;div class&#x3D;&quot;card card-premium p-4 bg-white mb-4&quot;&gt;
+						&lt;h5 class&#x3D;&quot;fw-bold mb-4&quot;&gt;Distribución por prioridad&lt;/h5&gt;
+						&lt;div class&#x3D;&quot;prioridad-item&quot;&gt;
+							&lt;div class&#x3D;&quot;d-flex align-items-center&quot;&gt;
+								&lt;i class&#x3D;&quot;bi bi-flag text-danger me-3&quot;&gt;&lt;/i&gt;
+								&lt;span class&#x3D;&quot;fw-medium&quot;&gt;Prioridad alta&lt;/span&gt;
+							&lt;/div&gt;
+							&lt;span class&#x3D;&quot;badge bg-danger bg-opacity-10 text-danger rounded-pill px-2 small&quot;&gt;{{ estadisticas?.prioridad_alta || 0 }}
+								TICKETS&lt;/span&gt;
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;prioridad-item&quot;&gt;
+							&lt;div class&#x3D;&quot;d-flex align-items-center&quot;&gt;
+								&lt;i class&#x3D;&quot;bi bi-flag text-warning me-3&quot;&gt;&lt;/i&gt;
+								&lt;span class&#x3D;&quot;fw-medium&quot;&gt;Prioridad media&lt;/span&gt;
+							&lt;/div&gt;
+							&lt;span class&#x3D;&quot;badge bg-warning bg-opacity-10 text-warning rounded-pill px-2 small&quot;&gt;{{ estadisticas?.prioridad_media || 0 }}
+								TICKETS&lt;/span&gt;
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;prioridad-item mb-4&quot;&gt;
+							&lt;div class&#x3D;&quot;d-flex align-items-center&quot;&gt;
+								&lt;i class&#x3D;&quot;bi bi-flag text-secondary me-3&quot;&gt;&lt;/i&gt;
+								&lt;span class&#x3D;&quot;fw-medium&quot;&gt;Prioridad baja&lt;/span&gt;
+							&lt;/div&gt;
+							&lt;span class&#x3D;&quot;badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-2 small&quot;&gt;{{ estadisticas?.prioridad_baja || 0 }}
+								TICKETS&lt;/span&gt;
+						&lt;/div&gt;
+						&lt;div
+							class&#x3D;&quot;d-flex justify-content-between align-items-center p-3 border rounded-3 bg-light bg-opacity-50&quot;&gt;
+							&lt;div class&#x3D;&quot;d-flex align-items-center&quot;&gt;
+								&lt;i class&#x3D;&quot;bi bi-person-check text-success me-3 fs-4&quot;&gt;&lt;/i&gt;
+								&lt;span class&#x3D;&quot;fw-bold small text-uppercase&quot;&gt;Operarios disponibles&lt;/span&gt;
+							&lt;/div&gt;
+							&lt;span class&#x3D;&quot;text-success fw-bold&quot;&gt;{{ estadisticas?.operarios_disponibles || 0 }}&lt;/span&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+					&lt;div class&#x3D;&quot;card card-premium p-3 tarjeta-informativa&quot;&gt;
+						&lt;div class&#x3D;&quot;d-flex align-items-start&quot;&gt;
+							&lt;i class&#x3D;&quot;bi bi-people-fill text-primary fs-4 me-3&quot;&gt;&lt;/i&gt;
+							&lt;div&gt;
+								&lt;h6 class&#x3D;&quot;fw-bold text-primary text-uppercase mb-1 small&quot;&gt;Gestión de personal&lt;/h6&gt;
+								&lt;p class&#x3D;&quot;nota-informativa mb-0 small texto-informativo&quot;&gt;
+									Contarán como operarios disponibles tanto los trabajadores como los responsables que
+									no tengan ningun ticket asignado
+								&lt;/p&gt;
+							&lt;/div&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/main&gt;
+	&lt;/div&gt;
+
+	&lt;!-- Footer Componente --&gt;
+	&lt;app-footer&gt;&lt;/app-footer&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- * Proyecto: TicketingEVG * Alumno: Joseph Joel Quispe Alvarez * Asignatura: DAW * Curso: 2025-2026 * Descripción: Vista del dashboard de administrador. --><div class="d-flex flex-column vh-100 overflow-hidden">	<div class="d-flex flex-grow-1 overflow-hidden">		<app-sidebar></app-sidebar>		<!-- Contenido Principal -->		<main class="flex-grow-1 overflow-auto contenido-principal">		<div class="flex-grow-1">			<header				class="bg-white p-4 mb-4 border-bottom shadow-sm d-flex justify-content-between align-items-center sticky-top">			<div class="d-flex align-items-center">				<h1 class="h5 fw-bold mb-0 titulo-primario">Dashboard de administrador</h1>			</div>		</header>		<div class="container-fluid px-4 pb-4">			<div class="row g-4 mb-5">				<div class="col-12 col-sm-6 col-lg-3">					<div class="card card-premium p-3 h-100 bg-white">						<div class="icono-circulo mb-3 text-primary"><i class="bi bi-eye"></i></div>						<div class="text-uppercase text-muted fw-bold small etiqueta-espaciada">Visitas							Totales</div>						<div class="h3 fw-bold mb-0">{{ estadisticas?.total_visitas || 0 }}</div>					</div>				</div>				<div class="col-12 col-sm-6 col-lg-3">					<div class="card card-premium p-3 h-100 bg-white">						<div class="icono-circulo mb-3 text-warning"><i class="bi bi-people"></i></div>						<div class="text-uppercase text-muted fw-bold small etiqueta-espaciada">Operarios</div>						<div class="h3 fw-bold mb-0">{{ estadisticas?.total_usuarios || 0 }}</div>					</div>				</div>				<div class="col-12 col-sm-6 col-lg-3">					<div class="card card-premium p-3 h-100 bg-white">						<div class="icono-circulo mb-3 text-success"><i class="bi bi-tag"></i></div>						<div class="text-uppercase text-muted fw-bold small etiqueta-espaciada">Categorías						</div>						<div class="h3 fw-bold mb-0">{{ estadisticas?.total_categorias || 0 }}</div>					</div>				</div>				<div class="col-12 col-sm-6 col-lg-3">					<div class="card card-premium p-3 h-100 bg-white">						<div class="icono-circulo mb-3 text-danger"><i class="bi bi-ticket-perforated"></i></div>						<div class="text-uppercase text-muted fw-bold small etiqueta-espaciada">Tickets							Activos</div>						<div class="h3 fw-bold mb-0">{{ estadisticas?.tickets_activos || 0 }}</div>					</div>				</div>			</div>			<div class="row g-4">				<div class="col-12 col-xl-8">					<div class="card card-premium p-4 h-100 bg-white">						<h5 class="fw-bold mb-4">Estado del servicio de soporte</h5>						<div class="mb-5">							<div class="d-flex justify-content-between mb-2">								<span class="text-uppercase text-muted fw-bold small">Rendimiento de resolución</span>							</div>							<div class="d-flex align-items-center">								<div class="w-100 pe-3">									<div class="text-uppercase text-muted fw-bold small">Tickets resueltos</div>									<div class="progress progreso-personalizado mt-2">										<div class="progress-bar bg-primary" [style.width.%]="porcentajeResueltos"></div>									</div>								</div>								<span class="fw-bold text-success">{{ porcentajeResueltos }}%</span>							</div>						</div>						<div class="row g-4">							<div class="col-12">								<span class="text-uppercase text-muted fw-bold small mb-3 d-block">Carga de trabajo por									tipo</span>							</div>							<div class="col-6">								<div class="tarjeta-interna">									<i class="bi bi-exclamation-triangle text-danger fs-4"></i>									<div class="h3 fw-bold mb-0 mt-2">{{ estadisticas?.total_incidencias || 0 }}</div>									<div class="text-uppercase text-muted fw-bold small">Incidencias</div>								</div>							</div>							<div class="col-6">								<div class="tarjeta-interna">									<i class="bi bi-info-circle text-primary fs-4"></i>									<div class="h3 fw-bold mb-0 mt-2">{{ estadisticas?.total_peticiones || 0 }}</div>									<div class="text-uppercase text-muted fw-bold small">Peticiones</div>								</div>							</div>						</div>						<div class="mt-auto pt-4">							<p class="nota-informativa mb-0">								Contarán como operarios disponibles tanto los trabajadores como los responsables que no								tengan ningun ticket asignado							</p>						</div>					</div>				</div>				<div class="col-12 col-xl-4">					<div class="card card-premium p-4 bg-white mb-4">						<h5 class="fw-bold mb-4">Distribución por prioridad</h5>						<div class="prioridad-item">							<div class="d-flex align-items-center">								<i class="bi bi-flag text-danger me-3"></i>								<span class="fw-medium">Prioridad alta</span>							</div>							<span class="badge bg-danger bg-opacity-10 text-danger rounded-pill px-2 small">{{ estadisticas?.prioridad_alta || 0 }}								TICKETS</span>						</div>						<div class="prioridad-item">							<div class="d-flex align-items-center">								<i class="bi bi-flag text-warning me-3"></i>								<span class="fw-medium">Prioridad media</span>							</div>							<span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-2 small">{{ estadisticas?.prioridad_media || 0 }}								TICKETS</span>						</div>						<div class="prioridad-item mb-4">							<div class="d-flex align-items-center">								<i class="bi bi-flag text-secondary me-3"></i>								<span class="fw-medium">Prioridad baja</span>							</div>							<span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-2 small">{{ estadisticas?.prioridad_baja || 0 }}								TICKETS</span>						</div>						<div							class="d-flex justify-content-between align-items-center p-3 border rounded-3 bg-light bg-opacity-50">							<div class="d-flex align-items-center">								<i class="bi bi-person-check text-success me-3 fs-4"></i>								<span class="fw-bold small text-uppercase">Operarios disponibles</span>							</div>							<span class="text-success fw-bold">{{ estadisticas?.operarios_disponibles || 0 }}</span>						</div>					</div>					<div class="card card-premium p-3 tarjeta-informativa">						<div class="d-flex align-items-start">							<i class="bi bi-people-fill text-primary fs-4 me-3"></i>							<div>								<h6 class="fw-bold text-primary text-uppercase mb-1 small">Gestión de personal</h6>								<p class="nota-informativa mb-0 small texto-informativo">									Contarán como operarios disponibles tanto los trabajadores como los responsables que									no tengan ningun ticket asignado								</p>							</div>						</div>					</div>				</div>			</div>			</div>			</div>		</main>	</div>	<!-- Footer Componente -->	<app-footer></app-footer></div></div>'
+    var COMPONENTS = [{'name': 'AccesoComponent', 'selector': 'app-acceso'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CategoriasComponent', 'selector': 'app-categorias'},{'name': 'ConfirmacionEliminarComponent', 'selector': 'app-confirmacion-eliminar'},{'name': 'CrearTicketComponent', 'selector': 'app-crear-ticket'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FormularioCategoriaComponent', 'selector': 'app-formulario-categoria'},{'name': 'FormularioOperarioComponent', 'selector': 'app-formulario-operario'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'ListaTicketsComponent', 'selector': 'app-lista-tickets'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ModalTicketComponent', 'selector': 'app-modal-ticket'},{'name': 'OperariosComponent', 'selector': 'app-operarios'},{'name': 'PortalTicketsComponent', 'selector': 'app-portal-tickets'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SsoCallbackComponent', 'selector': 'app-sso-callback'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'DashboardComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'DashboardComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,2653 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  CrearTicketComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/usuario/crear-ticket/crear-ticket.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-crear-ticket</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="https://angular.io/api/router/RouterModule" target="_blank" >RouterModule</a></code>
+                                <code><a href="https://angular.io/api/forms/ReactiveFormsModule" target="_blank" >ReactiveFormsModule</a></code>
+                                <code><a href="../components/HeaderComponent.html" target="_self" >HeaderComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./crear-ticket.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./crear-ticket.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cargandoCategorias" >cargandoCategorias</a>
+                            </li>
+                            <li>
+                                <a href="#categorias" >categorias</a>
+                            </li>
+                            <li>
+                                <a href="#desplegableCategoriaAbierto" >desplegableCategoriaAbierto</a>
+                            </li>
+                            <li>
+                                <a href="#desplegableEncargadoAbierto" >desplegableEncargadoAbierto</a>
+                            </li>
+                            <li>
+                                <a href="#desplegablePrioridadAbierto" >desplegablePrioridadAbierto</a>
+                            </li>
+                            <li>
+                                <a href="#desplegableTipoAbierto" >desplegableTipoAbierto</a>
+                            </li>
+                            <li>
+                                <a href="#enviando" >enviando</a>
+                            </li>
+                            <li>
+                                <a href="#esAdminOResponsable" >esAdminOResponsable</a>
+                            </li>
+                            <li>
+                                <a href="#fechaMinima" >fechaMinima</a>
+                            </li>
+                            <li>
+                                <a href="#formulario" >formulario</a>
+                            </li>
+                            <li>
+                                <a href="#landingUrl" >landingUrl</a>
+                            </li>
+                            <li>
+                                <a href="#mensajeError" >mensajeError</a>
+                            </li>
+                            <li>
+                                <a href="#mensajeExito" >mensajeExito</a>
+                            </li>
+                            <li>
+                                <a href="#operarios" >operarios</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#PRIORIDAD_MAP" >PRIORIDAD_MAP</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#cerrarDesplegables" >cerrarDesplegables</a>
+                            </li>
+                            <li>
+                                <a href="#getCategoriaEtiqueta" >getCategoriaEtiqueta</a>
+                            </li>
+                            <li>
+                                <a href="#getEncargadoEtiqueta" >getEncargadoEtiqueta</a>
+                            </li>
+                            <li>
+                                <a href="#getPrioridadEtiqueta" >getPrioridadEtiqueta</a>
+                            </li>
+                            <li>
+                                <a href="#getTipoEtiqueta" >getTipoEtiqueta</a>
+                            </li>
+                            <li>
+                                <a href="#logout" >logout</a>
+                            </li>
+                            <li>
+                                <a href="#mostrarMensajeError" >mostrarMensajeError</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onEnviar" >onEnviar</a>
+                            </li>
+                            <li>
+                                <a href="#seleccionarCategoria" >seleccionarCategoria</a>
+                            </li>
+                            <li>
+                                <a href="#seleccionarEncargado" >seleccionarEncargado</a>
+                            </li>
+                            <li>
+                                <a href="#seleccionarPrioridad" >seleccionarPrioridad</a>
+                            </li>
+                            <li>
+                                <a href="#seleccionarTipo" >seleccionarTipo</a>
+                            </li>
+                            <li>
+                                <a href="#toggleDesplegableCategoria" >toggleDesplegableCategoria</a>
+                            </li>
+                            <li>
+                                <a href="#toggleDesplegableEncargado" >toggleDesplegableEncargado</a>
+                            </li>
+                            <li>
+                                <a href="#toggleDesplegablePrioridad" >toggleDesplegablePrioridad</a>
+                            </li>
+                            <li>
+                                <a href="#toggleDesplegableTipo" >toggleDesplegableTipo</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#document:click" >document:click</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#isAdministrador" >isAdministrador</a>
+                                </li>
+                                <li>
+                                    <a href="#operariosFiltrados" >operariosFiltrados</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fb: <a href="https://angular.io/api/forms/FormBuilder" target="_blank">FormBuilder</a>, ticketService: <a href="../injectables/TicketService.html" target="_self">TicketService</a>, authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, categoriasService: <a href="../injectables/CategoriasService.html" target="_self">CategoriasService</a>, usuarioService: <a href="../injectables/UsuarioService.html" target="_self">UsuarioService</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:57</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/forms/FormBuilder" target="_blank" >FormBuilder</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>ticketService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/TicketService.html" target="_self" >TicketService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>categoriasService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/CategoriasService.html" target="_self" >CategoriasService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>usuarioService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UsuarioService.html" target="_self" >UsuarioService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+    <section data-compodoc="block-methods">
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="document:click"></a>
+                    <span class="name">
+                        <span ><b>document:click</b></span>
+                        <a href="#document:click"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <i>Arguments : </i><code>'$event' </code>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>document:click()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="318"
+                                    class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:318</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cerrarDesplegables"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>cerrarDesplegables</b></span>
+                        <a href="#cerrarDesplegables"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>cerrarDesplegables()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@HostListener(&#x27;document:click&#x27;, [&#x27;$event&#x27;])<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="318"
+                                    class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:318</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCategoriaEtiqueta"></a>
+                    <span class="name">
+                        <span ><b>getCategoriaEtiqueta</b></span>
+                        <a href="#getCategoriaEtiqueta"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getCategoriaEtiqueta()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="295"
+                                    class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:295</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getEncargadoEtiqueta"></a>
+                    <span class="name">
+                        <span ><b>getEncargadoEtiqueta</b></span>
+                        <a href="#getEncargadoEtiqueta"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getEncargadoEtiqueta()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="302"
+                                    class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:302</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPrioridadEtiqueta"></a>
+                    <span class="name">
+                        <span ><b>getPrioridadEtiqueta</b></span>
+                        <a href="#getPrioridadEtiqueta"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getPrioridadEtiqueta()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="285"
+                                    class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:285</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTipoEtiqueta"></a>
+                    <span class="name">
+                        <span ><b>getTipoEtiqueta</b></span>
+                        <a href="#getTipoEtiqueta"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTipoEtiqueta()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="280"
+                                    class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:280</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logout"></a>
+                    <span class="name">
+                        <span ><b>logout</b></span>
+                        <a href="#logout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>logout()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="313"
+                                    class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:313</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mostrarMensajeError"></a>
+                    <span class="name">
+                        <span ><b>mostrarMensajeError</b></span>
+                        <a href="#mostrarMensajeError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>mostrarMensajeError(texto: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="114"
+                                    class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:114</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Envía el formulario al backend si es válido.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>texto</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="72"
+                                    class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onEnviar"></a>
+                    <span class="name">
+                        <span ><b>onEnviar</b></span>
+                        <a href="#onEnviar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onEnviar()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="123"
+                                    class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:123</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="seleccionarCategoria"></a>
+                    <span class="name">
+                        <span ><b>seleccionarCategoria</b></span>
+                        <a href="#seleccionarCategoria"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>seleccionarCategoria(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="257"
+                                    class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:257</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="seleccionarEncargado"></a>
+                    <span class="name">
+                        <span ><b>seleccionarEncargado</b></span>
+                        <a href="#seleccionarEncargado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>seleccionarEncargado(id: number | string)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="275"
+                                    class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:275</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                        <code>number | string</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="seleccionarPrioridad"></a>
+                    <span class="name">
+                        <span ><b>seleccionarPrioridad</b></span>
+                        <a href="#seleccionarPrioridad"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>seleccionarPrioridad(prioridad: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="239"
+                                    class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:239</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>prioridad</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="seleccionarTipo"></a>
+                    <span class="name">
+                        <span ><b>seleccionarTipo</b></span>
+                        <a href="#seleccionarTipo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>seleccionarTipo(tipo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="234"
+                                    class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:234</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>tipo</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleDesplegableCategoria"></a>
+                    <span class="name">
+                        <span ><b>toggleDesplegableCategoria</b></span>
+                        <a href="#toggleDesplegableCategoria"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleDesplegableCategoria(event: <a href="https://angular.io/api/router/Event" target="_blank">Event</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="218"
+                                    class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:218</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://angular.io/api/router/Event" target="_blank" >Event</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleDesplegableEncargado"></a>
+                    <span class="name">
+                        <span ><b>toggleDesplegableEncargado</b></span>
+                        <a href="#toggleDesplegableEncargado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleDesplegableEncargado(event: <a href="https://angular.io/api/router/Event" target="_blank">Event</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="226"
+                                    class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:226</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://angular.io/api/router/Event" target="_blank" >Event</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleDesplegablePrioridad"></a>
+                    <span class="name">
+                        <span ><b>toggleDesplegablePrioridad</b></span>
+                        <a href="#toggleDesplegablePrioridad"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleDesplegablePrioridad(event: <a href="https://angular.io/api/router/Event" target="_blank">Event</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="210"
+                                    class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:210</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://angular.io/api/router/Event" target="_blank" >Event</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleDesplegableTipo"></a>
+                    <span class="name">
+                        <span ><b>toggleDesplegableTipo</b></span>
+                        <a href="#toggleDesplegableTipo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleDesplegableTipo(event: <a href="https://angular.io/api/router/Event" target="_blank">Event</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="202"
+                                    class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:202</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://angular.io/api/router/Event" target="_blank" >Event</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargandoCategorias"></a>
+                    <span class="name">
+                        <span ><b>cargandoCategorias</b></span>
+                        <a href="#cargandoCategorias"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categorias"></a>
+                    <span class="name">
+                        <span ><b>categorias</b></span>
+                        <a href="#categorias"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Categoria.html" target="_self" >Categoria[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Categorías cargadas dinámicamente desde la BD</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="desplegableCategoriaAbierto"></a>
+                    <span class="name">
+                        <span ><b>desplegableCategoriaAbierto</b></span>
+                        <a href="#desplegableCategoriaAbierto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="desplegableEncargadoAbierto"></a>
+                    <span class="name">
+                        <span ><b>desplegableEncargadoAbierto</b></span>
+                        <a href="#desplegableEncargadoAbierto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="desplegablePrioridadAbierto"></a>
+                    <span class="name">
+                        <span ><b>desplegablePrioridadAbierto</b></span>
+                        <a href="#desplegablePrioridadAbierto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="desplegableTipoAbierto"></a>
+                    <span class="name">
+                        <span ><b>desplegableTipoAbierto</b></span>
+                        <a href="#desplegableTipoAbierto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Estado de los desplegables personalizados</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="enviando"></a>
+                    <span class="name">
+                        <span ><b>enviando</b></span>
+                        <a href="#enviando"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="esAdminOResponsable"></a>
+                    <span class="name">
+                        <span ><b>esAdminOResponsable</b></span>
+                        <a href="#esAdminOResponsable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fechaMinima"></a>
+                    <span class="name">
+                        <span ><b>fechaMinima</b></span>
+                        <a href="#fechaMinima"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Fecha mínima para el selector de fecha límite (hoy)</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formulario"></a>
+                    <span class="name">
+                        <span ><b>formulario</b></span>
+                        <a href="#formulario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="landingUrl"></a>
+                    <span class="name">
+                        <span ><b>landingUrl</b></span>
+                        <a href="#landingUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>environment.ssoLandingIntranet</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mensajeError"></a>
+                    <span class="name">
+                        <span ><b>mensajeError</b></span>
+                        <a href="#mensajeError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mensajeExito"></a>
+                    <span class="name">
+                        <span ><b>mensajeExito</b></span>
+                        <a href="#mensajeExito"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="operarios"></a>
+                    <span class="name">
+                        <span ><b>operarios</b></span>
+                        <a href="#operarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Usuario.html" target="_self" >Usuario[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Operarios para administradores o responsables</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="PRIORIDAD_MAP"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>PRIORIDAD_MAP</b></span>
+                        <a href="#PRIORIDAD_MAP"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Record&lt;string | string&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    baja: &#x27;b&#x27;,
+    media: &#x27;m&#x27;,
+    alta: &#x27;a&#x27;
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Mapa de prioridad: valor del select → código de la BD</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isAdministrador"></a>
+                        <span class="name"><b>isAdministrador</b><a href="#isAdministrador"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>isAdministrador()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:68</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="operariosFiltrados"></a>
+                        <span class="name"><b>operariosFiltrados</b><a href="#operariosFiltrados"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>operariosFiltrados()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="244" class="link-to-prism">src/app/pages/usuario/crear-ticket/crear-ticket.component.ts:244</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, HostListener } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { RouterModule, Router } from &#x27;@angular/router&#x27;;
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+import { TicketService } from &#x27;../../../services/ticket.service&#x27;;
+import { AuthService } from &#x27;../../../services/auth.service&#x27;;
+import { CategoriasService } from &#x27;../../../services/categorias.service&#x27;;
+import { UsuarioService } from &#x27;../../../services/usuario.service&#x27;;
+import { Categoria } from &#x27;../../../models/categoria.model&#x27;;
+import { Usuario } from &#x27;../../../models/usuario.model&#x27;;
+import { environment } from &#x27;../../../../enviroments/environment&#x27;;
+import { HeaderComponent } from &#x27;../../../shared/layout/header/header.component&#x27;;
+
+@Component({
+  selector: &#x27;app-crear-ticket&#x27;,
+  standalone: true,
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, HeaderComponent],
+  templateUrl: &#x27;./crear-ticket.component.html&#x27;,
+  styleUrl: &#x27;./crear-ticket.component.css&#x27;
+})
+export class CrearTicketComponent implements OnInit {
+  landingUrl &#x3D; environment.ssoLandingIntranet;
+  formulario!: FormGroup;
+  enviando &#x3D; false;
+  mensajeError: string | null &#x3D; null;
+  mensajeExito: string | null &#x3D; null;
+
+  /** Estado de los desplegables personalizados */
+  desplegableTipoAbierto &#x3D; false;
+  desplegablePrioridadAbierto &#x3D; false;
+  desplegableCategoriaAbierto &#x3D; false;
+  desplegableEncargadoAbierto &#x3D; false;
+
+  /** Fecha mínima para el selector de fecha límite (hoy) */
+  fechaMinima &#x3D; &#x27;&#x27;;
+
+  /** Mapa de prioridad: valor del select → código de la BD */
+  readonly PRIORIDAD_MAP: Record&lt;string, string&gt; &#x3D; {
+    baja: &#x27;b&#x27;,
+    media: &#x27;m&#x27;,
+    alta: &#x27;a&#x27;
+  };
+
+  /** Categorías cargadas dinámicamente desde la BD */
+  categorias: Categoria[] &#x3D; [];
+  cargandoCategorias &#x3D; true;
+
+  /** Operarios para administradores o responsables */
+  operarios: Usuario[] &#x3D; [];
+  esAdminOResponsable &#x3D; false;
+
+  constructor(
+    private fb: FormBuilder,
+    private ticketService: TicketService,
+    private authService: AuthService,
+    private categoriasService: CategoriasService,
+    private usuarioService: UsuarioService,
+    private router: Router
+  ) {}
+
+  get isAdministrador(): boolean {
+    return this.authService.getUsuarioActual()?.rol &#x3D;&#x3D;&#x3D; &#x27;administrador&#x27;;
+  }
+
+  ngOnInit(): void {
+    const hoy &#x3D; new Date();
+    const anio &#x3D; hoy.getFullYear();
+    const mes &#x3D; String(hoy.getMonth() + 1).padStart(2, &#x27;0&#x27;);
+    const dia &#x3D; String(hoy.getDate()).padStart(2, &#x27;0&#x27;);
+    this.fechaMinima &#x3D; &#x60;${anio}-${mes}-${dia}&#x60;;
+
+    this.formulario &#x3D; this.fb.group({
+      tipo: [&#x27;incidencia&#x27;, Validators.required],
+      prioridad: [&#x27;media&#x27;, Validators.required],
+      id_categoria: [&#x27;&#x27;, Validators.required],
+      id_usuario_encargado: [&#x27;&#x27;],
+      ubicacion: [&#x27;&#x27;],
+      fecha_limite: [&#x27;&#x27;],
+      titulo: [&#x27;&#x27;, [Validators.required, Validators.minLength(5)]],
+      descripcion: [&#x27;&#x27;, [Validators.required, Validators.minLength(10)]]
+    });
+
+    // Cargar categorías desde la BD
+    this.categoriasService.obtenerCategorias().subscribe({
+      next: (data: any) &#x3D;&gt; {
+        this.categorias &#x3D; data;
+        this.cargandoCategorias &#x3D; false;
+      },
+      error: () &#x3D;&gt; {
+        this.cargandoCategorias &#x3D; false;
+        this.mostrarMensajeError(&#x27;No se pudieron cargar las categorías.&#x27;);
+      }
+    });
+
+    // Cargar operarios si el usuario actual es admin o responsable
+    const usuario &#x3D; this.authService.getUsuarioActual();
+    if (usuario &amp;&amp; (usuario.rol &#x3D;&#x3D;&#x3D; &#x27;administrador&#x27; || usuario.rol &#x3D;&#x3D;&#x3D; &#x27;responsable&#x27;)) {
+      this.esAdminOResponsable &#x3D; true;
+      this.usuarioService.getOperarios().subscribe({
+        next: (data: any) &#x3D;&gt; this.operarios &#x3D; data,
+        error: () &#x3D;&gt; console.error(&#x27;Error al cargar operarios&#x27;)
+      });
+    }
+  }
+
+  /** Envía el formulario al backend si es válido. */
+  mostrarMensajeError(texto: string): void {
+    this.mensajeError &#x3D; texto;
+    setTimeout(() &#x3D;&gt; {
+      if (this.mensajeError &#x3D;&#x3D;&#x3D; texto) {
+        this.mensajeError &#x3D; null;
+      }
+    }, 4000);
+  }
+
+  onEnviar(): void {
+    if (this.formulario.invalid) {
+      this.formulario.markAllAsTouched();
+      this.mostrarMensajeError(&#x27;Por favor, rellena todos los campos obligatorios.&#x27;);
+      return;
+    }
+
+    const usuario &#x3D; this.authService.getUsuarioActual();
+    if (!usuario) {
+      this.mostrarMensajeError(&#x27;No hay sesión activa. Por favor, inicia sesión de nuevo.&#x27;);
+      return;
+    }
+
+    const valores &#x3D; this.formulario.value;
+    const tituloTrimeado &#x3D; (valores.titulo || &#x27;&#x27;).trim();
+    const descripcionTrimeada &#x3D; (valores.descripcion || &#x27;&#x27;).trim();
+    const ubicacionTrimeada &#x3D; (valores.ubicacion || &#x27;&#x27;).trim();
+
+    if (!tituloTrimeado) {
+      this.mostrarMensajeError(&#x27;El título no puede contener sólo espacios en blanco.&#x27;);
+      return;
+    }
+    if (tituloTrimeado.length &lt; 5) {
+      this.mostrarMensajeError(&#x27;El título debe tener al menos 5 caracteres.&#x27;);
+      return;
+    }
+
+    if (!descripcionTrimeada) {
+      this.mostrarMensajeError(&#x27;La descripción no puede contener sólo espacios en blanco.&#x27;);
+      return;
+    }
+    if (descripcionTrimeada.length &lt; 10) {
+      this.mostrarMensajeError(&#x27;La descripción debe tener al menos 10 caracteres.&#x27;);
+      return;
+    }
+
+    if (valores.ubicacion !&#x3D;&#x3D; undefined &amp;&amp; valores.ubicacion !&#x3D;&#x3D; null &amp;&amp; valores.ubicacion !&#x3D;&#x3D; &#x27;&#x27;) {
+      if (!ubicacionTrimeada) {
+        this.mostrarMensajeError(&#x27;La ubicación no puede contener sólo espacios en blanco.&#x27;);
+        return;
+      }
+    }
+
+    const payload: any &#x3D; {
+      tipo: valores.tipo,
+      prioridad: this.PRIORIDAD_MAP[valores.prioridad] ?? &#x27;m&#x27;,
+      id_categoria: valores.id_categoria,
+      titulo: tituloTrimeado,
+      descripcion: descripcionTrimeada,
+      id_usuario_creador: usuario.id,
+      estado: &#x27;pendiente&#x27;,
+      ubicacion: ubicacionTrimeada || null,
+      fecha_prevista: valores.fecha_limite || null
+    };
+
+    if (this.esAdminOResponsable &amp;&amp; valores.id_usuario_encargado) {
+      payload.id_usuario_encargado &#x3D; parseInt(valores.id_usuario_encargado);
+    }
+
+    this.enviando &#x3D; true;
+    this.mensajeError &#x3D; null;
+
+    this.ticketService.crearTicket(payload).subscribe({
+      next: (res) &#x3D;&gt; {
+        this.enviando &#x3D; false;
+        if (res.status &#x3D;&#x3D;&#x3D; &#x27;success&#x27;) {
+          this.mensajeExito &#x3D; &#x60;Ticket ${res.id} creado correctamente. Redirigiendo...&#x60;;
+          setTimeout(() &#x3D;&gt; this.router.navigate([&#x27;/portal-tickets/tickets&#x27;]), 1500);
+        } else {
+          this.mostrarMensajeError(res.message || &#x27;Error al crear el ticket.&#x27;);
+        }
+      },
+      error: () &#x3D;&gt; {
+        this.enviando &#x3D; false;
+        this.mostrarMensajeError(&#x27;Error de conexión con el servidor. Inténtalo de nuevo.&#x27;);
+      }
+    });
+  }
+
+  toggleDesplegableTipo(event: Event): void {
+    event.stopPropagation();
+    this.desplegableTipoAbierto &#x3D; !this.desplegableTipoAbierto;
+    this.desplegablePrioridadAbierto &#x3D; false;
+    this.desplegableCategoriaAbierto &#x3D; false;
+    this.desplegableEncargadoAbierto &#x3D; false;
+  }
+
+  toggleDesplegablePrioridad(event: Event): void {
+    event.stopPropagation();
+    this.desplegablePrioridadAbierto &#x3D; !this.desplegablePrioridadAbierto;
+    this.desplegableTipoAbierto &#x3D; false;
+    this.desplegableCategoriaAbierto &#x3D; false;
+    this.desplegableEncargadoAbierto &#x3D; false;
+  }
+
+  toggleDesplegableCategoria(event: Event): void {
+    event.stopPropagation();
+    this.desplegableCategoriaAbierto &#x3D; !this.desplegableCategoriaAbierto;
+    this.desplegableTipoAbierto &#x3D; false;
+    this.desplegablePrioridadAbierto &#x3D; false;
+    this.desplegableEncargadoAbierto &#x3D; false;
+  }
+
+  toggleDesplegableEncargado(event: Event): void {
+    event.stopPropagation();
+    this.desplegableEncargadoAbierto &#x3D; !this.desplegableEncargadoAbierto;
+    this.desplegableTipoAbierto &#x3D; false;
+    this.desplegablePrioridadAbierto &#x3D; false;
+    this.desplegableCategoriaAbierto &#x3D; false;
+  }
+
+  seleccionarTipo(tipo: string): void {
+    this.formulario.get(&#x27;tipo&#x27;)?.setValue(tipo);
+    this.desplegableTipoAbierto &#x3D; false;
+  }
+
+  seleccionarPrioridad(prioridad: string): void {
+    this.formulario.get(&#x27;prioridad&#x27;)?.setValue(prioridad);
+    this.desplegablePrioridadAbierto &#x3D; false;
+  }
+
+  get operariosFiltrados(): Usuario[] {
+    const idCat &#x3D; this.formulario.get(&#x27;id_categoria&#x27;)?.value;
+    if (!idCat) {
+      return [];
+    }
+    const idCatNum &#x3D; Number(idCat);
+    return this.operarios.filter(op &#x3D;&gt; {
+      if (!op.categorias_ids) return false;
+      const ids &#x3D; String(op.categorias_ids).split(&#x27;,&#x27;).map(Number);
+      return ids.includes(idCatNum);
+    });
+  }
+
+  seleccionarCategoria(id: number): void {
+    this.formulario.get(&#x27;id_categoria&#x27;)?.setValue(id);
+    this.formulario.get(&#x27;id_categoria&#x27;)?.markAsTouched();
+    this.desplegableCategoriaAbierto &#x3D; false;
+
+    // Verificar si el operario seleccionado sigue siendo válido para la nueva categoría
+    const idOperario &#x3D; this.formulario.get(&#x27;id_usuario_encargado&#x27;)?.value;
+    if (idOperario) {
+      const op &#x3D; this.operarios.find(o &#x3D;&gt; o.id &#x3D;&#x3D; idOperario);
+      if (op) {
+        const ids &#x3D; op.categorias_ids ? String(op.categorias_ids).split(&#x27;,&#x27;).map(Number) : [];
+        if (!ids.includes(Number(id))) {
+          this.formulario.get(&#x27;id_usuario_encargado&#x27;)?.setValue(&#x27;&#x27;);
+        }
+      }
+    }
+  }
+
+  seleccionarEncargado(id: number | string): void {
+    this.formulario.get(&#x27;id_usuario_encargado&#x27;)?.setValue(id);
+    this.desplegableEncargadoAbierto &#x3D; false;
+  }
+
+  getTipoEtiqueta(): string {
+    const val &#x3D; this.formulario.get(&#x27;tipo&#x27;)?.value;
+    return val &#x3D;&#x3D;&#x3D; &#x27;peticion&#x27; ? &#x27;PETICIÓN DE SERVICIO&#x27; : &#x27;INCIDENCIA&#x27;;
+  }
+
+  getPrioridadEtiqueta(): string {
+    const val &#x3D; this.formulario.get(&#x27;prioridad&#x27;)?.value;
+    const mapa: Record&lt;string, string&gt; &#x3D; {
+      baja: &#x27;BAJA&#x27;,
+      media: &#x27;MEDIA&#x27;,
+      alta: &#x27;ALTA&#x27;
+    };
+    return mapa[val] || &#x27;SELECCIONA PRIORIDAD&#x27;;
+  }
+
+  getCategoriaEtiqueta(): string {
+    if (this.cargandoCategorias) return &#x27;Cargando categorías...&#x27;;
+    const id &#x3D; this.formulario.get(&#x27;id_categoria&#x27;)?.value;
+    const cat &#x3D; this.categorias.find(c &#x3D;&gt; c.id &#x3D;&#x3D;&#x3D; id);
+    return cat ? cat.nombre : &#x27;Selecciona una categoría&#x27;;
+  }
+
+  getEncargadoEtiqueta(): string {
+    const catId &#x3D; this.formulario.get(&#x27;id_categoria&#x27;)?.value;
+    if (catId &amp;&amp; this.operariosFiltrados.length &#x3D;&#x3D;&#x3D; 0) {
+      return &#x27;-- No hay trabajadores disponibles --&#x27;;
+    }
+    const id &#x3D; this.formulario.get(&#x27;id_usuario_encargado&#x27;)?.value;
+    if (!id) return &#x27;-- Sin asignar --&#x27;;
+    const op &#x3D; this.operarios.find(o &#x3D;&gt; o.id &#x3D;&#x3D; id);
+    return op ? op.nombre + &#x27; (&#x27; + op.rol.toUpperCase() + &#x27;)&#x27; : &#x27;-- Sin asignar --&#x27;;
+  }
+
+  logout(): void {
+    this.authService.logout();
+  }
+
+  @HostListener(&#x27;document:click&#x27;, [&#x27;$event&#x27;])
+  cerrarDesplegables(): void {
+    this.desplegableTipoAbierto &#x3D; false;
+    this.desplegablePrioridadAbierto &#x3D; false;
+    this.desplegableCategoriaAbierto &#x3D; false;
+    this.desplegableEncargadoAbierto &#x3D; false;
+  }
+}
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- 
+  Proyecto: TicketingEVG
+  Alumno: Joseph Joel Quispe Alvarez
+  Asignatura: DAW
+  Curso: 2 DAW
+  Descripción: Formulario para crear un nuevo ticket de soporte.
+--&gt;
+&lt;div class&#x3D;&quot;sergio&quot;&gt;
+	&lt;app-header&gt;&lt;/app-header&gt;
+
+	&lt;main&gt;
+		&lt;div class&#x3D;&quot;container-lg&quot; style&#x3D;&quot;max-width: 900px;&quot;&gt;
+			&lt;div class&#x3D;&quot;d-flex align-items-center gap-3 mb-4 cabecera-pagina&quot;&gt;
+				&lt;a routerLink&#x3D;&quot;/portal-tickets/tickets&quot; class&#x3D;&quot;btn-retroceso&quot;&gt;&lt;i class&#x3D;&quot;fa-solid fa-arrow-left&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+				&lt;div&gt;
+					&lt;h1&gt;Nuevo ticket&lt;/h1&gt;
+					&lt;p&gt;Completa los datos para abrir un nuevo ticket de soporte.&lt;/p&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+
+			&lt;!-- Toast Alerta Premium para Errores (Flotante Arriba a la Derecha - Nivel Raíz) --&gt;
+			&lt;div *ngIf&#x3D;&quot;mensajeError&quot; class&#x3D;&quot;toast-alerta-contenedor toast-error&quot; (click)&#x3D;&quot;mensajeError &#x3D; null&quot;&gt;
+				&lt;div class&#x3D;&quot;toast-alerta-icono&quot;&gt;
+					&lt;i class&#x3D;&quot;fa-solid fa-circle-exclamation&quot;&gt;&lt;/i&gt;
+				&lt;/div&gt;
+				&lt;div class&#x3D;&quot;toast-alerta-cuerpo&quot;&gt;
+					&lt;span class&#x3D;&quot;toast-alerta-titulo&quot;&gt;ERROR&lt;/span&gt;
+					&lt;span class&#x3D;&quot;toast-alerta-mensaje&quot;&gt;{{ mensajeError }}&lt;/span&gt;
+				&lt;/div&gt;
+				&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;toast-alerta-cerrar&quot; (click)&#x3D;&quot;mensajeError &#x3D; null; $event.stopPropagation()&quot;&gt;
+					&lt;i class&#x3D;&quot;fa-solid fa-xmark&quot;&gt;&lt;/i&gt;
+				&lt;/button&gt;
+				&lt;div class&#x3D;&quot;toast-alerta-progreso&quot;&gt;&lt;/div&gt;
+			&lt;/div&gt;
+
+			&lt;!-- Toast Alerta Premium para Éxito (Flotante Arriba a la Derecha - Nivel Raíz) --&gt;
+			&lt;div *ngIf&#x3D;&quot;mensajeExito&quot; class&#x3D;&quot;toast-alerta-contenedor toast-exito&quot; (click)&#x3D;&quot;mensajeExito &#x3D; null&quot;&gt;
+				&lt;div class&#x3D;&quot;toast-alerta-icono&quot;&gt;
+					&lt;i class&#x3D;&quot;fa-solid fa-circle-check&quot;&gt;&lt;/i&gt;
+				&lt;/div&gt;
+				&lt;div class&#x3D;&quot;toast-alerta-cuerpo&quot;&gt;
+					&lt;span class&#x3D;&quot;toast-alerta-titulo&quot;&gt;ÉXITO&lt;/span&gt;
+					&lt;span class&#x3D;&quot;toast-alerta-mensaje&quot;&gt;{{ mensajeExito }}&lt;/span&gt;
+				&lt;/div&gt;
+				&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;toast-alerta-cerrar&quot; (click)&#x3D;&quot;mensajeExito &#x3D; null; $event.stopPropagation()&quot;&gt;
+					&lt;i class&#x3D;&quot;fa-solid fa-xmark&quot;&gt;&lt;/i&gt;
+				&lt;/button&gt;
+				&lt;div class&#x3D;&quot;toast-alerta-progreso&quot;&gt;&lt;/div&gt;
+			&lt;/div&gt;
+
+			&lt;form class&#x3D;&quot;tarjeta-formulario&quot; [formGroup]&#x3D;&quot;formulario&quot; (ngSubmit)&#x3D;&quot;onEnviar()&quot;&gt;
+				&lt;div class&#x3D;&quot;cabecera-seccion-form&quot;&gt;
+					&lt;i class&#x3D;&quot;fa-solid fa-circle-plus&quot;&gt;&lt;/i&gt;
+					&lt;h2&gt;Información general&lt;/h2&gt;
+				&lt;/div&gt;
+				&lt;div class&#x3D;&quot;cuerpo-formulario&quot;&gt;
+					&lt;div class&#x3D;&quot;row g-4&quot;&gt;
+						&lt;div class&#x3D;&quot;col-md-6&quot;&gt;
+							&lt;label class&#x3D;&quot;etiqueta-form&quot; for&#x3D;&quot;campo-tipo&quot;&gt;Tipo de solicitud&lt;/label&gt;
+							&lt;div class&#x3D;&quot;desplegable-personalizado w-100&quot; [class.activo]&#x3D;&quot;desplegableTipoAbierto&quot;&gt;
+								&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;boton-filtro-custom w-100&quot; (click)&#x3D;&quot;toggleDesplegableTipo($event)&quot;&gt;
+									&lt;span&gt;{{ getTipoEtiqueta() }}&lt;/span&gt;
+									&lt;i class&#x3D;&quot;fa-solid fa-chevron-down&quot;&gt;&lt;/i&gt;
+								&lt;/button&gt;
+								&lt;div class&#x3D;&quot;opciones-desplegable&quot; *ngIf&#x3D;&quot;desplegableTipoAbierto&quot;&gt;
+									&lt;div class&#x3D;&quot;opcion-item&quot; [class.seleccionado]&#x3D;&quot;formulario.get(&#x27;tipo&#x27;)?.value &#x3D;&#x3D;&#x3D; &#x27;incidencia&#x27;&quot; (click)&#x3D;&quot;seleccionarTipo(&#x27;incidencia&#x27;)&quot;&gt;
+										&lt;span&gt;INCIDENCIA&lt;/span&gt;
+										&lt;i class&#x3D;&quot;fa-solid fa-check&quot; *ngIf&#x3D;&quot;formulario.get(&#x27;tipo&#x27;)?.value &#x3D;&#x3D;&#x3D; &#x27;incidencia&#x27;&quot;&gt;&lt;/i&gt;
+									&lt;/div&gt;
+									&lt;div class&#x3D;&quot;opcion-item&quot; [class.seleccionado]&#x3D;&quot;formulario.get(&#x27;tipo&#x27;)?.value &#x3D;&#x3D;&#x3D; &#x27;peticion&#x27;&quot; (click)&#x3D;&quot;seleccionarTipo(&#x27;peticion&#x27;)&quot;&gt;
+										&lt;span&gt;PETICIÓN DE SERVICIO&lt;/span&gt;
+										&lt;i class&#x3D;&quot;fa-solid fa-check&quot; *ngIf&#x3D;&quot;formulario.get(&#x27;tipo&#x27;)?.value &#x3D;&#x3D;&#x3D; &#x27;peticion&#x27;&quot;&gt;&lt;/i&gt;
+									&lt;/div&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;col-md-6&quot;&gt;
+							&lt;label class&#x3D;&quot;etiqueta-form&quot; for&#x3D;&quot;campo-prioridad&quot;&gt;Prioridad&lt;/label&gt;
+							&lt;div class&#x3D;&quot;desplegable-personalizado w-100&quot; [class.activo]&#x3D;&quot;desplegablePrioridadAbierto&quot;&gt;
+								&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;boton-filtro-custom w-100&quot; (click)&#x3D;&quot;toggleDesplegablePrioridad($event)&quot;&gt;
+									&lt;span&gt;{{ getPrioridadEtiqueta() }}&lt;/span&gt;
+									&lt;i class&#x3D;&quot;fa-solid fa-chevron-down&quot;&gt;&lt;/i&gt;
+								&lt;/button&gt;
+								&lt;div class&#x3D;&quot;opciones-desplegable&quot; *ngIf&#x3D;&quot;desplegablePrioridadAbierto&quot;&gt;
+									&lt;div class&#x3D;&quot;opcion-item&quot; [class.seleccionado]&#x3D;&quot;formulario.get(&#x27;prioridad&#x27;)?.value &#x3D;&#x3D;&#x3D; &#x27;baja&#x27;&quot; (click)&#x3D;&quot;seleccionarPrioridad(&#x27;baja&#x27;)&quot;&gt;
+										&lt;span&gt;BAJA&lt;/span&gt;
+										&lt;i class&#x3D;&quot;fa-solid fa-check&quot; *ngIf&#x3D;&quot;formulario.get(&#x27;prioridad&#x27;)?.value &#x3D;&#x3D;&#x3D; &#x27;baja&#x27;&quot;&gt;&lt;/i&gt;
+									&lt;/div&gt;
+									&lt;div class&#x3D;&quot;opcion-item&quot; [class.seleccionado]&#x3D;&quot;formulario.get(&#x27;prioridad&#x27;)?.value &#x3D;&#x3D;&#x3D; &#x27;media&#x27;&quot; (click)&#x3D;&quot;seleccionarPrioridad(&#x27;media&#x27;)&quot;&gt;
+										&lt;span&gt;MEDIA&lt;/span&gt;
+										&lt;i class&#x3D;&quot;fa-solid fa-check&quot; *ngIf&#x3D;&quot;formulario.get(&#x27;prioridad&#x27;)?.value &#x3D;&#x3D;&#x3D; &#x27;media&#x27;&quot;&gt;&lt;/i&gt;
+									&lt;/div&gt;
+									&lt;div class&#x3D;&quot;opcion-item&quot; [class.seleccionado]&#x3D;&quot;formulario.get(&#x27;prioridad&#x27;)?.value &#x3D;&#x3D;&#x3D; &#x27;alta&#x27;&quot; (click)&#x3D;&quot;seleccionarPrioridad(&#x27;alta&#x27;)&quot;&gt;
+										&lt;span&gt;ALTA&lt;/span&gt;
+										&lt;i class&#x3D;&quot;fa-solid fa-check&quot; *ngIf&#x3D;&quot;formulario.get(&#x27;prioridad&#x27;)?.value &#x3D;&#x3D;&#x3D; &#x27;alta&#x27;&quot;&gt;&lt;/i&gt;
+									&lt;/div&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;col-md-6&quot;&gt;
+							&lt;label class&#x3D;&quot;etiqueta-form&quot; for&#x3D;&quot;campo-fecha&quot;&gt;Fecha límite o esperada (opcional)&lt;/label&gt;
+							&lt;input id&#x3D;&quot;campo-fecha&quot; type&#x3D;&quot;date&quot; class&#x3D;&quot;control-form&quot; formControlName&#x3D;&quot;fecha_limite&quot; [min]&#x3D;&quot;fechaMinima&quot;&gt;
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;col-md-6&quot;&gt;
+							&lt;label class&#x3D;&quot;etiqueta-form&quot; for&#x3D;&quot;campo-categoria&quot;&gt;
+								Categoría técnica &lt;span class&#x3D;&quot;text-danger&quot;&gt;*&lt;/span&gt;
+							&lt;/label&gt;
+							&lt;div class&#x3D;&quot;desplegable-personalizado w-100&quot; [class.activo]&#x3D;&quot;desplegableCategoriaAbierto&quot;
+								[class.is-invalid]&#x3D;&quot;formulario.get(&#x27;id_categoria&#x27;)?.invalid &amp;&amp; formulario.get(&#x27;id_categoria&#x27;)?.touched&quot;&gt;
+								&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;boton-filtro-custom w-100&quot; (click)&#x3D;&quot;toggleDesplegableCategoria($event)&quot; [disabled]&#x3D;&quot;cargandoCategorias&quot;&gt;
+									&lt;span&gt;{{ getCategoriaEtiqueta() }}&lt;/span&gt;
+									&lt;i class&#x3D;&quot;fa-solid fa-chevron-down&quot;&gt;&lt;/i&gt;
+								&lt;/button&gt;
+								&lt;div class&#x3D;&quot;opciones-desplegable&quot; *ngIf&#x3D;&quot;desplegableCategoriaAbierto &amp;&amp; categorias.length &gt; 0&quot;&gt;
+									&lt;div class&#x3D;&quot;opcion-item&quot; *ngFor&#x3D;&quot;let cat of categorias&quot; [class.seleccionado]&#x3D;&quot;formulario.get(&#x27;id_categoria&#x27;)?.value &#x3D;&#x3D;&#x3D; cat.id&quot; (click)&#x3D;&quot;seleccionarCategoria(cat.id)&quot;&gt;
+										&lt;span&gt;{{ cat.nombre }}&lt;/span&gt;
+										&lt;i class&#x3D;&quot;fa-solid fa-check&quot; *ngIf&#x3D;&quot;formulario.get(&#x27;id_categoria&#x27;)?.value &#x3D;&#x3D;&#x3D; cat.id&quot;&gt;&lt;/i&gt;
+									&lt;/div&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;
+							&lt;div class&#x3D;&quot;text-danger small mt-1&quot; *ngIf&#x3D;&quot;formulario.get(&#x27;id_categoria&#x27;)?.invalid &amp;&amp; formulario.get(&#x27;id_categoria&#x27;)?.touched&quot;&gt;
+								La categoría es obligatoria.
+							&lt;/div&gt;
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;col-md-6&quot;&gt;
+							&lt;label class&#x3D;&quot;etiqueta-form&quot; for&#x3D;&quot;campo-ubicacion&quot;&gt;Ubicación / Aula&lt;/label&gt;
+							&lt;input id&#x3D;&quot;campo-ubicacion&quot; type&#x3D;&quot;text&quot; class&#x3D;&quot;control-form&quot; formControlName&#x3D;&quot;ubicacion&quot;
+								placeholder&#x3D;&quot;Ej: Aula 101, Biblioteca, Sala de reuniones...&quot;&gt;
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;col-md-6&quot; *ngIf&#x3D;&quot;esAdminOResponsable&quot;&gt;
+							&lt;label class&#x3D;&quot;etiqueta-form&quot; for&#x3D;&quot;campo-encargado&quot;&gt;Asignar Técnico / Responsable (Opcional)&lt;/label&gt;
+							&lt;div class&#x3D;&quot;desplegable-personalizado w-100&quot; [class.activo]&#x3D;&quot;desplegableEncargadoAbierto&quot;&gt;
+								&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;boton-filtro-custom w-100&quot; (click)&#x3D;&quot;toggleDesplegableEncargado($event)&quot; [disabled]&#x3D;&quot;formulario.get(&#x27;id_categoria&#x27;)?.value &amp;&amp; operariosFiltrados.length &#x3D;&#x3D;&#x3D; 0&quot; [style.opacity]&#x3D;&quot;(formulario.get(&#x27;id_categoria&#x27;)?.value &amp;&amp; operariosFiltrados.length &#x3D;&#x3D;&#x3D; 0) ? &#x27;0.7&#x27; : &#x27;1&#x27;&quot; [style.cursor]&#x3D;&quot;(formulario.get(&#x27;id_categoria&#x27;)?.value &amp;&amp; operariosFiltrados.length &#x3D;&#x3D;&#x3D; 0) ? &#x27;not-allowed&#x27; : &#x27;pointer&#x27;&quot;&gt;
+									&lt;span&gt;{{ getEncargadoEtiqueta() }}&lt;/span&gt;
+									&lt;i class&#x3D;&quot;fa-solid fa-chevron-down&quot; *ngIf&#x3D;&quot;!(formulario.get(&#x27;id_categoria&#x27;)?.value &amp;&amp; operariosFiltrados.length &#x3D;&#x3D;&#x3D; 0)&quot;&gt;&lt;/i&gt;
+								&lt;/button&gt;
+								&lt;div class&#x3D;&quot;opciones-desplegable&quot; *ngIf&#x3D;&quot;desplegableEncargadoAbierto &amp;&amp; operariosFiltrados.length &gt; 0&quot;&gt;
+									&lt;ng-container *ngIf&#x3D;&quot;formulario.get(&#x27;id_categoria&#x27;)?.value; else seleccionarCatPrimero&quot;&gt;
+										&lt;div class&#x3D;&quot;opcion-item&quot; [class.seleccionado]&#x3D;&quot;formulario.get(&#x27;id_usuario_encargado&#x27;)?.value &#x3D;&#x3D;&#x3D; &#x27;&#x27;&quot; (click)&#x3D;&quot;seleccionarEncargado(&#x27;&#x27;)&quot;&gt;
+											&lt;span&gt;-- Sin asignar --&lt;/span&gt;
+											&lt;i class&#x3D;&quot;fa-solid fa-check&quot; *ngIf&#x3D;&quot;formulario.get(&#x27;id_usuario_encargado&#x27;)?.value &#x3D;&#x3D;&#x3D; &#x27;&#x27;&quot;&gt;&lt;/i&gt;
+										&lt;/div&gt;
+										&lt;div class&#x3D;&quot;opcion-item&quot; *ngFor&#x3D;&quot;let op of operariosFiltrados&quot; [class.seleccionado]&#x3D;&quot;formulario.get(&#x27;id_usuario_encargado&#x27;)?.value &#x3D;&#x3D;&#x3D; op.id&quot; (click)&#x3D;&quot;seleccionarEncargado(op.id)&quot;&gt;
+											&lt;span&gt;{{ op.nombre }} ({{ op.rol | uppercase }})&lt;/span&gt;
+											&lt;i class&#x3D;&quot;fa-solid fa-check&quot; *ngIf&#x3D;&quot;formulario.get(&#x27;id_usuario_encargado&#x27;)?.value &#x3D;&#x3D;&#x3D; op.id&quot;&gt;&lt;/i&gt;
+										&lt;/div&gt;
+									&lt;/ng-container&gt;
+									&lt;ng-template #seleccionarCatPrimero&gt;
+										&lt;div class&#x3D;&quot;opcion-item disabled&quot; style&#x3D;&quot;color: #ea580c; cursor: not-allowed; pointer-events: none; font-weight: 600; padding: 12px 16px; display: flex; align-items: center; gap: 8px;&quot;&gt;
+											&lt;svg width&#x3D;&quot;16&quot; height&#x3D;&quot;16&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2.5&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot;&gt;
+												&lt;circle cx&#x3D;&quot;12&quot; cy&#x3D;&quot;12&quot; r&#x3D;&quot;10&quot;&gt;&lt;/circle&gt;
+												&lt;line x1&#x3D;&quot;12&quot; y1&#x3D;&quot;8&quot; x2&#x3D;&quot;12&quot; y2&#x3D;&quot;12&quot;&gt;&lt;/line&gt;
+												&lt;line x1&#x3D;&quot;12&quot; y1&#x3D;&quot;16&quot; x2&#x3D;&quot;12.01&quot; y2&#x3D;&quot;16&quot;&gt;&lt;/line&gt;
+											&lt;/svg&gt;
+											&lt;span&gt;Selecciona primero una categoría&lt;/span&gt;
+										&lt;/div&gt;
+									&lt;/ng-template&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;
+							&lt;!-- Mensaje si no hay trabajadores disponibles --&gt;
+							&lt;div *ngIf&#x3D;&quot;formulario.get(&#x27;id_categoria&#x27;)?.value &amp;&amp; operariosFiltrados.length &#x3D;&#x3D;&#x3D; 0&quot; 
+								 class&#x3D;&quot;alert alert-warning py-2 px-3 small fw-bold rounded-3&quot; 
+								 style&#x3D;&quot;background-color: #fff9eb; color: #d99339; border: 1px dashed #fef3c7; display: flex; align-items: center; gap: 8px; font-size: 12px; margin-top: 10px;&quot;&gt;
+								&lt;svg width&#x3D;&quot;16&quot; height&#x3D;&quot;16&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2.5&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot;&gt;
+									&lt;circle cx&#x3D;&quot;12&quot; cy&#x3D;&quot;12&quot; r&#x3D;&quot;10&quot;&gt;&lt;/circle&gt;
+									&lt;line x1&#x3D;&quot;12&quot; y1&#x3D;&quot;8&quot; x2&#x3D;&quot;12&quot; y2&#x3D;&quot;12&quot;&gt;&lt;/line&gt;
+									&lt;line x1&#x3D;&quot;12&quot; y1&#x3D;&quot;16&quot; x2&#x3D;&quot;12.01&quot; y2&#x3D;&quot;16&quot;&gt;&lt;/line&gt;
+								&lt;/svg&gt;
+								&lt;span&gt;No hay trabajadores disponibles en esta categoría.&lt;/span&gt;
+							&lt;/div&gt;
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;col-12&quot;&gt;
+							&lt;label class&#x3D;&quot;etiqueta-form&quot; for&#x3D;&quot;campo-titulo&quot;&gt;
+								Título breve del asunto &lt;span class&#x3D;&quot;text-danger&quot;&gt;*&lt;/span&gt;
+							&lt;/label&gt;
+							&lt;input id&#x3D;&quot;campo-titulo&quot; type&#x3D;&quot;text&quot; class&#x3D;&quot;control-form&quot; formControlName&#x3D;&quot;titulo&quot;
+								placeholder&#x3D;&quot;Ej: No funciona la impresora en Aula 203&quot;
+								[class.is-invalid]&#x3D;&quot;formulario.get(&#x27;titulo&#x27;)?.invalid &amp;&amp; formulario.get(&#x27;titulo&#x27;)?.touched&quot;&gt;
+							&lt;div class&#x3D;&quot;text-danger small mt-1&quot; *ngIf&#x3D;&quot;formulario.get(&#x27;titulo&#x27;)?.errors?.[&#x27;required&#x27;] &amp;&amp; formulario.get(&#x27;titulo&#x27;)?.touched&quot;&gt;
+								El título es obligatorio.
+							&lt;/div&gt;
+							&lt;div class&#x3D;&quot;text-danger small mt-1&quot; *ngIf&#x3D;&quot;formulario.get(&#x27;titulo&#x27;)?.errors?.[&#x27;minlength&#x27;] &amp;&amp; formulario.get(&#x27;titulo&#x27;)?.touched&quot;&gt;
+								El título debe tener al menos 5 caracteres.
+							&lt;/div&gt;
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;col-12&quot;&gt;
+							&lt;label class&#x3D;&quot;etiqueta-form&quot; for&#x3D;&quot;campo-descripcion&quot;&gt;
+								Descripción detallada &lt;span class&#x3D;&quot;text-danger&quot;&gt;*&lt;/span&gt;
+							&lt;/label&gt;
+							&lt;textarea id&#x3D;&quot;campo-descripcion&quot; class&#x3D;&quot;control-form&quot; formControlName&#x3D;&quot;descripcion&quot;
+								placeholder&#x3D;&quot;Describe el problema o tu solicitud con el mayor detalle posible...&quot;
+								[class.is-invalid]&#x3D;&quot;formulario.get(&#x27;descripcion&#x27;)?.invalid &amp;&amp; formulario.get(&#x27;descripcion&#x27;)?.touched&quot;&gt;
+							&lt;/textarea&gt;
+							&lt;div class&#x3D;&quot;text-danger small mt-1&quot; *ngIf&#x3D;&quot;formulario.get(&#x27;descripcion&#x27;)?.errors?.[&#x27;required&#x27;] &amp;&amp; formulario.get(&#x27;descripcion&#x27;)?.touched&quot;&gt;
+								La descripción es obligatoria.
+							&lt;/div&gt;
+							&lt;div class&#x3D;&quot;text-danger small mt-1&quot; *ngIf&#x3D;&quot;formulario.get(&#x27;descripcion&#x27;)?.errors?.[&#x27;minlength&#x27;] &amp;&amp; formulario.get(&#x27;descripcion&#x27;)?.touched&quot;&gt;
+								La descripción debe tener al menos 10 caracteres.
+							&lt;/div&gt;
+							&lt;span class&#x3D;&quot;hint-form&quot;&gt;Incluye cualquier paso que hayas intentado ya para solucionar el problema.&lt;/span&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+				&lt;div class&#x3D;&quot;modal-pie-premium border-top bg-light&quot; style&#x3D;&quot;padding: 1.5rem 2rem;&quot;&gt;
+					&lt;div class&#x3D;&quot;ms-auto d-flex align-items-center gap-3&quot;&gt;
+						&lt;a routerLink&#x3D;&quot;/portal-tickets/tickets&quot; class&#x3D;&quot;boton-cancelar&quot;&gt;Cancelar&lt;/a&gt;
+						&lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;boton-enviar&quot; [disabled]&#x3D;&quot;enviando&quot;&gt;
+							&lt;span *ngIf&#x3D;&quot;!enviando&quot;&gt;&lt;i class&#x3D;&quot;fa-solid fa-paper-plane&quot;&gt;&lt;/i&gt; Enviar ticket&lt;/span&gt;
+							&lt;span *ngIf&#x3D;&quot;enviando&quot;&gt;&lt;i class&#x3D;&quot;fa-solid fa-spinner fa-spin&quot;&gt;&lt;/i&gt; Enviando...&lt;/span&gt;
+						&lt;/button&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/form&gt;
+		&lt;/div&gt;
+	&lt;/main&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!--   Proyecto: TicketingEVG  Alumno: Joseph Joel Quispe Alvarez  Asignatura: DAW  Curso: 2 DAW  Descripción: Formulario para crear un nuevo ticket de soporte.--><div class="sergio">	<app-header></app-header>	<main>		<div class="container-lg" style="max-width: 900px;">			<div class="d-flex align-items-center gap-3 mb-4 cabecera-pagina">				<a routerLink="/portal-tickets/tickets" class="btn-retroceso"><i class="fa-solid fa-arrow-left"></i></a>				<div>					<h1>Nuevo ticket</h1>					<p>Completa los datos para abrir un nuevo ticket de soporte.</p>				</div>			</div>			<!-- Toast Alerta Premium para Errores (Flotante Arriba a la Derecha - Nivel Raíz) -->			<div *ngIf="mensajeError" class="toast-alerta-contenedor toast-error" (click)="mensajeError = null">				<div class="toast-alerta-icono">					<i class="fa-solid fa-circle-exclamation"></i>				</div>				<div class="toast-alerta-cuerpo">					<span class="toast-alerta-titulo">ERROR</span>					<span class="toast-alerta-mensaje">{{ mensajeError }}</span>				</div>				<button type="button" class="toast-alerta-cerrar" (click)="mensajeError = null; $event.stopPropagation()">					<i class="fa-solid fa-xmark"></i>				</button>				<div class="toast-alerta-progreso"></div>			</div>			<!-- Toast Alerta Premium para Éxito (Flotante Arriba a la Derecha - Nivel Raíz) -->			<div *ngIf="mensajeExito" class="toast-alerta-contenedor toast-exito" (click)="mensajeExito = null">				<div class="toast-alerta-icono">					<i class="fa-solid fa-circle-check"></i>				</div>				<div class="toast-alerta-cuerpo">					<span class="toast-alerta-titulo">ÉXITO</span>					<span class="toast-alerta-mensaje">{{ mensajeExito }}</span>				</div>				<button type="button" class="toast-alerta-cerrar" (click)="mensajeExito = null; $event.stopPropagation()">					<i class="fa-solid fa-xmark"></i>				</button>				<div class="toast-alerta-progreso"></div>			</div>			<form class="tarjeta-formulario" [formGroup]="formulario" (ngSubmit)="onEnviar()">				<div class="cabecera-seccion-form">					<i class="fa-solid fa-circle-plus"></i>					<h2>Información general</h2>				</div>				<div class="cuerpo-formulario">					<div class="row g-4">						<div class="col-md-6">							<label class="etiqueta-form" for="campo-tipo">Tipo de solicitud</label>							<div class="desplegable-personalizado w-100" [class.activo]="desplegableTipoAbierto">								<button type="button" class="boton-filtro-custom w-100" (click)="toggleDesplegableTipo($event)">									<span>{{ getTipoEtiqueta() }}</span>									<i class="fa-solid fa-chevron-down"></i>								</button>								<div class="opciones-desplegable" *ngIf="desplegableTipoAbierto">									<div class="opcion-item" [class.seleccionado]="formulario.get(\'tipo\')?.value === \'incidencia\'" (click)="seleccionarTipo(\'incidencia\')">										<span>INCIDENCIA</span>										<i class="fa-solid fa-check" *ngIf="formulario.get(\'tipo\')?.value === \'incidencia\'"></i>									</div>									<div class="opcion-item" [class.seleccionado]="formulario.get(\'tipo\')?.value === \'peticion\'" (click)="seleccionarTipo(\'peticion\')">										<span>PETICIÓN DE SERVICIO</span>										<i class="fa-solid fa-check" *ngIf="formulario.get(\'tipo\')?.value === \'peticion\'"></i>									</div>								</div>							</div>						</div>						<div class="col-md-6">							<label class="etiqueta-form" for="campo-prioridad">Prioridad</label>							<div class="desplegable-personalizado w-100" [class.activo]="desplegablePrioridadAbierto">								<button type="button" class="boton-filtro-custom w-100" (click)="toggleDesplegablePrioridad($event)">									<span>{{ getPrioridadEtiqueta() }}</span>									<i class="fa-solid fa-chevron-down"></i>								</button>								<div class="opciones-desplegable" *ngIf="desplegablePrioridadAbierto">									<div class="opcion-item" [class.seleccionado]="formulario.get(\'prioridad\')?.value === \'baja\'" (click)="seleccionarPrioridad(\'baja\')">										<span>BAJA</span>										<i class="fa-solid fa-check" *ngIf="formulario.get(\'prioridad\')?.value === \'baja\'"></i>									</div>									<div class="opcion-item" [class.seleccionado]="formulario.get(\'prioridad\')?.value === \'media\'" (click)="seleccionarPrioridad(\'media\')">										<span>MEDIA</span>										<i class="fa-solid fa-check" *ngIf="formulario.get(\'prioridad\')?.value === \'media\'"></i>									</div>									<div class="opcion-item" [class.seleccionado]="formulario.get(\'prioridad\')?.value === \'alta\'" (click)="seleccionarPrioridad(\'alta\')">										<span>ALTA</span>										<i class="fa-solid fa-check" *ngIf="formulario.get(\'prioridad\')?.value === \'alta\'"></i>									</div>								</div>							</div>						</div>						<div class="col-md-6">							<label class="etiqueta-form" for="campo-fecha">Fecha límite o esperada (opcional)</label>							<input id="campo-fecha" type="date" class="control-form" formControlName="fecha_limite" [min]="fechaMinima">						</div>						<div class="col-md-6">							<label class="etiqueta-form" for="campo-categoria">								Categoría técnica <span class="text-danger">*</span>							</label>							<div class="desplegable-personalizado w-100" [class.activo]="desplegableCategoriaAbierto"								[class.is-invalid]="formulario.get(\'id_categoria\')?.invalid && formulario.get(\'id_categoria\')?.touched">								<button type="button" class="boton-filtro-custom w-100" (click)="toggleDesplegableCategoria($event)" [disabled]="cargandoCategorias">									<span>{{ getCategoriaEtiqueta() }}</span>									<i class="fa-solid fa-chevron-down"></i>								</button>								<div class="opciones-desplegable" *ngIf="desplegableCategoriaAbierto && categorias.length > 0">									<div class="opcion-item" *ngFor="let cat of categorias" [class.seleccionado]="formulario.get(\'id_categoria\')?.value === cat.id" (click)="seleccionarCategoria(cat.id)">										<span>{{ cat.nombre }}</span>										<i class="fa-solid fa-check" *ngIf="formulario.get(\'id_categoria\')?.value === cat.id"></i>									</div>								</div>							</div>							<div class="text-danger small mt-1" *ngIf="formulario.get(\'id_categoria\')?.invalid && formulario.get(\'id_categoria\')?.touched">								La categoría es obligatoria.							</div>						</div>						<div class="col-md-6">							<label class="etiqueta-form" for="campo-ubicacion">Ubicación / Aula</label>							<input id="campo-ubicacion" type="text" class="control-form" formControlName="ubicacion"								placeholder="Ej: Aula 101, Biblioteca, Sala de reuniones...">						</div>						<div class="col-md-6" *ngIf="esAdminOResponsable">							<label class="etiqueta-form" for="campo-encargado">Asignar Técnico / Responsable (Opcional)</label>							<div class="desplegable-personalizado w-100" [class.activo]="desplegableEncargadoAbierto">								<button type="button" class="boton-filtro-custom w-100" (click)="toggleDesplegableEncargado($event)" [disabled]="formulario.get(\'id_categoria\')?.value && operariosFiltrados.length === 0" [style.opacity]="(formulario.get(\'id_categoria\')?.value && operariosFiltrados.length === 0) ? \'0.7\' : \'1\'" [style.cursor]="(formulario.get(\'id_categoria\')?.value && operariosFiltrados.length === 0) ? \'not-allowed\' : \'pointer\'">									<span>{{ getEncargadoEtiqueta() }}</span>									<i class="fa-solid fa-chevron-down" *ngIf="!(formulario.get(\'id_categoria\')?.value && operariosFiltrados.length === 0)"></i>								</button>								<div class="opciones-desplegable" *ngIf="desplegableEncargadoAbierto && operariosFiltrados.length > 0">									<ng-container *ngIf="formulario.get(\'id_categoria\')?.value; else seleccionarCatPrimero">										<div class="opcion-item" [class.seleccionado]="formulario.get(\'id_usuario_encargado\')?.value === \'\'" (click)="seleccionarEncargado(\'\')">											<span>-- Sin asignar --</span>											<i class="fa-solid fa-check" *ngIf="formulario.get(\'id_usuario_encargado\')?.value === \'\'"></i>										</div>										<div class="opcion-item" *ngFor="let op of operariosFiltrados" [class.seleccionado]="formulario.get(\'id_usuario_encargado\')?.value === op.id" (click)="seleccionarEncargado(op.id)">											<span>{{ op.nombre }} ({{ op.rol | uppercase }})</span>											<i class="fa-solid fa-check" *ngIf="formulario.get(\'id_usuario_encargado\')?.value === op.id"></i>										</div>									</ng-container>									<ng-template #seleccionarCatPrimero>										<div class="opcion-item disabled" style="color: #ea580c; cursor: not-allowed; pointer-events: none; font-weight: 600; padding: 12px 16px; display: flex; align-items: center; gap: 8px;">											<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">												<circle cx="12" cy="12" r="10"></circle>												<line x1="12" y1="8" x2="12" y2="12"></line>												<line x1="12" y1="16" x2="12.01" y2="16"></line>											</svg>											<span>Selecciona primero una categoría</span>										</div>									</ng-template>								</div>							</div>							<!-- Mensaje si no hay trabajadores disponibles -->							<div *ngIf="formulario.get(\'id_categoria\')?.value && operariosFiltrados.length === 0" 								 class="alert alert-warning py-2 px-3 small fw-bold rounded-3" 								 style="background-color: #fff9eb; color: #d99339; border: 1px dashed #fef3c7; display: flex; align-items: center; gap: 8px; font-size: 12px; margin-top: 10px;">								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">									<circle cx="12" cy="12" r="10"></circle>									<line x1="12" y1="8" x2="12" y2="12"></line>									<line x1="12" y1="16" x2="12.01" y2="16"></line>								</svg>								<span>No hay trabajadores disponibles en esta categoría.</span>							</div>						</div>						<div class="col-12">							<label class="etiqueta-form" for="campo-titulo">								Título breve del asunto <span class="text-danger">*</span>							</label>							<input id="campo-titulo" type="text" class="control-form" formControlName="titulo"								placeholder="Ej: No funciona la impresora en Aula 203"								[class.is-invalid]="formulario.get(\'titulo\')?.invalid && formulario.get(\'titulo\')?.touched">							<div class="text-danger small mt-1" *ngIf="formulario.get(\'titulo\')?.errors?.[\'required\'] && formulario.get(\'titulo\')?.touched">								El título es obligatorio.							</div>							<div class="text-danger small mt-1" *ngIf="formulario.get(\'titulo\')?.errors?.[\'minlength\'] && formulario.get(\'titulo\')?.touched">								El título debe tener al menos 5 caracteres.							</div>						</div>						<div class="col-12">							<label class="etiqueta-form" for="campo-descripcion">								Descripción detallada <span class="text-danger">*</span>							</label>							<textarea id="campo-descripcion" class="control-form" formControlName="descripcion"								placeholder="Describe el problema o tu solicitud con el mayor detalle posible..."								[class.is-invalid]="formulario.get(\'descripcion\')?.invalid && formulario.get(\'descripcion\')?.touched">							</textarea>							<div class="text-danger small mt-1" *ngIf="formulario.get(\'descripcion\')?.errors?.[\'required\'] && formulario.get(\'descripcion\')?.touched">								La descripción es obligatoria.							</div>							<div class="text-danger small mt-1" *ngIf="formulario.get(\'descripcion\')?.errors?.[\'minlength\'] && formulario.get(\'descripcion\')?.touched">								La descripción debe tener al menos 10 caracteres.							</div>							<span class="hint-form">Incluye cualquier paso que hayas intentado ya para solucionar el problema.</span>						</div>					</div>				</div>				<div class="modal-pie-premium border-top bg-light" style="padding: 1.5rem 2rem;">					<div class="ms-auto d-flex align-items-center gap-3">						<a routerLink="/portal-tickets/tickets" class="boton-cancelar">Cancelar</a>						<button type="submit" class="boton-enviar" [disabled]="enviando">							<span *ngIf="!enviando"><i class="fa-solid fa-paper-plane"></i> Enviar ticket</span>							<span *ngIf="enviando"><i class="fa-solid fa-spinner fa-spin"></i> Enviando...</span>						</button>					</div>				</div>			</form>		</div>	</main></div></div>'
+    var COMPONENTS = [{'name': 'AccesoComponent', 'selector': 'app-acceso'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CategoriasComponent', 'selector': 'app-categorias'},{'name': 'ConfirmacionEliminarComponent', 'selector': 'app-confirmacion-eliminar'},{'name': 'CrearTicketComponent', 'selector': 'app-crear-ticket'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FormularioCategoriaComponent', 'selector': 'app-formulario-categoria'},{'name': 'FormularioOperarioComponent', 'selector': 'app-formulario-operario'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'ListaTicketsComponent', 'selector': 'app-lista-tickets'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ModalTicketComponent', 'selector': 'app-modal-ticket'},{'name': 'OperariosComponent', 'selector': 'app-operarios'},{'name': 'PortalTicketsComponent', 'selector': 'app-portal-tickets'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SsoCallbackComponent', 'selector': 'app-sso-callback'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'CrearTicketComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'CrearTicketComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

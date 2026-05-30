@@ -1,0 +1,2528 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ListaTicketsComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/usuario/lista-tickets/lista-tickets.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Proyecto: TicketingEVG
+Alumno: Joseph Joel Quispe Alvarez
+Asignatura: DAW
+Curso: 2025-2026
+Descripción: Componente para el listado detallado de mis tickets.</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-lista-tickets</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="https://angular.io/api/router/RouterModule" target="_blank" >RouterModule</a></code>
+                                <code><a href="https://angular.io/api/forms/FormsModule" target="_blank" >FormsModule</a></code>
+                                <code><a href="../components/ModalTicketComponent.html" target="_self" >ModalTicketComponent</a></code>
+                                <code><a href="../components/FooterComponent.html" target="_self" >FooterComponent</a></code>
+                                <code><a href="../components/HeaderComponent.html" target="_self" >HeaderComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./lista-tickets.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./lista-tickets.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#desplegableCreadorAbierto" >desplegableCreadorAbierto</a>
+                            </li>
+                            <li>
+                                <a href="#desplegableEstadoAbierto" >desplegableEstadoAbierto</a>
+                            </li>
+                            <li>
+                                <a href="#desplegableTipoAbierto" >desplegableTipoAbierto</a>
+                            </li>
+                            <li>
+                                <a href="#filtroCreador" >filtroCreador</a>
+                            </li>
+                            <li>
+                                <a href="#filtroEstado" >filtroEstado</a>
+                            </li>
+                            <li>
+                                <a href="#filtroTipo" >filtroTipo</a>
+                            </li>
+                            <li>
+                                <a href="#landingUrl" >landingUrl</a>
+                            </li>
+                            <li>
+                                <a href="#mostrarModalTicket" >mostrarModalTicket</a>
+                            </li>
+                            <li>
+                                <a href="#operarios" >operarios</a>
+                            </li>
+                            <li>
+                                <a href="#terminoBusqueda" >terminoBusqueda</a>
+                            </li>
+                            <li>
+                                <a href="#tickets" >tickets</a>
+                            </li>
+                            <li>
+                                <a href="#ticketSeleccionado" >ticketSeleccionado</a>
+                            </li>
+                            <li>
+                                <a href="#ticketsFiltrados" >ticketsFiltrados</a>
+                            </li>
+                            <li>
+                                <a href="#usuario_actual" >usuario_actual</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#abrirModalTicket" >abrirModalTicket</a>
+                            </li>
+                            <li>
+                                <a href="#cargarOperarios" >cargarOperarios</a>
+                            </li>
+                            <li>
+                                <a href="#cargarTickets" >cargarTickets</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#cerrarDesplegables" >cerrarDesplegables</a>
+                            </li>
+                            <li>
+                                <a href="#cerrarModalTicket" >cerrarModalTicket</a>
+                            </li>
+                            <li>
+                                <a href="#filtrarTickets" >filtrarTickets</a>
+                            </li>
+                            <li>
+                                <a href="#getCreadorEtiqueta" >getCreadorEtiqueta</a>
+                            </li>
+                            <li>
+                                <a href="#getEstadoEtiqueta" >getEstadoEtiqueta</a>
+                            </li>
+                            <li>
+                                <a href="#getNombreEncargado" >getNombreEncargado</a>
+                            </li>
+                            <li>
+                                <a href="#getTipoEtiqueta" >getTipoEtiqueta</a>
+                            </li>
+                            <li>
+                                <a href="#logout" >logout</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onAsignarTicket" >onAsignarTicket</a>
+                            </li>
+                            <li>
+                                <a href="#seleccionarCreador" >seleccionarCreador</a>
+                            </li>
+                            <li>
+                                <a href="#seleccionarEstado" >seleccionarEstado</a>
+                            </li>
+                            <li>
+                                <a href="#seleccionarTipo" >seleccionarTipo</a>
+                            </li>
+                            <li>
+                                <a href="#toggleDesplegableCreador" >toggleDesplegableCreador</a>
+                            </li>
+                            <li>
+                                <a href="#toggleDesplegableEstado" >toggleDesplegableEstado</a>
+                            </li>
+                            <li>
+                                <a href="#toggleDesplegableTipo" >toggleDesplegableTipo</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#document:click" >document:click</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#creadoresUnicos" >creadoresUnicos</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, ticketService: <a href="../injectables/TicketService.html" target="_self">TicketService</a>, usuarioService: <a href="../injectables/UsuarioService.html" target="_self">UsuarioService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:62</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>ticketService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/TicketService.html" target="_self" >TicketService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>usuarioService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UsuarioService.html" target="_self" >UsuarioService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+    <section data-compodoc="block-methods">
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="document:click"></a>
+                    <span class="name">
+                        <span ><b>document:click</b></span>
+                        <a href="#document:click"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <i>Arguments : </i><code>'$event' </code>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>document:click()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="253"
+                                    class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:253</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="abrirModalTicket"></a>
+                    <span class="name">
+                        <span ><b>abrirModalTicket</b></span>
+                        <a href="#abrirModalTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>abrirModalTicket(ticket: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="171"
+                                    class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:171</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ticket</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarOperarios"></a>
+                    <span class="name">
+                        <span ><b>cargarOperarios</b></span>
+                        <a href="#cargarOperarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarOperarios()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="76"
+                                    class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:76</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarTickets"></a>
+                    <span class="name">
+                        <span ><b>cargarTickets</b></span>
+                        <a href="#cargarTickets"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarTickets()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="106"
+                                    class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:106</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cerrarDesplegables"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>cerrarDesplegables</b></span>
+                        <a href="#cerrarDesplegables"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>cerrarDesplegables()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@HostListener(&#x27;document:click&#x27;, [&#x27;$event&#x27;])<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="253"
+                                    class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:253</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cerrarModalTicket"></a>
+                    <span class="name">
+                        <span ><b>cerrarModalTicket</b></span>
+                        <a href="#cerrarModalTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cerrarModalTicket()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="176"
+                                    class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:176</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filtrarTickets"></a>
+                    <span class="name">
+                        <span ><b>filtrarTickets</b></span>
+                        <a href="#filtrarTickets"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>filtrarTickets()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="136"
+                                    class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:136</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCreadorEtiqueta"></a>
+                    <span class="name">
+                        <span ><b>getCreadorEtiqueta</b></span>
+                        <a href="#getCreadorEtiqueta"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getCreadorEtiqueta()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="240"
+                                    class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:240</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getEstadoEtiqueta"></a>
+                    <span class="name">
+                        <span ><b>getEstadoEtiqueta</b></span>
+                        <a href="#getEstadoEtiqueta"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getEstadoEtiqueta()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="216"
+                                    class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:216</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getNombreEncargado"></a>
+                    <span class="name">
+                        <span ><b>getNombreEncargado</b></span>
+                        <a href="#getNombreEncargado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getNombreEncargado(idEncargado: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="83"
+                                    class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:83</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>idEncargado</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTipoEtiqueta"></a>
+                    <span class="name">
+                        <span ><b>getTipoEtiqueta</b></span>
+                        <a href="#getTipoEtiqueta"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTipoEtiqueta()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="207"
+                                    class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:207</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logout"></a>
+                    <span class="name">
+                        <span ><b>logout</b></span>
+                        <a href="#logout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>logout()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="248"
+                                    class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:248</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="70"
+                                    class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onAsignarTicket"></a>
+                    <span class="name">
+                        <span ><b>onAsignarTicket</b></span>
+                        <a href="#onAsignarTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onAsignarTicket(event: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="89"
+                                    class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:89</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="seleccionarCreador"></a>
+                    <span class="name">
+                        <span ><b>seleccionarCreador</b></span>
+                        <a href="#seleccionarCreador"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>seleccionarCreador(creador: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="234"
+                                    class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:234</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>creador</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="seleccionarEstado"></a>
+                    <span class="name">
+                        <span ><b>seleccionarEstado</b></span>
+                        <a href="#seleccionarEstado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>seleccionarEstado(estado: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="201"
+                                    class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:201</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>estado</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="seleccionarTipo"></a>
+                    <span class="name">
+                        <span ><b>seleccionarTipo</b></span>
+                        <a href="#seleccionarTipo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>seleccionarTipo(tipo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="195"
+                                    class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:195</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>tipo</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleDesplegableCreador"></a>
+                    <span class="name">
+                        <span ><b>toggleDesplegableCreador</b></span>
+                        <a href="#toggleDesplegableCreador"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleDesplegableCreador(event: <a href="https://angular.io/api/router/Event" target="_blank">Event</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="227"
+                                    class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:227</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://angular.io/api/router/Event" target="_blank" >Event</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleDesplegableEstado"></a>
+                    <span class="name">
+                        <span ><b>toggleDesplegableEstado</b></span>
+                        <a href="#toggleDesplegableEstado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleDesplegableEstado(event: <a href="https://angular.io/api/router/Event" target="_blank">Event</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="188"
+                                    class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:188</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://angular.io/api/router/Event" target="_blank" >Event</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleDesplegableTipo"></a>
+                    <span class="name">
+                        <span ><b>toggleDesplegableTipo</b></span>
+                        <a href="#toggleDesplegableTipo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleDesplegableTipo(event: <a href="https://angular.io/api/router/Event" target="_blank">Event</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="181"
+                                    class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:181</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://angular.io/api/router/Event" target="_blank" >Event</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="desplegableCreadorAbierto"></a>
+                    <span class="name">
+                        <span ><b>desplegableCreadorAbierto</b></span>
+                        <a href="#desplegableCreadorAbierto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="desplegableEstadoAbierto"></a>
+                    <span class="name">
+                        <span ><b>desplegableEstadoAbierto</b></span>
+                        <a href="#desplegableEstadoAbierto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="desplegableTipoAbierto"></a>
+                    <span class="name">
+                        <span ><b>desplegableTipoAbierto</b></span>
+                        <a href="#desplegableTipoAbierto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Estado de los desplegables personalizados</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filtroCreador"></a>
+                    <span class="name">
+                        <span ><b>filtroCreador</b></span>
+                        <a href="#filtroCreador"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;todos&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filtroEstado"></a>
+                    <span class="name">
+                        <span ><b>filtroEstado</b></span>
+                        <a href="#filtroEstado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;todos&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filtroTipo"></a>
+                    <span class="name">
+                        <span ><b>filtroTipo</b></span>
+                        <a href="#filtroTipo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;todos&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="landingUrl"></a>
+                    <span class="name">
+                        <span ><b>landingUrl</b></span>
+                        <a href="#landingUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>environment.ssoLandingIntranet</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mostrarModalTicket"></a>
+                    <span class="name">
+                        <span ><b>mostrarModalTicket</b></span>
+                        <a href="#mostrarModalTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Gestión del modal de detalles</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="operarios"></a>
+                    <span class="name">
+                        <span ><b>operarios</b></span>
+                        <a href="#operarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Usuario.html" target="_self" >Usuario[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="terminoBusqueda"></a>
+                    <span class="name">
+                        <span ><b>terminoBusqueda</b></span>
+                        <a href="#terminoBusqueda"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Variables para búsqueda y filtrado</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tickets"></a>
+                    <span class="name">
+                        <span ><b>tickets</b></span>
+                        <a href="#tickets"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Ticket.html" target="_self" >Ticket[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ticketSeleccionado"></a>
+                    <span class="name">
+                        <span ><b>ticketSeleccionado</b></span>
+                        <a href="#ticketSeleccionado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ticketsFiltrados"></a>
+                    <span class="name">
+                        <span ><b>ticketsFiltrados</b></span>
+                        <a href="#ticketsFiltrados"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Ticket.html" target="_self" >Ticket[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="usuario_actual"></a>
+                    <span class="name">
+                        <span ><b>usuario_actual</b></span>
+                        <a href="#usuario_actual"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Usuario.html" target="_self" >Usuario | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="creadoresUnicos"></a>
+                        <span class="name"><b>creadoresUnicos</b><a href="#creadoresUnicos"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>creadoresUnicos()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/pages/usuario/lista-tickets/lista-tickets.component.ts:47</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, HostListener } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { RouterModule } from &#x27;@angular/router&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { AuthService } from &#x27;../../../services/auth.service&#x27;;
+import { TicketService } from &#x27;../../../services/ticket.service&#x27;;
+import { UsuarioService } from &#x27;../../../services/usuario.service&#x27;;
+import { ModalTicketComponent } from &#x27;../../modales/modal-ticket/modal-ticket.component&#x27;;
+import { Ticket } from &#x27;../../../models/ticket.model&#x27;;
+import { Usuario } from &#x27;../../../models/usuario.model&#x27;;
+import { FooterComponent } from &#x27;../../../shared/layout/footer/footer.component&#x27;;
+import { environment } from &#x27;../../../../enviroments/environment&#x27;;
+import { HeaderComponent } from &#x27;../../../shared/layout/header/header.component&#x27;;
+
+/**
+ * Proyecto: TicketingEVG
+ * Alumno: Joseph Joel Quispe Alvarez
+ * Asignatura: DAW
+ * Curso: 2025-2026
+ * Descripción: Componente para el listado detallado de mis tickets.
+ */
+@Component({
+  selector: &#x27;app-lista-tickets&#x27;,
+  standalone: true,
+  imports: [CommonModule, RouterModule, FormsModule, ModalTicketComponent, FooterComponent, HeaderComponent],
+  templateUrl: &#x27;./lista-tickets.component.html&#x27;,
+  styleUrl: &#x27;./lista-tickets.component.css&#x27;
+})
+export class ListaTicketsComponent implements OnInit {
+  landingUrl &#x3D; environment.ssoLandingIntranet;
+  usuario_actual: Usuario | null &#x3D; null;
+  tickets: Ticket[] &#x3D; [];
+  
+  /** Variables para búsqueda y filtrado */
+  terminoBusqueda: string &#x3D; &#x27;&#x27;;
+  filtroTipo: string &#x3D; &#x27;todos&#x27;;
+  filtroEstado: string &#x3D; &#x27;todos&#x27;;
+  ticketsFiltrados: Ticket[] &#x3D; [];
+
+  /** Estado de los desplegables personalizados */
+  desplegableTipoAbierto &#x3D; false;
+  desplegableEstadoAbierto &#x3D; false;
+  desplegableCreadorAbierto &#x3D; false;
+
+  filtroCreador: string &#x3D; &#x27;todos&#x27;;
+
+  get creadoresUnicos(): { id: number; nombre: string }[] {
+    const mapa &#x3D; new Map&lt;number, string&gt;();
+    this.tickets.forEach(t &#x3D;&gt; {
+      if (t.id_usuario_creador) {
+        if (Number(t.id_usuario_creador) !&#x3D;&#x3D; Number(this.usuario_actual?.id)) {
+          mapa.set(Number(t.id_usuario_creador), t.creador_nombre || &#x60;Usuario #${t.id_usuario_creador}&#x60;);
+        }
+      }
+    });
+    return Array.from(mapa.entries()).map(([id, nombre]) &#x3D;&gt; ({ id, nombre })).sort((a, b) &#x3D;&gt; a.nombre.localeCompare(b.nombre));
+  }
+
+  /** Gestión del modal de detalles */
+  mostrarModalTicket: boolean &#x3D; false;
+  ticketSeleccionado: any &#x3D; null;
+  operarios: Usuario[] &#x3D; [];
+
+  constructor(
+    private authService: AuthService,
+    private ticketService: TicketService,
+    private usuarioService: UsuarioService
+  ) {}
+
+  ngOnInit(): void {
+    this.usuario_actual &#x3D; this.authService.getUsuarioActual();
+    this.cargarTickets();
+    this.cargarOperarios();
+  }
+
+  cargarOperarios(): void {
+    this.usuarioService.getOperarios().subscribe({
+      next: (data) &#x3D;&gt; this.operarios &#x3D; data,
+      error: (err) &#x3D;&gt; console.error(&#x27;Error al cargar operarios&#x27;, err)
+    });
+  }
+
+  getNombreEncargado(idEncargado: any): string {
+    if (!idEncargado) return &#x27;&#x27;;
+    const tech &#x3D; this.operarios.find(op &#x3D;&gt; Number(op.id) &#x3D;&#x3D;&#x3D; Number(idEncargado));
+    return tech ? tech.nombre : &#x60;Técnico #${idEncargado}&#x60;;
+  }
+
+  onAsignarTicket(event: {idTicket: number, idOperario: number}) {
+    this.ticketService.asignarTicket(event.idTicket.toString(), event.idOperario).subscribe({
+      next: (res) &#x3D;&gt; {
+        if (res.status &#x3D;&#x3D;&#x3D; &#x27;success&#x27;) {
+          if (this.ticketSeleccionado) {
+            this.ticketSeleccionado.id_usuario_encargado &#x3D; event.idOperario;
+            this.ticketSeleccionado.estado &#x3D; &#x27;asignado&#x27;;
+          }
+          this.cargarTickets(); // Recargar la lista
+        } else {
+          alert(&#x27;Error al asignar el ticket: &#x27; + res.message);
+        }
+      },
+      error: () &#x3D;&gt; alert(&#x27;Error de conexión al asignar.&#x27;)
+    });
+  }
+
+  cargarTickets(): void {
+    if (this.usuario_actual) {
+      if (this.usuario_actual.rol &#x3D;&#x3D;&#x3D; &#x27;administrador&#x27;) {
+        this.ticketService.getTickets().subscribe({
+          next: (data) &#x3D;&gt; {
+            this.tickets &#x3D; data;
+            this.filtrarTickets();
+          },
+          error: (err) &#x3D;&gt; {
+            console.error(&#x27;Error al cargar tickets globales&#x27;, err);
+            this.tickets &#x3D; [];
+            this.ticketsFiltrados &#x3D; [];
+          }
+        });
+      } else {
+        this.ticketService.getTicketsPorUsuario(this.usuario_actual.id).subscribe({
+          next: (data) &#x3D;&gt; {
+            this.tickets &#x3D; data;
+            this.filtrarTickets();
+          },
+          error: (err) &#x3D;&gt; {
+            console.error(&#x27;Error al cargar tickets por usuario&#x27;, err);
+            this.tickets &#x3D; [];
+            this.ticketsFiltrados &#x3D; [];
+          }
+        });
+      }
+    }
+  }
+
+  filtrarTickets(): void {
+    const busqueda &#x3D; this.terminoBusqueda.toLowerCase().trim();
+    this.ticketsFiltrados &#x3D; this.tickets.filter(ticket &#x3D;&gt; {
+      // Filtrar por término de búsqueda (asunto, descripción o ID)
+      const coincideBusqueda &#x3D; !busqueda || 
+        ticket.titulo.toLowerCase().includes(busqueda) ||
+        ticket.descripcion.toLowerCase().includes(busqueda) ||
+        ticket.id.toString().toLowerCase().includes(busqueda);
+
+      // Filtrar por tipo
+      let coincideTipo &#x3D; true;
+      if (this.filtroTipo !&#x3D;&#x3D; &#x27;todos&#x27;) {
+        coincideTipo &#x3D; ticket.tipo &#x3D;&#x3D;&#x3D; this.filtroTipo;
+      }
+
+      // Filtrar por estado
+      let coincideEstado &#x3D; true;
+      if (this.filtroEstado !&#x3D;&#x3D; &#x27;todos&#x27;) {
+        coincideEstado &#x3D; ticket.estado &#x3D;&#x3D;&#x3D; this.filtroEstado;
+      }
+
+      // Filtrar por creador (solo para administradores)
+      let coincideCreador &#x3D; true;
+      if (this.usuario_actual &amp;&amp; this.usuario_actual.rol &#x3D;&#x3D;&#x3D; &#x27;administrador&#x27;) {
+        if (this.filtroCreador &#x3D;&#x3D;&#x3D; &#x27;mis-tickets&#x27;) {
+          coincideCreador &#x3D; Number(ticket.id_usuario_creador) &#x3D;&#x3D;&#x3D; Number(this.usuario_actual.id);
+        } else if (this.filtroCreador !&#x3D;&#x3D; &#x27;todos&#x27;) {
+          coincideCreador &#x3D; Number(ticket.id_usuario_creador) &#x3D;&#x3D;&#x3D; Number(this.filtroCreador);
+        }
+      }
+
+      return coincideBusqueda &amp;&amp; coincideTipo &amp;&amp; coincideEstado &amp;&amp; coincideCreador;
+    });
+  }
+
+  abrirModalTicket(ticket: any) {
+    this.ticketSeleccionado &#x3D; ticket;
+    this.mostrarModalTicket &#x3D; true;
+  }
+
+  cerrarModalTicket() {
+    this.mostrarModalTicket &#x3D; false;
+    this.ticketSeleccionado &#x3D; null;
+  }
+
+  toggleDesplegableTipo(event: Event): void {
+    event.stopPropagation();
+    this.desplegableTipoAbierto &#x3D; !this.desplegableTipoAbierto;
+    this.desplegableEstadoAbierto &#x3D; false;
+    this.desplegableCreadorAbierto &#x3D; false;
+  }
+
+  toggleDesplegableEstado(event: Event): void {
+    event.stopPropagation();
+    this.desplegableEstadoAbierto &#x3D; !this.desplegableEstadoAbierto;
+    this.desplegableTipoAbierto &#x3D; false;
+    this.desplegableCreadorAbierto &#x3D; false;
+  }
+
+  seleccionarTipo(tipo: string): void {
+    this.filtroTipo &#x3D; tipo;
+    this.desplegableTipoAbierto &#x3D; false;
+    this.filtrarTickets();
+  }
+
+  seleccionarEstado(estado: string): void {
+    this.filtroEstado &#x3D; estado;
+    this.desplegableEstadoAbierto &#x3D; false;
+    this.filtrarTickets();
+  }
+
+  getTipoEtiqueta(): string {
+    const mapa: Record&lt;string, string&gt; &#x3D; {
+      todos: &#x27;TODOS&#x27;,
+      incidencia: &#x27;INCIDENCIAS&#x27;,
+      peticion: &#x27;PETICIONES&#x27;
+    };
+    return mapa[this.filtroTipo] || &#x27;TODOS&#x27;;
+  }
+
+  getEstadoEtiqueta(): string {
+    const mapa: Record&lt;string, string&gt; &#x3D; {
+      todos: &#x27;TODOS&#x27;,
+      pendiente: &#x27;PENDIENTES&#x27;,
+      asignado: &#x27;ASIGNADOS&#x27;,
+      proceso: &#x27;EN PROCESO&#x27;,
+      resuelto: &#x27;RESUELTOS&#x27;
+    };
+    return mapa[this.filtroEstado] || &#x27;TODOS&#x27;;
+  }
+
+  toggleDesplegableCreador(event: Event): void {
+    event.stopPropagation();
+    this.desplegableCreadorAbierto &#x3D; !this.desplegableCreadorAbierto;
+    this.desplegableTipoAbierto &#x3D; false;
+    this.desplegableEstadoAbierto &#x3D; false;
+  }
+
+  seleccionarCreador(creador: string): void {
+    this.filtroCreador &#x3D; creador;
+    this.desplegableCreadorAbierto &#x3D; false;
+    this.filtrarTickets();
+  }
+
+  getCreadorEtiqueta(): string {
+    if (this.filtroCreador &#x3D;&#x3D;&#x3D; &#x27;todos&#x27;) return &#x27;TODOS&#x27;;
+    if (this.filtroCreador &#x3D;&#x3D;&#x3D; &#x27;mis-tickets&#x27;) return &#x27;MIS TICKETS CREADOS&#x27;;
+    const idNum &#x3D; Number(this.filtroCreador);
+    const c &#x3D; this.creadoresUnicos.find(x &#x3D;&gt; x.id &#x3D;&#x3D;&#x3D; idNum);
+    return c ? c.nombre.toUpperCase() : &#x60;USUARIO #${this.filtroCreador}&#x60;;
+  }
+
+  logout(): void {
+    this.authService.logout();
+  }
+
+  @HostListener(&#x27;document:click&#x27;, [&#x27;$event&#x27;])
+  cerrarDesplegables(): void {
+    this.desplegableTipoAbierto &#x3D; false;
+    this.desplegableEstadoAbierto &#x3D; false;
+    this.desplegableCreadorAbierto &#x3D; false;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;sergio&quot;&gt;
+	&lt;app-header&gt;&lt;/app-header&gt;
+
+	&lt;main&gt;
+		&lt;div class&#x3D;&quot;container-lg&quot;&gt;
+			&lt;div class&#x3D;&quot;d-flex align-items-start justify-content-between flex-wrap gap-3 mb-4 cabecera-pagina&quot;&gt;
+				&lt;div&gt;
+					&lt;h1&gt;Mis tickets&lt;/h1&gt;
+					&lt;p&gt;Gestión y seguimiento de las intervenciones técnicas registradas.&lt;/p&gt;
+				&lt;/div&gt;
+				&lt;a routerLink&#x3D;&quot;/portal-tickets/crear&quot; class&#x3D;&quot;boton-crear&quot;&gt;&lt;i class&#x3D;&quot;fa-solid fa-plus&quot;&gt;&lt;/i&gt; Crear ticket&lt;/a&gt;
+			&lt;/div&gt;
+
+			&lt;div class&#x3D;&quot;barra-busqueda-contenedor mb-4&quot;&gt;
+				&lt;div class&#x3D;&quot;barra-busqueda&quot;&gt;
+					&lt;i class&#x3D;&quot;fa-solid fa-magnifying-glass&quot;&gt;&lt;/i&gt;
+					&lt;input type&#x3D;&quot;text&quot; placeholder&#x3D;&quot;Buscar por asunto, descripción o ID...&quot; 
+                           [(ngModel)]&#x3D;&quot;terminoBusqueda&quot; (input)&#x3D;&quot;filtrarTickets()&quot;&gt;
+				&lt;/div&gt;
+				
+				&lt;!-- Filtro Tipo Custom --&gt;
+				&lt;div class&#x3D;&quot;desplegable-personalizado&quot; [class.activo]&#x3D;&quot;desplegableTipoAbierto&quot; [class.filtro-aplicado]&#x3D;&quot;filtroTipo !&#x3D;&#x3D; &#x27;todos&#x27;&quot;&gt;
+					&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;boton-filtro-custom&quot; (click)&#x3D;&quot;toggleDesplegableTipo($event)&quot;&gt;
+						&lt;span&gt;TIPO: {{ getTipoEtiqueta() }}&lt;/span&gt;
+						&lt;i class&#x3D;&quot;fa-solid fa-chevron-down&quot;&gt;&lt;/i&gt;
+					&lt;/button&gt;
+					&lt;div class&#x3D;&quot;opciones-desplegable&quot; *ngIf&#x3D;&quot;desplegableTipoAbierto&quot;&gt;
+						&lt;div class&#x3D;&quot;opcion-item&quot; [class.seleccionado]&#x3D;&quot;filtroTipo &#x3D;&#x3D;&#x3D; &#x27;todos&#x27;&quot; (click)&#x3D;&quot;seleccionarTipo(&#x27;todos&#x27;)&quot;&gt;
+							&lt;span&gt;TIPO: TODOS&lt;/span&gt;
+							&lt;i class&#x3D;&quot;fa-solid fa-check&quot; *ngIf&#x3D;&quot;filtroTipo &#x3D;&#x3D;&#x3D; &#x27;todos&#x27;&quot;&gt;&lt;/i&gt;
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;opcion-item&quot; [class.seleccionado]&#x3D;&quot;filtroTipo &#x3D;&#x3D;&#x3D; &#x27;incidencia&#x27;&quot; (click)&#x3D;&quot;seleccionarTipo(&#x27;incidencia&#x27;)&quot;&gt;
+							&lt;span&gt;🔴 INCIDENCIAS&lt;/span&gt;
+							&lt;i class&#x3D;&quot;fa-solid fa-check&quot; *ngIf&#x3D;&quot;filtroTipo &#x3D;&#x3D;&#x3D; &#x27;incidencia&#x27;&quot;&gt;&lt;/i&gt;
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;opcion-item&quot; [class.seleccionado]&#x3D;&quot;filtroTipo &#x3D;&#x3D;&#x3D; &#x27;peticion&#x27;&quot; (click)&#x3D;&quot;seleccionarTipo(&#x27;peticion&#x27;)&quot;&gt;
+							&lt;span&gt;🔵 PETICIONES&lt;/span&gt;
+							&lt;i class&#x3D;&quot;fa-solid fa-check&quot; *ngIf&#x3D;&quot;filtroTipo &#x3D;&#x3D;&#x3D; &#x27;peticion&#x27;&quot;&gt;&lt;/i&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+
+				&lt;!-- Filtro Estado Custom --&gt;
+				&lt;div class&#x3D;&quot;desplegable-personalizado&quot; [class.activo]&#x3D;&quot;desplegableEstadoAbierto&quot; [class.filtro-aplicado]&#x3D;&quot;filtroEstado !&#x3D;&#x3D; &#x27;todos&#x27;&quot;&gt;
+					&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;boton-filtro-custom&quot; (click)&#x3D;&quot;toggleDesplegableEstado($event)&quot;&gt;
+						&lt;span&gt;ESTADO: {{ getEstadoEtiqueta() }}&lt;/span&gt;
+						&lt;i class&#x3D;&quot;fa-solid fa-chevron-down&quot;&gt;&lt;/i&gt;
+					&lt;/button&gt;
+					&lt;div class&#x3D;&quot;opciones-desplegable&quot; *ngIf&#x3D;&quot;desplegableEstadoAbierto&quot;&gt;
+						&lt;div class&#x3D;&quot;opcion-item&quot; [class.seleccionado]&#x3D;&quot;filtroEstado &#x3D;&#x3D;&#x3D; &#x27;todos&#x27;&quot; (click)&#x3D;&quot;seleccionarEstado(&#x27;todos&#x27;)&quot;&gt;
+							&lt;span&gt;ESTADO: TODOS&lt;/span&gt;
+							&lt;i class&#x3D;&quot;fa-solid fa-check&quot; *ngIf&#x3D;&quot;filtroEstado &#x3D;&#x3D;&#x3D; &#x27;todos&#x27;&quot;&gt;&lt;/i&gt;
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;opcion-item&quot; [class.seleccionado]&#x3D;&quot;filtroEstado &#x3D;&#x3D;&#x3D; &#x27;pendiente&#x27;&quot; (click)&#x3D;&quot;seleccionarEstado(&#x27;pendiente&#x27;)&quot;&gt;
+							&lt;span&gt;⚪ PENDIENTES&lt;/span&gt;
+							&lt;i class&#x3D;&quot;fa-solid fa-check&quot; *ngIf&#x3D;&quot;filtroEstado &#x3D;&#x3D;&#x3D; &#x27;pendiente&#x27;&quot;&gt;&lt;/i&gt;
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;opcion-item&quot; [class.seleccionado]&#x3D;&quot;filtroEstado &#x3D;&#x3D;&#x3D; &#x27;asignado&#x27;&quot; (click)&#x3D;&quot;seleccionarEstado(&#x27;asignado&#x27;)&quot;&gt;
+							&lt;span&gt;🔵 ASIGNADOS&lt;/span&gt;
+							&lt;i class&#x3D;&quot;fa-solid fa-check&quot; *ngIf&#x3D;&quot;filtroEstado &#x3D;&#x3D;&#x3D; &#x27;asignado&#x27;&quot;&gt;&lt;/i&gt;
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;opcion-item&quot; [class.seleccionado]&#x3D;&quot;filtroEstado &#x3D;&#x3D;&#x3D; &#x27;proceso&#x27;&quot; (click)&#x3D;&quot;seleccionarEstado(&#x27;proceso&#x27;)&quot;&gt;
+							&lt;span&gt;🟢 EN PROCESO&lt;/span&gt;
+							&lt;i class&#x3D;&quot;fa-solid fa-check&quot; *ngIf&#x3D;&quot;filtroEstado &#x3D;&#x3D;&#x3D; &#x27;proceso&#x27;&quot;&gt;&lt;/i&gt;
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;opcion-item&quot; [class.seleccionado]&#x3D;&quot;filtroEstado &#x3D;&#x3D;&#x3D; &#x27;resuelto&#x27;&quot; (click)&#x3D;&quot;seleccionarEstado(&#x27;resuelto&#x27;)&quot;&gt;
+							&lt;span&gt;✔️ RESUELTOS&lt;/span&gt;
+							&lt;i class&#x3D;&quot;fa-solid fa-check&quot; *ngIf&#x3D;&quot;filtroEstado &#x3D;&#x3D;&#x3D; &#x27;resuelto&#x27;&quot;&gt;&lt;/i&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+
+				&lt;!-- Filtro Creador Custom (Solo Admin) --&gt;
+				&lt;div class&#x3D;&quot;desplegable-personalizado&quot; *ngIf&#x3D;&quot;usuario_actual?.rol &#x3D;&#x3D;&#x3D; &#x27;administrador&#x27;&quot; [class.activo]&#x3D;&quot;desplegableCreadorAbierto&quot; [class.filtro-aplicado]&#x3D;&quot;filtroCreador !&#x3D;&#x3D; &#x27;todos&#x27;&quot;&gt;
+					&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;boton-filtro-custom&quot; (click)&#x3D;&quot;toggleDesplegableCreador($event)&quot;&gt;
+						&lt;span&gt;CREADOR: {{ getCreadorEtiqueta() }}&lt;/span&gt;
+						&lt;i class&#x3D;&quot;fa-solid fa-chevron-down&quot;&gt;&lt;/i&gt;
+					&lt;/button&gt;
+					&lt;div class&#x3D;&quot;opciones-desplegable&quot; *ngIf&#x3D;&quot;desplegableCreadorAbierto&quot; style&#x3D;&quot;max-height: 235px; overflow-y: auto;&quot;&gt;
+						&lt;div class&#x3D;&quot;opcion-item&quot; [class.seleccionado]&#x3D;&quot;filtroCreador &#x3D;&#x3D;&#x3D; &#x27;todos&#x27;&quot; (click)&#x3D;&quot;seleccionarCreador(&#x27;todos&#x27;)&quot;&gt;
+							&lt;span&gt;TICKETS GENERALES&lt;/span&gt;
+							&lt;i class&#x3D;&quot;fa-solid fa-check&quot; *ngIf&#x3D;&quot;filtroCreador &#x3D;&#x3D;&#x3D; &#x27;todos&#x27;&quot;&gt;&lt;/i&gt;
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;opcion-item&quot; [class.seleccionado]&#x3D;&quot;filtroCreador &#x3D;&#x3D;&#x3D; &#x27;mis-tickets&#x27;&quot; (click)&#x3D;&quot;seleccionarCreador(&#x27;mis-tickets&#x27;)&quot;&gt;
+							&lt;span&gt;👤 MIS TICKETS CREADOS&lt;/span&gt;
+							&lt;i class&#x3D;&quot;fa-solid fa-check&quot; *ngIf&#x3D;&quot;filtroCreador &#x3D;&#x3D;&#x3D; &#x27;mis-tickets&#x27;&quot;&gt;&lt;/i&gt;
+						&lt;/div&gt;
+						
+						&lt;!-- Separador Visual --&gt;
+						&lt;div style&#x3D;&quot;border-top: 1.5px solid #f1f5f9; margin: 6px 0;&quot;&gt;&lt;/div&gt;
+						
+						&lt;!-- Listado de creadores únicos --&gt;
+						&lt;div class&#x3D;&quot;opcion-item&quot; *ngFor&#x3D;&quot;let c of creadoresUnicos&quot; [class.seleccionado]&#x3D;&quot;filtroCreador &#x3D;&#x3D;&#x3D; c.id.toString()&quot; (click)&#x3D;&quot;seleccionarCreador(c.id.toString())&quot;&gt;
+							&lt;span&gt;📄 {{ c.nombre | uppercase }}&lt;/span&gt;
+							&lt;i class&#x3D;&quot;fa-solid fa-check&quot; *ngIf&#x3D;&quot;filtroCreador &#x3D;&#x3D;&#x3D; c.id.toString()&quot;&gt;&lt;/i&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+
+			@if (ticketsFiltrados.length &gt; 0) {
+				&lt;div class&#x3D;&quot;listado-tickets&quot;&gt;
+					@for (ticket of ticketsFiltrados; track ticket.id) {
+						&lt;div class&#x3D;&quot;tarjeta-ticket-detallada&quot; [ngClass]&#x3D;&quot;ticket.tipo &#x3D;&#x3D;&#x3D; &#x27;incidencia&#x27; ? &#x27;incidencia&#x27; : &#x27;peticion&#x27;&quot; (click)&#x3D;&quot;abrirModalTicket(ticket)&quot;&gt;
+							&lt;div class&#x3D;&quot;cabecera-card-ticket&quot;&gt;
+								&lt;div class&#x3D;&quot;tipo-ticket&quot;&gt;
+									&lt;i class&#x3D;&quot;fa-solid&quot; [ngClass]&#x3D;&quot;ticket.tipo &#x3D;&#x3D;&#x3D; &#x27;incidencia&#x27; ? &#x27;fa-circle-exclamation&#x27; : &#x27;fa-circle-info&#x27;&quot;&gt;&lt;/i&gt; 
+									&lt;span&gt;{{ ticket.tipo | uppercase }}&lt;/span&gt;
+								&lt;/div&gt;
+								&lt;div class&#x3D;&quot;badges-ticket&quot;&gt;
+									&lt;span class&#x3D;&quot;badge-prioridad&quot; [ngClass]&#x3D;&quot;{
+										&#x27;alta&#x27;: ticket.prioridad &#x3D;&#x3D;&#x3D; &#x27;a&#x27;,
+										&#x27;media&#x27;: ticket.prioridad &#x3D;&#x3D;&#x3D; &#x27;m&#x27;
+									}&quot;&gt;{{ ticket.prioridad &#x3D;&#x3D;&#x3D; &#x27;a&#x27; ? &#x27;ALTA&#x27; : (ticket.prioridad &#x3D;&#x3D;&#x3D; &#x27;m&#x27; ? &#x27;MEDIA&#x27; : &#x27;BAJA&#x27;) }}&lt;/span&gt;
+									&lt;span class&#x3D;&quot;etiqueta-estado&quot; [ngClass]&#x3D;&quot;ticket.estado&quot;&gt;
+										{{ ticket.estado &#x3D;&#x3D;&#x3D; &#x27;proceso&#x27; ? &#x27;EN PROCESO&#x27; : (ticket.estado | uppercase) }}
+									&lt;/span&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;
+							&lt;h3 class&#x3D;&quot;titulo-ticket&quot;&gt;{{ ticket.titulo }}&lt;/h3&gt;
+							
+							@if (ticket.id_usuario_encargado) {
+								&lt;div class&#x3D;&quot;asignacion-ticket&quot;&gt;
+									&lt;i class&#x3D;&quot;fa-solid fa-user-gear&quot;&gt;&lt;/i&gt; 
+									&lt;span&gt;ASIGNADO A: &lt;strong&gt;{{ (ticket.encargado_nombre || getNombreEncargado(ticket.id_usuario_encargado)) | uppercase }}&lt;/strong&gt;&lt;/span&gt;
+								&lt;/div&gt;
+							}
+
+							&lt;p class&#x3D;&quot;descripcion-ticket&quot;&gt;{{ ticket.descripcion }}&lt;/p&gt;
+							&lt;div class&#x3D;&quot;pie-card-ticket&quot;&gt;
+								&lt;div class&#x3D;&quot;d-flex align-items-center gap-2 flex-wrap&quot;&gt;
+									&lt;div class&#x3D;&quot;categoria-ticket&quot;&gt;&lt;i class&#x3D;&quot;fa-solid fa-tags&quot;&gt;&lt;/i&gt; &lt;span&gt;{{ (ticket.categoria_nombre || &#x27;CATEGORÍA #&#x27; + (ticket.id_categoria || ticket.id_Categoria)) | uppercase }}&lt;/span&gt;&lt;/div&gt;
+									&lt;div class&#x3D;&quot;categoria-ticket&quot; *ngIf&#x3D;&quot;ticket.ubicacion&quot;&gt;
+										&lt;i class&#x3D;&quot;fa-solid fa-location-dot&quot;&gt;&lt;/i&gt; &lt;span&gt;{{ ticket.ubicacion | uppercase }}&lt;/span&gt;
+									&lt;/div&gt;
+								&lt;/div&gt;
+								&lt;div class&#x3D;&quot;info-derecha-ticket&quot;&gt;
+									&lt;span class&#x3D;&quot;localizacion&quot;&gt;FECHA: &lt;strong&gt;{{ ticket.fecha_creacion | date:&#x27;dd/MM/yyyy HH:mm&#x27; }}&lt;/strong&gt;&lt;/span&gt;
+									&lt;a class&#x3D;&quot;enlace-detalles&quot;&gt;
+										DETALLES &lt;i class&#x3D;&quot;fa-solid fa-arrow-right&quot;&gt;&lt;/i&gt;
+									&lt;/a&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;
+						&lt;/div&gt;
+					}
+				&lt;/div&gt;
+			} @else {
+				&lt;div class&#x3D;&quot;estado-vacio con-borde&quot;&gt;
+					&lt;div class&#x3D;&quot;icono-vacio&quot;&gt;&lt;i class&#x3D;&quot;fa-solid fa-magnifying-glass&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+					&lt;p&gt;Sin resultados&lt;/p&gt;
+					&lt;span&gt;No hay tickets que coincidan con los criterios de búsqueda actuales.&lt;/span&gt;
+				&lt;/div&gt;
+			}
+		&lt;/div&gt;
+	&lt;/main&gt;
+    &lt;app-footer&gt;&lt;/app-footer&gt;
+&lt;/div&gt;
+
+&lt;!-- Modal de detalles de ticket --&gt;
+&lt;app-modal-ticket 
+    *ngIf&#x3D;&quot;mostrarModalTicket&quot; 
+    [ticket]&#x3D;&quot;ticketSeleccionado&quot; 
+    [rolUsuario]&#x3D;&quot;usuario_actual?.rol || &#x27;profesor&#x27;&quot; 
+    [operarios]&#x3D;&quot;operarios&quot;
+    (asignar)&#x3D;&quot;onAsignarTicket($event)&quot;
+    (resolver)&#x3D;&quot;cargarTickets()&quot;
+    (cerrar)&#x3D;&quot;cerrarModalTicket()&quot;&gt;
+&lt;/app-modal-ticket&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="sergio">	<app-header></app-header>	<main>		<div class="container-lg">			<div class="d-flex align-items-start justify-content-between flex-wrap gap-3 mb-4 cabecera-pagina">				<div>					<h1>Mis tickets</h1>					<p>Gestión y seguimiento de las intervenciones técnicas registradas.</p>				</div>				<a routerLink="/portal-tickets/crear" class="boton-crear"><i class="fa-solid fa-plus"></i> Crear ticket</a>			</div>			<div class="barra-busqueda-contenedor mb-4">				<div class="barra-busqueda">					<i class="fa-solid fa-magnifying-glass"></i>					<input type="text" placeholder="Buscar por asunto, descripción o ID..."                            [(ngModel)]="terminoBusqueda" (input)="filtrarTickets()">				</div>								<!-- Filtro Tipo Custom -->				<div class="desplegable-personalizado" [class.activo]="desplegableTipoAbierto" [class.filtro-aplicado]="filtroTipo !== \'todos\'">					<button type="button" class="boton-filtro-custom" (click)="toggleDesplegableTipo($event)">						<span>TIPO: {{ getTipoEtiqueta() }}</span>						<i class="fa-solid fa-chevron-down"></i>					</button>					<div class="opciones-desplegable" *ngIf="desplegableTipoAbierto">						<div class="opcion-item" [class.seleccionado]="filtroTipo === \'todos\'" (click)="seleccionarTipo(\'todos\')">							<span>TIPO: TODOS</span>							<i class="fa-solid fa-check" *ngIf="filtroTipo === \'todos\'"></i>						</div>						<div class="opcion-item" [class.seleccionado]="filtroTipo === \'incidencia\'" (click)="seleccionarTipo(\'incidencia\')">							<span>🔴 INCIDENCIAS</span>							<i class="fa-solid fa-check" *ngIf="filtroTipo === \'incidencia\'"></i>						</div>						<div class="opcion-item" [class.seleccionado]="filtroTipo === \'peticion\'" (click)="seleccionarTipo(\'peticion\')">							<span>🔵 PETICIONES</span>							<i class="fa-solid fa-check" *ngIf="filtroTipo === \'peticion\'"></i>						</div>					</div>				</div>				<!-- Filtro Estado Custom -->				<div class="desplegable-personalizado" [class.activo]="desplegableEstadoAbierto" [class.filtro-aplicado]="filtroEstado !== \'todos\'">					<button type="button" class="boton-filtro-custom" (click)="toggleDesplegableEstado($event)">						<span>ESTADO: {{ getEstadoEtiqueta() }}</span>						<i class="fa-solid fa-chevron-down"></i>					</button>					<div class="opciones-desplegable" *ngIf="desplegableEstadoAbierto">						<div class="opcion-item" [class.seleccionado]="filtroEstado === \'todos\'" (click)="seleccionarEstado(\'todos\')">							<span>ESTADO: TODOS</span>							<i class="fa-solid fa-check" *ngIf="filtroEstado === \'todos\'"></i>						</div>						<div class="opcion-item" [class.seleccionado]="filtroEstado === \'pendiente\'" (click)="seleccionarEstado(\'pendiente\')">							<span>⚪ PENDIENTES</span>							<i class="fa-solid fa-check" *ngIf="filtroEstado === \'pendiente\'"></i>						</div>						<div class="opcion-item" [class.seleccionado]="filtroEstado === \'asignado\'" (click)="seleccionarEstado(\'asignado\')">							<span>🔵 ASIGNADOS</span>							<i class="fa-solid fa-check" *ngIf="filtroEstado === \'asignado\'"></i>						</div>						<div class="opcion-item" [class.seleccionado]="filtroEstado === \'proceso\'" (click)="seleccionarEstado(\'proceso\')">							<span>🟢 EN PROCESO</span>							<i class="fa-solid fa-check" *ngIf="filtroEstado === \'proceso\'"></i>						</div>						<div class="opcion-item" [class.seleccionado]="filtroEstado === \'resuelto\'" (click)="seleccionarEstado(\'resuelto\')">							<span>✔️ RESUELTOS</span>							<i class="fa-solid fa-check" *ngIf="filtroEstado === \'resuelto\'"></i>						</div>					</div>				</div>				<!-- Filtro Creador Custom (Solo Admin) -->				<div class="desplegable-personalizado" *ngIf="usuario_actual?.rol === \'administrador\'" [class.activo]="desplegableCreadorAbierto" [class.filtro-aplicado]="filtroCreador !== \'todos\'">					<button type="button" class="boton-filtro-custom" (click)="toggleDesplegableCreador($event)">						<span>CREADOR: {{ getCreadorEtiqueta() }}</span>						<i class="fa-solid fa-chevron-down"></i>					</button>					<div class="opciones-desplegable" *ngIf="desplegableCreadorAbierto" style="max-height: 235px; overflow-y: auto;">						<div class="opcion-item" [class.seleccionado]="filtroCreador === \'todos\'" (click)="seleccionarCreador(\'todos\')">							<span>TICKETS GENERALES</span>							<i class="fa-solid fa-check" *ngIf="filtroCreador === \'todos\'"></i>						</div>						<div class="opcion-item" [class.seleccionado]="filtroCreador === \'mis-tickets\'" (click)="seleccionarCreador(\'mis-tickets\')">							<span>👤 MIS TICKETS CREADOS</span>							<i class="fa-solid fa-check" *ngIf="filtroCreador === \'mis-tickets\'"></i>						</div>												<!-- Separador Visual -->						<div style="border-top: 1.5px solid #f1f5f9; margin: 6px 0;"></div>												<!-- Listado de creadores únicos -->						<div class="opcion-item" *ngFor="let c of creadoresUnicos" [class.seleccionado]="filtroCreador === c.id.toString()" (click)="seleccionarCreador(c.id.toString())">							<span>📄 {{ c.nombre | uppercase }}</span>							<i class="fa-solid fa-check" *ngIf="filtroCreador === c.id.toString()"></i>						</div>					</div>				</div>			</div>			@if (ticketsFiltrados.length > 0) {				<div class="listado-tickets">					@for (ticket of ticketsFiltrados; track ticket.id) {						<div class="tarjeta-ticket-detallada" [ngClass]="ticket.tipo === \'incidencia\' ? \'incidencia\' : \'peticion\'" (click)="abrirModalTicket(ticket)">							<div class="cabecera-card-ticket">								<div class="tipo-ticket">									<i class="fa-solid" [ngClass]="ticket.tipo === \'incidencia\' ? \'fa-circle-exclamation\' : \'fa-circle-info\'"></i> 									<span>{{ ticket.tipo | uppercase }}</span>								</div>								<div class="badges-ticket">									<span class="badge-prioridad" [ngClass]="{										\'alta\': ticket.prioridad === \'a\',										\'media\': ticket.prioridad === \'m\'									}">{{ ticket.prioridad === \'a\' ? \'ALTA\' : (ticket.prioridad === \'m\' ? \'MEDIA\' : \'BAJA\') }}</span>									<span class="etiqueta-estado" [ngClass]="ticket.estado">										{{ ticket.estado === \'proceso\' ? \'EN PROCESO\' : (ticket.estado | uppercase) }}									</span>								</div>							</div>							<h3 class="titulo-ticket">{{ ticket.titulo }}</h3>														@if (ticket.id_usuario_encargado) {								<div class="asignacion-ticket">									<i class="fa-solid fa-user-gear"></i> 									<span>ASIGNADO A: <strong>{{ (ticket.encargado_nombre || getNombreEncargado(ticket.id_usuario_encargado)) | uppercase }}</strong></span>								</div>							}							<p class="descripcion-ticket">{{ ticket.descripcion }}</p>							<div class="pie-card-ticket">								<div class="d-flex align-items-center gap-2 flex-wrap">									<div class="categoria-ticket"><i class="fa-solid fa-tags"></i> <span>{{ (ticket.categoria_nombre || \'CATEGORÍA #\' + (ticket.id_categoria || ticket.id_Categoria)) | uppercase }}</span></div>									<div class="categoria-ticket" *ngIf="ticket.ubicacion">										<i class="fa-solid fa-location-dot"></i> <span>{{ ticket.ubicacion | uppercase }}</span>									</div>								</div>								<div class="info-derecha-ticket">									<span class="localizacion">FECHA: <strong>{{ ticket.fecha_creacion | date:\'dd/MM/yyyy HH:mm\' }}</strong></span>									<a class="enlace-detalles">										DETALLES <i class="fa-solid fa-arrow-right"></i>									</a>								</div>							</div>						</div>					}				</div>			} @else {				<div class="estado-vacio con-borde">					<div class="icono-vacio"><i class="fa-solid fa-magnifying-glass"></i></div>					<p>Sin resultados</p>					<span>No hay tickets que coincidan con los criterios de búsqueda actuales.</span>				</div>			}		</div>	</main>    <app-footer></app-footer></div><!-- Modal de detalles de ticket --><app-modal-ticket     *ngIf="mostrarModalTicket"     [ticket]="ticketSeleccionado"     [rolUsuario]="usuario_actual?.rol || \'profesor\'"     [operarios]="operarios"    (asignar)="onAsignarTicket($event)"    (resolver)="cargarTickets()"    (cerrar)="cerrarModalTicket()"></app-modal-ticket></div>'
+    var COMPONENTS = [{'name': 'AccesoComponent', 'selector': 'app-acceso'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CategoriasComponent', 'selector': 'app-categorias'},{'name': 'ConfirmacionEliminarComponent', 'selector': 'app-confirmacion-eliminar'},{'name': 'CrearTicketComponent', 'selector': 'app-crear-ticket'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FormularioCategoriaComponent', 'selector': 'app-formulario-categoria'},{'name': 'FormularioOperarioComponent', 'selector': 'app-formulario-operario'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'ListaTicketsComponent', 'selector': 'app-lista-tickets'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ModalTicketComponent', 'selector': 'app-modal-ticket'},{'name': 'OperariosComponent', 'selector': 'app-operarios'},{'name': 'PortalTicketsComponent', 'selector': 'app-portal-tickets'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SsoCallbackComponent', 'selector': 'app-sso-callback'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ListaTicketsComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ListaTicketsComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

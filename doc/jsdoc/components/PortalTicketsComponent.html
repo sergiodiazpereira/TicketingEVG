@@ -1,0 +1,1803 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  PortalTicketsComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/usuario/portal-tickets/portal-tickets.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-portal-tickets</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="https://angular.io/api/router/RouterLink" target="_blank" >RouterLink</a></code>
+                                <code><a href="https://angular.io/api/forms/FormsModule" target="_blank" >FormsModule</a></code>
+                                <code><a href="../components/FooterComponent.html" target="_self" >FooterComponent</a></code>
+                                <code><a href="../components/ModalTicketComponent.html" target="_self" >ModalTicketComponent</a></code>
+                                <code><a href="../components/HeaderComponent.html" target="_self" >HeaderComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./portal-tickets.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./portal-tickets.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#landingUrl" >landingUrl</a>
+                            </li>
+                            <li>
+                                <a href="#mostrarModalTicket" >mostrarModalTicket</a>
+                            </li>
+                            <li>
+                                <a href="#nuevoTicket" >nuevoTicket</a>
+                            </li>
+                            <li>
+                                <a href="#operarios" >operarios</a>
+                            </li>
+                            <li>
+                                <a href="#stats" >stats</a>
+                            </li>
+                            <li>
+                                <a href="#tickets" >tickets</a>
+                            </li>
+                            <li>
+                                <a href="#ticketSeleccionado" >ticketSeleccionado</a>
+                            </li>
+                            <li>
+                                <a href="#usuario_actual" >usuario_actual</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#abrirModalTicket" >abrirModalTicket</a>
+                            </li>
+                            <li>
+                                <a href="#calcularStats" >calcularStats</a>
+                            </li>
+                            <li>
+                                <a href="#cargarOperarios" >cargarOperarios</a>
+                            </li>
+                            <li>
+                                <a href="#cargarTickets" >cargarTickets</a>
+                            </li>
+                            <li>
+                                <a href="#cerrarModalTicket" >cerrarModalTicket</a>
+                            </li>
+                            <li>
+                                <a href="#crearTicket" >crearTicket</a>
+                            </li>
+                            <li>
+                                <a href="#getNombreEncargado" >getNombreEncargado</a>
+                            </li>
+                            <li>
+                                <a href="#getPrioridadTexto" >getPrioridadTexto</a>
+                            </li>
+                            <li>
+                                <a href="#isInicioActive" >isInicioActive</a>
+                            </li>
+                            <li>
+                                <a href="#logout" >logout</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onAsignarTicket" >onAsignarTicket</a>
+                            </li>
+                            <li>
+                                <a href="#resetForm" >resetForm</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#esVistaTecnico" >esVistaTecnico</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, ticketService: <a href="../injectables/TicketService.html" target="_self">TicketService</a>, usuarioService: <a href="../injectables/UsuarioService.html" target="_self">UsuarioService</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:56</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>ticketService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/TicketService.html" target="_self" >TicketService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>usuarioService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UsuarioService.html" target="_self" >UsuarioService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="abrirModalTicket"></a>
+                    <span class="name">
+                        <span ><b>abrirModalTicket</b></span>
+                        <a href="#abrirModalTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>abrirModalTicket(ticket: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="204"
+                                    class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:204</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ticket</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="calcularStats"></a>
+                    <span class="name">
+                        <span ><b>calcularStats</b></span>
+                        <a href="#calcularStats"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>calcularStats()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="150"
+                                    class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:150</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Recorre la lista de tickets para actualizar los contadores del dashboard.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarOperarios"></a>
+                    <span class="name">
+                        <span ><b>cargarOperarios</b></span>
+                        <a href="#cargarOperarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarOperarios()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="83"
+                                    class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:83</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarTickets"></a>
+                    <span class="name">
+                        <span ><b>cargarTickets</b></span>
+                        <a href="#cargarTickets"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarTickets()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="116"
+                                    class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:116</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene los tickets del servicio filtrados por el usuario logueado o todos si es admin.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cerrarModalTicket"></a>
+                    <span class="name">
+                        <span ><b>cerrarModalTicket</b></span>
+                        <a href="#cerrarModalTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cerrarModalTicket()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="209"
+                                    class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:209</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="crearTicket"></a>
+                    <span class="name">
+                        <span ><b>crearTicket</b></span>
+                        <a href="#crearTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>crearTicket()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="164"
+                                    class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:164</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Procesa el envío del formulario del modal para crear un nuevo ticket.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getNombreEncargado"></a>
+                    <span class="name">
+                        <span ><b>getNombreEncargado</b></span>
+                        <a href="#getNombreEncargado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getNombreEncargado(idEncargado: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="90"
+                                    class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:90</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>idEncargado</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPrioridadTexto"></a>
+                    <span class="name">
+                        <span ><b>getPrioridadTexto</b></span>
+                        <a href="#getPrioridadTexto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getPrioridadTexto(codigo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="189"
+                                    class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:189</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>codigo</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isInicioActive"></a>
+                    <span class="name">
+                        <span ><b>isInicioActive</b></span>
+                        <a href="#isInicioActive"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isInicioActive()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="68"
+                                    class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Verifica si la ruta actual es el inicio del portal.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logout"></a>
+                    <span class="name">
+                        <span ><b>logout</b></span>
+                        <a href="#logout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>logout()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="214"
+                                    class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:214</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="75"
+                                    class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:75</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Inicialización del componente: recupera el usuario y carga sus tickets.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onAsignarTicket"></a>
+                    <span class="name">
+                        <span ><b>onAsignarTicket</b></span>
+                        <a href="#onAsignarTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onAsignarTicket(event: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="96"
+                                    class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:96</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetForm"></a>
+                    <span class="name">
+                        <span ><b>resetForm</b></span>
+                        <a href="#resetForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="194"
+                                    class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:194</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="landingUrl"></a>
+                    <span class="name">
+                        <span ><b>landingUrl</b></span>
+                        <a href="#landingUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>environment.ssoLandingIntranet</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mostrarModalTicket"></a>
+                    <span class="name">
+                        <span ><b>mostrarModalTicket</b></span>
+                        <a href="#mostrarModalTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Gestión del modal de detalles</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="nuevoTicket"></a>
+                    <span class="name">
+                        <span ><b>nuevoTicket</b></span>
+                        <a href="#nuevoTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    titulo: &#x27;&#x27;,
+    descripcion: &#x27;&#x27;,
+    tipo: &#x27;incidencia&#x27;,
+    prioridad: &#x27;media&#x27;,
+    categoriaId: 1
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Objeto para vincular con el formulario de nuevo ticket</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="operarios"></a>
+                    <span class="name">
+                        <span ><b>operarios</b></span>
+                        <a href="#operarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Usuario.html" target="_self" >Usuario[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stats"></a>
+                    <span class="name">
+                        <span ><b>stats</b></span>
+                        <a href="#stats"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    total: 0,
+    incidencias: 0,
+    peticiones: 0,
+    enProceso: 0
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Estadísticas calculadas dinámicamente</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tickets"></a>
+                    <span class="name">
+                        <span ><b>tickets</b></span>
+                        <a href="#tickets"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Ticket.html" target="_self" >Ticket[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Lista de tickets del usuario</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ticketSeleccionado"></a>
+                    <span class="name">
+                        <span ><b>ticketSeleccionado</b></span>
+                        <a href="#ticketSeleccionado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="usuario_actual"></a>
+                    <span class="name">
+                        <span ><b>usuario_actual</b></span>
+                        <a href="#usuario_actual"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Usuario.html" target="_self" >Usuario | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Usuario que ha iniciado sesión actualmente</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="esVistaTecnico"></a>
+                        <span class="name"><b>esVistaTecnico</b><a href="#esVistaTecnico"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>esVistaTecnico()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="138" class="link-to-prism">src/app/pages/usuario/portal-tickets/portal-tickets.component.ts:138</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { Router, RouterLink, RouterLinkActive } from &#x27;@angular/router&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FooterComponent } from &#x27;../../../shared/layout/footer/footer.component&#x27;;
+import { AuthService } from &#x27;../../../services/auth.service&#x27;;
+import { TicketService } from &#x27;../../../services/ticket.service&#x27;;
+import { UsuarioService } from &#x27;../../../services/usuario.service&#x27;;
+import { ModalTicketComponent } from &#x27;../../modales/modal-ticket/modal-ticket.component&#x27;;
+import { Usuario } from &#x27;../../../models/usuario.model&#x27;;
+import { Ticket } from &#x27;../../../models/ticket.model&#x27;;
+import { environment } from &#x27;../../../../enviroments/environment&#x27;;
+import { HeaderComponent } from &#x27;../../../shared/layout/header/header.component&#x27;;
+
+@Component({
+  selector: &#x27;app-portal-tickets&#x27;,
+  standalone: true,
+  imports: [CommonModule, RouterLink, FormsModule, FooterComponent, ModalTicketComponent, HeaderComponent], 
+  templateUrl: &#x27;./portal-tickets.component.html&#x27;,
+  styleUrl: &#x27;./portal-tickets.component.css&#x27;
+})
+export class PortalTicketsComponent implements OnInit {
+  landingUrl &#x3D; environment.ssoLandingIntranet;
+  /** Usuario que ha iniciado sesión actualmente */
+  usuario_actual: Usuario | null &#x3D; null;
+  /** Lista de tickets del usuario */
+  tickets: Ticket[] &#x3D; [];
+  operarios: Usuario[] &#x3D; [];
+  
+  /** Gestión del modal de detalles */
+  mostrarModalTicket: boolean &#x3D; false;
+  ticketSeleccionado: any &#x3D; null;
+  
+  /** Estadísticas calculadas dinámicamente */
+  stats &#x3D; {
+    total: 0,
+    incidencias: 0,
+    peticiones: 0,
+    enProceso: 0
+  };
+
+  /** Objeto para vincular con el formulario de nuevo ticket */
+  nuevoTicket: any &#x3D; {
+    titulo: &#x27;&#x27;,
+    descripcion: &#x27;&#x27;,
+    tipo: &#x27;incidencia&#x27;,
+    prioridad: &#x27;media&#x27;,
+    categoriaId: 1
+  };
+
+  constructor(
+    private authService: AuthService,
+    private ticketService: TicketService,
+    private usuarioService: UsuarioService,
+    private router: Router
+  ) {}
+
+  /**
+   * Verifica si la ruta actual es el inicio del portal.
+   */
+  isInicioActive(): boolean {
+    return this.router.url &#x3D;&#x3D;&#x3D; &#x27;/portal-tickets&#x27;;
+  }
+
+  /**
+   * Inicialización del componente: recupera el usuario y carga sus tickets.
+   */
+  ngOnInit(): void {
+    this.usuario_actual &#x3D; this.authService.getUsuarioActual();
+    if (this.usuario_actual) {
+      this.cargarTickets();
+      this.cargarOperarios();
+    }
+  }
+
+  cargarOperarios(): void {
+    this.usuarioService.getOperarios().subscribe({
+      next: (data) &#x3D;&gt; this.operarios &#x3D; data,
+      error: (err) &#x3D;&gt; console.error(&#x27;Error al cargar operarios&#x27;, err)
+    });
+  }
+
+  getNombreEncargado(idEncargado: any): string {
+    if (!idEncargado) return &#x27;&#x27;;
+    const tech &#x3D; this.operarios.find(op &#x3D;&gt; Number(op.id) &#x3D;&#x3D;&#x3D; Number(idEncargado));
+    return tech ? tech.nombre : &#x60;Técnico #${idEncargado}&#x60;;
+  }
+
+  onAsignarTicket(event: {idTicket: number, idOperario: number}) {
+    this.ticketService.asignarTicket(event.idTicket.toString(), event.idOperario).subscribe({
+      next: (res) &#x3D;&gt; {
+        if (res.status &#x3D;&#x3D;&#x3D; &#x27;success&#x27;) {
+          if (this.ticketSeleccionado) {
+            this.ticketSeleccionado.id_usuario_encargado &#x3D; event.idOperario;
+            this.ticketSeleccionado.estado &#x3D; &#x27;asignado&#x27;;
+          }
+          this.cargarTickets(); // Recargar la lista
+        } else {
+          alert(&#x27;Error al asignar el ticket: &#x27; + res.message);
+        }
+      },
+      error: () &#x3D;&gt; alert(&#x27;Error de conexión al asignar.&#x27;)
+    });
+  }
+
+  /**
+   * Obtiene los tickets del servicio filtrados por el usuario logueado o todos si es admin.
+   */
+  cargarTickets(): void {
+    if (this.usuario_actual) {
+      if (this.usuario_actual.rol &#x3D;&#x3D;&#x3D; &#x27;administrador&#x27;) {
+        this.ticketService.getTickets().subscribe({
+          next: (data) &#x3D;&gt; {
+            this.tickets &#x3D; data;
+            this.calcularStats();
+          },
+          error: (err) &#x3D;&gt; console.error(&#x27;Error al cargar todos los tickets&#x27;, err)
+        });
+      } else {
+        this.ticketService.getTicketsPorUsuario(this.usuario_actual.id).subscribe({
+          next: (data) &#x3D;&gt; {
+            this.tickets &#x3D; data;
+            this.calcularStats();
+          },
+          error: (err) &#x3D;&gt; console.error(&#x27;Error al cargar tickets por usuario&#x27;, err)
+        });
+      }
+    }
+  }
+
+  get esVistaTecnico(): boolean {
+    const rol &#x3D; this.usuario_actual?.rol;
+    return rol &#x3D;&#x3D;&#x3D; &#x27;administrador&#x27; || 
+           rol &#x3D;&#x3D;&#x3D; &#x27;admin&#x27; || 
+           rol &#x3D;&#x3D;&#x3D; &#x27;responsable&#x27; || 
+           rol &#x3D;&#x3D;&#x3D; &#x27;trabajador&#x27; || 
+           rol &#x3D;&#x3D;&#x3D; &#x27;operario&#x27;;
+  }
+
+  /**
+   * Recorre la lista de tickets para actualizar los contadores del dashboard.
+   */
+  calcularStats(): void {
+    this.stats.total &#x3D; this.tickets.length;
+    this.stats.incidencias &#x3D; this.tickets.filter(t &#x3D;&gt; t.tipo &#x3D;&#x3D;&#x3D; &#x27;incidencia&#x27;).length;
+    this.stats.peticiones &#x3D; this.tickets.filter(t &#x3D;&gt; t.tipo &#x3D;&#x3D;&#x3D; &#x27;peticion&#x27;).length;
+    if (this.esVistaTecnico) {
+      this.stats.enProceso &#x3D; this.tickets.filter(t &#x3D;&gt; t.estado &#x3D;&#x3D;&#x3D; &#x27;pendiente&#x27; || t.estado &#x3D;&#x3D;&#x3D; &#x27;asignado&#x27;).length;
+    } else {
+      this.stats.enProceso &#x3D; this.tickets.filter(t &#x3D;&gt; t.estado &#x3D;&#x3D;&#x3D; &#x27;proceso&#x27; || t.estado &#x3D;&#x3D;&#x3D; &#x27;asignado&#x27;).length;
+    }
+  }
+
+  /**
+   * Procesa el envío del formulario del modal para crear un nuevo ticket.
+   */
+  crearTicket(): void {
+    if (!this.usuario_actual) return;
+
+    const mapaPrioridad: any &#x3D; { &#x27;baja&#x27;: &#x27;b&#x27;, &#x27;media&#x27;: &#x27;m&#x27;, &#x27;alta&#x27;: &#x27;a&#x27; };
+
+    const ticketData: Partial&lt;Ticket&gt; &#x3D; {
+      titulo: this.nuevoTicket.titulo,
+      descripcion: this.nuevoTicket.descripcion,
+      tipo: this.nuevoTicket.tipo,
+      prioridad: mapaPrioridad[this.nuevoTicket.prioridad] || &#x27;m&#x27;,
+      id_categoria: this.nuevoTicket.categoriaId,
+      id_usuario_creador: this.usuario_actual.id,
+      estado: &#x27;pendiente&#x27;
+    };
+
+    this.ticketService.crearTicket(ticketData).subscribe({
+      next: (res) &#x3D;&gt; {
+        console.log(&#x27;Ticket creado:&#x27;, res);
+        this.cargarTickets();
+        this.resetForm();
+      },
+      error: (err) &#x3D;&gt; alert(&#x27;Error al crear el ticket. Revisa la conexión con el backend.&#x27;)
+    });
+  }
+
+  getPrioridadTexto(codigo: string): string {
+    const mapa: any &#x3D; { &#x27;a&#x27;: &#x27;Alta&#x27;, &#x27;m&#x27;: &#x27;Media&#x27;, &#x27;b&#x27;: &#x27;Baja&#x27; };
+    return mapa[codigo] || &#x27;Media&#x27;;
+  }
+
+  resetForm(): void {
+    this.nuevoTicket &#x3D; {
+      titulo: &#x27;&#x27;,
+      descripcion: &#x27;&#x27;,
+      tipo: &#x27;incidencia&#x27;,
+      prioridad: &#x27;media&#x27;,
+      categoriaId: 1
+    };
+  }
+
+  abrirModalTicket(ticket: any) {
+    this.ticketSeleccionado &#x3D; ticket;
+    this.mostrarModalTicket &#x3D; true;
+  }
+
+  cerrarModalTicket() {
+    this.mostrarModalTicket &#x3D; false;
+    this.ticketSeleccionado &#x3D; null;
+  }
+
+  logout(): void {
+    this.authService.logout();
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!--
+ * Proyecto: TicketingEVG
+ * Alumno: Sergio Díaz Pereira
+ * Asignatura: DAW
+ * Curso: 2025-2026
+ * Descripción: Vista del portal de tickets (Migración LITERAL 100% de PHP).
+--&gt;
+&lt;div class&#x3D;&quot;sergio&quot;&gt;
+	&lt;app-header&gt;&lt;/app-header&gt;
+
+	&lt;main&gt;
+		&lt;div class&#x3D;&quot;container-lg&quot;&gt;
+			&lt;div class&#x3D;&quot;d-flex align-items-start justify-content-between flex-wrap gap-3 mb-4 cabecera-pagina&quot;&gt;
+				&lt;div&gt;
+					&lt;h1&gt;Dashboard&lt;/h1&gt;
+					&lt;p&gt;Resumen operativo y estado de las solicitudes de soporte.&lt;/p&gt;
+				&lt;/div&gt;
+				&lt;a routerLink&#x3D;&quot;/portal-tickets/crear&quot; class&#x3D;&quot;boton-crear&quot;&gt;&lt;i class&#x3D;&quot;fa-solid fa-plus&quot;&gt;&lt;/i&gt; Crear ticket&lt;/a&gt;
+			&lt;/div&gt;
+
+			&lt;div class&#x3D;&quot;row g-3 mb-4&quot;&gt;
+				&lt;div class&#x3D;&quot;col-6 col-md-3&quot;&gt;
+					&lt;div class&#x3D;&quot;tarjeta-stats&quot; style&#x3D;&quot;animation-delay:.05s&quot;&gt;
+						&lt;div class&#x3D;&quot;icono-stats amarillo&quot;&gt;&lt;i class&#x3D;&quot;fa-solid fa-layer-group&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+						&lt;div class&#x3D;&quot;info-estadistica&quot;&gt;Total tickets&lt;/div&gt;
+						&lt;div class&#x3D;&quot;valor-stats&quot;&gt;{{ stats.total }}&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+				&lt;div class&#x3D;&quot;col-6 col-md-3&quot;&gt;
+					&lt;div class&#x3D;&quot;tarjeta-stats&quot; style&#x3D;&quot;animation-delay:.1s&quot;&gt;
+						&lt;div class&#x3D;&quot;icono-stats rojo&quot;&gt;&lt;i class&#x3D;&quot;fa-solid fa-circle-exclamation&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+						&lt;div class&#x3D;&quot;info-estadistica&quot;&gt;Incidencias&lt;/div&gt;
+						&lt;div class&#x3D;&quot;valor-stats&quot;&gt;{{ stats.incidencias }}&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+				&lt;div class&#x3D;&quot;col-6 col-md-3&quot;&gt;
+					&lt;div class&#x3D;&quot;tarjeta-stats&quot; style&#x3D;&quot;animation-delay:.15s&quot;&gt;
+						&lt;div class&#x3D;&quot;icono-stats azul&quot;&gt;&lt;i class&#x3D;&quot;fa-solid fa-circle-info&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+						&lt;div class&#x3D;&quot;info-estadistica&quot;&gt;Peticiones de servicio&lt;/div&gt;
+						&lt;div class&#x3D;&quot;valor-stats&quot;&gt;{{ stats.peticiones }}&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+				&lt;div class&#x3D;&quot;col-6 col-md-3&quot;&gt;
+					&lt;div class&#x3D;&quot;tarjeta-stats&quot; style&#x3D;&quot;animation-delay:.2s&quot;&gt;
+						&lt;div class&#x3D;&quot;icono-stats verde&quot;&gt;
+							&lt;i class&#x3D;&quot;fa-solid&quot; [ngClass]&#x3D;&quot;esVistaTecnico ? &#x27;fa-stopwatch&#x27; : &#x27;fa-gear&#x27;&quot;&gt;&lt;/i&gt;
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;info-estadistica&quot;&gt;
+								{{ esVistaTecnico ? &#x27;Tickets pendientes&#x27; : &#x27;En proceso&#x27; }}
+						&lt;/div&gt;
+						&lt;div class&#x3D;&quot;valor-stats&quot;&gt;{{ stats.enProceso }}&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+
+			&lt;div class&#x3D;&quot;tarjeta-tickets&quot;&gt;
+				&lt;div class&#x3D;&quot;cabecera-tickets&quot;&gt;
+					&lt;div&gt;
+						&lt;h2&gt;Tickets recientes&lt;/h2&gt;
+						&lt;p&gt;
+							@if (esVistaTecnico) {
+								Últimas solicitudes y actualizaciones de estado.
+							} @else {
+								Tus últimos tickets y actualizaciones de estado.
+							}
+						&lt;/p&gt;
+					&lt;/div&gt;
+					&lt;a routerLink&#x3D;&quot;/portal-tickets/tickets&quot; class&#x3D;&quot;ver-todo&quot;&gt;Ver todo &lt;i class&#x3D;&quot;fa-solid fa-arrow-up-right-from-square fa-xs&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+				&lt;/div&gt;
+				&lt;div class&#x3D;&quot;cuerpo-tickets&quot;&gt;
+					@if (tickets.length &gt; 0) {
+						@for (ticket of tickets.slice(0, 8); track ticket.id) {
+							&lt;div class&#x3D;&quot;fila-ticket&quot; (click)&#x3D;&quot;abrirModalTicket(ticket)&quot;&gt;
+								&lt;div class&#x3D;&quot;punto-ticket&quot; [ngClass]&#x3D;&quot;ticket.tipo &#x3D;&#x3D;&#x3D; &#x27;incidencia&#x27; ? &#x27;rojo&#x27; : &#x27;azul&#x27;&quot;&gt;
+									&lt;i class&#x3D;&quot;fa-solid&quot; [ngClass]&#x3D;&quot;ticket.tipo &#x3D;&#x3D;&#x3D; &#x27;incidencia&#x27; ? &#x27;fa-circle-exclamation&#x27; : &#x27;fa-circle-info&#x27;&quot;&gt;&lt;/i&gt;
+								&lt;/div&gt;
+								&lt;div class&#x3D;&quot;info-ticket&quot;&gt;
+									&lt;strong&gt;{{ ticket.titulo }}&lt;/strong&gt;
+									@if (ticket.id_usuario_encargado) {
+										&lt;small&gt;Asignado a: {{ (ticket.encargado_nombre || getNombreEncargado(ticket.id_usuario_encargado)) | uppercase }}&lt;/small&gt;
+									}
+								&lt;/div&gt;
+								&lt;span class&#x3D;&quot;etiqueta-estado&quot; [ngClass]&#x3D;&quot;ticket.estado&quot;&gt;
+									{{ ticket.estado &#x3D;&#x3D;&#x3D; &#x27;proceso&#x27; ? &#x27;En proceso&#x27; : (ticket.estado | titlecase) }}
+								&lt;/span&gt;
+							&lt;/div&gt;
+						}
+					} @else {
+						&lt;div class&#x3D;&quot;estado-vacio&quot;&gt;
+							&lt;p&gt;No hay tickets registrados&lt;/p&gt;
+						&lt;/div&gt;
+					}
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/main&gt;
+	&lt;app-footer&gt;&lt;/app-footer&gt;
+&lt;/div&gt;
+
+&lt;!-- Modal de detalles de ticket --&gt;
+&lt;app-modal-ticket 
+    *ngIf&#x3D;&quot;mostrarModalTicket&quot; 
+    [ticket]&#x3D;&quot;ticketSeleccionado&quot; 
+    [rolUsuario]&#x3D;&quot;usuario_actual?.rol || &#x27;profesor&#x27;&quot; 
+    [operarios]&#x3D;&quot;operarios&quot;
+    (asignar)&#x3D;&quot;onAsignarTicket($event)&quot;
+    (resolver)&#x3D;&quot;cargarTickets()&quot;
+    (cerrar)&#x3D;&quot;cerrarModalTicket()&quot;&gt;
+&lt;/app-modal-ticket&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- * Proyecto: TicketingEVG * Alumno: Sergio Díaz Pereira * Asignatura: DAW * Curso: 2025-2026 * Descripción: Vista del portal de tickets (Migración LITERAL 100% de PHP).--><div class="sergio">	<app-header></app-header>	<main>		<div class="container-lg">			<div class="d-flex align-items-start justify-content-between flex-wrap gap-3 mb-4 cabecera-pagina">				<div>					<h1>Dashboard</h1>					<p>Resumen operativo y estado de las solicitudes de soporte.</p>				</div>				<a routerLink="/portal-tickets/crear" class="boton-crear"><i class="fa-solid fa-plus"></i> Crear ticket</a>			</div>			<div class="row g-3 mb-4">				<div class="col-6 col-md-3">					<div class="tarjeta-stats" style="animation-delay:.05s">						<div class="icono-stats amarillo"><i class="fa-solid fa-layer-group"></i></div>						<div class="info-estadistica">Total tickets</div>						<div class="valor-stats">{{ stats.total }}</div>					</div>				</div>				<div class="col-6 col-md-3">					<div class="tarjeta-stats" style="animation-delay:.1s">						<div class="icono-stats rojo"><i class="fa-solid fa-circle-exclamation"></i></div>						<div class="info-estadistica">Incidencias</div>						<div class="valor-stats">{{ stats.incidencias }}</div>					</div>				</div>				<div class="col-6 col-md-3">					<div class="tarjeta-stats" style="animation-delay:.15s">						<div class="icono-stats azul"><i class="fa-solid fa-circle-info"></i></div>						<div class="info-estadistica">Peticiones de servicio</div>						<div class="valor-stats">{{ stats.peticiones }}</div>					</div>				</div>				<div class="col-6 col-md-3">					<div class="tarjeta-stats" style="animation-delay:.2s">						<div class="icono-stats verde">							<i class="fa-solid" [ngClass]="esVistaTecnico ? \'fa-stopwatch\' : \'fa-gear\'"></i>						</div>						<div class="info-estadistica">								{{ esVistaTecnico ? \'Tickets pendientes\' : \'En proceso\' }}						</div>						<div class="valor-stats">{{ stats.enProceso }}</div>					</div>				</div>			</div>			<div class="tarjeta-tickets">				<div class="cabecera-tickets">					<div>						<h2>Tickets recientes</h2>						<p>							@if (esVistaTecnico) {								Últimas solicitudes y actualizaciones de estado.							} @else {								Tus últimos tickets y actualizaciones de estado.							}						</p>					</div>					<a routerLink="/portal-tickets/tickets" class="ver-todo">Ver todo <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i></a>				</div>				<div class="cuerpo-tickets">					@if (tickets.length > 0) {						@for (ticket of tickets.slice(0, 8); track ticket.id) {							<div class="fila-ticket" (click)="abrirModalTicket(ticket)">								<div class="punto-ticket" [ngClass]="ticket.tipo === \'incidencia\' ? \'rojo\' : \'azul\'">									<i class="fa-solid" [ngClass]="ticket.tipo === \'incidencia\' ? \'fa-circle-exclamation\' : \'fa-circle-info\'"></i>								</div>								<div class="info-ticket">									<strong>{{ ticket.titulo }}</strong>									@if (ticket.id_usuario_encargado) {										<small>Asignado a: {{ (ticket.encargado_nombre || getNombreEncargado(ticket.id_usuario_encargado)) | uppercase }}</small>									}								</div>								<span class="etiqueta-estado" [ngClass]="ticket.estado">									{{ ticket.estado === \'proceso\' ? \'En proceso\' : (ticket.estado | titlecase) }}								</span>							</div>						}					} @else {						<div class="estado-vacio">							<p>No hay tickets registrados</p>						</div>					}				</div>			</div>		</div>	</main>	<app-footer></app-footer></div><!-- Modal de detalles de ticket --><app-modal-ticket     *ngIf="mostrarModalTicket"     [ticket]="ticketSeleccionado"     [rolUsuario]="usuario_actual?.rol || \'profesor\'"     [operarios]="operarios"    (asignar)="onAsignarTicket($event)"    (resolver)="cargarTickets()"    (cerrar)="cerrarModalTicket()"></app-modal-ticket></div>'
+    var COMPONENTS = [{'name': 'AccesoComponent', 'selector': 'app-acceso'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CategoriasComponent', 'selector': 'app-categorias'},{'name': 'ConfirmacionEliminarComponent', 'selector': 'app-confirmacion-eliminar'},{'name': 'CrearTicketComponent', 'selector': 'app-crear-ticket'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FormularioCategoriaComponent', 'selector': 'app-formulario-categoria'},{'name': 'FormularioOperarioComponent', 'selector': 'app-formulario-operario'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'ListaTicketsComponent', 'selector': 'app-lista-tickets'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ModalTicketComponent', 'selector': 'app-modal-ticket'},{'name': 'OperariosComponent', 'selector': 'app-operarios'},{'name': 'PortalTicketsComponent', 'selector': 'app-portal-tickets'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SsoCallbackComponent', 'selector': 'app-sso-callback'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'PortalTicketsComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'PortalTicketsComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
