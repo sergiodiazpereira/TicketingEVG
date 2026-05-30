@@ -148,15 +148,16 @@
     }
     
     /* Reducir espacio del logo en móviles */
-    .sergio header .logo-nav {
+    .sergio header .d-flex.align-items-center.me-2 {
         margin-right: 6px !important;
         gap: 4px !important;
     }
     
-    .sergio header .logo-nav-anillo {
-        width: 20px !important;
-        height: 20px !important;
-        border-width: 2px !important;
+    .sergio header .icono-logo {
+        font-size: 1.1rem !important; /* Reducir icono de escuela en móviles */
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     /* Ocultar el subtítulo del logo para ahorrar espacio horizontal */

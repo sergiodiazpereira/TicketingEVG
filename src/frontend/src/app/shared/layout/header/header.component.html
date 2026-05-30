@@ -1,0 +1,37 @@
+<!-- 
+  Proyecto: TicketingEVG
+  Alumno: Joseph Joel Quispe Alvarez
+  Asignatura: DAW
+  Curso: 2 DAW
+  Descripción: Cabecera unificada y compartida para el portal del usuario.
+-->
+<header>
+	<div class="d-flex align-items-center gap-2 me-2">
+		<div class="icono-logo"><i class="fa-solid fa-school"></i></div>
+		<div class="icono-texto">
+			<strong>TicketingEVG</strong>
+			<span class="info-estadistica"><strong>Portal de gestión</strong></span>
+		</div>
+	</div>
+	<a routerLink="/portal-tickets" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}" #rlaInicio="routerLinkActive" [class.fantasma]="!rlaInicio.isActive" class="boton-nav">
+		<i class="fa-solid fa-table-cells-large"></i>
+		<span class="etiqueta-nav">Inicio</span>
+	</a>
+	<a routerLink="/portal-tickets/tickets" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}" #rlaTickets="routerLinkActive" [class.fantasma]="!rlaTickets.isActive" class="boton-nav">
+		<i class="fa-regular fa-clipboard"></i>
+		<span class="etiqueta-nav">Mis tickets</span>
+	</a>
+	<div class="flex-grow-1"></div>
+	<a *ngIf="esAdministrador" routerLink="/admin/dashboard" class="btn-cerrar-sesion me-2 btn-cambio-vista">
+		<i class="fa-solid fa-arrow-right-arrow-left"></i>
+		<span class="etiqueta-nav">Consola Admin</span>
+	</a>
+	<a [href]="landingUrl" class="btn-cerrar-sesion me-2" title="Volver">
+		<i class="fa-solid fa-house"></i>
+		<span class="etiqueta-nav">Volver</span>
+	</a>
+	<a (click)="logout()" style="cursor: pointer;" class="btn-cerrar-sesion">
+		<i class="fa-solid fa-right-from-bracket"></i>
+		<span class="etiqueta-nav">Cerrar sesión</span>
+	</a>
+</header>
