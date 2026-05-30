@@ -133,11 +133,11 @@
 						<div class="col-md-6" *ngIf="esAdminOResponsable">
 							<label class="etiqueta-form" for="campo-encargado">Asignar Técnico / Responsable (Opcional)</label>
 							<div class="desplegable-personalizado w-100" [class.activo]="desplegableEncargadoAbierto">
-								<button type="button" class="boton-filtro-custom w-100" (click)="toggleDesplegableEncargado($event)">
+								<button type="button" class="boton-filtro-custom w-100" (click)="toggleDesplegableEncargado($event)" [disabled]="formulario.get('id_categoria')?.value && operariosFiltrados.length === 0" [style.opacity]="(formulario.get('id_categoria')?.value && operariosFiltrados.length === 0) ? '0.7' : '1'" [style.cursor]="(formulario.get('id_categoria')?.value && operariosFiltrados.length === 0) ? 'not-allowed' : 'pointer'">
 									<span>{{ getEncargadoEtiqueta() }}</span>
-									<i class="fa-solid fa-chevron-down"></i>
+									<i class="fa-solid fa-chevron-down" *ngIf="!(formulario.get('id_categoria')?.value && operariosFiltrados.length === 0)"></i>
 								</button>
-								<div class="opciones-desplegable" *ngIf="desplegableEncargadoAbierto">
+								<div class="opciones-desplegable" *ngIf="desplegableEncargadoAbierto && operariosFiltrados.length > 0">
 									<ng-container *ngIf="formulario.get('id_categoria')?.value; else seleccionarCatPrimero">
 										<div class="opcion-item" [class.seleccionado]="formulario.get('id_usuario_encargado')?.value === ''" (click)="seleccionarEncargado('')">
 											<span>-- Sin asignar --</span>
@@ -146,9 +146,6 @@
 										<div class="opcion-item" *ngFor="let op of operariosFiltrados" [class.seleccionado]="formulario.get('id_usuario_encargado')?.value === op.id" (click)="seleccionarEncargado(op.id)">
 											<span>{{ op.nombre }} ({{ op.rol | uppercase }})</span>
 											<i class="fa-solid fa-check" *ngIf="formulario.get('id_usuario_encargado')?.value === op.id"></i>
-										</div>
-										<div class="opcion-item disabled" style="color: #94a3b8; cursor: not-allowed; pointer-events: none; padding: 12px 16px;" *ngIf="operariosFiltrados.length === 0">
-											<span>No hay técnicos en esta categoría</span>
 										</div>
 									</ng-container>
 									<ng-template #seleccionarCatPrimero>
@@ -162,6 +159,17 @@
 										</div>
 									</ng-template>
 								</div>
+							</div>
+							<!-- Mensaje si no hay trabajadores disponibles -->
+							<div *ngIf="formulario.get('id_categoria')?.value && operariosFiltrados.length === 0" 
+								 class="alert alert-warning py-2 px-3 small fw-bold rounded-3" 
+								 style="background-color: #fff9eb; color: #d99339; border: 1px dashed #fef3c7; display: flex; align-items: center; gap: 8px; font-size: 12px; margin-top: 10px;">
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+									<circle cx="12" cy="12" r="10"></circle>
+									<line x1="12" y1="8" x2="12" y2="12"></line>
+									<line x1="12" y1="16" x2="12.01" y2="16"></line>
+								</svg>
+								<span>No hay trabajadores disponibles en esta categoría.</span>
 							</div>
 						</div>
 						<div class="col-12">

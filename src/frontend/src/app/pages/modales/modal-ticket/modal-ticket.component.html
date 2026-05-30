@@ -92,8 +92,10 @@
                             </svg>
                             <span>Asignar / Reasignar Técnico (Filtrado por Categoría)</span>
                         </label>
-                        <select class="form-control" (change)="onAsignar($event)" [disabled]="operariosFiltrados.length === 0" style="background-color: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 12px 16px; font-weight: 600; color: #1e293b; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease;">
-                            <option value="" [selected]="!ticket.id_usuario_encargado">Seleccionar operario...</option>
+                        <select class="form-control" (change)="onAsignar($event)" [disabled]="operariosFiltrados.length === 0">
+                            <option value="" [selected]="!ticket.id_usuario_encargado">
+                                {{ operariosFiltrados.length === 0 ? 'No hay trabajadores disponibles' : 'Seleccionar operario...' }}
+                            </option>
                             <option *ngFor="let op of operariosFiltrados" [value]="op.id" [selected]="op.id == ticket.id_usuario_encargado">{{ op.nombre }}</option>
                         </select>
 
@@ -105,7 +107,7 @@
                                 <line x1="12" y1="8" x2="12" y2="12"></line>
                                 <line x1="12" y1="16" x2="12.01" y2="16"></line>
                             </svg>
-                            <span>No hay trabajadores registrados en esta categoría técnica.</span>
+                            <span>No hay trabajadores disponibles en esta categoría.</span>
                         </div>
                     </div>
                 </ng-container>

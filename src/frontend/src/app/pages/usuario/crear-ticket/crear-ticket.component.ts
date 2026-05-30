@@ -288,6 +288,10 @@ export class CrearTicketComponent implements OnInit {
   }
 
   getEncargadoEtiqueta(): string {
+    const catId = this.formulario.get('id_categoria')?.value;
+    if (catId && this.operariosFiltrados.length === 0) {
+      return '-- No hay trabajadores disponibles --';
+    }
     const id = this.formulario.get('id_usuario_encargado')?.value;
     if (!id) return '-- Sin asignar --';
     const op = this.operarios.find(o => o.id == id);
