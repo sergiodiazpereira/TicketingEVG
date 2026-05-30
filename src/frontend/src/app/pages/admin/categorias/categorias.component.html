@@ -21,11 +21,19 @@
 				</header>
 
 				<div class="container-fluid px-4">
-					<!-- Mensaje de feedback -->
-					<div *ngIf="mensajeFeedback" class="alert mt-3 mb-0 py-2 px-3 rounded-3 small fw-bold"
-						[class.alert-success]="!esMensajeError"
-						[class.alert-danger]="esMensajeError">
-						{{ mensajeFeedback }}
+					<!-- Toast Alerta Premium (Flotante Arriba a la Derecha) -->
+					<div *ngIf="mensajeFeedback" class="toast-alerta-contenedor" [class.toast-error]="esMensajeError" [class.toast-exito]="!esMensajeError" (click)="mensajeFeedback = null">
+						<div class="toast-alerta-icono">
+							<i class="fa-solid" [ngClass]="esMensajeError ? 'fa-circle-exclamation' : 'fa-circle-check'"></i>
+						</div>
+						<div class="toast-alerta-cuerpo">
+							<span class="toast-alerta-titulo">{{ esMensajeError ? 'ERROR' : 'ÉXITO' }}</span>
+							<span class="toast-alerta-mensaje">{{ mensajeFeedback }}</span>
+						</div>
+						<button class="toast-alerta-cerrar" (click)="mensajeFeedback = null">
+							<i class="fa-solid fa-xmark"></i>
+						</button>
+						<div class="toast-alerta-progreso"></div>
 					</div>
 
 					<!-- Título y Botón de Acción -->

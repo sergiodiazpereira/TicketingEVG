@@ -180,13 +180,6 @@
 
         <hr class="divider">
 
-        <!-- Mensaje de feedback interno del modal -->
-        <div *ngIf="mensajeFeedback" class="mx-4 mt-3 alert py-2 small fw-bold rounded-3"
-            [class.alert-success]="!esMensajeError"
-            [class.alert-danger]="esMensajeError">
-            {{ mensajeFeedback }}
-        </div>
-
         <!-- FOOTER: Centrado perfecto -->
         <div class="modal-footer" style="padding: 25px 30px; display: flex !important; flex-direction: row !important; justify-content: center !important; flex-wrap: wrap !important; gap: 12px 10px;">
             <!-- BOTONES MODO EDICIÓN -->
@@ -333,3 +326,27 @@
     (confirmar)="confirmarCancelar()"
     (click)="$event.stopPropagation()">
 </app-confirmacion-eliminar>
+
+<!-- Confirmación de Cambio de Categoría e Incompatibilidad de Técnico -->
+<app-confirmacion-eliminar
+    *ngIf="mostrarConfirmacionCambioCategoria"
+    [tipo]="'cambio-categoria-desasignar'"
+    (cancelar)="mostrarConfirmacionCambioCategoria = false"
+    (confirmar)="confirmarCambioCategoria()"
+    (click)="$event.stopPropagation()">
+</app-confirmacion-eliminar>
+
+<!-- Toast Alerta Premium (Flotante Arriba a la Derecha - Nivel Raíz de la Pantalla) -->
+<div *ngIf="mensajeFeedback" class="toast-alerta-contenedor" [class.toast-error]="esMensajeError" [class.toast-exito]="!esMensajeError" (click)="mensajeFeedback = null; $event.stopPropagation()">
+    <div class="toast-alerta-icono">
+        <i class="fa-solid" [ngClass]="esMensajeError ? 'fa-circle-exclamation' : 'fa-circle-check'"></i>
+    </div>
+    <div class="toast-alerta-cuerpo">
+        <span class="toast-alerta-titulo">{{ esMensajeError ? 'ERROR' : 'ÉXITO' }}</span>
+        <span class="toast-alerta-mensaje">{{ mensajeFeedback }}</span>
+    </div>
+    <button class="toast-alerta-cerrar" (click)="mensajeFeedback = null; $event.stopPropagation()">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="toast-alerta-progreso"></div>
+</div>

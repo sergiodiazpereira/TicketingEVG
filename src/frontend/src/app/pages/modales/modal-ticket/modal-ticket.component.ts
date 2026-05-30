@@ -38,6 +38,7 @@ export class ModalTicketComponent implements OnInit {
   isClosing = false;
   mostrarConfirmacionDesasignar = false;
   mostrarConfirmacionCancelar = false;
+  mostrarConfirmacionCambioCategoria = false;
 
   /** Variables para el editor dinámico del ticket */
   categorias: any[] = [];
@@ -269,6 +270,29 @@ export class ModalTicketComponent implements OnInit {
       return;
     }
 
+    // Intercept category change where the current technician is incompatible
+    if (Number(this.categoriaEditada) !== Number(this.ticket.id_categoria) && this.ticket.id_usuario_encargado && Number(this.ticket.id_usuario_encargado) > 0) {
+      const operarioAsignado = this.operarios.find(op => Number(op.id) === Number(this.ticket.id_usuario_encargado));
+      if (operarioAsignado && operarioAsignado.categorias_ids) {
+        const idsCategorias = String(operarioAsignado.categorias_ids).split(',').map(Number);
+        const tieneNuevaCategoria = idsCategorias.includes(Number(this.categoriaEditada));
+        if (!tieneNuevaCategoria) {
+          // Show the warning confirmation modal
+          this.mostrarConfirmacionCambioCategoria = true;
+          return;
+        }
+      }
+    }
+
+    this.guardarEdicionConfirmada();
+  }
+
+  confirmarCambioCategoria() {
+    this.mostrarConfirmacionCambioCategoria = false;
+    this.guardarEdicionConfirmada();
+  }
+
+  guardarEdicionConfirmada() {
     this.procesando = true;
     const payload: any = {
       titulo: this.tituloEditado,
@@ -282,6 +306,22 @@ export class ModalTicketComponent implements OnInit {
       next: (res: any) => {
         this.procesando = false;
         if (res.status === 'success') {
+          // If the technician is now incompatible with the new category, unassign them in the local model
+          let desasignado = false;
+          if (this.ticket.id_usuario_encargado && Number(this.ticket.id_usuario_encargado) > 0) {
+            const operarioAsignado = this.operarios.find(op => Number(op.id) === Number(this.ticket.id_usuario_encargado));
+            if (operarioAsignado && operarioAsignado.categorias_ids) {
+              const idsCategorias = String(operarioAsignado.categorias_ids).split(',').map(Number);
+              const tieneNuevaCategoria = idsCategorias.includes(Number(this.categoriaEditada));
+              if (!tieneNuevaCategoria) {
+                this.ticket.id_usuario_encargado = null;
+                this.ticket.encargado_nombre = null;
+                this.ticket.estado = 'pendiente';
+                desasignado = true;
+              }
+            }
+          }
+
           this.ticket.titulo = this.tituloEditado;
           this.ticket.descripcion = this.descripcionEditada;
           this.ticket.id_categoria = this.categoriaEditada;
@@ -296,7 +336,12 @@ export class ModalTicketComponent implements OnInit {
           
           this.editando = false;
           this.resolver.emit(this.ticket);
-          this.mostrarMensaje('Ticket actualizado correctamente.', false);
+          
+          if (desasignado) {
+            this.mostrarMensaje('Ticket actualizado y desasignado del técnico por incompatibilidad de categoría.', false);
+          } else {
+            this.mostrarMensaje('Ticket actualizado correctamente.', false);
+          }
         } else {
           this.mostrarMensaje(res.message || 'Error al actualizar el ticket.', true);
         }

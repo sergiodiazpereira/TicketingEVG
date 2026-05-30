@@ -1,6 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'assets/admin.css';
 
+:root {
+    --azul: #006ea4;
+    --azul-oscuro: #014179;
+    --azul-claro: #eff6ff;
+    --verde: #0fa892;
+    --verde-claro: #e4f7f5;
+    --rojo: #f43f5e;
+    --rojo-claro: #fff1f2;
+    --gris-fondo: #f5f6fa;
+    --borde: #e4e7ef;
+    --texto-gris: #94a3b8;
+    --amarillo: #dd9933;
+    --amarillo-claro: #fffbeb;
+    --gris-subtitulos: #64748b;
+    --sombra: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --blanco: #ffffff;
+    --font-family: 'Open Sans', sans-serif;
+}
+
 /* --- Desplegables personalizados Premium Globales --- */
 .desplegable-personalizado {
     position: relative;
@@ -213,4 +232,136 @@
 .sergio .btn-cambio-vista:hover {
     background-color: var(--azul, #006ea4) !important;
     color: #ffffff !important;
+}
+
+/* =============================================
+   Alertas Flotantes Toast Premium (Top-Right)
+   ============================================= */
+.toast-alerta-contenedor {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    min-width: 320px;
+    max-width: 420px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    gap: 14px;
+    z-index: 100000;
+    animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    cursor: pointer;
+    overflow: hidden;
+    user-select: none;
+    pointer-events: auto;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.toast-alerta-icono {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.toast-exito .toast-alerta-icono {
+    color: #0fa892;
+}
+
+.toast-error .toast-alerta-icono {
+    color: #f43f5e;
+}
+
+.toast-exito {
+    border-left: 5px solid #0fa892;
+}
+
+.toast-error {
+    border-left: 5px solid #f43f5e;
+}
+
+.toast-alerta-cuerpo {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 2px;
+}
+
+.toast-alerta-titulo {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #014179;
+}
+
+.toast-alerta-mensaje {
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+    line-height: 1.4;
+}
+
+.toast-alerta-cerrar {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.toast-alerta-cerrar:hover {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+/* Animación de la barra de progreso */
+.toast-alerta-progreso {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+}
+
+.toast-exito .toast-alerta-progreso {
+    background: #0fa892;
+    animation: progressAnimation 4s linear forwards;
+}
+
+.toast-error .toast-alerta-progreso {
+    background: #f43f5e;
+    animation: progressAnimation 4s linear forwards;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(120%) scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes progressAnimation {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0%;
+    }
 }

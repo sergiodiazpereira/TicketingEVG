@@ -5,7 +5,7 @@
  * Curso: 2025-2026
  * Descripción: Componente de cabecera (Header) unificado y compartido para el portal de usuarios.
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
@@ -16,7 +16,8 @@ import { environment } from '../../../../enviroments/environment';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class HeaderComponent implements OnInit {
   landingUrl = environment.ssoLandingIntranet;

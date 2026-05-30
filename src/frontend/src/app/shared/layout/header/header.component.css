@@ -1,1 +1,107 @@
-/* Estilos locales para HeaderComponent */
+/* Estilos globales unificados para HeaderComponent */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 81px;
+    background: #fff;
+    border-bottom: 1px solid var(--borde, #e2e8f0);
+    box-shadow: var(--sombra, 0 1px 3px rgba(0,0,0,0.05));
+    display: flex;
+    align-items: center;
+    padding: 0 1.25rem;
+    gap: 0.75rem;
+    z-index: 1050;
+}
+
+/* --- Logo --- */
+.icono-logo {
+    width: 38px;
+    height: 38px;
+    background: var(--azul, #006ea4);
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.icono-texto strong {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    display: block;
+    line-height: 1.0;
+}
+
+.icono-texto span {
+    font-size: 10px;
+    color: var(--texto-gris, #64748b);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+/* --- Botones Nav --- */
+.boton-nav, .btn-cerrar-sesion {
+    display: inline-flex;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    transition: all 0.2s;
+    white-space: nowrap;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+.boton-nav {
+    gap: 7px;
+    padding: 7px 14px;
+    color: var(--texto-gris, #64748b);
+}
+
+.boton-nav:hover:not(.activo) {
+    background: var(--azul-claro, #eff6ff);
+    color: var(--azul, #006ea4);
+}
+
+.boton-nav.activo {
+    background: var(--azul, #006ea4);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 110, 164, 0.25);
+}
+
+.boton-nav.activo:hover {
+    background: var(--amarillo, #eab308);
+}
+
+.btn-cerrar-sesion {
+    gap: 8px;
+    padding: 7px 16px;
+    border: 1.5px solid var(--rojo, #f43f5e);
+    color: var(--rojo, #f43f5e);
+    box-shadow: 0 4px 10px rgba(244, 63, 94, 0.1);
+}
+
+.btn-cerrar-sesion:hover {
+    background: var(--rojo, #f43f5e);
+    color: #fff;
+}
+
+/* Estilo premium para Consola Admin */
+.btn-cambio-vista {
+    border-color: var(--azul, #006ea4) !important;
+    color: var(--azul, #006ea4) !important;
+    box-shadow: 0 4px 10px rgba(0, 110, 164, 0.08) !important;
+    background-color: transparent !important;
+    transition: all 0.2s ease !important;
+}
+
+.btn-cambio-vista:hover {
+    background-color: var(--azul, #006ea4) !important;
+    color: #fff !important;
+}

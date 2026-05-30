@@ -95,7 +95,7 @@ export class CrearTicketComponent implements OnInit {
       },
       error: () => {
         this.cargandoCategorias = false;
-        this.mensajeError = 'No se pudieron cargar las categorías.';
+        this.mostrarMensajeError('No se pudieron cargar las categorías.');
       }
     });
 
@@ -111,16 +111,25 @@ export class CrearTicketComponent implements OnInit {
   }
 
   /** Envía el formulario al backend si es válido. */
+  mostrarMensajeError(texto: string): void {
+    this.mensajeError = texto;
+    setTimeout(() => {
+      if (this.mensajeError === texto) {
+        this.mensajeError = null;
+      }
+    }, 4000);
+  }
+
   onEnviar(): void {
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
-      this.mensajeError = 'Por favor, rellena todos los campos obligatorios.';
+      this.mostrarMensajeError('Por favor, rellena todos los campos obligatorios.');
       return;
     }
 
     const usuario = this.authService.getUsuarioActual();
     if (!usuario) {
-      this.mensajeError = 'No hay sesión activa. Por favor, inicia sesión de nuevo.';
+      this.mostrarMensajeError('No hay sesión activa. Por favor, inicia sesión de nuevo.');
       return;
     }
 
@@ -130,26 +139,26 @@ export class CrearTicketComponent implements OnInit {
     const ubicacionTrimeada = (valores.ubicacion || '').trim();
 
     if (!tituloTrimeado) {
-      this.mensajeError = 'El título no puede contener sólo espacios en blanco.';
+      this.mostrarMensajeError('El título no puede contener sólo espacios en blanco.');
       return;
     }
     if (tituloTrimeado.length < 5) {
-      this.mensajeError = 'El título debe tener al menos 5 caracteres.';
+      this.mostrarMensajeError('El título debe tener al menos 5 caracteres.');
       return;
     }
 
     if (!descripcionTrimeada) {
-      this.mensajeError = 'La descripción no puede contener sólo espacios en blanco.';
+      this.mostrarMensajeError('La descripción no puede contener sólo espacios en blanco.');
       return;
     }
     if (descripcionTrimeada.length < 10) {
-      this.mensajeError = 'La descripción debe tener al menos 10 caracteres.';
+      this.mostrarMensajeError('La descripción debe tener al menos 10 caracteres.');
       return;
     }
 
     if (valores.ubicacion !== undefined && valores.ubicacion !== null && valores.ubicacion !== '') {
       if (!ubicacionTrimeada) {
-        this.mensajeError = 'La ubicación no puede contener sólo espacios en blanco.';
+        this.mostrarMensajeError('La ubicación no puede contener sólo espacios en blanco.');
         return;
       }
     }
@@ -180,12 +189,12 @@ export class CrearTicketComponent implements OnInit {
           this.mensajeExito = `Ticket ${res.id} creado correctamente. Redirigiendo...`;
           setTimeout(() => this.router.navigate(['/portal-tickets/tickets']), 1500);
         } else {
-          this.mensajeError = res.message || 'Error al crear el ticket.';
+          this.mostrarMensajeError(res.message || 'Error al crear el ticket.');
         }
       },
       error: () => {
         this.enviando = false;
-        this.mensajeError = 'Error de conexión con el servidor. Inténtalo de nuevo.';
+        this.mostrarMensajeError('Error de conexión con el servidor. Inténtalo de nuevo.');
       }
     });
   }

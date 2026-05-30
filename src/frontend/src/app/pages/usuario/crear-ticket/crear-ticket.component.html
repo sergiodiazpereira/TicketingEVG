@@ -18,12 +18,34 @@
 				</div>
 			</div>
 
-			<!-- Mensajes de feedback -->
-			<div *ngIf="mensajeError" class="alert alert-danger mb-3 py-2 small fw-bold rounded-3">
-				<i class="fa-solid fa-circle-exclamation me-2"></i>{{ mensajeError }}
+			<!-- Toast Alerta Premium para Errores (Flotante Arriba a la Derecha - Nivel Raíz) -->
+			<div *ngIf="mensajeError" class="toast-alerta-contenedor toast-error" (click)="mensajeError = null">
+				<div class="toast-alerta-icono">
+					<i class="fa-solid fa-circle-exclamation"></i>
+				</div>
+				<div class="toast-alerta-cuerpo">
+					<span class="toast-alerta-titulo">ERROR</span>
+					<span class="toast-alerta-mensaje">{{ mensajeError }}</span>
+				</div>
+				<button type="button" class="toast-alerta-cerrar" (click)="mensajeError = null; $event.stopPropagation()">
+					<i class="fa-solid fa-xmark"></i>
+				</button>
+				<div class="toast-alerta-progreso"></div>
 			</div>
-			<div *ngIf="mensajeExito" class="alert alert-success mb-3 py-2 small fw-bold rounded-3">
-				<i class="fa-solid fa-circle-check me-2"></i>{{ mensajeExito }}
+
+			<!-- Toast Alerta Premium para Éxito (Flotante Arriba a la Derecha - Nivel Raíz) -->
+			<div *ngIf="mensajeExito" class="toast-alerta-contenedor toast-exito" (click)="mensajeExito = null">
+				<div class="toast-alerta-icono">
+					<i class="fa-solid fa-circle-check"></i>
+				</div>
+				<div class="toast-alerta-cuerpo">
+					<span class="toast-alerta-titulo">ÉXITO</span>
+					<span class="toast-alerta-mensaje">{{ mensajeExito }}</span>
+				</div>
+				<button type="button" class="toast-alerta-cerrar" (click)="mensajeExito = null; $event.stopPropagation()">
+					<i class="fa-solid fa-xmark"></i>
+				</button>
+				<div class="toast-alerta-progreso"></div>
 			</div>
 
 			<form class="tarjeta-formulario" [formGroup]="formulario" (ngSubmit)="onEnviar()">
