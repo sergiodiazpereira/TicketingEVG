@@ -179,12 +179,14 @@ export class ListaTicketsComponent implements OnInit {
     event.stopPropagation();
     this.desplegableTipoAbierto = !this.desplegableTipoAbierto;
     this.desplegableEstadoAbierto = false;
+    this.desplegableCreadorAbierto = false;
   }
 
   toggleDesplegableEstado(event: Event): void {
     event.stopPropagation();
     this.desplegableEstadoAbierto = !this.desplegableEstadoAbierto;
     this.desplegableTipoAbierto = false;
+    this.desplegableCreadorAbierto = false;
   }
 
   seleccionarTipo(tipo: string): void {

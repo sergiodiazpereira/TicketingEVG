@@ -77,12 +77,22 @@ export class ModalTicketComponent implements OnInit {
     });
   }
 
+  mostrarChatMovil = false;
+
   @HostListener('click')
   onHostClick() {
     this.onCerrar();
   }
 
+  toggleChatMovil(event?: Event) {
+    if (event) {
+      event.stopPropagation();
+    }
+    this.mostrarChatMovil = !this.mostrarChatMovil;
+  }
+
   onCerrar() {
+    this.mostrarChatMovil = false;
     this.isClosing = true;
     setTimeout(() => {
       this.cerrar.emit();
@@ -308,7 +318,6 @@ export class ModalTicketComponent implements OnInit {
         if (res.status === 'success') {
           this.nuevoComentarioText = '';
           this.cargarComentarios();
-          this.mostrarMensaje('Comentario añadido correctamente.', false);
         } else {
           this.mostrarMensaje(res.message || 'Error al añadir comentario.', true);
         }
@@ -318,6 +327,13 @@ export class ModalTicketComponent implements OnInit {
         this.mostrarMensaje('Error de conexión al añadir comentario.', true);
       }
     });
+  }
+
+  onKeydownEnter(event: any) {
+    if (!event.shiftKey) {
+      event.preventDefault();
+      this.onAgregarComentario();
+    }
   }
 
   private mostrarMensaje(texto: string, esError: boolean) {
