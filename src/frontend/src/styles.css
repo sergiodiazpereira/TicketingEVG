@@ -138,12 +138,25 @@
    ============================================= */
 @media (max-width: 768px) {
     .sergio header {
-        height: auto !important;
+        height: 60px !important;
         min-height: 60px !important;
-        padding: 8px 12px !important;
-        flex-wrap: wrap !important;
-        gap: 6px !important;
+        padding: 8px 10px !important;
+        flex-wrap: nowrap !important; /* Evitar saltos de línea horizontales */
+        gap: 4px !important;
         justify-content: space-between !important;
+        overflow: hidden;
+    }
+    
+    /* Reducir espacio del logo en móviles */
+    .sergio header .logo-nav {
+        margin-right: 6px !important;
+        gap: 4px !important;
+    }
+    
+    .sergio header .logo-nav-anillo {
+        width: 20px !important;
+        height: 20px !important;
+        border-width: 2px !important;
     }
     
     /* Ocultar el subtítulo del logo para ahorrar espacio horizontal */
@@ -152,7 +165,7 @@
     }
     
     .sergio .icono-texto strong {
-        font-size: 1.05rem !important;
+        font-size: 0.9rem !important;
     }
     
     /* Ocultar el texto de las etiquetas de navegación */
@@ -162,14 +175,14 @@
     }
     
     .sergio .boton-nav {
-        padding: 8px 12px !important;
-        font-size: 1.15rem !important; /* Agrandar el icono para uso táctil */
+        padding: 8px 8px !important;
+        font-size: 1.05rem !important; /* Compactar iconos para móviles */
         gap: 0 !important;
     }
     
     .sergio .btn-cerrar-sesion {
-        padding: 8px 12px !important;
-        font-size: 1.15rem !important;
+        padding: 8px 8px !important;
+        font-size: 1.05rem !important;
         gap: 0 !important;
         border-radius: 8px !important;
     }
@@ -181,7 +194,7 @@
     
     /* Ajuste para el margen superior del contenido principal al reducir la altura del header */
     .sergio main {
-        margin-top: 60px !important;
+        margin-top: 75px !important; /* Aumentado ligeramente para evitar solapes del título */
     }
 }
 
