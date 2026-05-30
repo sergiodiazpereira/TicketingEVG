@@ -8,6 +8,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { environment } from '../../../../enviroments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,6 +18,7 @@ import { AuthService } from '../../../services/auth.service';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent implements OnInit {
+  landingUrl = environment.ssoLandingIntranet;
   estaColapsado: boolean = false;
   iniciarSinTransicion: boolean = true;
 

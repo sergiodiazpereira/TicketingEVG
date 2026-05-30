@@ -16,6 +16,7 @@ import { UsuarioService } from '../../../services/usuario.service';
 import { ModalTicketComponent } from '../../modales/modal-ticket/modal-ticket.component';
 import { Usuario } from '../../../models/usuario.model';
 import { Ticket } from '../../../models/ticket.model';
+import { environment } from '../../../../enviroments/environment';
 
 @Component({
   selector: 'app-portal-tickets',
@@ -25,6 +26,7 @@ import { Ticket } from '../../../models/ticket.model';
   styleUrl: './portal-tickets.component.css'
 })
 export class PortalTicketsComponent implements OnInit {
+  landingUrl = environment.ssoLandingIntranet;
   /** Usuario que ha iniciado sesión actualmente */
   usuario_actual: Usuario | null = null;
   /** Lista de tickets del usuario */

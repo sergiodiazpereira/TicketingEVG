@@ -9,6 +9,7 @@ import { ModalTicketComponent } from '../../modales/modal-ticket/modal-ticket.co
 import { Ticket } from '../../../models/ticket.model';
 import { Usuario } from '../../../models/usuario.model';
 import { FooterComponent } from '../../../shared/layout/footer/footer.component';
+import { environment } from '../../../../enviroments/environment';
 
 /**
  * Proyecto: TicketingEVG
@@ -25,6 +26,7 @@ import { FooterComponent } from '../../../shared/layout/footer/footer.component'
   styleUrl: './lista-tickets.component.css'
 })
 export class ListaTicketsComponent implements OnInit {
+  landingUrl = environment.ssoLandingIntranet;
   usuario_actual: Usuario | null = null;
   tickets: Ticket[] = [];
   

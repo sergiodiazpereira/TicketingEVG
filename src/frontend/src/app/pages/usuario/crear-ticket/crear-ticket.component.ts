@@ -15,6 +15,7 @@ import { CategoriasService } from '../../../services/categorias.service';
 import { UsuarioService } from '../../../services/usuario.service';
 import { Categoria } from '../../../models/categoria.model';
 import { Usuario } from '../../../models/usuario.model';
+import { environment } from '../../../../enviroments/environment';
 
 @Component({
   selector: 'app-crear-ticket',
@@ -24,6 +25,7 @@ import { Usuario } from '../../../models/usuario.model';
   styleUrl: './crear-ticket.component.css'
 })
 export class CrearTicketComponent implements OnInit {
+  landingUrl = environment.ssoLandingIntranet;
   formulario!: FormGroup;
   enviando = false;
   mensajeError: string | null = null;
