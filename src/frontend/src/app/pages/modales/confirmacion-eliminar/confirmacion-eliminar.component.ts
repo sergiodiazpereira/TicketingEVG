@@ -7,11 +7,12 @@
  */
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { IconComponent } from '../../../components/icon/icon.component';
 
 @Component({
   selector: 'app-confirmacion-eliminar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, IconComponent],
   templateUrl: './confirmacion-eliminar.component.html',
   styleUrl: './confirmacion-eliminar.component.css'
 })

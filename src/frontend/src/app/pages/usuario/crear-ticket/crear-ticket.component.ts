@@ -17,11 +17,12 @@ import { Categoria } from '../../../models/categoria.model';
 import { Usuario } from '../../../models/usuario.model';
 import { environment } from '../../../../enviroments/environment';
 import { HeaderComponent } from '../../../shared/layout/header/header.component';
+import { IconComponent } from '../../../components/icon/icon.component';
 
 @Component({
   selector: 'app-crear-ticket',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, HeaderComponent],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, HeaderComponent, IconComponent],
   templateUrl: './crear-ticket.component.html',
   styleUrl: './crear-ticket.component.css'
 })

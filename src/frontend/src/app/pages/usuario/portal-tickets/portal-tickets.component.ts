@@ -18,11 +18,12 @@ import { Usuario } from '../../../models/usuario.model';
 import { Ticket } from '../../../models/ticket.model';
 import { environment } from '../../../../enviroments/environment';
 import { HeaderComponent } from '../../../shared/layout/header/header.component';
+import { IconComponent } from '../../../components/icon/icon.component';
 
 @Component({
   selector: 'app-portal-tickets',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, FooterComponent, ModalTicketComponent, HeaderComponent], 
+  imports: [CommonModule, RouterLink, FormsModule, FooterComponent, ModalTicketComponent, HeaderComponent, IconComponent], 
   templateUrl: './portal-tickets.component.html',
   styleUrl: './portal-tickets.component.css'
 })

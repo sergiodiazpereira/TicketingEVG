@@ -6,20 +6,7 @@
   Descripción: Gestión de categorías (Versión Angular unificada).
 -->
 <div class="d-flex flex-column vh-100 overflow-hidden">
-	<!-- Toast Alerta Premium (Flotante Arriba a la Derecha - Nivel Raíz) -->
-	<div *ngIf="mensajeFeedback" class="toast-alerta-contenedor" [class.toast-error]="esMensajeError" [class.toast-exito]="!esMensajeError" (click)="mensajeFeedback = null">
-		<div class="toast-alerta-icono">
-			<i class="fa-solid" [ngClass]="esMensajeError ? 'fa-circle-exclamation' : 'fa-circle-check'"></i>
-		</div>
-		<div class="toast-alerta-cuerpo">
-			<span class="toast-alerta-titulo">{{ esMensajeError ? 'ERROR' : 'ÉXITO' }}</span>
-			<span class="toast-alerta-mensaje">{{ mensajeFeedback }}</span>
-		</div>
-		<button class="toast-alerta-cerrar" (click)="mensajeFeedback = null">
-			<i class="fa-solid fa-xmark"></i>
-		</button>
-		<div class="toast-alerta-progreso"></div>
-	</div>
+	
 
 	<div class="d-flex flex-grow-1 overflow-hidden">
 		<!-- Sidebar Componente -->
@@ -37,7 +24,7 @@
 
 				<div class="container-fluid px-4">
 					<!-- Título y Botón de Acción -->
-					<div class="row align-items-center mb-4 mt-3 anim-slide-up" style="animation-delay: 0.1s">
+					<div class="row align-items-center mb-4 mt-3 anim-slide-up extracted-cat-1" >
 						<div class="col-12 col-md-6">
 							<h2 class="fw-bold titulo-primario text-uppercase">LISTADO DE CATEGORÍAS</h2>
 							<p class="text-muted small">Aquí podrás gestionar las categorías del sistema de ticketing.</p>
@@ -59,7 +46,7 @@
 					<!-- Tabla de Categorías -->
 					<div class="row mb-5">
 						<div class="col-12">
-							<div class="card card-premium anim-slide-up" style="animation-delay: 0.2s">
+							<div class="card card-premium anim-slide-up extracted-cat-2" >
 								<div class="card-body p-0">
 									<!-- Vista Escritorio: Tabla clásica -->
 									<div class="d-none d-md-block table-responsive">
@@ -67,7 +54,7 @@
 											<thead class="text-uppercase">
 												<tr>
 													<!-- Selección múltiple -->
-													<th scope="col" class="border-0 ps-4 py-3" style="width: 50px;">
+													<th scope="col" class="border-0 ps-4 py-3 extracted-cat-3" >
 														<div class="form-check d-flex align-items-center justify-content-center">
 															<input class="form-check-input select-premium-checkbox" type="checkbox" 
 																[checked]="estanTodasSeleccionadas()" (change)="toggleSeleccionarTodos()">
@@ -83,7 +70,7 @@
 												<ng-container *ngFor="let categoria of categorias">
 													<tr [class.fila-seleccionada]="isSeleccionada(categoria.id)">
 														<!-- Checkbox individual -->
-														<td class="ps-4 border-0 border-bottom align-middle py-3" style="width: 50px;">
+														<td class="ps-4 border-0 border-bottom align-middle py-3 extracted-cat-4" >
 															<div class="form-check d-flex align-items-center justify-content-center">
 																<input class="form-check-input select-premium-checkbox" type="checkbox"
 																	[checked]="isSeleccionada(categoria.id)" (change)="toggleSeleccion(categoria.id)">
@@ -97,7 +84,7 @@
 																</div>
 																<div class="d-flex flex-column justify-content-center">
 																	<span class="fw-bold text-dark">{{ categoria.nombre }}</span>
-																	<span class="text-muted small" *ngIf="categoria.descripcion" style="margin-top: 2px;">{{ categoria.descripcion }}</span>
+																	<span class="text-muted small extracted-cat-5" *ngIf="categoria.descripcion" >{{ categoria.descripcion }}</span>
 																</div>
 															</div>
 														</td>
@@ -122,7 +109,7 @@
 														<td class="border-0 border-bottom text-end pe-4 align-middle py-3">
 															<div class="d-flex justify-content-end gap-2">
 																<button class="btn btn-sm btn-outline-primary shadow-sm border-0 bg-light" title="Editar" (click)="abrirModalFormulario(categoria)">
-																	<i class="bi bi-pencil-fill" style="color: #003366;"></i>
+																	<i class="bi bi-pencil-fill extracted-cat-6" ></i>
 																</button>
 																<button class="btn btn-sm btn-outline-danger shadow-sm border-0 bg-light" title="Eliminar" (click)="abrirModalEliminar(categoria)">
 																	<i class="bi bi-trash-fill text-danger"></i>
@@ -141,7 +128,7 @@
 											<!-- Fila superior: Icono, Nombre y Acciones -->
 											<div class="d-flex align-items-center justify-content-between mb-2">
 												<div class="d-flex align-items-center">
-													<div class="icono-categoria rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 34px; height: 34px;">
+													<div class="icono-categoria rounded-circle d-flex align-items-center justify-content-center me-3 extracted-cat-7" >
 														<i class="bi bi-tag"></i>
 													</div>
 													<div>
@@ -151,7 +138,7 @@
 												<!-- Acciones -->
 												<div class="d-flex gap-2">
 													<button class="btn btn-sm btn-outline-primary border-0 bg-light rounded-2" title="Editar" (click)="abrirModalFormulario(categoria)">
-														<i class="bi bi-pencil-fill" style="color: #003366;"></i>
+														<i class="bi bi-pencil-fill extracted-cat-8" ></i>
 													</button>
 													<button class="btn btn-sm btn-outline-danger border-0 bg-light rounded-2" title="Eliminar" (click)="abrirModalEliminar(categoria)">
 														<i class="bi bi-trash-fill text-danger"></i>
@@ -159,18 +146,18 @@
 												</div>
 											</div>
 											<!-- Fila central: Descripción -->
-											<p class="text-muted small mb-3 border-top pt-2 text-wrap" *ngIf="categoria.descripcion" style="font-size: 0.8rem; line-height: 1.4;">
+											<p class="text-muted small mb-3 border-top pt-2 text-wrap extracted-cat-9" *ngIf="categoria.descripcion" >
 												{{ categoria.descripcion }}
 											</p>
 											<!-- Fila inferior: Info Operarios y Tickets -->
 											<div class="border-top pt-2 d-flex justify-content-between text-center bg-light bg-opacity-50 p-2 rounded-2">
 												<div class="flex-grow-1 border-end">
 													<span class="fw-bold d-block text-dark lh-1 mb-1 small">{{ categoria.operarios || 0 }}</span>
-													<span class="text-muted small fw-bold lh-1" style="font-size: 0.55rem; letter-spacing: 0.5px;">OPERARIOS</span>
+													<span class="text-muted small fw-bold lh-1 extracted-cat-10" >OPERARIOS</span>
 												</div>
 												<div class="flex-grow-1">
 													<span class="fw-bold d-block text-dark lh-1 mb-1 small">{{ categoria.tickets || 0 }}</span>
-													<span class="text-muted small fw-bold lh-1" style="font-size: 0.55rem; letter-spacing: 0.5px;">TICKETS</span>
+													<span class="text-muted small fw-bold lh-1 extracted-cat-11" >TICKETS</span>
 												</div>
 											</div>
 										</div>

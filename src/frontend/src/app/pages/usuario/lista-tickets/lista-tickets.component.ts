@@ -11,6 +11,7 @@ import { Usuario } from '../../../models/usuario.model';
 import { FooterComponent } from '../../../shared/layout/footer/footer.component';
 import { environment } from '../../../../enviroments/environment';
 import { HeaderComponent } from '../../../shared/layout/header/header.component';
+import { IconComponent } from '../../../components/icon/icon.component';
 
 /**
  * Proyecto: TicketingEVG
@@ -22,7 +23,7 @@ import { HeaderComponent } from '../../../shared/layout/header/header.component'
 @Component({
   selector: 'app-lista-tickets',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, ModalTicketComponent, FooterComponent, HeaderComponent],
+  imports: [CommonModule, RouterModule, FormsModule, ModalTicketComponent, FooterComponent, HeaderComponent, IconComponent],
   templateUrl: './lista-tickets.component.html',
   styleUrl: './lista-tickets.component.css'
 })

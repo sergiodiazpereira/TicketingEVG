@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { TicketService } from '../../../services/ticket.service';
 import { CategoriasService } from '../../../services/categorias.service';
 import { ConfirmacionEliminarComponent } from '../confirmacion-eliminar/confirmacion-eliminar.component';
+import { ToastService } from '../../../services/toast.service';
+import { IconComponent } from '../../../components/icon/icon.component';
 
 /**
  * Proyecto: TicketingEVG
@@ -15,7 +17,7 @@ import { ConfirmacionEliminarComponent } from '../confirmacion-eliminar/confirma
 @Component({
   selector: 'app-modal-ticket',
   standalone: true,
-  imports: [CommonModule, FormsModule, ConfirmacionEliminarComponent],
+  imports: [CommonModule, FormsModule, ConfirmacionEliminarComponent, IconComponent],
   templateUrl: './modal-ticket.component.html',
   styleUrl: './modal-ticket.component.css',
   host: {
@@ -32,8 +34,6 @@ export class ModalTicketComponent implements OnInit {
   @Output() asignar = new EventEmitter<{idTicket: number, idOperario: number}>();
 
   /** Feedback interno del modal */
-  mensajeFeedback: string | null = null;
-  esMensajeError = false;
   procesando = false;
   isClosing = false;
   mostrarConfirmacionDesasignar = false;
@@ -59,7 +59,8 @@ export class ModalTicketComponent implements OnInit {
 
   constructor(
     private ticketService: TicketService,
-    private categoriasService: CategoriasService
+    private categoriasService: CategoriasService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit() {
@@ -403,8 +404,6 @@ export class ModalTicketComponent implements OnInit {
   }
 
   private mostrarMensaje(texto: string, esError: boolean) {
-    this.mensajeFeedback = texto;
-    this.esMensajeError = esError;
-    setTimeout(() => this.mensajeFeedback = null, 4000);
+    this.toastService.mostrarMensaje(texto, esError);
   }
 }

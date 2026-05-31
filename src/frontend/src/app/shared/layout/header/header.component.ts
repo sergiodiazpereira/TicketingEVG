@@ -11,11 +11,12 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { environment } from '../../../../enviroments/environment';
 import { ConfirmacionEliminarComponent } from '../../../pages/modales/confirmacion-eliminar/confirmacion-eliminar.component';
+import { IconComponent } from '../../../components/icon/icon.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterModule, ConfirmacionEliminarComponent],
+  imports: [CommonModule, RouterModule, ConfirmacionEliminarComponent, IconComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
   encapsulation: ViewEncapsulation.Emulated

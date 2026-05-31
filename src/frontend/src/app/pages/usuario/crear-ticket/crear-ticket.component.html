@@ -9,7 +9,7 @@
 	<app-header></app-header>
 
 	<main>
-		<div class="container-lg" style="max-width: 900px;">
+		<div class="container-lg extracted-ct-1" >
 			<div class="d-flex align-items-center gap-3 mb-4 cabecera-pagina">
 				<a routerLink="/portal-tickets/tickets" class="btn-retroceso"><i class="fa-solid fa-arrow-left"></i></a>
 				<div>
@@ -18,35 +18,9 @@
 				</div>
 			</div>
 
-			<!-- Toast Alerta Premium para Errores (Flotante Arriba a la Derecha - Nivel Raíz) -->
-			<div *ngIf="mensajeError" class="toast-alerta-contenedor toast-error" (click)="mensajeError = null">
-				<div class="toast-alerta-icono">
-					<i class="fa-solid fa-circle-exclamation"></i>
-				</div>
-				<div class="toast-alerta-cuerpo">
-					<span class="toast-alerta-titulo">ERROR</span>
-					<span class="toast-alerta-mensaje">{{ mensajeError }}</span>
-				</div>
-				<button type="button" class="toast-alerta-cerrar" (click)="mensajeError = null; $event.stopPropagation()">
-					<i class="fa-solid fa-xmark"></i>
-				</button>
-				<div class="toast-alerta-progreso"></div>
-			</div>
+			
 
-			<!-- Toast Alerta Premium para Éxito (Flotante Arriba a la Derecha - Nivel Raíz) -->
-			<div *ngIf="mensajeExito" class="toast-alerta-contenedor toast-exito" (click)="mensajeExito = null">
-				<div class="toast-alerta-icono">
-					<i class="fa-solid fa-circle-check"></i>
-				</div>
-				<div class="toast-alerta-cuerpo">
-					<span class="toast-alerta-titulo">ÉXITO</span>
-					<span class="toast-alerta-mensaje">{{ mensajeExito }}</span>
-				</div>
-				<button type="button" class="toast-alerta-cerrar" (click)="mensajeExito = null; $event.stopPropagation()">
-					<i class="fa-solid fa-xmark"></i>
-				</button>
-				<div class="toast-alerta-progreso"></div>
-			</div>
+			
 
 			<form class="tarjeta-formulario" [formGroup]="formulario" (ngSubmit)="onEnviar()">
 				<div class="cabecera-seccion-form">
@@ -146,12 +120,8 @@
 										</div>
 									</ng-container>
 									<ng-template #seleccionarCatPrimero>
-										<div class="opcion-item disabled" style="color: #ea580c; cursor: not-allowed; pointer-events: none; font-weight: 600; padding: 12px 16px; display: flex; align-items: center; gap: 8px;">
-											<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-												<circle cx="12" cy="12" r="10"></circle>
-												<line x1="12" y1="8" x2="12" y2="12"></line>
-												<line x1="12" y1="16" x2="12.01" y2="16"></line>
-											</svg>
+										<div class="opcion-item disabled extracted-ct-2" >
+											<app-icon name="info" size="18"></app-icon>
 											<span>Selecciona primero una categoría</span>
 										</div>
 									</ng-template>
@@ -159,13 +129,9 @@
 							</div>
 							<!-- Mensaje si no hay trabajadores disponibles -->
 							<div *ngIf="formulario.get('id_categoria')?.value && operariosFiltrados.length === 0" 
-								 class="alert alert-warning py-2 px-3 small fw-bold rounded-3" 
-								 style="background-color: #fff9eb; color: #d99339; border: 1px dashed #fef3c7; display: flex; align-items: center; gap: 8px; font-size: 12px; margin-top: 10px;">
-								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-									<circle cx="12" cy="12" r="10"></circle>
-									<line x1="12" y1="8" x2="12" y2="12"></line>
-									<line x1="12" y1="16" x2="12.01" y2="16"></line>
-								</svg>
+								 class="alert alert-warning py-2 px-3 small fw-bold rounded-3 extracted-ct-3" 
+								 >
+								<app-icon name="info" size="18"></app-icon>
 								<span>No hay trabajadores disponibles en esta categoría.</span>
 							</div>
 						</div>
@@ -201,7 +167,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="modal-pie-premium border-top bg-light" style="padding: 1.5rem 2rem;">
+				<div class="modal-pie-premium border-top bg-light extracted-ct-4" >
 					<div class="ms-auto d-flex align-items-center gap-3">
 						<a routerLink="/portal-tickets/tickets" class="boton-cancelar">Cancelar</a>
 						<button type="submit" class="boton-enviar" [disabled]="enviando">

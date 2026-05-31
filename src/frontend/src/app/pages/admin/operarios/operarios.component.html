@@ -6,20 +6,7 @@
   Descripción: Gestión de personal técnico (Versión Angular unificada).
 -->
 <div class="d-flex flex-column vh-100 overflow-hidden">
-	<!-- Toast Alerta Premium (Flotante Arriba a la Derecha - Nivel Raíz) -->
-	<div *ngIf="mensajeFeedback" class="toast-alerta-contenedor" [class.toast-error]="esMensajeError" [class.toast-exito]="!esMensajeError" (click)="mensajeFeedback = null">
-		<div class="toast-alerta-icono">
-			<i class="fa-solid" [ngClass]="esMensajeError ? 'fa-circle-exclamation' : 'fa-circle-check'"></i>
-		</div>
-		<div class="toast-alerta-cuerpo">
-			<span class="toast-alerta-titulo">{{ esMensajeError ? 'ERROR' : 'ÉXITO' }}</span>
-			<span class="toast-alerta-mensaje">{{ mensajeFeedback }}</span>
-		</div>
-		<button class="toast-alerta-cerrar" (click)="mensajeFeedback = null">
-			<i class="fa-solid fa-xmark"></i>
-		</button>
-		<div class="toast-alerta-progreso"></div>
-	</div>
+	
 
 	<div class="d-flex flex-grow-1 overflow-hidden">
 		<!-- Sidebar Componente -->
@@ -37,7 +24,7 @@
 
 				<div class="container-fluid px-4">
 					<!-- Título y Botón de Acción -->
-					<div class="row align-items-center mb-4 anim-slide-up" style="animation-delay: 0.1s">
+					<div class="row align-items-center mb-4 anim-slide-up extracted-op-1" >
 						<div class="col-12 col-md-6">
 							<h2 class="fw-bold titulo-primario text-uppercase">LISTADO DE PERSONAL TÉCNICO</h2>
 							<p class="text-muted small">Aquí podrás gestionar los responsables y trabajadores del sistema de ticketing.</p>
@@ -59,7 +46,7 @@
 					<!-- Tabla de Operarios -->
 					<div class="row mb-5">
 						<div class="col-12">
-							<div class="card card-premium anim-slide-up" style="animation-delay: 0.2s">
+							<div class="card card-premium anim-slide-up extracted-op-2" >
 								<div class="card-body p-0">
 									<!-- Vista Escritorio: Tabla clásica -->
 									<div class="d-none d-md-block table-responsive">
@@ -67,7 +54,7 @@
 											<thead class="text-uppercase">
 												<tr>
 													<!-- Selección múltiple -->
-													<th scope="col" class="border-0 ps-4 py-3" style="width: 50px;">
+													<th scope="col" class="border-0 ps-4 py-3 extracted-op-3" >
 														<div class="form-check d-flex align-items-center justify-content-center">
 															<input class="form-check-input select-premium-checkbox" type="checkbox" 
 																[checked]="estanTodosSeleccionados()" (change)="toggleSeleccionarTodos()">
@@ -85,7 +72,7 @@
 													<!-- Fila principal del operario -->
 													<tr [class.fila-seleccionada]="isSeleccionada(operario.id)">
 														<!-- Checkbox individual -->
-														<td class="ps-4 border-0 border-bottom align-top pt-4" style="width: 50px;">
+														<td class="ps-4 border-0 border-bottom align-top pt-4 extracted-op-4" >
 															<div class="form-check d-flex align-items-center justify-content-center">
 																<input class="form-check-input select-premium-checkbox" type="checkbox"
 																	[checked]="isSeleccionada(operario.id)" (change)="toggleSeleccion(operario.id)">
@@ -110,11 +97,11 @@
 																[style.opacity]="(operario.categorias_nombres?.length ?? 0) === 0 ? '0.5' : '1'"
 																(click)="toggleCategorias(operario.id)">
 																<div class="icono-categoria rounded-circle d-flex align-items-center justify-content-center me-3">
-																	<i class="bi"
+																	<i class="bi extracted-op-5"
 																		[ngClass]="operario.rol === 'responsable' ? 'bi-person' : 'bi-briefcase'"
 																		[style.color]="operario.rol === 'responsable' ? 'var(--amarillo)' : ''"
 																		[class.text-secondary]="operario.rol !== 'responsable'"
-																		style="font-size: 1.1rem;"></i>
+																		></i>
 																</div>
 																<span class="fw-medium text-dark me-1 small">{{ operario.num_categorias || 0 }} CATEGORÍAS</span>
 																<i *ngIf="(operario.categorias_nombres?.length ?? 0) > 0" class="bi small ms-1 transition-transform"
@@ -133,7 +120,7 @@
 														<td class="border-0 border-bottom text-end pe-4 align-top pt-4">
 															<div class="d-flex justify-content-end gap-2">
 																<button class="btn btn-sm btn-outline-primary shadow-sm border-0 bg-light" title="Editar" (click)="abrirModalFormulario(operario)">
-																	<i class="bi bi-pencil-fill" style="color: #003366;"></i>
+																	<i class="bi bi-pencil-fill extracted-op-6" ></i>
 																</button>
 																<button class="btn btn-sm btn-outline-danger shadow-sm border-0 bg-light" title="Eliminar" (click)="abrirModalEliminar(operario)">
 																	<i class="bi bi-trash-fill text-danger"></i>
@@ -145,11 +132,11 @@
 													<!-- Fila expandible de categorías -->
 													<tr *ngIf="operarioExpandido === operario.id && (operario.categorias_nombres?.length ?? 0) > 0">
 														<td colspan="6" class="border-0 p-0">
-															<div class="px-5 py-3 d-flex flex-wrap gap-2 slide-down-anim"
-																style="background-color: #f1f3f5; border-bottom: 2px solid #e4e7ef;">
+															<div class="px-5 py-3 d-flex flex-wrap gap-2 slide-down-anim extracted-op-7"
+																>
 																<ng-container *ngFor="let cat of operario.categorias_nombres">
-																	<span class="badge border text-dark fw-medium px-2 py-1 bg-white shadow-sm"
-																		style="font-size: 0.75rem; border-color: #ced4da !important;">
+																	<span class="badge border text-dark fw-medium px-2 py-1 bg-white shadow-sm extracted-op-8"
+																		>
 																		<i class="bi bi-tag text-muted me-1"></i>{{ cat }}
 																	</span>
 																</ng-container>
@@ -171,7 +158,7 @@
 														class="rounded-circle me-3 shadow-sm" width="38" height="38" alt="Avatar">
 													<div>
 														<h6 class="fw-bold text-dark mb-1 small">{{ operario.nombre }}</h6>
-														<span class="badge rounded-pill px-2 py-0.5 etiqueta-rol" style="font-size: 0.6rem; letter-spacing: 0.5px;"
+														<span class="badge rounded-pill px-2 py-0.5 etiqueta-rol extracted-op-9" 
 															[ngClass]="operario.rol === 'responsable' ? 'badge-responsable' : 'badge-trabajador'">
 															{{ operario.rol | uppercase }}
 														</span>
@@ -180,7 +167,7 @@
 												<!-- Acciones -->
 												<div class="d-flex gap-2">
 													<button class="btn btn-sm btn-outline-primary border-0 bg-light rounded-2" title="Editar" (click)="abrirModalFormulario(operario)">
-														<i class="bi bi-pencil-fill" style="color: #003366;"></i>
+														<i class="bi bi-pencil-fill extracted-op-10" ></i>
 													</button>
 													<button class="btn btn-sm btn-outline-danger border-0 bg-light rounded-2" title="Eliminar" (click)="abrirModalEliminar(operario)">
 														<i class="bi bi-trash-fill text-danger"></i>
@@ -198,14 +185,14 @@
 													[class.cursor-pointer]="(operario.categorias_nombres?.length ?? 0) > 0"
 													[style.opacity]="(operario.categorias_nombres?.length ?? 0) === 0 ? '0.5' : '1'"
 													(click)="toggleCategorias(operario.id)">
-													<span class="fw-bold text-secondary small" style="font-size: 0.65rem;">{{ operario.num_categorias || 0 }} CATEGORÍAS</span>
+													<span class="fw-bold text-secondary small extracted-op-11" >{{ operario.num_categorias || 0 }} CATEGORÍAS</span>
 													<i *ngIf="(operario.categorias_nombres?.length ?? 0) > 0" class="bi small" [ngClass]="operarioExpandido === operario.id ? 'bi-chevron-up text-primary' : 'bi-chevron-down'"></i>
 												</div>
 												<!-- Categorías desplegadas -->
 												<div *ngIf="operarioExpandido === operario.id && (operario.categorias_nombres?.length ?? 0) > 0" class="mt-2 d-flex flex-wrap gap-2 slide-down-anim p-2 rounded-2"
 													style="background-color: #f1f3f5; border: 1px solid #dee2e6;">
-													<span *ngFor="let cat of operario.categorias_nombres" class="badge border text-dark fw-medium px-2 py-1 bg-white shadow-sm"
-														style="font-size: 0.7rem; border-color: #ced4da !important;">
+													<span *ngFor="let cat of operario.categorias_nombres" class="badge border text-dark fw-medium px-2 py-1 bg-white shadow-sm extracted-op-12"
+														>
 														<i class="bi bi-tag text-muted me-1"></i>{{ cat }}
 													</span>
 												</div>

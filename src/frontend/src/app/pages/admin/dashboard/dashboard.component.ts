@@ -15,11 +15,12 @@ import { DashboardService } from '../../../services/dashboard.service';
 import { TicketService } from '../../../services/ticket.service';
 import { Estadisticas } from '../../../models/estadisticas.model';
 import { Ticket } from '../../../models/ticket.model';
+import { IconComponent } from '../../../components/icon/icon.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, SidebarComponent, FooterComponent],
+  imports: [CommonModule, SidebarComponent, FooterComponent, IconComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

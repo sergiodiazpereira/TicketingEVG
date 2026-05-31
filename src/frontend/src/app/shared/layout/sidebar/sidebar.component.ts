@@ -11,11 +11,12 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { environment } from '../../../../enviroments/environment';
 import { ConfirmacionEliminarComponent } from '../../../pages/modales/confirmacion-eliminar/confirmacion-eliminar.component';
+import { IconComponent } from '../../../components/icon/icon.component';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, CommonModule, ConfirmacionEliminarComponent],
+  imports: [RouterLink, RouterLinkActive, CommonModule, ConfirmacionEliminarComponent, IconComponent],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })

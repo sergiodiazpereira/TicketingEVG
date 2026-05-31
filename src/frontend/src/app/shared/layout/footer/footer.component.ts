@@ -8,6 +8,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
+import { IconComponent } from '../../../components/icon/icon.component';
 
 interface UserData {
   nombre?: string;
@@ -19,7 +20,7 @@ interface UserData {
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, IconComponent],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css'
 })

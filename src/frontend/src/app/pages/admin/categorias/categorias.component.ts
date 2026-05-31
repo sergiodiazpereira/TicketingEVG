@@ -16,11 +16,12 @@ import { ConfirmacionEliminarComponent } from '../../modales/confirmacion-elimin
 import { FormularioCategoriaComponent } from '../../modales/formulario-categoria/formulario-categoria.component';
 import { CategoriasService } from '../../../services/categorias.service';
 import { forkJoin } from 'rxjs';
+import { IconComponent } from '../../../components/icon/icon.component';
 
 @Component({
   selector: 'app-categorias',
   standalone: true,
-  imports: [CommonModule, FooterComponent, SidebarComponent, ConfirmacionEliminarComponent, FormularioCategoriaComponent],
+  imports: [CommonModule, FooterComponent, SidebarComponent, ConfirmacionEliminarComponent, FormularioCategoriaComponent, IconComponent],
   templateUrl: './categorias.component.html',
   styleUrl: './categorias.component.css'
 })

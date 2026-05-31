@@ -195,3 +195,12 @@
         gap: 12px !important;
     }
 }
+
+/* Extracted Inline Styles */
+.extracted-fc-1 {
+    margin-bottom: 25px;
+}
+
+.extracted-fc-2 {
+    resize: vertical; min-height: 100px;
+}

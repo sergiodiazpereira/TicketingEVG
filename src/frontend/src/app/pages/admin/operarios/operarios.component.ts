@@ -15,11 +15,12 @@ import { UsuarioService } from '../../../services/usuario.service';
 import { ConfirmacionEliminarComponent } from '../../modales/confirmacion-eliminar/confirmacion-eliminar.component';
 import { FormularioOperarioComponent } from '../../modales/formulario-operario/formulario-operario.component';
 import { forkJoin } from 'rxjs';
+import { IconComponent } from '../../../components/icon/icon.component';
 
 @Component({
   selector: 'app-operarios',
   standalone: true,
-  imports: [CommonModule, FooterComponent, SidebarComponent, ConfirmacionEliminarComponent, FormularioOperarioComponent],
+  imports: [CommonModule, FooterComponent, SidebarComponent, ConfirmacionEliminarComponent, FormularioOperarioComponent, IconComponent],
   templateUrl: './operarios.component.html',
   styleUrl: './operarios.component.css'
 })

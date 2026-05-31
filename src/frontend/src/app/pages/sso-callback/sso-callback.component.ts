@@ -9,11 +9,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { IconComponent } from '../../components/icon/icon.component';
 
 @Component({
   selector: 'app-sso-callback',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, IconComponent],
   template: '',
   styles: []
 })

@@ -8,11 +8,12 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IconComponent } from '../../../components/icon/icon.component';
 
 @Component({
   selector: 'app-formulario-categoria',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, IconComponent],
   templateUrl: './formulario-categoria.component.html',
   styleUrl: './formulario-categoria.component.css'
 })

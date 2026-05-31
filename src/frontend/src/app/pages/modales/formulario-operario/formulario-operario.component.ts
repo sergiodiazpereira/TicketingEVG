@@ -11,10 +11,11 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { CategoriasService } from '../../../services/categorias.service';
 import { UsuarioService } from '../../../services/usuario.service';
 import { Categoria } from '../../../models/categoria.model';
+import { IconComponent } from '../../../components/icon/icon.component';
 
 @Component({
   selector: 'app-formulario-operario',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, IconComponent],
   templateUrl: './formulario-operario.component.html',
   styleUrl: './formulario-operario.component.css'
 })

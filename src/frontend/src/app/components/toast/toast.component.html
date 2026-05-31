@@ -1,0 +1,19 @@
+<div class="toast-container">
+    <div *ngFor="let toast of toasts" 
+         class="toast-alerta-contenedor" 
+         [class.toast-error]="toast.esError" 
+         [class.toast-exito]="!toast.esError" 
+         (click)="cerrar($event, toast.id!)">
+        <div class="toast-alerta-icono">
+            <i class="fa-solid" [ngClass]="toast.esError ? 'fa-circle-exclamation' : 'fa-circle-check'"></i>
+        </div>
+        <div class="toast-alerta-cuerpo">
+            <span class="toast-alerta-titulo">{{ toast.esError ? 'ERROR' : 'ÉXITO' }}</span>
+            <span class="toast-alerta-mensaje">{{ toast.texto }}</span>
+        </div>
+        <button class="toast-alerta-cerrar" (click)="cerrar($event, toast.id!)">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="toast-alerta-progreso"></div>
+    </div>
+</div>

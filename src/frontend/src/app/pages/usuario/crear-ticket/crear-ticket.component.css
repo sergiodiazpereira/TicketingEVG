@@ -245,3 +245,20 @@ textarea.control-form {
     color: #fff;
     border-color: var(--azul-oscuro);
 }
+
+/* Extracted Inline Styles */
+.extracted-ct-1 {
+    max-width: 900px;
+}
+
+.extracted-ct-2 {
+    color: #ea580c; cursor: not-allowed; pointer-events: none; font-weight: 600; padding: 12px 16px; display: flex; align-items: center; gap: 8px;
+}
+
+.extracted-ct-3 {
+    background-color: #fff9eb; color: #d99339; border: 1px dashed #fef3c7; display: flex; align-items: center; gap: 8px; font-size: 12px; margin-top: 10px;
+}
+
+.extracted-ct-4 {
+    padding: 1.5rem 2rem;
+}

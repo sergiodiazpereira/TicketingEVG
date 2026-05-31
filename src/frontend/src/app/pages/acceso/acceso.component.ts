@@ -9,11 +9,12 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Usuario } from '../../models/usuario.model';
+import { IconComponent } from '../../components/icon/icon.component';
 
 @Component({
   selector: 'app-acceso',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, IconComponent],
   templateUrl: './acceso.component.html',
   styleUrl: './acceso.component.css'
 })

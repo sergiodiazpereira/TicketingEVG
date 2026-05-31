@@ -8,7 +8,7 @@
 
 		<form [formGroup]="formulario" (ngSubmit)="onGuardar()">
 			<div class="modal-body">
-				<div class="form-group full-width" style="margin-bottom: 25px;">
+				<div class="form-group full-width extracted-fc-1" >
 					<label class="form-label">Nombre de la categoría</label>
 					<input type="text" class="form-control" formControlName="nombre" placeholder="Ej: Soporte Nivel 1">
 					<div *ngIf="formulario.get('nombre')?.touched && formulario.get('nombre')?.invalid" class="text-danger small mt-1">
@@ -20,7 +20,7 @@
 
 				<div class="form-group full-width">
 					<label class="form-label">Descripción detallada</label>
-					<textarea class="form-control" rows="4" style="resize: vertical; min-height: 100px;" formControlName="descripcion" placeholder="Descripción..."></textarea>
+					<textarea class="form-control extracted-fc-2" rows="4"  formControlName="descripcion" placeholder="Descripción..."></textarea>
 					<div *ngIf="formulario.get('descripcion')?.touched && formulario.get('descripcion')?.invalid" class="text-danger small mt-1">
 						<span *ngIf="formulario.get('descripcion')?.errors?.['maxlength']">La descripción no puede superar los 100 caracteres.</span>
 					</div>
