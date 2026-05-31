@@ -366,7 +366,6 @@ select.form-control option {
     overflow-y: auto;
     padding: 20px;
     background-color: #ffffff;
-    max-height: 480px; /* Limit height of scrolling */
 }
 
 .panel-timeline {
@@ -443,6 +442,7 @@ select.form-control option {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-top: auto;
 }
 
 .comment-textarea {
