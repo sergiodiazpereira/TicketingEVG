@@ -1,6 +1,6 @@
 /**
  * Proyecto: TicketingEVG
- * Alumno: Joseph Joel Quispe Alvarez
+ * Alumno: Manuel Vega Purificación
  * Asignatura: DAW
  * Curso: 2025-2026
  * Descripción: Controlador para el componente de Operarios.

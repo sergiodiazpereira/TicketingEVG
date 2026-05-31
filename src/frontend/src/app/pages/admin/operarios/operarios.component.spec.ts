@@ -1,6 +1,6 @@
 /**
  * Proyecto: TicketingEVG
- * Alumno: Joseph Joel Quispe Alvarez
+ * Alumno: Manuel Vega Purificación
  * Asignatura: DAW
  * Curso: 2025-2026
  * Descripción: Pruebas unitarias para la Consola de Operarios.
@@ -65,7 +65,7 @@ describe('OperariosComponent', () => {
 	it('debería alternar la expansión de categorías por operario', () => {
 		fixture.detectChanges();
 		expect(component.operarioExpandido).toBeNull();
-		
+
 		component.toggleCategorias(26);
 		expect(component.operarioExpandido).toEqual(26);
 

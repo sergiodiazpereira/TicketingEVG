@@ -1,7 +1,7 @@
 <?php
 /**
  * Proyecto: TicketingEVG
- * Alumno: Joseph Joel Quispe Alvarez
+ * Alumno: Manuel Vega Purificación
  * Asignatura: DAW
  * Curso: 2025-2026
  * Descripción: Modelo para gestionar los Usuarios/Operarios y sincronización con Intranet.
