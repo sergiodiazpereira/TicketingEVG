@@ -99,7 +99,11 @@
 						<div class="col-md-6">
 							<label class="etiqueta-form" for="campo-ubicacion">Ubicación / Aula</label>
 							<input id="campo-ubicacion" type="text" class="control-form" formControlName="ubicacion"
-								placeholder="Ej: Aula 101, Biblioteca, Sala de reuniones...">
+								placeholder="Ej: Aula 101, Biblioteca, Sala de reuniones..."
+								[class.is-invalid]="formulario.get('ubicacion')?.invalid && formulario.get('ubicacion')?.touched">
+							<div class="text-danger small mt-1" *ngIf="formulario.get('ubicacion')?.errors?.['onlySpaces'] && formulario.get('ubicacion')?.touched">
+								La ubicación no puede contener sólo espacios en blanco.
+							</div>
 						</div>
 						<div class="col-md-6" *ngIf="esAdminOResponsable">
 							<label class="etiqueta-form" for="campo-encargado">Asignar Técnico / Responsable (Opcional)</label>
@@ -145,6 +149,9 @@
 							<div class="text-danger small mt-1" *ngIf="formulario.get('titulo')?.errors?.['required'] && formulario.get('titulo')?.touched">
 								El título es obligatorio.
 							</div>
+							<div class="text-danger small mt-1" *ngIf="formulario.get('titulo')?.errors?.['onlySpaces'] && formulario.get('titulo')?.touched">
+								El título no puede contener sólo espacios en blanco.
+							</div>
 							<div class="text-danger small mt-1" *ngIf="formulario.get('titulo')?.errors?.['minlength'] && formulario.get('titulo')?.touched">
 								El título debe tener al menos 5 caracteres.
 							</div>
@@ -159,6 +166,9 @@
 							</textarea>
 							<div class="text-danger small mt-1" *ngIf="formulario.get('descripcion')?.errors?.['required'] && formulario.get('descripcion')?.touched">
 								La descripción es obligatoria.
+							</div>
+							<div class="text-danger small mt-1" *ngIf="formulario.get('descripcion')?.errors?.['onlySpaces'] && formulario.get('descripcion')?.touched">
+								La descripción no puede contener sólo espacios en blanco.
 							</div>
 							<div class="text-danger small mt-1" *ngIf="formulario.get('descripcion')?.errors?.['minlength'] && formulario.get('descripcion')?.touched">
 								La descripción debe tener al menos 10 caracteres.

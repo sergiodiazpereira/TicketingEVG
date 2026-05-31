@@ -125,15 +125,20 @@ export class CrearTicketComponent implements OnInit {
   }
 
   onEnviar(): void {
+    // Reset control errors before validating
+    this.formulario.get('titulo')?.setErrors(null);
+    this.formulario.get('descripcion')?.setErrors(null);
+    this.formulario.get('ubicacion')?.setErrors(null);
+
+    // Validate standard Reactive Form validations
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
-      this.mostrarMensajeError('Por favor, rellena todos los campos obligatorios.');
       return;
     }
 
     const usuario = this.authService.getUsuarioActual();
     if (!usuario) {
-      this.mostrarMensajeError('No hay sesión activa. Por favor, inicia sesión de nuevo.');
+      this.toastService.mostrarMensaje('No hay sesión activa. Por favor, inicia sesión de nuevo.', true);
       return;
     }
 
@@ -142,29 +147,34 @@ export class CrearTicketComponent implements OnInit {
     const descripcionTrimeada = (valores.descripcion || '').trim();
     const ubicacionTrimeada = (valores.ubicacion || '').trim();
 
+    let tieneError = false;
+
     if (!tituloTrimeado) {
-      this.mostrarMensajeError('El título no puede contener sólo espacios en blanco.');
-      return;
-    }
-    if (tituloTrimeado.length < 5) {
-      this.mostrarMensajeError('El título debe tener al menos 5 caracteres.');
-      return;
+      this.formulario.get('titulo')?.setErrors({ onlySpaces: true });
+      tieneError = true;
+    } else if (tituloTrimeado.length < 5) {
+      this.formulario.get('titulo')?.setErrors({ minlength: true });
+      tieneError = true;
     }
 
     if (!descripcionTrimeada) {
-      this.mostrarMensajeError('La descripción no puede contener sólo espacios en blanco.');
-      return;
-    }
-    if (descripcionTrimeada.length < 10) {
-      this.mostrarMensajeError('La descripción debe tener al menos 10 caracteres.');
-      return;
+      this.formulario.get('descripcion')?.setErrors({ onlySpaces: true });
+      tieneError = true;
+    } else if (descripcionTrimeada.length < 10) {
+      this.formulario.get('descripcion')?.setErrors({ minlength: true });
+      tieneError = true;
     }
 
     if (valores.ubicacion !== undefined && valores.ubicacion !== null && valores.ubicacion !== '') {
       if (!ubicacionTrimeada) {
-        this.mostrarMensajeError('La ubicación no puede contener sólo espacios en blanco.');
-        return;
+        this.formulario.get('ubicacion')?.setErrors({ onlySpaces: true });
+        tieneError = true;
       }
+    }
+
+    if (tieneError) {
+      this.formulario.markAllAsTouched();
+      return;
     }
 
     const payload: any = {
