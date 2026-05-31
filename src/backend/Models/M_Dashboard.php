@@ -42,7 +42,7 @@ class M_Dashboard {
 
         $res_usuarios = $this->db->query("SELECT COUNT(*) as total FROM Usuario 
                                           INNER JOIN Rol ON Usuario.id_rol = Rol.id
-                                          WHERE Rol.nombre IN ('Responsable', 'Trabajador')");
+                                          WHERE Rol.nombre IN ('Responsable', 'Trabajador', 'Administrador')");
         if ($res_usuarios && $row = $res_usuarios->fetch_assoc()) $stats['total_usuarios'] = ($row['total'] ?? 0);
 
 
@@ -88,7 +88,7 @@ class M_Dashboard {
         $sql_operarios = "SELECT COUNT(Usuario.id) as total 
                          FROM Usuario 
                          JOIN Rol ON Usuario.id_rol = Rol.id 
-                         WHERE Rol.nombre IN ('Responsable', 'Trabajador') 
+                         WHERE Rol.nombre IN ('Responsable', 'Trabajador', 'Administrador') 
                          AND Usuario.id NOT IN (
                             SELECT id_usuario_encargado 
                             FROM Ticket 
