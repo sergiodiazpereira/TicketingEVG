@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TicketService } from '../../../services/ticket.service';
 import { CategoriasService } from '../../../services/categorias.service';
+import { AuthService } from '../../../services/auth.service';
 import { ConfirmacionEliminarComponent } from '../confirmacion-eliminar/confirmacion-eliminar.component';
 import { ToastService } from '../../../services/toast.service';
 import { IconComponent } from '../../../components/icon/icon.component';
@@ -60,8 +61,13 @@ export class ModalTicketComponent implements OnInit {
   constructor(
     private ticketService: TicketService,
     private categoriasService: CategoriasService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private authService: AuthService
   ) {}
+
+  get usuario_actual(): any {
+    return this.authService.getUsuarioActual();
+  }
 
   ngOnInit() {
     this.categoriasService.obtenerCategorias().subscribe({
@@ -243,12 +249,20 @@ export class ModalTicketComponent implements OnInit {
    */
   get puedeEditar(): boolean {
     if (!this.ticket) return false;
-    // Si es tecnico, puede editar si no está resuelto ni cancelado
-    if (this.esTecnico) {
+    
+    // Si es un trabajador (operario técnico base), no puede editar la información base del ticket
+    if (this.rolUsuario === 'trabajador' || this.rolUsuario === 'operario') {
+      return false;
+    }
+    
+    // Si es administrador o responsable, puede editar si no está resuelto ni cancelado
+    if (this.rolUsuario === 'administrador' || this.rolUsuario === 'admin' || this.rolUsuario === 'responsable') {
       return this.ticket.estado !== 'resuelto' && this.ticket.estado !== 'no aplica';
     }
-    // Si es creador normal, puede editar si está pendiente o asignado (antes de entrar en proceso)
-    return this.ticket.estado === 'pendiente' || this.ticket.estado === 'asignado';
+    
+    // Si es creador normal (solicitante), puede editar únicamente sus propios tickets si están pendientes o asignados
+    const esCreador = Number(this.ticket.id_usuario_creador) === Number(this.usuario_actual?.id);
+    return esCreador && (this.ticket.estado === 'pendiente' || this.ticket.estado === 'asignado');
   }
 
   /**

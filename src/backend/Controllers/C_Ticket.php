@@ -99,6 +99,11 @@ class C_Ticket {
         $ticket_actual = $this->modelo->buscar_por_id($id);
         if (!$ticket_actual) return ["status" => "error", "message" => "Ticket no encontrado"];
 
+        $usuario = $GLOBALS['usuario_sesion'] ?? null;
+        $rol = $usuario['rol'] ?? 'profesor';
+        if (in_array(strtolower($rol ?? ''), ['trabajador', 'operario']))
+            return ["status" => "error", "message" => "Los trabajadores no tienen permisos para editar la información base del ticket"];
+
         $permiso = $this->verificar_permisos_solicitante($ticket_actual, true);
         if ($permiso !== true) return ["status" => "error", "message" => $permiso];
 
