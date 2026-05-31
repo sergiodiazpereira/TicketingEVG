@@ -51,7 +51,7 @@ class M_Dashboard {
 
 
         $res_activos = $this->db->query("SELECT COUNT(*) as total FROM Ticket 
-                                         WHERE estado != 'resuelto'");
+                                         WHERE estado NOT IN ('resuelto', 'no aplica')");
         if ($res_activos && $row = $res_activos->fetch_assoc()) $stats['tickets_activos'] = ($row['total'] ?? 0);
         
 
@@ -71,17 +71,17 @@ class M_Dashboard {
         
 
         $res_p_alta = $this->db->query("SELECT COUNT(*) as total FROM Ticket 
-                                        WHERE prioridad = 'a' AND estado != 'resuelto'");
+                                        WHERE prioridad = 'a' AND estado NOT IN ('resuelto', 'no aplica')");
         if ($res_p_alta && $row = $res_p_alta->fetch_assoc()) $stats['prioridad_alta'] = ($row['total'] ?? 0);
         
 
         $res_p_media = $this->db->query("SELECT COUNT(*) as total FROM Ticket
-                                         WHERE prioridad = 'm' AND estado != 'resuelto'");
+                                         WHERE prioridad = 'm' AND estado NOT IN ('resuelto', 'no aplica')");
         if ($res_p_media && $row = $res_p_media->fetch_assoc()) $stats['prioridad_media'] = ($row['total'] ?? 0);
         
 
         $res_p_baja = $this->db->query("SELECT COUNT(*) as total FROM Ticket
-                                        WHERE prioridad = 'b' AND estado != 'resuelto'");
+                                        WHERE prioridad = 'b' AND estado NOT IN ('resuelto', 'no aplica')");
         if ($res_p_baja && $row = $res_p_baja->fetch_assoc()) $stats['prioridad_baja'] = ($row['total'] ?? 0);
         
         // Operarios disponibles (sin tickets asignados en proceso)
