@@ -8,6 +8,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToastService, ToastMessage } from '../../services/toast.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-toast',
@@ -19,7 +20,7 @@ import { ToastService, ToastMessage } from '../../services/toast.service';
 export class ToastComponent implements OnInit {
   toasts: ToastMessage[] = [];
 
-  constructor(private toastService: ToastService) {}
+  constructor(private toastService: ToastService, private cdr: ChangeDetectorRef) {}
 
   /**
    * Se suscribe al Observable del ToastService para actualizar la vista dinámicamente.
@@ -27,6 +28,7 @@ export class ToastComponent implements OnInit {
   ngOnInit() {
     this.toastService.toasts$.subscribe(toasts => {
       this.toasts = toasts;
+      this.cdr.detectChanges();
     });
   }
 
