@@ -57,6 +57,18 @@ class C_Usuario {
 		$usuario_existente = $this->modelo->buscar_por_id($id_usuario);
 
 		if ($usuario_existente) {
+			// Comprobar si el usuario existente es administrador
+			$rol_actual = strtolower($usuario_existente['rol'] ?? '');
+			$rol_nuevo = strtolower($datos['rol'] ?? '');
+
+			// Si el usuario a editar es administrador y el nuevo rol no lo es
+			if (($rol_actual === 'administrador' || $rol_actual === 'admin') && ($rol_nuevo !== 'administrador' && $rol_nuevo !== 'admin')) {
+				$usuario_sesion = $GLOBALS['usuario_sesion'] ?? null;
+				$id_sesion = $usuario_sesion ? (int)($usuario_sesion['id'] ?? 0) : 0;
+				if ($id_sesion !== $id_usuario)
+					return ['status' => 'error', 'message' => 'No tienes permisos para quitarle el rol de administrador a otro usuario.'];
+			}
+
 			// Actualizar operario existente (cambiar su rol local)
 			$ok = $this->modelo->actualizar($id_usuario, $datos);
 			if (!$ok)
@@ -81,7 +93,21 @@ class C_Usuario {
 	public function borrar($id) {
 		if (!$id)
 			return ['status' => 'error', 'message' => 'ID de operario no proporcionado.'];
-		return $this->modelo->eliminar((int) $id);
+
+		$id_usuario = (int) $id;
+		$usuario_existente = $this->modelo->buscar_por_id($id_usuario);
+
+		if ($usuario_existente) {
+			$rol_actual = strtolower($usuario_existente['rol'] ?? '');
+			if ($rol_actual === 'administrador' || $rol_actual === 'admin') {
+				$usuario_sesion = $GLOBALS['usuario_sesion'] ?? null;
+				$id_sesion = $usuario_sesion ? (int)($usuario_sesion['id'] ?? 0) : 0;
+				if ($id_sesion !== $id_usuario)
+					return ['status' => 'error', 'message' => 'No tienes permisos para revocar los permisos de administrador de otro usuario.'];
+			}
+		}
+
+		return $this->modelo->eliminar($id_usuario);
 	}
 }
 ?>
