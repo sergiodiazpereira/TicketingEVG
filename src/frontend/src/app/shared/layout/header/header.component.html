@@ -10,14 +10,16 @@
 		<div class="icono-logo"><i class="fa-solid fa-school"></i></div>
 		<div class="icono-texto">
 			<strong>TicketingEVG</strong>
-			<span class="info-estadistica"><strong>Portal de gestión</strong></span>
+			<span class="info-estadistica text-sub">Portal de gestión</span>
 		</div>
 	</div>
-	<a routerLink="/portal-tickets" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}" #rlaInicio="routerLinkActive" [class.fantasma]="!rlaInicio.isActive" class="boton-nav">
+	<a routerLink="/portal-tickets" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}"
+		#rlaInicio="routerLinkActive" [class.fantasma]="!rlaInicio.isActive" class="boton-nav">
 		<i class="fa-solid fa-table-cells-large"></i>
 		<span class="etiqueta-nav">Inicio</span>
 	</a>
-	<a routerLink="/portal-tickets/tickets" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}" #rlaTickets="routerLinkActive" [class.fantasma]="!rlaTickets.isActive" class="boton-nav">
+	<a routerLink="/portal-tickets/tickets" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}"
+		#rlaTickets="routerLinkActive" [class.fantasma]="!rlaTickets.isActive" class="boton-nav">
 		<i class="fa-regular fa-clipboard"></i>
 		<span class="etiqueta-nav">Mis tickets</span>
 	</a>
@@ -26,7 +28,8 @@
 		<i class="fa-solid fa-arrow-right-arrow-left"></i>
 		<span class="etiqueta-nav">Consola Admin</span>
 	</a>
-	<a href="https://17.daw.esvirgua.com/dashboard-inicio" [href]="landingUrl" class="btn-cerrar-sesion me-2" title="Volver">
+	<a href="https://17.daw.esvirgua.com/dashboard-inicio" [href]="landingUrl" class="btn-cerrar-sesion me-2"
+		title="Volver">
 		<i class="fa-solid fa-house"></i>
 		<span class="etiqueta-nav">Volver</span>
 	</a>
@@ -36,9 +39,6 @@
 	</a>
 </header>
 
-<app-confirmacion-eliminar 
-    *ngIf="mostrarModalLogout" 
-    [tipo]="'cerrar-sesion'" 
-    (cancelar)="cancelarLogout()" 
-    (confirmar)="confirmarLogout()">
+<app-confirmacion-eliminar *ngIf="mostrarModalLogout" [tipo]="'cerrar-sesion'" (cancelar)="cancelarLogout()"
+	(confirmar)="confirmarLogout()">
 </app-confirmacion-eliminar>
