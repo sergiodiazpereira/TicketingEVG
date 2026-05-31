@@ -179,6 +179,7 @@
                 <td class="col-md-9">
                                 <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
                                 <code><a href="https://angular.io/api/forms/ReactiveFormsModule" target="_blank" >ReactiveFormsModule</a></code>
+                                <code><a href="../components/IconComponent.html" target="_self" >IconComponent</a></code>
                 </td>
             </tr>
 
@@ -292,7 +293,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/pages/modales/formulario-categoria/formulario-categoria.component.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/pages/modales/formulario-categoria/formulario-categoria.component.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -353,7 +354,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/pages/modales/formulario-categoria/formulario-categoria.component.ts:20</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/pages/modales/formulario-categoria/formulario-categoria.component.ts:21</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -377,7 +378,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/pages/modales/formulario-categoria/formulario-categoria.component.ts:21</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/pages/modales/formulario-categoria/formulario-categoria.component.ts:22</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -398,7 +399,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/pages/modales/formulario-categoria/formulario-categoria.component.ts:22</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/pages/modales/formulario-categoria/formulario-categoria.component.ts:23</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -431,8 +432,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="28"
-                                    class="link-to-prism">src/app/pages/modales/formulario-categoria/formulario-categoria.component.ts:28</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="29"
+                                    class="link-to-prism">src/app/pages/modales/formulario-categoria/formulario-categoria.component.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -468,8 +469,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="35"
-                                    class="link-to-prism">src/app/pages/modales/formulario-categoria/formulario-categoria.component.ts:35</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="36"
+                                    class="link-to-prism">src/app/pages/modales/formulario-categoria/formulario-categoria.component.ts:36</a></div>
                         </td>
                     </tr>
 
@@ -510,7 +511,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/pages/modales/formulario-categoria/formulario-categoria.component.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/pages/modales/formulario-categoria/formulario-categoria.component.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -526,11 +527,12 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, Output, EventEmitter, OnInit } from &#x27;@angular/core&#x27;;
 import { CommonModule } from &#x27;@angular/common&#x27;;
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+import { IconComponent } from &#x27;../../../components/icon/icon.component&#x27;;
 
 @Component({
   selector: &#x27;app-formulario-categoria&#x27;,
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, IconComponent],
   templateUrl: &#x27;./formulario-categoria.component.html&#x27;,
   styleUrl: &#x27;./formulario-categoria.component.css&#x27;
 })
@@ -575,7 +577,7 @@ export class FormularioCategoriaComponent implements OnInit {
 
 		&lt;form [formGroup]&#x3D;&quot;formulario&quot; (ngSubmit)&#x3D;&quot;onGuardar()&quot;&gt;
 			&lt;div class&#x3D;&quot;modal-body&quot;&gt;
-				&lt;div class&#x3D;&quot;form-group full-width&quot; style&#x3D;&quot;margin-bottom: 25px;&quot;&gt;
+				&lt;div class&#x3D;&quot;form-group full-width extracted-fc-1&quot; &gt;
 					&lt;label class&#x3D;&quot;form-label&quot;&gt;Nombre de la categoría&lt;/label&gt;
 					&lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-control&quot; formControlName&#x3D;&quot;nombre&quot; placeholder&#x3D;&quot;Ej: Soporte Nivel 1&quot;&gt;
 					&lt;div *ngIf&#x3D;&quot;formulario.get(&#x27;nombre&#x27;)?.touched &amp;&amp; formulario.get(&#x27;nombre&#x27;)?.invalid&quot; class&#x3D;&quot;text-danger small mt-1&quot;&gt;
@@ -587,7 +589,7 @@ export class FormularioCategoriaComponent implements OnInit {
 
 				&lt;div class&#x3D;&quot;form-group full-width&quot;&gt;
 					&lt;label class&#x3D;&quot;form-label&quot;&gt;Descripción detallada&lt;/label&gt;
-					&lt;textarea class&#x3D;&quot;form-control&quot; rows&#x3D;&quot;4&quot; style&#x3D;&quot;resize: vertical; min-height: 100px;&quot; formControlName&#x3D;&quot;descripcion&quot; placeholder&#x3D;&quot;Descripción...&quot;&gt;&lt;/textarea&gt;
+					&lt;textarea class&#x3D;&quot;form-control extracted-fc-2&quot; rows&#x3D;&quot;4&quot;  formControlName&#x3D;&quot;descripcion&quot; placeholder&#x3D;&quot;Descripción...&quot;&gt;&lt;/textarea&gt;
 					&lt;div *ngIf&#x3D;&quot;formulario.get(&#x27;descripcion&#x27;)?.touched &amp;&amp; formulario.get(&#x27;descripcion&#x27;)?.invalid&quot; class&#x3D;&quot;text-danger small mt-1&quot;&gt;
 						&lt;span *ngIf&#x3D;&quot;formulario.get(&#x27;descripcion&#x27;)?.errors?.[&#x27;maxlength&#x27;]&quot;&gt;La descripción no puede superar los 100 caracteres.&lt;/span&gt;
 					&lt;/div&gt;
@@ -630,8 +632,8 @@ export class FormularioCategoriaComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="modal-overlay">	<div class="modal-container modal-form shadow-lg">		<div class="modal-header">			<button class="btn-close" (click)="cerrar.emit()">&times;</button>			<h2 class="modal-title">{{ categoria ? \'Modificar Categoría\' : \'Nueva Categoría\' }}</h2>			<p class="modal-subtitle">Define las características de la categoría técnica</p>		</div>		<form [formGroup]="formulario" (ngSubmit)="onGuardar()">			<div class="modal-body">				<div class="form-group full-width" style="margin-bottom: 25px;">					<label class="form-label">Nombre de la categoría</label>					<input type="text" class="form-control" formControlName="nombre" placeholder="Ej: Soporte Nivel 1">					<div *ngIf="formulario.get(\'nombre\')?.touched && formulario.get(\'nombre\')?.invalid" class="text-danger small mt-1">						<span *ngIf="formulario.get(\'nombre\')?.errors?.[\'required\']">El nombre es obligatorio.</span>						<span *ngIf="formulario.get(\'nombre\')?.errors?.[\'minlength\']">El nombre debe tener al menos 3 caracteres.</span>						<span *ngIf="formulario.get(\'nombre\')?.errors?.[\'maxlength\']">El nombre no puede superar los 50 caracteres.</span>					</div>				</div>				<div class="form-group full-width">					<label class="form-label">Descripción detallada</label>					<textarea class="form-control" rows="4" style="resize: vertical; min-height: 100px;" formControlName="descripcion" placeholder="Descripción..."></textarea>					<div *ngIf="formulario.get(\'descripcion\')?.touched && formulario.get(\'descripcion\')?.invalid" class="text-danger small mt-1">						<span *ngIf="formulario.get(\'descripcion\')?.errors?.[\'maxlength\']">La descripción no puede superar los 100 caracteres.</span>					</div>				</div>			</div>			<div class="modal-footer">				<button type="button" class="btn btn-text" (click)="cerrar.emit()">Cancelar</button>				<button type="submit" class="btn btn-primary shadow-sm">Guardar Cambios</button>			</div>		</form>	</div></div></div>'
-    var COMPONENTS = [{'name': 'AccesoComponent', 'selector': 'app-acceso'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CategoriasComponent', 'selector': 'app-categorias'},{'name': 'ConfirmacionEliminarComponent', 'selector': 'app-confirmacion-eliminar'},{'name': 'CrearTicketComponent', 'selector': 'app-crear-ticket'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FormularioCategoriaComponent', 'selector': 'app-formulario-categoria'},{'name': 'FormularioOperarioComponent', 'selector': 'app-formulario-operario'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'ListaTicketsComponent', 'selector': 'app-lista-tickets'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ModalTicketComponent', 'selector': 'app-modal-ticket'},{'name': 'OperariosComponent', 'selector': 'app-operarios'},{'name': 'PortalTicketsComponent', 'selector': 'app-portal-tickets'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SsoCallbackComponent', 'selector': 'app-sso-callback'}];
+        var COMPONENT_TEMPLATE = '<div><div class="modal-overlay">	<div class="modal-container modal-form shadow-lg">		<div class="modal-header">			<button class="btn-close" (click)="cerrar.emit()">&times;</button>			<h2 class="modal-title">{{ categoria ? \'Modificar Categoría\' : \'Nueva Categoría\' }}</h2>			<p class="modal-subtitle">Define las características de la categoría técnica</p>		</div>		<form [formGroup]="formulario" (ngSubmit)="onGuardar()">			<div class="modal-body">				<div class="form-group full-width extracted-fc-1" >					<label class="form-label">Nombre de la categoría</label>					<input type="text" class="form-control" formControlName="nombre" placeholder="Ej: Soporte Nivel 1">					<div *ngIf="formulario.get(\'nombre\')?.touched && formulario.get(\'nombre\')?.invalid" class="text-danger small mt-1">						<span *ngIf="formulario.get(\'nombre\')?.errors?.[\'required\']">El nombre es obligatorio.</span>						<span *ngIf="formulario.get(\'nombre\')?.errors?.[\'minlength\']">El nombre debe tener al menos 3 caracteres.</span>						<span *ngIf="formulario.get(\'nombre\')?.errors?.[\'maxlength\']">El nombre no puede superar los 50 caracteres.</span>					</div>				</div>				<div class="form-group full-width">					<label class="form-label">Descripción detallada</label>					<textarea class="form-control extracted-fc-2" rows="4"  formControlName="descripcion" placeholder="Descripción..."></textarea>					<div *ngIf="formulario.get(\'descripcion\')?.touched && formulario.get(\'descripcion\')?.invalid" class="text-danger small mt-1">						<span *ngIf="formulario.get(\'descripcion\')?.errors?.[\'maxlength\']">La descripción no puede superar los 100 caracteres.</span>					</div>				</div>			</div>			<div class="modal-footer">				<button type="button" class="btn btn-text" (click)="cerrar.emit()">Cancelar</button>				<button type="submit" class="btn btn-primary shadow-sm">Guardar Cambios</button>			</div>		</form>	</div></div></div>'
+    var COMPONENTS = [{'name': 'AccesoComponent', 'selector': 'app-acceso'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CategoriasComponent', 'selector': 'app-categorias'},{'name': 'ConfirmacionEliminarComponent', 'selector': 'app-confirmacion-eliminar'},{'name': 'CrearTicketComponent', 'selector': 'app-crear-ticket'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FormularioCategoriaComponent', 'selector': 'app-formulario-categoria'},{'name': 'FormularioOperarioComponent', 'selector': 'app-formulario-operario'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'IconComponent', 'selector': 'app-icon'},{'name': 'ListaTicketsComponent', 'selector': 'app-lista-tickets'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ModalTicketComponent', 'selector': 'app-modal-ticket'},{'name': 'OperariosComponent', 'selector': 'app-operarios'},{'name': 'PortalTicketsComponent', 'selector': 'app-portal-tickets'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SsoCallbackComponent', 'selector': 'app-sso-callback'},{'name': 'ToastComponent', 'selector': 'app-toast'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'FormularioCategoriaComponent'};
 </script>

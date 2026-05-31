@@ -215,6 +215,13 @@
 <dd>Lista los comentarios asociados a un ticket.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/C-Ticket.html#method_debe_ver_como_profesor">debe_ver_como_profesor()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Comprueba si un trabajador debe ser tratado como profesor por ser el creador y no estar asignado.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/C-Ticket.html#method_verificar_permisos_solicitante">verificar_permisos_solicitante()</a>
     <span>
                                 &nbsp;: bool|string    </span>
@@ -329,7 +336,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="Controllers/C_Ticket.php"><a href="files/controllers-c-ticket.html"><abbr title="Controllers/C_Ticket.php">C_Ticket.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">98</span>
+    <span class="phpdocumentor-element-found-in__line">122</span>
 
     </aside>
 
@@ -385,7 +392,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="Controllers/C_Ticket.php"><a href="files/controllers-c-ticket.html"><abbr title="Controllers/C_Ticket.php">C_Ticket.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">168</span>
+    <span class="phpdocumentor-element-found-in__line">200</span>
 
     </aside>
 
@@ -441,7 +448,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="Controllers/C_Ticket.php"><a href="files/controllers-c-ticket.html"><abbr title="Controllers/C_Ticket.php">C_Ticket.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">147</span>
+    <span class="phpdocumentor-element-found-in__line">179</span>
 
     </aside>
 
@@ -488,7 +495,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="Controllers/C_Ticket.php"><a href="files/controllers-c-ticket.html"><abbr title="Controllers/C_Ticket.php">C_Ticket.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">116</span>
+    <span class="phpdocumentor-element-found-in__line">145</span>
 
     </aside>
 
@@ -591,7 +598,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="Controllers/C_Ticket.php"><a href="files/controllers-c-ticket.html"><abbr title="Controllers/C_Ticket.php">C_Ticket.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">202</span>
+    <span class="phpdocumentor-element-found-in__line">234</span>
 
     </aside>
 
@@ -685,7 +692,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="Controllers/C_Ticket.php"><a href="files/controllers-c-ticket.html"><abbr title="Controllers/C_Ticket.php">C_Ticket.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">189</span>
+    <span class="phpdocumentor-element-found-in__line">221</span>
 
     </aside>
 
@@ -724,6 +731,57 @@
             -private
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_debe_ver_como_profesor">
+        debe_ver_como_profesor()
+        <a href="classes/C-Ticket.html#method_debe_ver_como_profesor" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="Controllers/C_Ticket.php"><a href="files/controllers-c-ticket.html"><abbr title="Controllers/C_Ticket.php">C_Ticket.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">67</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Comprueba si un trabajador debe ser tratado como profesor por ser el creador y no estar asignado.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">debe_ver_como_profesor</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$ticket</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$ticket</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Datos del ticket.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_verificar_permisos_solicitante">
         verificar_permisos_solicitante()
         <a href="classes/C-Ticket.html#method_verificar_permisos_solicitante" class="headerlink"><i class="fas fa-link"></i></a>
@@ -732,7 +790,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="Controllers/C_Ticket.php"><a href="files/controllers-c-ticket.html"><abbr title="Controllers/C_Ticket.php">C_Ticket.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">68</span>
+    <span class="phpdocumentor-element-found-in__line">89</span>
 
     </aside>
 
@@ -820,6 +878,7 @@
                                             <li class=""><a href="classes/C-Ticket.html#method_guardar_comentario">guardar_comentario()</a></li>
                                             <li class=""><a href="classes/C-Ticket.html#method_listar">listar()</a></li>
                                             <li class=""><a href="classes/C-Ticket.html#method_listar_comentarios">listar_comentarios()</a></li>
+                                            <li class=""><a href="classes/C-Ticket.html#method_debe_ver_como_profesor">debe_ver_como_profesor()</a></li>
                                             <li class=""><a href="classes/C-Ticket.html#method_verificar_permisos_solicitante">verificar_permisos_solicitante()</a></li>
                                     </ul>
             </li>

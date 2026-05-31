@@ -321,13 +321,7 @@ class M_Usuario {
 					continue;
 				}
 				
-				// Si está en Ticketing pero con rol NULL (es profesor/usuario normal), lo incluimos
-				if (in_array($id_u, $registrados_sin_rol)) {
-					$disponibles[] = $u;
-					continue;
-				}
-				
-				// Si no está en Ticketing (nuevo usuario), solo lo incluimos si es tipo_personal_id = 3 (Servicio)
+				// Solo son aptos para recibir roles técnicos los usuarios de tipo Servicio (tipo_personal_id = 3)
 				if (isset($u['tipo_personal_id']) && $u['tipo_personal_id'] == 3) {
 					$disponibles[] = $u;
 				}

@@ -2,16 +2,12 @@
     <div class="modal-container modal-alert shadow-lg">
         <div class="alert-header">
             <div class="alert-icon-container">
-                <!-- Icono Papelera para Categoría/Operario/Múltiple -->
-                <app-icon name="info" size="18"></app-icon>
-                <!-- Icono Desasignar Técnico -->
-                <app-icon name="info" size="18"></app-icon>
-                <!-- Icono Cancelar Ticket -->
-                <app-icon name="cancel" size="18"></app-icon>
-                <!-- Icono Advertencia para Cambio de Categoría Desasignar -->
-                <app-icon name="info" size="18"></app-icon>
-                <!-- Icono Cerrar Sesión (Logout) -->
-                <app-icon name="info" size="18"></app-icon>
+                <!-- Iconos dinámicos según el tipo -->
+                <app-icon *ngIf="tipo === 'categoria' || tipo === 'operario' || tipo === 'eliminar-multiple' || tipo === 'eliminar-multiple-operarios'" name="trash" size="40" color="white"></app-icon>
+                <app-icon *ngIf="tipo === 'desasignar'" name="user-minus" size="40" color="white"></app-icon>
+                <app-icon *ngIf="tipo === 'cambio-categoria-desasignar'" name="warning" size="40" color="white"></app-icon>
+                <app-icon *ngIf="tipo === 'cerrar-sesion'" name="log-out" size="40" color="white"></app-icon>
+                <app-icon *ngIf="tipo === 'cancelar-ticket'" name="cancel" size="40" color="white"></app-icon>
             </div>
             <h2 class="alert-title">
                 {{ 

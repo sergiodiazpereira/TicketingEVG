@@ -105,3 +105,11 @@ header {
     background-color: var(--azul, #006ea4) !important;
     color: #fff !important;
 }
+
+.text-sub {
+    font-size: 0.8rem !important;
+    color: var(--texto-gris, #64748b);
+    letter-spacing: 0.15em;
+    font-weight: bold;
+    text-transform: uppercase;
+}

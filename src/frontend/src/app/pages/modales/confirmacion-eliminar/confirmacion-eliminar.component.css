@@ -61,11 +61,11 @@
     margin: 0 auto 20px;
 }
 
-.alert-icon-container svg {
+.alert-icon-container ::ng-deep svg {
     width: 40px;
     height: 40px;
     fill: none;
-    stroke: var(--blanco, #ffffff);
+    stroke: var(--blanco, #ffffff) !important;
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;

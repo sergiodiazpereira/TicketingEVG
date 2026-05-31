@@ -184,6 +184,7 @@
                                 <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
                                 <code><a href="https://angular.io/api/router/RouterModule" target="_blank" >RouterModule</a></code>
                                 <code><a href="../components/ConfirmacionEliminarComponent.html" target="_self" >ConfirmacionEliminarComponent</a></code>
+                                <code><a href="../components/IconComponent.html" target="_self" >IconComponent</a></code>
                 </td>
             </tr>
 
@@ -289,7 +290,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/shared/layout/header/header.component.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/shared/layout/header/header.component.ts:26</a></div>
                             </td>
                         </tr>
 
@@ -356,8 +357,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="36"
-                                    class="link-to-prism">src/app/shared/layout/header/header.component.ts:36</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="37"
+                                    class="link-to-prism">src/app/shared/layout/header/header.component.ts:37</a></div>
                         </td>
                     </tr>
 
@@ -393,8 +394,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="45"
-                                    class="link-to-prism">src/app/shared/layout/header/header.component.ts:45</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="46"
+                                    class="link-to-prism">src/app/shared/layout/header/header.component.ts:46</a></div>
                         </td>
                     </tr>
 
@@ -430,8 +431,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="40"
-                                    class="link-to-prism">src/app/shared/layout/header/header.component.ts:40</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="41"
+                                    class="link-to-prism">src/app/shared/layout/header/header.component.ts:41</a></div>
                         </td>
                     </tr>
 
@@ -467,8 +468,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="29"
-                                    class="link-to-prism">src/app/shared/layout/header/header.component.ts:29</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="30"
+                                    class="link-to-prism">src/app/shared/layout/header/header.component.ts:30</a></div>
                         </td>
                     </tr>
 
@@ -514,7 +515,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/shared/layout/header/header.component.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/shared/layout/header/header.component.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -545,7 +546,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/shared/layout/header/header.component.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/shared/layout/header/header.component.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -574,7 +575,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/shared/layout/header/header.component.ts:31</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/shared/layout/header/header.component.ts:32</a></div>
                                 </td>
                             </tr>
 
@@ -591,11 +592,12 @@ import { RouterModule } from &#x27;@angular/router&#x27;;
 import { AuthService } from &#x27;../../../services/auth.service&#x27;;
 import { environment } from &#x27;../../../../enviroments/environment&#x27;;
 import { ConfirmacionEliminarComponent } from &#x27;../../../pages/modales/confirmacion-eliminar/confirmacion-eliminar.component&#x27;;
+import { IconComponent } from &#x27;../../../components/icon/icon.component&#x27;;
 
 @Component({
   selector: &#x27;app-header&#x27;,
   standalone: true,
-  imports: [CommonModule, RouterModule, ConfirmacionEliminarComponent],
+  imports: [CommonModule, RouterModule, ConfirmacionEliminarComponent, IconComponent],
   templateUrl: &#x27;./header.component.html&#x27;,
   styleUrl: &#x27;./header.component.css&#x27;,
   encapsulation: ViewEncapsulation.Emulated
@@ -642,14 +644,16 @@ export class HeaderComponent implements OnInit {
 		&lt;div class&#x3D;&quot;icono-logo&quot;&gt;&lt;i class&#x3D;&quot;fa-solid fa-school&quot;&gt;&lt;/i&gt;&lt;/div&gt;
 		&lt;div class&#x3D;&quot;icono-texto&quot;&gt;
 			&lt;strong&gt;TicketingEVG&lt;/strong&gt;
-			&lt;span class&#x3D;&quot;info-estadistica&quot;&gt;&lt;strong&gt;Portal de gestión&lt;/strong&gt;&lt;/span&gt;
+			&lt;span class&#x3D;&quot;info-estadistica text-sub&quot;&gt;Portal de gestión&lt;/span&gt;
 		&lt;/div&gt;
 	&lt;/div&gt;
-	&lt;a routerLink&#x3D;&quot;/portal-tickets&quot; routerLinkActive&#x3D;&quot;activo&quot; [routerLinkActiveOptions]&#x3D;&quot;{exact: true}&quot; #rlaInicio&#x3D;&quot;routerLinkActive&quot; [class.fantasma]&#x3D;&quot;!rlaInicio.isActive&quot; class&#x3D;&quot;boton-nav&quot;&gt;
+	&lt;a routerLink&#x3D;&quot;/portal-tickets&quot; routerLinkActive&#x3D;&quot;activo&quot; [routerLinkActiveOptions]&#x3D;&quot;{exact: true}&quot;
+		#rlaInicio&#x3D;&quot;routerLinkActive&quot; [class.fantasma]&#x3D;&quot;!rlaInicio.isActive&quot; class&#x3D;&quot;boton-nav&quot;&gt;
 		&lt;i class&#x3D;&quot;fa-solid fa-table-cells-large&quot;&gt;&lt;/i&gt;
 		&lt;span class&#x3D;&quot;etiqueta-nav&quot;&gt;Inicio&lt;/span&gt;
 	&lt;/a&gt;
-	&lt;a routerLink&#x3D;&quot;/portal-tickets/tickets&quot; routerLinkActive&#x3D;&quot;activo&quot; [routerLinkActiveOptions]&#x3D;&quot;{exact: true}&quot; #rlaTickets&#x3D;&quot;routerLinkActive&quot; [class.fantasma]&#x3D;&quot;!rlaTickets.isActive&quot; class&#x3D;&quot;boton-nav&quot;&gt;
+	&lt;a routerLink&#x3D;&quot;/portal-tickets/tickets&quot; routerLinkActive&#x3D;&quot;activo&quot; [routerLinkActiveOptions]&#x3D;&quot;{exact: true}&quot;
+		#rlaTickets&#x3D;&quot;routerLinkActive&quot; [class.fantasma]&#x3D;&quot;!rlaTickets.isActive&quot; class&#x3D;&quot;boton-nav&quot;&gt;
 		&lt;i class&#x3D;&quot;fa-regular fa-clipboard&quot;&gt;&lt;/i&gt;
 		&lt;span class&#x3D;&quot;etiqueta-nav&quot;&gt;Mis tickets&lt;/span&gt;
 	&lt;/a&gt;
@@ -658,7 +662,8 @@ export class HeaderComponent implements OnInit {
 		&lt;i class&#x3D;&quot;fa-solid fa-arrow-right-arrow-left&quot;&gt;&lt;/i&gt;
 		&lt;span class&#x3D;&quot;etiqueta-nav&quot;&gt;Consola Admin&lt;/span&gt;
 	&lt;/a&gt;
-	&lt;a href&#x3D;&quot;https://17.daw.esvirgua.com/dashboard-inicio&quot; [href]&#x3D;&quot;landingUrl&quot; class&#x3D;&quot;btn-cerrar-sesion me-2&quot; title&#x3D;&quot;Volver&quot;&gt;
+	&lt;a href&#x3D;&quot;https://17.daw.esvirgua.com/dashboard-inicio&quot; [href]&#x3D;&quot;landingUrl&quot; class&#x3D;&quot;btn-cerrar-sesion me-2&quot;
+		title&#x3D;&quot;Volver&quot;&gt;
 		&lt;i class&#x3D;&quot;fa-solid fa-house&quot;&gt;&lt;/i&gt;
 		&lt;span class&#x3D;&quot;etiqueta-nav&quot;&gt;Volver&lt;/span&gt;
 	&lt;/a&gt;
@@ -668,13 +673,9 @@ export class HeaderComponent implements OnInit {
 	&lt;/a&gt;
 &lt;/header&gt;
 
-&lt;app-confirmacion-eliminar 
-    *ngIf&#x3D;&quot;mostrarModalLogout&quot; 
-    [tipo]&#x3D;&quot;&#x27;cerrar-sesion&#x27;&quot; 
-    (cancelar)&#x3D;&quot;cancelarLogout()&quot; 
-    (confirmar)&#x3D;&quot;confirmarLogout()&quot;&gt;
-&lt;/app-confirmacion-eliminar&gt;
-</code></pre>
+&lt;app-confirmacion-eliminar *ngIf&#x3D;&quot;mostrarModalLogout&quot; [tipo]&#x3D;&quot;&#x27;cerrar-sesion&#x27;&quot; (cancelar)&#x3D;&quot;cancelarLogout()&quot;
+	(confirmar)&#x3D;&quot;confirmarLogout()&quot;&gt;
+&lt;/app-confirmacion-eliminar&gt;</code></pre>
     </div>
 
 
@@ -703,8 +704,8 @@ export class HeaderComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><!--   Proyecto: TicketingEVG  Alumno: Joseph Joel Quispe Alvarez  Asignatura: DAW  Curso: 2 DAW  Descripción: Cabecera unificada y compartida para el portal del usuario.--><header>	<div class="d-flex align-items-center gap-2 me-2">		<div class="icono-logo"><i class="fa-solid fa-school"></i></div>		<div class="icono-texto">			<strong>TicketingEVG</strong>			<span class="info-estadistica"><strong>Portal de gestión</strong></span>		</div>	</div>	<a routerLink="/portal-tickets" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}" #rlaInicio="routerLinkActive" [class.fantasma]="!rlaInicio.isActive" class="boton-nav">		<i class="fa-solid fa-table-cells-large"></i>		<span class="etiqueta-nav">Inicio</span>	</a>	<a routerLink="/portal-tickets/tickets" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}" #rlaTickets="routerLinkActive" [class.fantasma]="!rlaTickets.isActive" class="boton-nav">		<i class="fa-regular fa-clipboard"></i>		<span class="etiqueta-nav">Mis tickets</span>	</a>	<div class="flex-grow-1"></div>	<a *ngIf="esAdministrador" routerLink="/admin/dashboard" class="btn-cerrar-sesion me-2 btn-cambio-vista">		<i class="fa-solid fa-arrow-right-arrow-left"></i>		<span class="etiqueta-nav">Consola Admin</span>	</a>	<a href="https://17.daw.esvirgua.com/dashboard-inicio" [href]="landingUrl" class="btn-cerrar-sesion me-2" title="Volver">		<i class="fa-solid fa-house"></i>		<span class="etiqueta-nav">Volver</span>	</a>	<a (click)="abrirModalLogout()" style="cursor: pointer;" class="btn-cerrar-sesion">		<i class="fa-solid fa-right-from-bracket"></i>		<span class="etiqueta-nav">Cerrar sesión</span>	</a></header><app-confirmacion-eliminar     *ngIf="mostrarModalLogout"     [tipo]="\'cerrar-sesion\'"     (cancelar)="cancelarLogout()"     (confirmar)="confirmarLogout()"></app-confirmacion-eliminar></div>'
-    var COMPONENTS = [{'name': 'AccesoComponent', 'selector': 'app-acceso'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CategoriasComponent', 'selector': 'app-categorias'},{'name': 'ConfirmacionEliminarComponent', 'selector': 'app-confirmacion-eliminar'},{'name': 'CrearTicketComponent', 'selector': 'app-crear-ticket'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FormularioCategoriaComponent', 'selector': 'app-formulario-categoria'},{'name': 'FormularioOperarioComponent', 'selector': 'app-formulario-operario'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'ListaTicketsComponent', 'selector': 'app-lista-tickets'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ModalTicketComponent', 'selector': 'app-modal-ticket'},{'name': 'OperariosComponent', 'selector': 'app-operarios'},{'name': 'PortalTicketsComponent', 'selector': 'app-portal-tickets'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SsoCallbackComponent', 'selector': 'app-sso-callback'}];
+        var COMPONENT_TEMPLATE = '<div><!--   Proyecto: TicketingEVG  Alumno: Joseph Joel Quispe Alvarez  Asignatura: DAW  Curso: 2 DAW  Descripción: Cabecera unificada y compartida para el portal del usuario.--><header>	<div class="d-flex align-items-center gap-2 me-2">		<div class="icono-logo"><i class="fa-solid fa-school"></i></div>		<div class="icono-texto">			<strong>TicketingEVG</strong>			<span class="info-estadistica text-sub">Portal de gestión</span>		</div>	</div>	<a routerLink="/portal-tickets" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}"		#rlaInicio="routerLinkActive" [class.fantasma]="!rlaInicio.isActive" class="boton-nav">		<i class="fa-solid fa-table-cells-large"></i>		<span class="etiqueta-nav">Inicio</span>	</a>	<a routerLink="/portal-tickets/tickets" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}"		#rlaTickets="routerLinkActive" [class.fantasma]="!rlaTickets.isActive" class="boton-nav">		<i class="fa-regular fa-clipboard"></i>		<span class="etiqueta-nav">Mis tickets</span>	</a>	<div class="flex-grow-1"></div>	<a *ngIf="esAdministrador" routerLink="/admin/dashboard" class="btn-cerrar-sesion me-2 btn-cambio-vista">		<i class="fa-solid fa-arrow-right-arrow-left"></i>		<span class="etiqueta-nav">Consola Admin</span>	</a>	<a href="https://17.daw.esvirgua.com/dashboard-inicio" [href]="landingUrl" class="btn-cerrar-sesion me-2"		title="Volver">		<i class="fa-solid fa-house"></i>		<span class="etiqueta-nav">Volver</span>	</a>	<a (click)="abrirModalLogout()" style="cursor: pointer;" class="btn-cerrar-sesion">		<i class="fa-solid fa-right-from-bracket"></i>		<span class="etiqueta-nav">Cerrar sesión</span>	</a></header><app-confirmacion-eliminar *ngIf="mostrarModalLogout" [tipo]="\'cerrar-sesion\'" (cancelar)="cancelarLogout()"	(confirmar)="confirmarLogout()"></app-confirmacion-eliminar></div>'
+    var COMPONENTS = [{'name': 'AccesoComponent', 'selector': 'app-acceso'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CategoriasComponent', 'selector': 'app-categorias'},{'name': 'ConfirmacionEliminarComponent', 'selector': 'app-confirmacion-eliminar'},{'name': 'CrearTicketComponent', 'selector': 'app-crear-ticket'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FormularioCategoriaComponent', 'selector': 'app-formulario-categoria'},{'name': 'FormularioOperarioComponent', 'selector': 'app-formulario-operario'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'IconComponent', 'selector': 'app-icon'},{'name': 'ListaTicketsComponent', 'selector': 'app-lista-tickets'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ModalTicketComponent', 'selector': 'app-modal-ticket'},{'name': 'OperariosComponent', 'selector': 'app-operarios'},{'name': 'PortalTicketsComponent', 'selector': 'app-portal-tickets'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SsoCallbackComponent', 'selector': 'app-sso-callback'},{'name': 'ToastComponent', 'selector': 'app-toast'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'HeaderComponent'};
 </script>

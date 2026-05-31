@@ -9,7 +9,7 @@
 	<app-header></app-header>
 
 	<main>
-		<div class="container-lg extracted-ct-1" >
+		<div class="container-lg extracted-ct-1">
 			<div class="d-flex align-items-center gap-3 mb-4 cabecera-pagina">
 				<a routerLink="/portal-tickets/tickets" class="btn-retroceso"><i class="fa-solid fa-arrow-left"></i></a>
 				<div>
@@ -18,9 +18,9 @@
 				</div>
 			</div>
 
-			
 
-			
+
+
 
 			<form class="tarjeta-formulario" [formGroup]="formulario" (ngSubmit)="onEnviar()">
 				<div class="cabecera-seccion-form">
@@ -32,18 +32,25 @@
 						<div class="col-md-6">
 							<label class="etiqueta-form" for="campo-tipo">Tipo de solicitud</label>
 							<div class="desplegable-personalizado w-100" [class.activo]="desplegableTipoAbierto">
-								<button type="button" class="boton-filtro-custom w-100" (click)="toggleDesplegableTipo($event)">
+								<button type="button" class="boton-filtro-custom w-100"
+									(click)="toggleDesplegableTipo($event)">
 									<span>{{ getTipoEtiqueta() }}</span>
 									<i class="fa-solid fa-chevron-down"></i>
 								</button>
 								<div class="opciones-desplegable" *ngIf="desplegableTipoAbierto">
-									<div class="opcion-item" [class.seleccionado]="formulario.get('tipo')?.value === 'incidencia'" (click)="seleccionarTipo('incidencia')">
+									<div class="opcion-item"
+										[class.seleccionado]="formulario.get('tipo')?.value === 'incidencia'"
+										(click)="seleccionarTipo('incidencia')">
 										<span>INCIDENCIA</span>
-										<i class="fa-solid fa-check" *ngIf="formulario.get('tipo')?.value === 'incidencia'"></i>
+										<i class="fa-solid fa-check"
+											*ngIf="formulario.get('tipo')?.value === 'incidencia'"></i>
 									</div>
-									<div class="opcion-item" [class.seleccionado]="formulario.get('tipo')?.value === 'peticion'" (click)="seleccionarTipo('peticion')">
+									<div class="opcion-item"
+										[class.seleccionado]="formulario.get('tipo')?.value === 'peticion'"
+										(click)="seleccionarTipo('peticion')">
 										<span>PETICIÓN DE SERVICIO</span>
-										<i class="fa-solid fa-check" *ngIf="formulario.get('tipo')?.value === 'peticion'"></i>
+										<i class="fa-solid fa-check"
+											*ngIf="formulario.get('tipo')?.value === 'peticion'"></i>
 									</div>
 								</div>
 							</div>
@@ -51,29 +58,40 @@
 						<div class="col-md-6">
 							<label class="etiqueta-form" for="campo-prioridad">Prioridad</label>
 							<div class="desplegable-personalizado w-100" [class.activo]="desplegablePrioridadAbierto">
-								<button type="button" class="boton-filtro-custom w-100" (click)="toggleDesplegablePrioridad($event)">
+								<button type="button" class="boton-filtro-custom w-100"
+									(click)="toggleDesplegablePrioridad($event)">
 									<span>{{ getPrioridadEtiqueta() }}</span>
 									<i class="fa-solid fa-chevron-down"></i>
 								</button>
 								<div class="opciones-desplegable" *ngIf="desplegablePrioridadAbierto">
-									<div class="opcion-item" [class.seleccionado]="formulario.get('prioridad')?.value === 'baja'" (click)="seleccionarPrioridad('baja')">
+									<div class="opcion-item"
+										[class.seleccionado]="formulario.get('prioridad')?.value === 'baja'"
+										(click)="seleccionarPrioridad('baja')">
 										<span>BAJA</span>
-										<i class="fa-solid fa-check" *ngIf="formulario.get('prioridad')?.value === 'baja'"></i>
+										<i class="fa-solid fa-check"
+											*ngIf="formulario.get('prioridad')?.value === 'baja'"></i>
 									</div>
-									<div class="opcion-item" [class.seleccionado]="formulario.get('prioridad')?.value === 'media'" (click)="seleccionarPrioridad('media')">
+									<div class="opcion-item"
+										[class.seleccionado]="formulario.get('prioridad')?.value === 'media'"
+										(click)="seleccionarPrioridad('media')">
 										<span>MEDIA</span>
-										<i class="fa-solid fa-check" *ngIf="formulario.get('prioridad')?.value === 'media'"></i>
+										<i class="fa-solid fa-check"
+											*ngIf="formulario.get('prioridad')?.value === 'media'"></i>
 									</div>
-									<div class="opcion-item" [class.seleccionado]="formulario.get('prioridad')?.value === 'alta'" (click)="seleccionarPrioridad('alta')">
+									<div class="opcion-item"
+										[class.seleccionado]="formulario.get('prioridad')?.value === 'alta'"
+										(click)="seleccionarPrioridad('alta')">
 										<span>ALTA</span>
-										<i class="fa-solid fa-check" *ngIf="formulario.get('prioridad')?.value === 'alta'"></i>
+										<i class="fa-solid fa-check"
+											*ngIf="formulario.get('prioridad')?.value === 'alta'"></i>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-6">
-							<label class="etiqueta-form" for="campo-fecha">Fecha límite o esperada (opcional)</label>
-							<input id="campo-fecha" type="date" class="control-form" formControlName="fecha_limite" [min]="fechaMinima">
+							<label class="etiqueta-form" for="campo-fecha">Fecha límite o esperada (Opcional)</label>
+							<input id="campo-fecha" type="date" class="control-form" formControlName="fecha_limite"
+								[min]="fechaMinima">
 						</div>
 						<div class="col-md-6">
 							<label class="etiqueta-form" for="campo-categoria">
@@ -81,46 +99,71 @@
 							</label>
 							<div class="desplegable-personalizado w-100" [class.activo]="desplegableCategoriaAbierto"
 								[class.is-invalid]="formulario.get('id_categoria')?.invalid && formulario.get('id_categoria')?.touched">
-								<button type="button" class="boton-filtro-custom w-100" (click)="toggleDesplegableCategoria($event)" [disabled]="cargandoCategorias">
+								<button type="button" class="boton-filtro-custom w-100"
+									(click)="toggleDesplegableCategoria($event)" [disabled]="cargandoCategorias">
 									<span>{{ getCategoriaEtiqueta() }}</span>
 									<i class="fa-solid fa-chevron-down"></i>
 								</button>
-								<div class="opciones-desplegable" *ngIf="desplegableCategoriaAbierto && categorias.length > 0">
-									<div class="opcion-item" *ngFor="let cat of categorias" [class.seleccionado]="formulario.get('id_categoria')?.value === cat.id" (click)="seleccionarCategoria(cat.id)">
+								<div class="opciones-desplegable"
+									*ngIf="desplegableCategoriaAbierto && categorias.length > 0">
+									<div class="opcion-item" *ngFor="let cat of categorias"
+										[class.seleccionado]="formulario.get('id_categoria')?.value === cat.id"
+										(click)="seleccionarCategoria(cat.id)">
 										<span>{{ cat.nombre }}</span>
-										<i class="fa-solid fa-check" *ngIf="formulario.get('id_categoria')?.value === cat.id"></i>
+										<i class="fa-solid fa-check"
+											*ngIf="formulario.get('id_categoria')?.value === cat.id"></i>
 									</div>
 								</div>
 							</div>
-							<div class="text-danger small mt-1" *ngIf="formulario.get('id_categoria')?.invalid && formulario.get('id_categoria')?.touched">
+							<div class="text-danger small mt-1"
+								*ngIf="formulario.get('id_categoria')?.invalid && formulario.get('id_categoria')?.touched">
 								La categoría es obligatoria.
 							</div>
 						</div>
 						<div class="col-md-6">
-							<label class="etiqueta-form" for="campo-ubicacion">Ubicación / Aula</label>
+							<label class="etiqueta-form" for="campo-ubicacion">Ubicación / Aula (Opcional)</label>
 							<input id="campo-ubicacion" type="text" class="control-form" formControlName="ubicacion"
-								placeholder="Ej: Aula 101, Biblioteca, Sala de reuniones...">
+								placeholder="Ej: Aula 101, Biblioteca, Sala de reuniones..."
+								[class.is-invalid]="formulario.get('ubicacion')?.invalid && formulario.get('ubicacion')?.touched">
+							<div class="text-danger small mt-1"
+								*ngIf="formulario.get('ubicacion')?.errors?.['onlySpaces'] && formulario.get('ubicacion')?.touched">
+								La ubicación no puede contener sólo espacios en blanco.
+							</div>
 						</div>
 						<div class="col-md-6" *ngIf="esAdminOResponsable">
-							<label class="etiqueta-form" for="campo-encargado">Asignar Técnico / Responsable (Opcional)</label>
+							<label class="etiqueta-form" for="campo-encargado">Asignar Técnico / Responsable
+								(Opcional)</label>
 							<div class="desplegable-personalizado w-100" [class.activo]="desplegableEncargadoAbierto">
-								<button type="button" class="boton-filtro-custom w-100" (click)="toggleDesplegableEncargado($event)" [disabled]="formulario.get('id_categoria')?.value && operariosFiltrados.length === 0" [style.opacity]="(formulario.get('id_categoria')?.value && operariosFiltrados.length === 0) ? '0.7' : '1'" [style.cursor]="(formulario.get('id_categoria')?.value && operariosFiltrados.length === 0) ? 'not-allowed' : 'pointer'">
+								<button type="button" class="boton-filtro-custom w-100"
+									(click)="toggleDesplegableEncargado($event)"
+									[disabled]="formulario.get('id_categoria')?.value && operariosFiltrados.length === 0"
+									[style.opacity]="(formulario.get('id_categoria')?.value && operariosFiltrados.length === 0) ? '0.7' : '1'"
+									[style.cursor]="(formulario.get('id_categoria')?.value && operariosFiltrados.length === 0) ? 'not-allowed' : 'pointer'">
 									<span>{{ getEncargadoEtiqueta() }}</span>
-									<i class="fa-solid fa-chevron-down" *ngIf="!(formulario.get('id_categoria')?.value && operariosFiltrados.length === 0)"></i>
+									<i class="fa-solid fa-chevron-down"
+										*ngIf="!(formulario.get('id_categoria')?.value && operariosFiltrados.length === 0)"></i>
 								</button>
-								<div class="opciones-desplegable" *ngIf="desplegableEncargadoAbierto && operariosFiltrados.length > 0">
-									<ng-container *ngIf="formulario.get('id_categoria')?.value; else seleccionarCatPrimero">
-										<div class="opcion-item" [class.seleccionado]="formulario.get('id_usuario_encargado')?.value === ''" (click)="seleccionarEncargado('')">
+								<div class="opciones-desplegable"
+									*ngIf="desplegableEncargadoAbierto && operariosFiltrados.length > 0">
+									<ng-container
+										*ngIf="formulario.get('id_categoria')?.value; else seleccionarCatPrimero">
+										<div class="opcion-item"
+											[class.seleccionado]="formulario.get('id_usuario_encargado')?.value === ''"
+											(click)="seleccionarEncargado('')">
 											<span>-- Sin asignar --</span>
-											<i class="fa-solid fa-check" *ngIf="formulario.get('id_usuario_encargado')?.value === ''"></i>
+											<i class="fa-solid fa-check"
+												*ngIf="formulario.get('id_usuario_encargado')?.value === ''"></i>
 										</div>
-										<div class="opcion-item" *ngFor="let op of operariosFiltrados" [class.seleccionado]="formulario.get('id_usuario_encargado')?.value === op.id" (click)="seleccionarEncargado(op.id)">
+										<div class="opcion-item" *ngFor="let op of operariosFiltrados"
+											[class.seleccionado]="formulario.get('id_usuario_encargado')?.value === op.id"
+											(click)="seleccionarEncargado(op.id)">
 											<span>{{ op.nombre }} ({{ op.rol | uppercase }})</span>
-											<i class="fa-solid fa-check" *ngIf="formulario.get('id_usuario_encargado')?.value === op.id"></i>
+											<i class="fa-solid fa-check"
+												*ngIf="formulario.get('id_usuario_encargado')?.value === op.id"></i>
 										</div>
 									</ng-container>
 									<ng-template #seleccionarCatPrimero>
-										<div class="opcion-item disabled extracted-ct-2" >
+										<div class="opcion-item disabled extracted-ct-2">
 											<app-icon name="info" size="18"></app-icon>
 											<span>Selecciona primero una categoría</span>
 										</div>
@@ -128,9 +171,8 @@
 								</div>
 							</div>
 							<!-- Mensaje si no hay trabajadores disponibles -->
-							<div *ngIf="formulario.get('id_categoria')?.value && operariosFiltrados.length === 0" 
-								 class="alert alert-warning py-2 px-3 small fw-bold rounded-3 extracted-ct-3" 
-								 >
+							<div *ngIf="formulario.get('id_categoria')?.value && operariosFiltrados.length === 0"
+								class="alert alert-warning py-2 px-3 small fw-bold rounded-3 extracted-ct-3">
 								<app-icon name="info" size="18"></app-icon>
 								<span>No hay trabajadores disponibles en esta categoría.</span>
 							</div>
@@ -142,10 +184,16 @@
 							<input id="campo-titulo" type="text" class="control-form" formControlName="titulo"
 								placeholder="Ej: No funciona la impresora en Aula 203"
 								[class.is-invalid]="formulario.get('titulo')?.invalid && formulario.get('titulo')?.touched">
-							<div class="text-danger small mt-1" *ngIf="formulario.get('titulo')?.errors?.['required'] && formulario.get('titulo')?.touched">
+							<div class="text-danger small mt-1"
+								*ngIf="formulario.get('titulo')?.errors?.['required'] && formulario.get('titulo')?.touched">
 								El título es obligatorio.
 							</div>
-							<div class="text-danger small mt-1" *ngIf="formulario.get('titulo')?.errors?.['minlength'] && formulario.get('titulo')?.touched">
+							<div class="text-danger small mt-1"
+								*ngIf="formulario.get('titulo')?.errors?.['onlySpaces'] && formulario.get('titulo')?.touched">
+								El título no puede contener sólo espacios en blanco.
+							</div>
+							<div class="text-danger small mt-1"
+								*ngIf="formulario.get('titulo')?.errors?.['minlength'] && formulario.get('titulo')?.touched">
 								El título debe tener al menos 5 caracteres.
 							</div>
 						</div>
@@ -157,17 +205,24 @@
 								placeholder="Describe el problema o tu solicitud con el mayor detalle posible..."
 								[class.is-invalid]="formulario.get('descripcion')?.invalid && formulario.get('descripcion')?.touched">
 							</textarea>
-							<div class="text-danger small mt-1" *ngIf="formulario.get('descripcion')?.errors?.['required'] && formulario.get('descripcion')?.touched">
+							<div class="text-danger small mt-1"
+								*ngIf="formulario.get('descripcion')?.errors?.['required'] && formulario.get('descripcion')?.touched">
 								La descripción es obligatoria.
 							</div>
-							<div class="text-danger small mt-1" *ngIf="formulario.get('descripcion')?.errors?.['minlength'] && formulario.get('descripcion')?.touched">
+							<div class="text-danger small mt-1"
+								*ngIf="formulario.get('descripcion')?.errors?.['onlySpaces'] && formulario.get('descripcion')?.touched">
+								La descripción no puede contener sólo espacios en blanco.
+							</div>
+							<div class="text-danger small mt-1"
+								*ngIf="formulario.get('descripcion')?.errors?.['minlength'] && formulario.get('descripcion')?.touched">
 								La descripción debe tener al menos 10 caracteres.
 							</div>
-							<span class="hint-form">Incluye cualquier paso que hayas intentado ya para solucionar el problema.</span>
+							<span class="hint-form">Incluye cualquier paso que hayas intentado ya para solucionar el
+								problema.</span>
 						</div>
 					</div>
 				</div>
-				<div class="modal-pie-premium border-top bg-light extracted-ct-4" >
+				<div class="modal-pie-premium border-top bg-light extracted-ct-4">
 					<div class="ms-auto d-flex align-items-center gap-3">
 						<a routerLink="/portal-tickets/tickets" class="boton-cancelar">Cancelar</a>
 						<button type="submit" class="boton-enviar" [disabled]="enviando">

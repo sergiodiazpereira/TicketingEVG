@@ -116,7 +116,7 @@ export class PortalTicketsComponent implements OnInit {
    */
   cargarTickets(): void {
     if (this.usuario_actual) {
-      if (this.usuario_actual.rol === 'administrador') {
+      if (this.usuario_actual.rol === 'administrador' || this.usuario_actual.rol === 'admin') {
         this.ticketService.getTickets().subscribe({
           next: (data) => {
             this.tickets = data;
@@ -153,7 +153,7 @@ export class PortalTicketsComponent implements OnInit {
     this.stats.incidencias = this.tickets.filter(t => t.tipo === 'incidencia').length;
     this.stats.peticiones = this.tickets.filter(t => t.tipo === 'peticion').length;
     if (this.esVistaTecnico) {
-      this.stats.enProceso = this.tickets.filter(t => t.estado === 'pendiente' || t.estado === 'asignado').length;
+      this.stats.enProceso = this.tickets.filter(t => t.estado === 'pendiente' || t.estado === 'asignado' || t.estado === 'proceso').length;
     } else {
       this.stats.enProceso = this.tickets.filter(t => t.estado === 'proceso' || t.estado === 'asignado').length;
     }

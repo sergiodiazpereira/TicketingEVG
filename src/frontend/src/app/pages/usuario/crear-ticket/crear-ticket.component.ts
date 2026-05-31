@@ -8,7 +8,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { TicketService } from '../../../services/ticket.service';
 import { AuthService } from '../../../services/auth.service';
 import { CategoriasService } from '../../../services/categorias.service';
@@ -18,6 +18,7 @@ import { Usuario } from '../../../models/usuario.model';
 import { environment } from '../../../../enviroments/environment';
 import { HeaderComponent } from '../../../shared/layout/header/header.component';
 import { IconComponent } from '../../../components/icon/icon.component';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-crear-ticket',
@@ -63,7 +64,8 @@ export class CrearTicketComponent implements OnInit {
     private authService: AuthService,
     private categoriasService: CategoriasService,
     private usuarioService: UsuarioService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   get isAdministrador(): boolean {
@@ -82,10 +84,10 @@ export class CrearTicketComponent implements OnInit {
       prioridad: ['media', Validators.required],
       id_categoria: ['', Validators.required],
       id_usuario_encargado: [''],
-      ubicacion: [''],
+      ubicacion: ['', this.trimmedUbicacionValidator()],
       fecha_limite: [''],
-      titulo: ['', [Validators.required, Validators.minLength(5)]],
-      descripcion: ['', [Validators.required, Validators.minLength(10)]]
+      titulo: ['', [this.trimmedValidator(5)]],
+      descripcion: ['', [this.trimmedValidator(10)]]
     });
 
     // Cargar categorías desde la BD
@@ -111,9 +113,41 @@ export class CrearTicketComponent implements OnInit {
     }
   }
 
+  trimmedValidator(minLength: number) {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (value === null || value === undefined || value === '') {
+        return { 'required': true };
+      }
+      const trimmed = value.trim();
+      if (trimmed.length === 0) {
+        return { 'onlySpaces': true };
+      }
+      if (trimmed.length < minLength) {
+        return { 'minlength': true };
+      }
+      return null;
+    };
+  }
+
+  trimmedUbicacionValidator() {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (value === null || value === undefined || value === '') {
+        return null;
+      }
+      const trimmed = value.trim();
+      if (trimmed.length === 0) {
+        return { 'onlySpaces': true };
+      }
+      return null;
+    };
+  }
+
   /** Envía el formulario al backend si es válido. */
   mostrarMensajeError(texto: string): void {
     this.mensajeError = texto;
+    this.toastService.mostrarMensaje(texto, true);
     setTimeout(() => {
       if (this.mensajeError === texto) {
         this.mensajeError = null;
@@ -122,15 +156,19 @@ export class CrearTicketComponent implements OnInit {
   }
 
   onEnviar(): void {
+    // Force recalculation of validations
+    this.formulario.get('titulo')?.updateValueAndValidity();
+    this.formulario.get('descripcion')?.updateValueAndValidity();
+    this.formulario.get('ubicacion')?.updateValueAndValidity();
+
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
-      this.mostrarMensajeError('Por favor, rellena todos los campos obligatorios.');
       return;
     }
 
     const usuario = this.authService.getUsuarioActual();
     if (!usuario) {
-      this.mostrarMensajeError('No hay sesión activa. Por favor, inicia sesión de nuevo.');
+      this.toastService.mostrarMensaje('No hay sesión activa. Por favor, inicia sesión de nuevo.', true);
       return;
     }
 
@@ -138,31 +176,6 @@ export class CrearTicketComponent implements OnInit {
     const tituloTrimeado = (valores.titulo || '').trim();
     const descripcionTrimeada = (valores.descripcion || '').trim();
     const ubicacionTrimeada = (valores.ubicacion || '').trim();
-
-    if (!tituloTrimeado) {
-      this.mostrarMensajeError('El título no puede contener sólo espacios en blanco.');
-      return;
-    }
-    if (tituloTrimeado.length < 5) {
-      this.mostrarMensajeError('El título debe tener al menos 5 caracteres.');
-      return;
-    }
-
-    if (!descripcionTrimeada) {
-      this.mostrarMensajeError('La descripción no puede contener sólo espacios en blanco.');
-      return;
-    }
-    if (descripcionTrimeada.length < 10) {
-      this.mostrarMensajeError('La descripción debe tener al menos 10 caracteres.');
-      return;
-    }
-
-    if (valores.ubicacion !== undefined && valores.ubicacion !== null && valores.ubicacion !== '') {
-      if (!ubicacionTrimeada) {
-        this.mostrarMensajeError('La ubicación no puede contener sólo espacios en blanco.');
-        return;
-      }
-    }
 
     const payload: any = {
       tipo: valores.tipo,
@@ -188,6 +201,7 @@ export class CrearTicketComponent implements OnInit {
         this.enviando = false;
         if (res.status === 'success') {
           this.mensajeExito = `Ticket ${res.id} creado correctamente. Redirigiendo...`;
+          this.toastService.mostrarMensaje(this.mensajeExito, false);
           setTimeout(() => this.router.navigate(['/portal-tickets/tickets']), 1500);
         } else {
           this.mostrarMensajeError(res.message || 'Error al crear el ticket.');

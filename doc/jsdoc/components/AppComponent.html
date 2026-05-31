@@ -168,6 +168,8 @@
                 <td class="col-md-3">imports</td>
                 <td class="col-md-9">
                                 <code><a href="https://angular.io/api/router/RouterOutlet" target="_blank" >RouterOutlet</a></code>
+                                <code><a href="../components/ToastComponent.html" target="_self" >ToastComponent</a></code>
+                                <code><a href="../components/IconComponent.html" target="_self" >IconComponent</a></code>
                 </td>
             </tr>
 
@@ -257,7 +259,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/app.component.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/app.component.ts:13</a></div>
                         </td>
                     </tr>
 
@@ -272,10 +274,12 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
 import { RouterOutlet } from &#x27;@angular/router&#x27;;
+import { ToastComponent } from &#x27;./components/toast/toast.component&#x27;;
+import { IconComponent } from &#x27;./components/icon/icon.component&#x27;;
 
 @Component({
   selector: &#x27;app-root&#x27;,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, ToastComponent, IconComponent],
   templateUrl: &#x27;./app.component.html&#x27;,
   styleUrl: &#x27;./app.component.css&#x27;
 })
@@ -287,6 +291,7 @@ export class AppComponent {
 
     <div class="tab-pane fade " id="templateData">
         <pre class="line-numbers"><code class="language-html">&lt;router-outlet /&gt;
+&lt;app-toast&gt;&lt;/app-toast&gt;
 </code></pre>
     </div>
 
@@ -316,8 +321,8 @@ export class AppComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><router-outlet /></div>'
-    var COMPONENTS = [{'name': 'AccesoComponent', 'selector': 'app-acceso'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CategoriasComponent', 'selector': 'app-categorias'},{'name': 'ConfirmacionEliminarComponent', 'selector': 'app-confirmacion-eliminar'},{'name': 'CrearTicketComponent', 'selector': 'app-crear-ticket'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FormularioCategoriaComponent', 'selector': 'app-formulario-categoria'},{'name': 'FormularioOperarioComponent', 'selector': 'app-formulario-operario'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'ListaTicketsComponent', 'selector': 'app-lista-tickets'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ModalTicketComponent', 'selector': 'app-modal-ticket'},{'name': 'OperariosComponent', 'selector': 'app-operarios'},{'name': 'PortalTicketsComponent', 'selector': 'app-portal-tickets'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SsoCallbackComponent', 'selector': 'app-sso-callback'}];
+        var COMPONENT_TEMPLATE = '<div><router-outlet /><app-toast></app-toast></div>'
+    var COMPONENTS = [{'name': 'AccesoComponent', 'selector': 'app-acceso'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CategoriasComponent', 'selector': 'app-categorias'},{'name': 'ConfirmacionEliminarComponent', 'selector': 'app-confirmacion-eliminar'},{'name': 'CrearTicketComponent', 'selector': 'app-crear-ticket'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FormularioCategoriaComponent', 'selector': 'app-formulario-categoria'},{'name': 'FormularioOperarioComponent', 'selector': 'app-formulario-operario'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'IconComponent', 'selector': 'app-icon'},{'name': 'ListaTicketsComponent', 'selector': 'app-lista-tickets'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ModalTicketComponent', 'selector': 'app-modal-ticket'},{'name': 'OperariosComponent', 'selector': 'app-operarios'},{'name': 'PortalTicketsComponent', 'selector': 'app-portal-tickets'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SsoCallbackComponent', 'selector': 'app-sso-callback'},{'name': 'ToastComponent', 'selector': 'app-toast'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'AppComponent'};
 </script>

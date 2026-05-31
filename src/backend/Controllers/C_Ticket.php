@@ -60,6 +60,27 @@ class C_Ticket {
     }
 
     /**
+     * Comprueba si un trabajador debe ser tratado como profesor por ser el creador y no estar asignado.
+     * @param array $ticket Datos del ticket.
+     * @return bool
+     */
+    private function debe_ver_como_profesor($ticket) {
+        $usuario = $GLOBALS['usuario_sesion'] ?? null;
+        if (!$usuario) return false;
+
+        $rol = $usuario['rol'] ?? 'profesor';
+        $es_trabajador = in_array(strtolower($rol ?? ''), ['trabajador', 'operario']);
+        $es_creador = (int)$ticket['id_usuario_creador'] === (int)$usuario['id'];
+
+        if ($es_trabajador && $es_creador) {
+            $es_asignado_a_si_mismo = (int)$ticket['id_usuario_encargado'] === (int)$usuario['id'];
+            return !$es_asignado_a_si_mismo;
+        }
+
+        return false;
+    }
+
+    /**
      * Comprueba si el usuario en sesión tiene permisos sobre un ticket.
      * @param array $ticket Datos actuales del ticket.
      * @param bool $es_edicion_o_cancelacion Indica si la acción es editar o cancelar.
@@ -73,6 +94,9 @@ class C_Ticket {
 
         // Técnicos tienen poder absoluto
         $es_tecnico = in_array(strtolower($rol ?? ''), ['administrador', 'admin', 'responsable', 'trabajador', 'operario']);
+        if ($this->debe_ver_como_profesor($ticket))
+            $es_tecnico = false;
+
         if ($es_tecnico) return true;
 
         // Reglas para el profesor (solicitante)
@@ -99,6 +123,11 @@ class C_Ticket {
         $ticket_actual = $this->modelo->buscar_por_id($id);
         if (!$ticket_actual) return ["status" => "error", "message" => "Ticket no encontrado"];
 
+        $usuario = $GLOBALS['usuario_sesion'] ?? null;
+        $rol = $usuario['rol'] ?? 'profesor';
+        if (!$this->debe_ver_como_profesor($ticket_actual) && in_array(strtolower($rol ?? ''), ['trabajador', 'operario']))
+            return ["status" => "error", "message" => "Los trabajadores no tienen permisos para editar la información base del ticket"];
+
         $permiso = $this->verificar_permisos_solicitante($ticket_actual, true);
         if ($permiso !== true) return ["status" => "error", "message" => $permiso];
 
@@ -121,6 +150,9 @@ class C_Ticket {
         $rol = $usuario['rol'] ?? 'profesor';
 
         $es_tecnico = in_array(strtolower($rol ?? ''), ['administrador', 'admin', 'responsable', 'trabajador', 'operario']);
+        if ($this->debe_ver_como_profesor($ticket_actual))
+            $es_tecnico = false;
+
         if (!$es_tecnico) {
             if ($estado === 'resuelto') {
                 return ["status" => "error", "message" => "No tienes permisos para marcar un ticket como resuelto"];

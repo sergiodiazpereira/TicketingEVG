@@ -78,7 +78,7 @@ class M_Ticket {
      */
     public function listar_por_usuario($id_usuario) {
         // Determinar el rol del usuario
-        $es_trabajador = false;
+        $rol_nombre = '';
         $sql_rol = "SELECT LOWER(r.nombre) as rol_nombre 
                     FROM Usuario u 
                     JOIN Rol r ON u.id_rol = r.id 
@@ -90,14 +90,23 @@ class M_Ticket {
             $res_rol = $stmt_rol->get_result();
             if ($res_rol && $row_rol = $res_rol->fetch_assoc()) {
                 $rol_nombre = $row_rol['rol_nombre'] ?? '';
-                if ($rol_nombre === 'trabajador' || $rol_nombre === 'operario') {
-                    $es_trabajador = true;
-                }
             }
         }
 
-        // Ejecutar la consulta correspondiente
-        if ($es_trabajador) {
+        // Ejecutar la consulta correspondiente según el rol
+        if ($rol_nombre === 'responsable') {
+            $sql = "SELECT t.*, 
+                           CASE WHEN t.id LIKE 'I%' THEN 'incidencia' ELSE 'peticion' END AS tipo,
+                           c.nombre AS categoria_nombre 
+                    FROM Ticket t 
+                    LEFT JOIN Categoria c ON t.id_categoria = c.id 
+                    WHERE t.id_usuario_creador = ? 
+                       OR t.id_usuario_encargado = ? 
+                       OR t.id_categoria IN (SELECT id_categoria FROM Categoria_Usuario WHERE id_usuario = ?)
+                    ORDER BY t.fecha_creacion DESC";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bind_param("iii", $id_usuario, $id_usuario, $id_usuario);
+        } elseif ($rol_nombre === 'trabajador' || $rol_nombre === 'operario') {
             $sql = "SELECT t.*, 
                            CASE WHEN t.id LIKE 'I%' THEN 'incidencia' ELSE 'peticion' END AS tipo,
                            c.nombre AS categoria_nombre 

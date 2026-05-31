@@ -18,81 +18,109 @@
                            [(ngModel)]="terminoBusqueda" (input)="filtrarTickets()">
 				</div>
 				
-				<!-- Filtro Tipo Custom -->
-				<div class="desplegable-personalizado" [class.activo]="desplegableTipoAbierto" [class.filtro-aplicado]="filtroTipo !== 'todos'">
-					<button type="button" class="boton-filtro-custom" (click)="toggleDesplegableTipo($event)">
-						<span>TIPO: {{ getTipoEtiqueta() }}</span>
-						<i class="fa-solid fa-chevron-down"></i>
-					</button>
-					<div class="opciones-desplegable" *ngIf="desplegableTipoAbierto">
-						<div class="opcion-item" [class.seleccionado]="filtroTipo === 'todos'" (click)="seleccionarTipo('todos')">
-							<span>TIPO: TODOS</span>
-							<i class="fa-solid fa-check" *ngIf="filtroTipo === 'todos'"></i>
-						</div>
-						<div class="opcion-item" [class.seleccionado]="filtroTipo === 'incidencia'" (click)="seleccionarTipo('incidencia')">
-							<span>🔴 INCIDENCIAS</span>
-							<i class="fa-solid fa-check" *ngIf="filtroTipo === 'incidencia'"></i>
-						</div>
-						<div class="opcion-item" [class.seleccionado]="filtroTipo === 'peticion'" (click)="seleccionarTipo('peticion')">
-							<span>🔵 PETICIONES</span>
-							<i class="fa-solid fa-check" *ngIf="filtroTipo === 'peticion'"></i>
-						</div>
-					</div>
-				</div>
-
-				<!-- Filtro Estado Custom -->
-				<div class="desplegable-personalizado" [class.activo]="desplegableEstadoAbierto" [class.filtro-aplicado]="filtroEstado !== 'todos'">
-					<button type="button" class="boton-filtro-custom" (click)="toggleDesplegableEstado($event)">
-						<span>ESTADO: {{ getEstadoEtiqueta() }}</span>
-						<i class="fa-solid fa-chevron-down"></i>
-					</button>
-					<div class="opciones-desplegable" *ngIf="desplegableEstadoAbierto">
-						<div class="opcion-item" [class.seleccionado]="filtroEstado === 'todos'" (click)="seleccionarEstado('todos')">
-							<span>ESTADO: TODOS</span>
-							<i class="fa-solid fa-check" *ngIf="filtroEstado === 'todos'"></i>
-						</div>
-						<div class="opcion-item" [class.seleccionado]="filtroEstado === 'pendiente'" (click)="seleccionarEstado('pendiente')">
-							<span>⚪ PENDIENTES</span>
-							<i class="fa-solid fa-check" *ngIf="filtroEstado === 'pendiente'"></i>
-						</div>
-						<div class="opcion-item" [class.seleccionado]="filtroEstado === 'asignado'" (click)="seleccionarEstado('asignado')">
-							<span>🔵 ASIGNADOS</span>
-							<i class="fa-solid fa-check" *ngIf="filtroEstado === 'asignado'"></i>
-						</div>
-						<div class="opcion-item" [class.seleccionado]="filtroEstado === 'proceso'" (click)="seleccionarEstado('proceso')">
-							<span>🟢 EN PROCESO</span>
-							<i class="fa-solid fa-check" *ngIf="filtroEstado === 'proceso'"></i>
-						</div>
-						<div class="opcion-item" [class.seleccionado]="filtroEstado === 'resuelto'" (click)="seleccionarEstado('resuelto')">
-							<span>✔️ RESUELTOS</span>
-							<i class="fa-solid fa-check" *ngIf="filtroEstado === 'resuelto'"></i>
+				<div class="filtros-contenedor">
+					<!-- Filtro Tipo Custom -->
+					<div class="desplegable-personalizado" [class.activo]="desplegableTipoAbierto" [class.filtro-aplicado]="filtroTipo !== 'todos'">
+						<button type="button" class="boton-filtro-custom" (click)="toggleDesplegableTipo($event)">
+							<span>TIPO: {{ getTipoEtiqueta() }}</span>
+							<i class="fa-solid fa-chevron-down"></i>
+						</button>
+						<div class="opciones-desplegable" *ngIf="desplegableTipoAbierto">
+							<div class="opcion-item" [class.seleccionado]="filtroTipo === 'todos'" (click)="seleccionarTipo('todos')">
+								<span>TIPO: TODOS</span>
+								<i class="fa-solid fa-check" *ngIf="filtroTipo === 'todos'"></i>
+							</div>
+							<div class="opcion-item" [class.seleccionado]="filtroTipo === 'incidencia'" (click)="seleccionarTipo('incidencia')">
+								<span>🔴 INCIDENCIAS</span>
+								<i class="fa-solid fa-check" *ngIf="filtroTipo === 'incidencia'"></i>
+							</div>
+							<div class="opcion-item" [class.seleccionado]="filtroTipo === 'peticion'" (click)="seleccionarTipo('peticion')">
+								<span>🔵 PETICIONES</span>
+								<i class="fa-solid fa-check" *ngIf="filtroTipo === 'peticion'"></i>
+							</div>
 						</div>
 					</div>
-				</div>
 
-				<!-- Filtro Creador Custom (Solo Admin) -->
-				<div class="desplegable-personalizado" *ngIf="usuario_actual?.rol === 'administrador'" [class.activo]="desplegableCreadorAbierto" [class.filtro-aplicado]="filtroCreador !== 'todos'">
-					<button type="button" class="boton-filtro-custom" (click)="toggleDesplegableCreador($event)">
-						<span>CREADOR: {{ getCreadorEtiqueta() }}</span>
-						<i class="fa-solid fa-chevron-down"></i>
-					</button>
-					<div class="opciones-desplegable" *ngIf="desplegableCreadorAbierto" style="max-height: 235px; overflow-y: auto;">
-						<div class="opcion-item" [class.seleccionado]="filtroCreador === 'todos'" (click)="seleccionarCreador('todos')">
-							<span>TICKETS GENERALES</span>
-							<i class="fa-solid fa-check" *ngIf="filtroCreador === 'todos'"></i>
+					<!-- Filtro Estado Custom -->
+					<div class="desplegable-personalizado" [class.activo]="desplegableEstadoAbierto" [class.filtro-aplicado]="filtroEstado !== 'todos'">
+						<button type="button" class="boton-filtro-custom" (click)="toggleDesplegableEstado($event)">
+							<span>ESTADO: {{ getEstadoEtiqueta() }}</span>
+							<i class="fa-solid fa-chevron-down"></i>
+						</button>
+						<div class="opciones-desplegable" *ngIf="desplegableEstadoAbierto">
+							<div class="opcion-item" [class.seleccionado]="filtroEstado === 'todos'" (click)="seleccionarEstado('todos')">
+								<span>ESTADO: TODOS</span>
+								<i class="fa-solid fa-check" *ngIf="filtroEstado === 'todos'"></i>
+							</div>
+							<div class="opcion-item" [class.seleccionado]="filtroEstado === 'pendiente'" (click)="seleccionarEstado('pendiente')">
+								<span>⚪ PENDIENTES</span>
+								<i class="fa-solid fa-check" *ngIf="filtroEstado === 'pendiente'"></i>
+							</div>
+							<div class="opcion-item" [class.seleccionado]="filtroEstado === 'asignado'" (click)="seleccionarEstado('asignado')">
+								<span>🔵 ASIGNADOS</span>
+								<i class="fa-solid fa-check" *ngIf="filtroEstado === 'asignado'"></i>
+							</div>
+							<div class="opcion-item" [class.seleccionado]="filtroEstado === 'proceso'" (click)="seleccionarEstado('proceso')">
+								<span>🟢 EN PROCESO</span>
+								<i class="fa-solid fa-check" *ngIf="filtroEstado === 'proceso'"></i>
+							</div>
+							<div class="opcion-item" [class.seleccionado]="filtroEstado === 'resuelto'" (click)="seleccionarEstado('resuelto')">
+								<span>✔️ RESUELTOS</span>
+								<i class="fa-solid fa-check" *ngIf="filtroEstado === 'resuelto'"></i>
+							</div>
 						</div>
-						<div class="opcion-item" [class.seleccionado]="filtroCreador === 'mis-tickets'" (click)="seleccionarCreador('mis-tickets')">
-							<span>👤 MIS TICKETS CREADOS</span>
-							<i class="fa-solid fa-check" *ngIf="filtroCreador === 'mis-tickets'"></i>
+					</div>
+
+					<!-- Filtro Prioridad Custom -->
+					<div class="desplegable-personalizado" [class.activo]="desplegablePrioridadAbierto" [class.filtro-aplicado]="filtroPrioridad !== 'todos'">
+						<button type="button" class="boton-filtro-custom" (click)="toggleDesplegablePrioridad($event)">
+							<span>PRIORIDAD: {{ getPrioridadEtiqueta() }}</span>
+							<i class="fa-solid fa-chevron-down"></i>
+						</button>
+						<div class="opciones-desplegable" *ngIf="desplegablePrioridadAbierto">
+							<div class="opcion-item" [class.seleccionado]="filtroPrioridad === 'todos'" (click)="seleccionarPrioridad('todos')">
+								<span>PRIORIDAD: TODOS</span>
+								<i class="fa-solid fa-check" *ngIf="filtroPrioridad === 'todos'"></i>
+							</div>
+							<div class="opcion-item" [class.seleccionado]="filtroPrioridad === 'b'" (click)="seleccionarPrioridad('b')">
+								<span>🟢 BAJA</span>
+								<i class="fa-solid fa-check" *ngIf="filtroPrioridad === 'b'"></i>
+							</div>
+							<div class="opcion-item" [class.seleccionado]="filtroPrioridad === 'm'" (click)="seleccionarPrioridad('m')">
+								<span>🔵 MEDIA</span>
+								<i class="fa-solid fa-check" *ngIf="filtroPrioridad === 'm'"></i>
+							</div>
+							<div class="opcion-item" [class.seleccionado]="filtroPrioridad === 'a'" (click)="seleccionarPrioridad('a')">
+								<span>🔴 ALTA</span>
+								<i class="fa-solid fa-check" *ngIf="filtroPrioridad === 'a'"></i>
+							</div>
 						</div>
-						
-						<!-- Separador Visual -->
-						<div style="border-top: 1.5px solid #f1f5f9; margin: 6px 0;"></div>
-						
-						<!-- Listado de creadores únicos -->
-						<div class="opcion-item" *ngFor="let c of creadoresUnicos" [class.seleccionado]="filtroCreador === c.id.toString()" (click)="seleccionarCreador(c.id.toString())">
-							<span>📄 {{ c.nombre | uppercase }}</span>
-							<i class="fa-solid fa-check" *ngIf="filtroCreador === c.id.toString()"></i>
+					</div>
+
+					<!-- Filtro Creador Custom (Solo Admin) -->
+					<div class="desplegable-personalizado" *ngIf="usuario_actual?.rol === 'administrador'" [class.activo]="desplegableCreadorAbierto" [class.filtro-aplicado]="filtroCreador !== 'todos'">
+						<button type="button" class="boton-filtro-custom" (click)="toggleDesplegableCreador($event)">
+							<span>CREADOR: {{ getCreadorEtiqueta() }}</span>
+							<i class="fa-solid fa-chevron-down"></i>
+						</button>
+						<div class="opciones-desplegable" *ngIf="desplegableCreadorAbierto" style="max-height: 235px; overflow-y: auto;">
+							<div class="opcion-item" [class.seleccionado]="filtroCreador === 'todos'" (click)="seleccionarCreador('todos')">
+								<span>TICKETS GENERALES</span>
+								<i class="fa-solid fa-check" *ngIf="filtroCreador === 'todos'"></i>
+							</div>
+							<div class="opcion-item" [class.seleccionado]="filtroCreador === 'mis-tickets'" (click)="seleccionarCreador('mis-tickets')">
+								<span>👤 MIS TICKETS CREADOS</span>
+								<i class="fa-solid fa-check" *ngIf="filtroCreador === 'mis-tickets'"></i>
+							</div>
+							
+							<!-- Separador Visual -->
+							<div style="border-top: 1.5px solid #f1f5f9; margin: 6px 0;"></div>
+							
+							<!-- Listado de creadores únicos -->
+							<div class="opcion-item" *ngFor="let c of creadoresUnicos" [class.seleccionado]="filtroCreador === c.id.toString()" (click)="seleccionarCreador(c.id.toString())">
+								<span>📄 {{ c.nombre | uppercase }}</span>
+								<i class="fa-solid fa-check" *ngIf="filtroCreador === c.id.toString()"></i>
+							</div>
 						</div>
 					</div>
 				</div>
