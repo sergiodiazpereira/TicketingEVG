@@ -98,22 +98,6 @@ class C_Auth {
 				$rol_local = 'administrador';
 			} elseif (in_array('coordinador_aula_matinal', $roles_intranet) || in_array('coordinador_comedor', $roles_intranet) || in_array('coordinador_inscripciones', $roles_intranet) || in_array('coordinador_dualex', $roles_intranet)) {
 				$rol_local = 'responsable';
-			} else {
-				// Consultar la base de datos de la intranet para ver su tipo_personal_id
-				require_once __DIR__ . '/../config/ConexionIntranet.php';
-				try {
-					$db_intra = ConexionIntranet::conectar();
-					$stmt_intra = $db_intra->prepare("SELECT tipo_personal_id FROM personal WHERE id = ?");
-					$stmt_intra->bind_param("i", $id);
-					$stmt_intra->execute();
-					$res_intra = $stmt_intra->get_result();
-					if ($res_intra && $row_intra = $res_intra->fetch_assoc()) {
-						if ($row_intra['tipo_personal_id'] == 3) { // 3 = Servicio
-							$rol_local = 'trabajador';
-						}
-						// Si es 1 (Docente), se queda con 'profesor' que se guarda como NULL
-					}
-				} catch (Exception $e) {}
 			}
 
 			// Crear usuario local de forma transparente con el ID heredado
