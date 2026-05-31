@@ -18,6 +18,7 @@ import { Usuario } from '../../../models/usuario.model';
 import { environment } from '../../../../enviroments/environment';
 import { HeaderComponent } from '../../../shared/layout/header/header.component';
 import { IconComponent } from '../../../components/icon/icon.component';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-crear-ticket',
@@ -63,7 +64,8 @@ export class CrearTicketComponent implements OnInit {
     private authService: AuthService,
     private categoriasService: CategoriasService,
     private usuarioService: UsuarioService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   get isAdministrador(): boolean {
@@ -114,6 +116,7 @@ export class CrearTicketComponent implements OnInit {
   /** Envía el formulario al backend si es válido. */
   mostrarMensajeError(texto: string): void {
     this.mensajeError = texto;
+    this.toastService.mostrarMensaje(texto, true);
     setTimeout(() => {
       if (this.mensajeError === texto) {
         this.mensajeError = null;
@@ -188,6 +191,7 @@ export class CrearTicketComponent implements OnInit {
         this.enviando = false;
         if (res.status === 'success') {
           this.mensajeExito = `Ticket ${res.id} creado correctamente. Redirigiendo...`;
+          this.toastService.mostrarMensaje(this.mensajeExito, false);
           setTimeout(() => this.router.navigate(['/portal-tickets/tickets']), 1500);
         } else {
           this.mostrarMensajeError(res.message || 'Error al crear el ticket.');
