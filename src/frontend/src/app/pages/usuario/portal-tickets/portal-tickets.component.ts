@@ -116,7 +116,7 @@ export class PortalTicketsComponent implements OnInit {
    */
   cargarTickets(): void {
     if (this.usuario_actual) {
-      if (this.usuario_actual.rol === 'administrador') {
+      if (this.usuario_actual.rol === 'administrador' || this.usuario_actual.rol === 'admin') {
         this.ticketService.getTickets().subscribe({
           next: (data) => {
             this.tickets = data;

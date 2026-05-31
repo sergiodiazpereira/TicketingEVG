@@ -90,7 +90,7 @@ class M_Ticket {
             $res_rol = $stmt_rol->get_result();
             if ($res_rol && $row_rol = $res_rol->fetch_assoc()) {
                 $rol_nombre = $row_rol['rol_nombre'] ?? '';
-                if ($rol_nombre === 'trabajador' || $rol_nombre === 'operario') {
+                if ($rol_nombre === 'trabajador' || $rol_nombre === 'operario' || $rol_nombre === 'responsable') {
                     $es_trabajador = true;
                 }
             }

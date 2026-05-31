@@ -106,7 +106,7 @@ export class ListaTicketsComponent implements OnInit {
 
   cargarTickets(): void {
     if (this.usuario_actual) {
-      if (this.usuario_actual.rol === 'administrador') {
+      if (this.usuario_actual.rol === 'administrador' || this.usuario_actual.rol === 'admin') {
         this.ticketService.getTickets().subscribe({
           next: (data) => {
             this.tickets = data;
@@ -157,7 +157,7 @@ export class ListaTicketsComponent implements OnInit {
 
       // Filtrar por creador (solo para administradores)
       let coincideCreador = true;
-      if (this.usuario_actual && this.usuario_actual.rol === 'administrador') {
+      if (this.usuario_actual && (this.usuario_actual.rol === 'administrador' || this.usuario_actual.rol === 'admin')) {
         if (this.filtroCreador === 'mis-tickets') {
           coincideCreador = Number(ticket.id_usuario_creador) === Number(this.usuario_actual.id);
         } else if (this.filtroCreador !== 'todos') {
