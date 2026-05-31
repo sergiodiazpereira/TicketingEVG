@@ -125,10 +125,10 @@ export class CrearTicketComponent implements OnInit {
   }
 
   onEnviar(): void {
-    // Reset control errors before validating
-    this.formulario.get('titulo')?.setErrors(null);
-    this.formulario.get('descripcion')?.setErrors(null);
-    this.formulario.get('ubicacion')?.setErrors(null);
+    // Reset control errors and recalculate validations
+    this.formulario.get('titulo')?.updateValueAndValidity();
+    this.formulario.get('descripcion')?.updateValueAndValidity();
+    this.formulario.get('ubicacion')?.updateValueAndValidity();
 
     // Validate standard Reactive Form validations
     if (this.formulario.invalid) {
