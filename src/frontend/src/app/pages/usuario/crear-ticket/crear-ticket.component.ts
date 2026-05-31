@@ -8,7 +8,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { TicketService } from '../../../services/ticket.service';
 import { AuthService } from '../../../services/auth.service';
 import { CategoriasService } from '../../../services/categorias.service';
@@ -84,10 +84,10 @@ export class CrearTicketComponent implements OnInit {
       prioridad: ['media', Validators.required],
       id_categoria: ['', Validators.required],
       id_usuario_encargado: [''],
-      ubicacion: [''],
+      ubicacion: ['', this.trimmedUbicacionValidator()],
       fecha_limite: [''],
-      titulo: ['', [Validators.required, Validators.minLength(5)]],
-      descripcion: ['', [Validators.required, Validators.minLength(10)]]
+      titulo: ['', [this.trimmedValidator(5)]],
+      descripcion: ['', [this.trimmedValidator(10)]]
     });
 
     // Cargar categorías desde la BD
@@ -113,6 +113,37 @@ export class CrearTicketComponent implements OnInit {
     }
   }
 
+  trimmedValidator(minLength: number) {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (value === null || value === undefined || value === '') {
+        return { 'required': true };
+      }
+      const trimmed = value.trim();
+      if (trimmed.length === 0) {
+        return { 'onlySpaces': true };
+      }
+      if (trimmed.length < minLength) {
+        return { 'minlength': true };
+      }
+      return null;
+    };
+  }
+
+  trimmedUbicacionValidator() {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (value === null || value === undefined || value === '') {
+        return null;
+      }
+      const trimmed = value.trim();
+      if (trimmed.length === 0) {
+        return { 'onlySpaces': true };
+      }
+      return null;
+    };
+  }
+
   /** Envía el formulario al backend si es válido. */
   mostrarMensajeError(texto: string): void {
     this.mensajeError = texto;
@@ -125,12 +156,11 @@ export class CrearTicketComponent implements OnInit {
   }
 
   onEnviar(): void {
-    // Reset control errors and recalculate validations
+    // Force recalculation of validations
     this.formulario.get('titulo')?.updateValueAndValidity();
     this.formulario.get('descripcion')?.updateValueAndValidity();
     this.formulario.get('ubicacion')?.updateValueAndValidity();
 
-    // Validate standard Reactive Form validations
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
       return;
@@ -146,36 +176,6 @@ export class CrearTicketComponent implements OnInit {
     const tituloTrimeado = (valores.titulo || '').trim();
     const descripcionTrimeada = (valores.descripcion || '').trim();
     const ubicacionTrimeada = (valores.ubicacion || '').trim();
-
-    let tieneError = false;
-
-    if (!tituloTrimeado) {
-      this.formulario.get('titulo')?.setErrors({ onlySpaces: true });
-      tieneError = true;
-    } else if (tituloTrimeado.length < 5) {
-      this.formulario.get('titulo')?.setErrors({ minlength: true });
-      tieneError = true;
-    }
-
-    if (!descripcionTrimeada) {
-      this.formulario.get('descripcion')?.setErrors({ onlySpaces: true });
-      tieneError = true;
-    } else if (descripcionTrimeada.length < 10) {
-      this.formulario.get('descripcion')?.setErrors({ minlength: true });
-      tieneError = true;
-    }
-
-    if (valores.ubicacion !== undefined && valores.ubicacion !== null && valores.ubicacion !== '') {
-      if (!ubicacionTrimeada) {
-        this.formulario.get('ubicacion')?.setErrors({ onlySpaces: true });
-        tieneError = true;
-      }
-    }
-
-    if (tieneError) {
-      this.formulario.markAllAsTouched();
-      return;
-    }
 
     const payload: any = {
       tipo: valores.tipo,
