@@ -179,7 +179,7 @@ export class PortalTicketsComponent implements OnInit {
 
     this.ticketService.crearTicket(ticketData).subscribe({
       next: (res) => {
-        console.log('Ticket creado:', res);
+        // Ticket creado con éxito
         this.cargarTickets();
         this.resetForm();
       },

@@ -70,7 +70,7 @@
                         <span class="tech-name">{{ nombreEncargado | uppercase }}</span>
                     </div>
                     <button
-                        *ngIf="(rolUsuario === 'administrador' || rolUsuario === 'responsable') && ticket.estado !== 'resuelto' && ticket.estado !== 'no aplica'"
+                        *ngIf="puedeGestionarAsignaciones"
                         class="btn-desasignar" (click)="onDesasignar($event)" title="Desasignar técnico">
                         &times;
                     </button>
@@ -78,7 +78,7 @@
 
                 <!-- SELECTOR TÉCNICO (Admin o Responsable) -->
                 <ng-container
-                    *ngIf="(rolUsuario === 'administrador' || rolUsuario === 'responsable') && ticket.estado !== 'resuelto' && ticket.estado !== 'no aplica'">
+                    *ngIf="puedeGestionarAsignaciones">
                     <hr class="divider-light">
                     <div class="form-group full-width extracted-mt-12" >
                         <label class="form-label extracted-mt-13" >
@@ -205,7 +205,7 @@
             <!-- BOTONES MODO LECTURA -->
             <ng-container *ngIf="!editando">
                 <!-- Botón En Proceso: visible para todos los roles técnicos si el ticket está en pendiente o asignado -->
-                <button *ngIf="(ticket.estado === 'pendiente' || ticket.estado === 'asignado') && esTecnico"
+                <button *ngIf="puedeProcesar"
                     class="btn btn-warning text-white extracted-mt-29" (click)="onEnProceso()" [disabled]="procesando"
                     >
                     <app-icon name="process" size="18"></app-icon>
@@ -214,7 +214,7 @@
                 </button>
 
                 <!-- Botón Resolver: visible para todos los roles técnicos si el ticket no está resuelto ni no aplica -->
-                <button *ngIf="ticket.estado !== 'resuelto' && ticket.estado !== 'no aplica' && esTecnico"
+                <button *ngIf="puedeResolver"
                     class="btn btn-success extracted-mt-30" (click)="onResolver()" [disabled]="procesando"
                     >
                     <app-icon name="resolve" size="18"></app-icon>

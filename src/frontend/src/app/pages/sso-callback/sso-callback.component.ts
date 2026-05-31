@@ -37,7 +37,7 @@ export class SsoCallbackComponent implements OnInit {
           console.warn('Token de la Intranet expirado detectado en el cliente. Redirigiendo para obtener uno fresco.');
           // Redirigir al portal de la Intranet para que emita un token nuevo, EXCEPTO si estamos en Karma (tests)
           if ((window as any).__karma__) {
-            console.log('Karma detectado, omitiendo redirección para no romper el test.');
+            // Karma detectado, omitiendo redirección para no romper el test.
             // En tests dejamos que continúe el flujo
           } else {
             window.location.href = 'https://17.daw.esvirgua.com';

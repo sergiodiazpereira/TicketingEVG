@@ -238,13 +238,34 @@ export class ModalTicketComponent implements OnInit {
   }
 
   get puedeEditar(): boolean {
-    if (!this.ticket || this.ticket.estado === 'resuelto' || this.ticket.estado === 'no aplica') {
-      return false;
-    }
+    if (!this.ticket) return false;
+    // Si es tecnico, puede editar si no está resuelto ni cancelado
     if (this.esTecnico) {
-      return true;
+      return this.ticket.estado !== 'resuelto' && this.ticket.estado !== 'no aplica';
     }
-    return (this.ticket.estado === 'pendiente' || this.ticket.estado === 'asignado');
+    // Si es creador normal, puede editar si está pendiente o asignado (antes de entrar en proceso)
+    return this.ticket.estado === 'pendiente' || this.ticket.estado === 'asignado';
+  }
+
+  get puedeGestionarAsignaciones(): boolean {
+    if (!this.ticket) return false;
+    return (this.rolUsuario === 'administrador' || this.rolUsuario === 'responsable') && this.ticket.estado !== 'resuelto' && this.ticket.estado !== 'no aplica';
+  }
+
+  get puedeProcesar(): boolean {
+    if (!this.ticket) return false;
+    return (this.ticket.estado === 'pendiente' || this.ticket.estado === 'asignado') && this.esTecnico;
+  }
+
+  get puedeResolver(): boolean {
+    if (!this.ticket) return false;
+    return this.ticket.estado !== 'resuelto' && this.ticket.estado !== 'no aplica' && this.esTecnico;
+  }
+
+  get puedeCancelarTicket(): boolean {
+    if (!this.ticket) return false;
+    return (!this.esTecnico && (this.ticket.estado === 'pendiente' || this.ticket.estado === 'asignado')) || 
+           (this.esTecnico && this.rolUsuario !== 'trabajador' && this.ticket.estado !== 'resuelto' && this.ticket.estado !== 'no aplica');
   }
 
   onActivarEdicion() {
