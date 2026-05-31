@@ -87,6 +87,7 @@ export class ModalTicketComponent implements OnInit {
 
   @HostListener('click')
   onHostClick() {
+    if (this.editando) return;
     this.onCerrar();
   }
 
