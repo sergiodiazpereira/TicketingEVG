@@ -1,3 +1,10 @@
+/**
+ * Proyecto: TicketingEVG
+ * Alumno: Joseph Joel Quispe Alvarez
+ * Asignatura: DAW
+ * Curso: 2025-2026
+ * Descripción: Componente gráfico para renderizar las alertas flotantes globales.
+ */
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToastService, ToastMessage } from '../../services/toast.service';
@@ -14,12 +21,20 @@ export class ToastComponent implements OnInit {
 
   constructor(private toastService: ToastService) {}
 
+  /**
+   * Se suscribe al Observable del ToastService para actualizar la vista dinámicamente.
+   */
   ngOnInit() {
     this.toastService.toasts$.subscribe(toasts => {
       this.toasts = toasts;
     });
   }
 
+  /**
+   * Cierra (descarta) una alerta manualmente.
+   * @param event Evento de clic para evitar bubbling
+   * @param id Identificador de la alerta
+   */
   cerrar(event: Event, id: number) {
     event.stopPropagation();
     this.toastService.removerMensaje(id);

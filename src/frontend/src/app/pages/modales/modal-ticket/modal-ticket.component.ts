@@ -237,6 +237,9 @@ export class ModalTicketComponent implements OnInit {
            this.rolUsuario === 'trabajador';
   }
 
+  /**
+   * Determina si el usuario actual tiene permisos para editar información base del ticket.
+   */
   get puedeEditar(): boolean {
     if (!this.ticket) return false;
     // Si es tecnico, puede editar si no está resuelto ni cancelado
@@ -247,21 +250,33 @@ export class ModalTicketComponent implements OnInit {
     return this.ticket.estado === 'pendiente' || this.ticket.estado === 'asignado';
   }
 
+  /**
+   * Determina si el usuario (Admin/Responsable) puede asignar técnicos o cambiar categorías.
+   */
   get puedeGestionarAsignaciones(): boolean {
     if (!this.ticket) return false;
     return (this.rolUsuario === 'administrador' || this.rolUsuario === 'responsable') && this.ticket.estado !== 'resuelto' && this.ticket.estado !== 'no aplica';
   }
 
+  /**
+   * Determina si el técnico actual puede pasar el ticket a estado "en proceso".
+   */
   get puedeProcesar(): boolean {
     if (!this.ticket) return false;
     return (this.ticket.estado === 'pendiente' || this.ticket.estado === 'asignado') && this.esTecnico;
   }
 
+  /**
+   * Determina si el técnico actual puede marcar el ticket como "resuelto".
+   */
   get puedeResolver(): boolean {
     if (!this.ticket) return false;
     return this.ticket.estado !== 'resuelto' && this.ticket.estado !== 'no aplica' && this.esTecnico;
   }
 
+  /**
+   * Determina si el usuario o técnico actual puede cancelar (marcar como no aplica) el ticket.
+   */
   get puedeCancelarTicket(): boolean {
     if (!this.ticket) return false;
     return (!this.esTecnico && (this.ticket.estado === 'pendiente' || this.ticket.estado === 'asignado')) || 
