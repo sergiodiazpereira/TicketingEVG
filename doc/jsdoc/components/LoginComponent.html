@@ -178,6 +178,7 @@
                 <td class="col-md-3">imports</td>
                 <td class="col-md-9">
                                 <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="../components/IconComponent.html" target="_self" >IconComponent</a></code>
                 </td>
             </tr>
 
@@ -263,7 +264,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/pages/login/login.component.ts:21</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/pages/login/login.component.ts:22</a></div>
                             </td>
                         </tr>
 
@@ -342,8 +343,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="47"
-                                    class="link-to-prism">src/app/pages/login/login.component.ts:47</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="48"
+                                    class="link-to-prism">src/app/pages/login/login.component.ts:48</a></div>
                         </td>
                     </tr>
 
@@ -381,8 +382,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="28"
-                                    class="link-to-prism">src/app/pages/login/login.component.ts:28</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="29"
+                                    class="link-to-prism">src/app/pages/login/login.component.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -428,7 +429,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/pages/login/login.component.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/pages/login/login.component.ts:21</a></div>
                         </td>
                     </tr>
 
@@ -459,7 +460,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/pages/login/login.component.ts:21</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/pages/login/login.component.ts:22</a></div>
                         </td>
                     </tr>
 
@@ -475,11 +476,12 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
 import { Router, ActivatedRoute } from &#x27;@angular/router&#x27;;
 import { CommonModule } from &#x27;@angular/common&#x27;;
+import { IconComponent } from &#x27;../../components/icon/icon.component&#x27;;
 
 @Component({
   selector: &#x27;app-login&#x27;,
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, IconComponent],
   templateUrl: &#x27;./login.component.html&#x27;,
   styleUrl: &#x27;./login.component.css&#x27;
 })
@@ -605,7 +607,7 @@ export class LoginComponent implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><!-- * Proyecto: TicketingEVG * Alumno: Joseph Joel Quispe Alvarez * Asignatura: DAW * Curso: 2025-2026 * Descripción: Pantalla de inicio de sesión con acceso SSO mediante la Intranet Escolar. --><div class="login-wrapper">	<div class="glow-bg"></div>	<div class="glow-bg glow-bg-2"></div>	<div class="loader-container text-center">		<!-- Mensaje de error SSO con botón de reintento -->		<div *ngIf="error" class="error-box">			<span class="error-icon">⚠</span>			<p class="error-msg">{{ error }}</p>			<button				id="btn-reintentar-sso"				class="btn-sso"				(click)="iraAlIntranet()"				[disabled]="redirigiendo"			>				<span *ngIf="!redirigiendo">🔁 Reintentar con la Intranet</span>				<span *ngIf="redirigiendo">Redirigiendo...</span>			</button>		</div>		<!-- Pantalla normal de login cuando no hay error ni token -->		<ng-container *ngIf="!error">			<div class="logo-wrapper">				<div class="logo-ring"></div>				<span class="logo-icon">🎫</span>			</div>			<h1 class="app-title">TicketingEVG</h1>			<p class="app-subtitle">Sistema de gestión de incidencias del centro</p>			<button				id="btn-login-intranet"				class="btn-sso"				(click)="iraAlIntranet()"				[disabled]="redirigiendo"			>				<span *ngIf="!redirigiendo">					<img src="https://www.svgrepo.com/show/303108/google-icon-logo.svg" alt="Google" class="google-icon" />					Iniciar sesión con la Intranet				</span>				<span *ngIf="redirigiendo" class="spinner-inline"></span>				<span *ngIf="redirigiendo">Redirigiendo a la Intranet...</span>			</button>			<p class="hint-text">Accede con tu cuenta de Google del centro escolar.</p>		</ng-container>	</div></div></div>'
-    var COMPONENTS = [{'name': 'AccesoComponent', 'selector': 'app-acceso'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CategoriasComponent', 'selector': 'app-categorias'},{'name': 'ConfirmacionEliminarComponent', 'selector': 'app-confirmacion-eliminar'},{'name': 'CrearTicketComponent', 'selector': 'app-crear-ticket'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FormularioCategoriaComponent', 'selector': 'app-formulario-categoria'},{'name': 'FormularioOperarioComponent', 'selector': 'app-formulario-operario'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'ListaTicketsComponent', 'selector': 'app-lista-tickets'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ModalTicketComponent', 'selector': 'app-modal-ticket'},{'name': 'OperariosComponent', 'selector': 'app-operarios'},{'name': 'PortalTicketsComponent', 'selector': 'app-portal-tickets'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SsoCallbackComponent', 'selector': 'app-sso-callback'}];
+    var COMPONENTS = [{'name': 'AccesoComponent', 'selector': 'app-acceso'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CategoriasComponent', 'selector': 'app-categorias'},{'name': 'ConfirmacionEliminarComponent', 'selector': 'app-confirmacion-eliminar'},{'name': 'CrearTicketComponent', 'selector': 'app-crear-ticket'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FormularioCategoriaComponent', 'selector': 'app-formulario-categoria'},{'name': 'FormularioOperarioComponent', 'selector': 'app-formulario-operario'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'IconComponent', 'selector': 'app-icon'},{'name': 'ListaTicketsComponent', 'selector': 'app-lista-tickets'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ModalTicketComponent', 'selector': 'app-modal-ticket'},{'name': 'OperariosComponent', 'selector': 'app-operarios'},{'name': 'PortalTicketsComponent', 'selector': 'app-portal-tickets'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SsoCallbackComponent', 'selector': 'app-sso-callback'},{'name': 'ToastComponent', 'selector': 'app-toast'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'LoginComponent'};
 </script>

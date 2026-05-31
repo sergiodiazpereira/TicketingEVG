@@ -87,6 +87,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="components/HeaderComponent.html" data-type="entity-link" >HeaderComponent</a>
                             </li>
                             <li class="link">
+                                <a href="components/IconComponent.html" data-type="entity-link" >IconComponent</a>
+                            </li>
+                            <li class="link">
                                 <a href="components/ListaTicketsComponent.html" data-type="entity-link" >ListaTicketsComponent</a>
                             </li>
                             <li class="link">
@@ -106,6 +109,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="components/SsoCallbackComponent.html" data-type="entity-link" >SsoCallbackComponent</a>
+                            </li>
+                            <li class="link">
+                                <a href="components/ToastComponent.html" data-type="entity-link" >ToastComponent</a>
                             </li>
                         </ul>
                     </li>
@@ -130,6 +136,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     <a href="injectables/TicketService.html" data-type="entity-link" >TicketService</a>
                                 </li>
                                 <li class="link">
+                                    <a href="injectables/ToastService.html" data-type="entity-link" >ToastService</a>
+                                </li>
+                                <li class="link">
                                     <a href="injectables/UsuarioService.html" data-type="entity-link" >UsuarioService</a>
                                 </li>
                             </ul>
@@ -150,6 +159,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/Ticket.html" data-type="entity-link" >Ticket</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/ToastMessage.html" data-type="entity-link" >ToastMessage</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/UserData.html" data-type="entity-link" >UserData</a>

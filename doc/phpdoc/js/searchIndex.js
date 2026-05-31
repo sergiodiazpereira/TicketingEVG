@@ -126,6 +126,11 @@ Search.appendIndex(
             "summary": "Maneja\u0020la\u0020creaci\u00F3n\u0020de\u0020un\u0020nuevo\u0020ticket\u0020a\u0020partir\u0020de\u0020datos\u0020JSON.",
             "url": "classes/C-Ticket.html#method_guardar"
         },                {
+            "fqsen": "\\C_Ticket\u003A\u003Adebe_ver_como_profesor\u0028\u0029",
+            "name": "debe_ver_como_profesor",
+            "summary": "Comprueba\u0020si\u0020un\u0020trabajador\u0020debe\u0020ser\u0020tratado\u0020como\u0020profesor\u0020por\u0020ser\u0020el\u0020creador\u0020y\u0020no\u0020estar\u0020asignado.",
+            "url": "classes/C-Ticket.html#method_debe_ver_como_profesor"
+        },                {
             "fqsen": "\\C_Ticket\u003A\u003Averificar_permisos_solicitante\u0028\u0029",
             "name": "verificar_permisos_solicitante",
             "summary": "Comprueba\u0020si\u0020el\u0020usuario\u0020en\u0020sesi\u00F3n\u0020tiene\u0020permisos\u0020sobre\u0020un\u0020ticket.",
@@ -205,11 +210,6 @@ Search.appendIndex(
             "name": "modelo",
             "summary": "",
             "url": "classes/C-Usuario.html#property_modelo"
-        },                {
-            "fqsen": "\\validarJWT\u0028\u0029",
-            "name": "validarJWT",
-            "summary": "",
-            "url": "namespaces/default.html#function_validarJWT"
         },                {
             "fqsen": "\\M_Categoria",
             "name": "M_Categoria",
@@ -410,16 +410,6 @@ Search.appendIndex(
             "name": "db",
             "summary": "",
             "url": "classes/M-Usuario.html#property_db"
-        },                {
-            "fqsen": "\\V_Categoria",
-            "name": "V_Categoria",
-            "summary": "Proyecto\u003A\u0020TicketingEVG\nAlumno\u003A\u0020Joseph\u0020Joel\u0020Quispe\u0020Alvarez\nAsignatura\u003A\u0020DAW\nCurso\u003A\u00202025\u002D2026\nDescripci\u00F3n\u003A\u0020Vista\u0020para\u0020la\u0020transformaci\u00F3n\u0020de\u0020datos\u0020de\u0020Categor\u00EDas\u0020a\u0020JSON.",
-            "url": "classes/V-Categoria.html"
-        },                {
-            "fqsen": "\\V_Categoria\u003A\u003Aresponder\u0028\u0029",
-            "name": "responder",
-            "summary": "Finaliza\u0020la\u0020ejecuci\u00F3n\u0020enviando\u0020una\u0020respuesta\u0020JSON\u0020estructurada.",
-            "url": "classes/V-Categoria.html#method_responder"
         },                {
             "fqsen": "\\",
             "name": "\\",

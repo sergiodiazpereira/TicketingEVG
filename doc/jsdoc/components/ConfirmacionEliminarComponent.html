@@ -172,6 +172,7 @@
                 <td class="col-md-3">imports</td>
                 <td class="col-md-9">
                                 <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="../components/IconComponent.html" target="_self" >IconComponent</a></code>
                 </td>
             </tr>
 
@@ -281,7 +282,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/pages/modales/confirmacion-eliminar/confirmacion-eliminar.component.ts:26</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/pages/modales/confirmacion-eliminar/confirmacion-eliminar.component.ts:27</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -311,7 +312,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/pages/modales/confirmacion-eliminar/confirmacion-eliminar.component.ts:29</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/pages/modales/confirmacion-eliminar/confirmacion-eliminar.component.ts:30</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -338,7 +339,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/pages/modales/confirmacion-eliminar/confirmacion-eliminar.component.ts:32</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/pages/modales/confirmacion-eliminar/confirmacion-eliminar.component.ts:33</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -377,8 +378,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="37"
-                                    class="link-to-prism">src/app/pages/modales/confirmacion-eliminar/confirmacion-eliminar.component.ts:37</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="38"
+                                    class="link-to-prism">src/app/pages/modales/confirmacion-eliminar/confirmacion-eliminar.component.ts:38</a></div>
                         </td>
                     </tr>
 
@@ -404,11 +405,12 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, Output, EventEmitter } from &#x27;@angular/core&#x27;;
 import { CommonModule } from &#x27;@angular/common&#x27;;
+import { IconComponent } from &#x27;../../../components/icon/icon.component&#x27;;
 
 @Component({
   selector: &#x27;app-confirmacion-eliminar&#x27;,
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, IconComponent],
   templateUrl: &#x27;./confirmacion-eliminar.component.html&#x27;,
   styleUrl: &#x27;./confirmacion-eliminar.component.css&#x27;
 })
@@ -443,38 +445,12 @@ export class ConfirmacionEliminarComponent {
     &lt;div class&#x3D;&quot;modal-container modal-alert shadow-lg&quot;&gt;
         &lt;div class&#x3D;&quot;alert-header&quot;&gt;
             &lt;div class&#x3D;&quot;alert-icon-container&quot;&gt;
-                &lt;!-- Icono Papelera para Categoría/Operario/Múltiple --&gt;
-                &lt;svg *ngIf&#x3D;&quot;tipo &#x3D;&#x3D;&#x3D; &#x27;categoria&#x27; || tipo &#x3D;&#x3D;&#x3D; &#x27;operario&#x27; || tipo &#x3D;&#x3D;&#x3D; &#x27;eliminar-multiple&#x27; || tipo &#x3D;&#x3D;&#x3D; &#x27;eliminar-multiple-operarios&#x27;&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot;&gt;
-                    &lt;path d&#x3D;&quot;M3 6h18&quot;&gt;&lt;/path&gt;
-                    &lt;path d&#x3D;&quot;M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2&quot;&gt;&lt;/path&gt;
-                    &lt;line x1&#x3D;&quot;10&quot; y1&#x3D;&quot;11&quot; x2&#x3D;&quot;10&quot; y2&#x3D;&quot;17&quot;&gt;&lt;/line&gt;
-                    &lt;line x1&#x3D;&quot;14&quot; y1&#x3D;&quot;11&quot; x2&#x3D;&quot;14&quot; y2&#x3D;&quot;17&quot;&gt;&lt;/line&gt;
-                &lt;/svg&gt;
-                &lt;!-- Icono Desasignar Técnico --&gt;
-                &lt;svg *ngIf&#x3D;&quot;tipo &#x3D;&#x3D;&#x3D; &#x27;desasignar&#x27;&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot;&gt;
-                    &lt;path d&#x3D;&quot;M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2&quot;&gt;&lt;/path&gt;
-                    &lt;circle cx&#x3D;&quot;8.5&quot; cy&#x3D;&quot;7&quot; r&#x3D;&quot;4&quot;&gt;&lt;/circle&gt;
-                    &lt;line x1&#x3D;&quot;18&quot; y1&#x3D;&quot;8&quot; x2&#x3D;&quot;23&quot; y2&#x3D;&quot;13&quot;&gt;&lt;/line&gt;
-                    &lt;line x1&#x3D;&quot;23&quot; y1&#x3D;&quot;8&quot; x2&#x3D;&quot;18&quot; y2&#x3D;&quot;13&quot;&gt;&lt;/line&gt;
-                &lt;/svg&gt;
-                &lt;!-- Icono Cancelar Ticket --&gt;
-                &lt;svg *ngIf&#x3D;&quot;tipo &#x3D;&#x3D;&#x3D; &#x27;cancelar-ticket&#x27;&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2.5&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot;&gt;
-                    &lt;circle cx&#x3D;&quot;12&quot; cy&#x3D;&quot;12&quot; r&#x3D;&quot;10&quot;&gt;&lt;/circle&gt;
-                    &lt;line x1&#x3D;&quot;15&quot; y1&#x3D;&quot;9&quot; x2&#x3D;&quot;9&quot; y2&#x3D;&quot;15&quot;&gt;&lt;/line&gt;
-                    &lt;line x1&#x3D;&quot;9&quot; y1&#x3D;&quot;9&quot; x2&#x3D;&quot;15&quot; y2&#x3D;&quot;15&quot;&gt;&lt;/line&gt;
-                &lt;/svg&gt;
-                &lt;!-- Icono Advertencia para Cambio de Categoría Desasignar --&gt;
-                &lt;svg *ngIf&#x3D;&quot;tipo &#x3D;&#x3D;&#x3D; &#x27;cambio-categoria-desasignar&#x27;&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2.5&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot;&gt;
-                    &lt;path d&#x3D;&quot;M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z&quot;&gt;&lt;/path&gt;
-                    &lt;line x1&#x3D;&quot;12&quot; y1&#x3D;&quot;9&quot; x2&#x3D;&quot;12&quot; y2&#x3D;&quot;13&quot;&gt;&lt;/line&gt;
-                    &lt;line x1&#x3D;&quot;12&quot; y1&#x3D;&quot;17&quot; x2&#x3D;&quot;12.01&quot; y2&#x3D;&quot;17&quot;&gt;&lt;/line&gt;
-                &lt;/svg&gt;
-                &lt;!-- Icono Cerrar Sesión (Logout) --&gt;
-                &lt;svg *ngIf&#x3D;&quot;tipo &#x3D;&#x3D;&#x3D; &#x27;cerrar-sesion&#x27;&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2.5&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot;&gt;
-                    &lt;path d&#x3D;&quot;M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4&quot;&gt;&lt;/path&gt;
-                    &lt;polyline points&#x3D;&quot;16 17 21 12 16 7&quot;&gt;&lt;/polyline&gt;
-                    &lt;line x1&#x3D;&quot;21&quot; y1&#x3D;&quot;12&quot; x2&#x3D;&quot;9&quot; y2&#x3D;&quot;12&quot;&gt;&lt;/line&gt;
-                &lt;/svg&gt;
+                &lt;!-- Iconos dinámicos según el tipo --&gt;
+                &lt;app-icon *ngIf&#x3D;&quot;tipo &#x3D;&#x3D;&#x3D; &#x27;categoria&#x27; || tipo &#x3D;&#x3D;&#x3D; &#x27;operario&#x27; || tipo &#x3D;&#x3D;&#x3D; &#x27;eliminar-multiple&#x27; || tipo &#x3D;&#x3D;&#x3D; &#x27;eliminar-multiple-operarios&#x27;&quot; name&#x3D;&quot;trash&quot; size&#x3D;&quot;40&quot; color&#x3D;&quot;white&quot;&gt;&lt;/app-icon&gt;
+                &lt;app-icon *ngIf&#x3D;&quot;tipo &#x3D;&#x3D;&#x3D; &#x27;desasignar&#x27;&quot; name&#x3D;&quot;user-minus&quot; size&#x3D;&quot;40&quot; color&#x3D;&quot;white&quot;&gt;&lt;/app-icon&gt;
+                &lt;app-icon *ngIf&#x3D;&quot;tipo &#x3D;&#x3D;&#x3D; &#x27;cambio-categoria-desasignar&#x27;&quot; name&#x3D;&quot;warning&quot; size&#x3D;&quot;40&quot; color&#x3D;&quot;white&quot;&gt;&lt;/app-icon&gt;
+                &lt;app-icon *ngIf&#x3D;&quot;tipo &#x3D;&#x3D;&#x3D; &#x27;cerrar-sesion&#x27;&quot; name&#x3D;&quot;log-out&quot; size&#x3D;&quot;40&quot; color&#x3D;&quot;white&quot;&gt;&lt;/app-icon&gt;
+                &lt;app-icon *ngIf&#x3D;&quot;tipo &#x3D;&#x3D;&#x3D; &#x27;cancelar-ticket&#x27;&quot; name&#x3D;&quot;cancel&quot; size&#x3D;&quot;40&quot; color&#x3D;&quot;white&quot;&gt;&lt;/app-icon&gt;
             &lt;/div&gt;
             &lt;h2 class&#x3D;&quot;alert-title&quot;&gt;
                 {{ 
@@ -542,8 +518,8 @@ export class ConfirmacionEliminarComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="modal-overlay" *ngIf="tipo === \'categoria\' || tipo === \'operario\' || tipo === \'desasignar\' || tipo === \'cancelar-ticket\' || tipo === \'cambio-categoria-desasignar\' || tipo === \'cerrar-sesion\' || tipo === \'eliminar-multiple\' || tipo === \'eliminar-multiple-operarios\'">    <div class="modal-container modal-alert shadow-lg">        <div class="alert-header">            <div class="alert-icon-container">                <!-- Icono Papelera para Categoría/Operario/Múltiple -->                <svg *ngIf="tipo === \'categoria\' || tipo === \'operario\' || tipo === \'eliminar-multiple\' || tipo === \'eliminar-multiple-operarios\'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">                    <path d="M3 6h18"></path>                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>                    <line x1="10" y1="11" x2="10" y2="17"></line>                    <line x1="14" y1="11" x2="14" y2="17"></line>                </svg>                <!-- Icono Desasignar Técnico -->                <svg *ngIf="tipo === \'desasignar\'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>                    <circle cx="8.5" cy="7" r="4"></circle>                    <line x1="18" y1="8" x2="23" y2="13"></line>                    <line x1="23" y1="8" x2="18" y2="13"></line>                </svg>                <!-- Icono Cancelar Ticket -->                <svg *ngIf="tipo === \'cancelar-ticket\'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">                    <circle cx="12" cy="12" r="10"></circle>                    <line x1="15" y1="9" x2="9" y2="15"></line>                    <line x1="9" y1="9" x2="15" y2="15"></line>                </svg>                <!-- Icono Advertencia para Cambio de Categoría Desasignar -->                <svg *ngIf="tipo === \'cambio-categoria-desasignar\'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>                    <line x1="12" y1="9" x2="12" y2="13"></line>                    <line x1="12" y1="17" x2="12.01" y2="17"></line>                </svg>                <!-- Icono Cerrar Sesión (Logout) -->                <svg *ngIf="tipo === \'cerrar-sesion\'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>                    <polyline points="16 17 21 12 16 7"></polyline>                    <line x1="21" y1="12" x2="9" y2="12"></line>                </svg>            </div>            <h2 class="alert-title">                {{                     tipo === \'categoria\' ? \'¿ELIMINAR CATEGORÍA?\' :                     tipo === \'operario\' ? \'¿CONFIRMAR ELIMINACIÓN?\' :                     tipo === \'desasignar\' ? \'¿DESASIGNAR TÉCNICO?\' :                     tipo === \'cambio-categoria-desasignar\' ? \'¿CAMBIAR CATEGORÍA?\' :                    tipo === \'cerrar-sesion\' ? \'¿CERRAR SESIÓN?\' :                    tipo === \'eliminar-multiple\' ? \'¿ELIMINAR SELECCIONADAS?\' :                    tipo === \'eliminar-multiple-operarios\' ? \'¿REVOCAR ROLES SELECCIONADOS?\' :                    \'¿CANCELAR TICKET?\'                 }}            </h2>            <p class="alert-subtitle" *ngIf="tipo === \'categoria\'">Esta acción solo puede llevarse a cabo si la categoría no tiene ningún ticket asociado.</p>            <p class="alert-subtitle" *ngIf="tipo === \'operario\'">Esta acción es permanente y afectará a la gestión histórica de operarios.</p>            <p class="alert-subtitle" *ngIf="tipo === \'desasignar\'">¿Estás seguro de que quieres desasignar el técnico de este ticket? Volverá a estar pendiente de asignación.</p>            <p class="alert-subtitle" *ngIf="tipo === \'cancelar-ticket\'">¿Estás seguro de que quieres cancelar este ticket? Esta acción no se puede deshacer y el ticket pasará a estado NO APLICA.</p>            <p class="alert-subtitle" *ngIf="tipo === \'cambio-categoria-desasignar\'">El técnico asignado actualmente no tiene esta categoría. Si continúas, se desasignará el ticket del trabajador y volverá al estado PENDIENTE.</p>            <p class="alert-subtitle" *ngIf="tipo === \'cerrar-sesion\'">¿Estás seguro de que quieres cerrar la sesión actual? Deberás volver a autenticarte para acceder al sistema.</p>            <p class="alert-subtitle" *ngIf="tipo === \'eliminar-multiple\'">Esta acción intentará eliminar todas las categorías seleccionadas. Aquellas con operarios o tickets activos asociados no se borrarán para preservar la integridad.</p>            <p class="alert-subtitle" *ngIf="tipo === \'eliminar-multiple-operarios\'">Esta acción intentará revocar los permisos de todos los operarios seleccionados. Aquellos con tickets activos asignados no se modificarán para preservar la consistencia.</p>        </div>        <div class="alert-footer">            <button class="btn btn-outline" (click)="cancelar.emit()">Cancelar</button>            <button class="btn shadow-sm" [ngClass]="tipo === \'cerrar-sesion\' ? \'btn-primary-confirm\' : \'btn-danger\'" (click)="confirmar.emit()">                {{                     tipo === \'desasignar\' ? \'Desasignar Técnico\' :                     tipo === \'cancelar-ticket\' ? \'Confirmar Cancelación\' :                     tipo === \'cambio-categoria-desasignar\' ? \'Confirmar Cambio\' :                    tipo === \'cerrar-sesion\' ? \'Cerrar Sesión\' :                    tipo === \'eliminar-multiple\' ? \'Confirmar Eliminación\' :                    tipo === \'eliminar-multiple-operarios\' ? \'Confirmar Revocación\' :                    \'Eliminar Registro\'                 }}            </button>        </div>    </div></div></div>'
-    var COMPONENTS = [{'name': 'AccesoComponent', 'selector': 'app-acceso'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CategoriasComponent', 'selector': 'app-categorias'},{'name': 'ConfirmacionEliminarComponent', 'selector': 'app-confirmacion-eliminar'},{'name': 'CrearTicketComponent', 'selector': 'app-crear-ticket'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FormularioCategoriaComponent', 'selector': 'app-formulario-categoria'},{'name': 'FormularioOperarioComponent', 'selector': 'app-formulario-operario'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'ListaTicketsComponent', 'selector': 'app-lista-tickets'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ModalTicketComponent', 'selector': 'app-modal-ticket'},{'name': 'OperariosComponent', 'selector': 'app-operarios'},{'name': 'PortalTicketsComponent', 'selector': 'app-portal-tickets'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SsoCallbackComponent', 'selector': 'app-sso-callback'}];
+        var COMPONENT_TEMPLATE = '<div><div class="modal-overlay" *ngIf="tipo === \'categoria\' || tipo === \'operario\' || tipo === \'desasignar\' || tipo === \'cancelar-ticket\' || tipo === \'cambio-categoria-desasignar\' || tipo === \'cerrar-sesion\' || tipo === \'eliminar-multiple\' || tipo === \'eliminar-multiple-operarios\'">    <div class="modal-container modal-alert shadow-lg">        <div class="alert-header">            <div class="alert-icon-container">                <!-- Iconos dinámicos según el tipo -->                <app-icon *ngIf="tipo === \'categoria\' || tipo === \'operario\' || tipo === \'eliminar-multiple\' || tipo === \'eliminar-multiple-operarios\'" name="trash" size="40" color="white"></app-icon>                <app-icon *ngIf="tipo === \'desasignar\'" name="user-minus" size="40" color="white"></app-icon>                <app-icon *ngIf="tipo === \'cambio-categoria-desasignar\'" name="warning" size="40" color="white"></app-icon>                <app-icon *ngIf="tipo === \'cerrar-sesion\'" name="log-out" size="40" color="white"></app-icon>                <app-icon *ngIf="tipo === \'cancelar-ticket\'" name="cancel" size="40" color="white"></app-icon>            </div>            <h2 class="alert-title">                {{                     tipo === \'categoria\' ? \'¿ELIMINAR CATEGORÍA?\' :                     tipo === \'operario\' ? \'¿CONFIRMAR ELIMINACIÓN?\' :                     tipo === \'desasignar\' ? \'¿DESASIGNAR TÉCNICO?\' :                     tipo === \'cambio-categoria-desasignar\' ? \'¿CAMBIAR CATEGORÍA?\' :                    tipo === \'cerrar-sesion\' ? \'¿CERRAR SESIÓN?\' :                    tipo === \'eliminar-multiple\' ? \'¿ELIMINAR SELECCIONADAS?\' :                    tipo === \'eliminar-multiple-operarios\' ? \'¿REVOCAR ROLES SELECCIONADOS?\' :                    \'¿CANCELAR TICKET?\'                 }}            </h2>            <p class="alert-subtitle" *ngIf="tipo === \'categoria\'">Esta acción solo puede llevarse a cabo si la categoría no tiene ningún ticket asociado.</p>            <p class="alert-subtitle" *ngIf="tipo === \'operario\'">Esta acción es permanente y afectará a la gestión histórica de operarios.</p>            <p class="alert-subtitle" *ngIf="tipo === \'desasignar\'">¿Estás seguro de que quieres desasignar el técnico de este ticket? Volverá a estar pendiente de asignación.</p>            <p class="alert-subtitle" *ngIf="tipo === \'cancelar-ticket\'">¿Estás seguro de que quieres cancelar este ticket? Esta acción no se puede deshacer y el ticket pasará a estado NO APLICA.</p>            <p class="alert-subtitle" *ngIf="tipo === \'cambio-categoria-desasignar\'">El técnico asignado actualmente no tiene esta categoría. Si continúas, se desasignará el ticket del trabajador y volverá al estado PENDIENTE.</p>            <p class="alert-subtitle" *ngIf="tipo === \'cerrar-sesion\'">¿Estás seguro de que quieres cerrar la sesión actual? Deberás volver a autenticarte para acceder al sistema.</p>            <p class="alert-subtitle" *ngIf="tipo === \'eliminar-multiple\'">Esta acción intentará eliminar todas las categorías seleccionadas. Aquellas con operarios o tickets activos asociados no se borrarán para preservar la integridad.</p>            <p class="alert-subtitle" *ngIf="tipo === \'eliminar-multiple-operarios\'">Esta acción intentará revocar los permisos de todos los operarios seleccionados. Aquellos con tickets activos asignados no se modificarán para preservar la consistencia.</p>        </div>        <div class="alert-footer">            <button class="btn btn-outline" (click)="cancelar.emit()">Cancelar</button>            <button class="btn shadow-sm" [ngClass]="tipo === \'cerrar-sesion\' ? \'btn-primary-confirm\' : \'btn-danger\'" (click)="confirmar.emit()">                {{                     tipo === \'desasignar\' ? \'Desasignar Técnico\' :                     tipo === \'cancelar-ticket\' ? \'Confirmar Cancelación\' :                     tipo === \'cambio-categoria-desasignar\' ? \'Confirmar Cambio\' :                    tipo === \'cerrar-sesion\' ? \'Cerrar Sesión\' :                    tipo === \'eliminar-multiple\' ? \'Confirmar Eliminación\' :                    tipo === \'eliminar-multiple-operarios\' ? \'Confirmar Revocación\' :                    \'Eliminar Registro\'                 }}            </button>        </div>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AccesoComponent', 'selector': 'app-acceso'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CategoriasComponent', 'selector': 'app-categorias'},{'name': 'ConfirmacionEliminarComponent', 'selector': 'app-confirmacion-eliminar'},{'name': 'CrearTicketComponent', 'selector': 'app-crear-ticket'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FormularioCategoriaComponent', 'selector': 'app-formulario-categoria'},{'name': 'FormularioOperarioComponent', 'selector': 'app-formulario-operario'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'IconComponent', 'selector': 'app-icon'},{'name': 'ListaTicketsComponent', 'selector': 'app-lista-tickets'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'ModalTicketComponent', 'selector': 'app-modal-ticket'},{'name': 'OperariosComponent', 'selector': 'app-operarios'},{'name': 'PortalTicketsComponent', 'selector': 'app-portal-tickets'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SsoCallbackComponent', 'selector': 'app-sso-callback'},{'name': 'ToastComponent', 'selector': 'app-toast'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ConfirmacionEliminarComponent'};
 </script>
