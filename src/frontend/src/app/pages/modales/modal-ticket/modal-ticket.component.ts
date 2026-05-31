@@ -238,10 +238,25 @@ export class ModalTicketComponent implements OnInit {
     });
   }
 
+  get debeVerComoProfesor(): boolean {
+    if (!this.ticket) return false;
+    const esTrabajador = this.rolUsuario === 'trabajador' || this.rolUsuario === 'operario';
+    const esCreador = Number(this.ticket.id_usuario_creador) === Number(this.usuario_actual?.id);
+    if (esTrabajador && esCreador) {
+      const esAsignadoASiMismo = Number(this.ticket.id_usuario_encargado) === Number(this.usuario_actual?.id);
+      return !esAsignadoASiMismo;
+    }
+    return false;
+  }
+
   get esTecnico(): boolean {
-    return this.rolUsuario === 'administrador' || 
-           this.rolUsuario === 'responsable' || 
-           this.rolUsuario === 'trabajador';
+    const esTecnicoBase = this.rolUsuario === 'administrador' || 
+                          this.rolUsuario === 'responsable' || 
+                          this.rolUsuario === 'trabajador';
+    if (esTecnicoBase && this.debeVerComoProfesor) {
+      return false;
+    }
+    return esTecnicoBase;
   }
 
   /**
@@ -249,6 +264,11 @@ export class ModalTicketComponent implements OnInit {
    */
   get puedeEditar(): boolean {
     if (!this.ticket) return false;
+    
+    // Si debe ver como profesor, puede editar si está pendiente o asignado (antes de proceso)
+    if (this.debeVerComoProfesor) {
+      return this.ticket.estado === 'pendiente' || this.ticket.estado === 'asignado';
+    }
     
     // Si es un trabajador (operario técnico base), no puede editar la información base del ticket
     if (this.rolUsuario === 'trabajador' || this.rolUsuario === 'operario') {
