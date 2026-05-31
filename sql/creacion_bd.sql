@@ -5,9 +5,9 @@
  * Descripción: Script de creación de la base de datos para TicketingEVG.
  */
 
--- DROP SCHEMA IF EXISTS TicketingEVG;
--- CREATE SCHEMA TicketingEVG;
--- USE TicketingEVG;
+DROP SCHEMA IF EXISTS TicketingEVG;
+CREATE SCHEMA TicketingEVG;
+USE TicketingEVG;
 
 
 --
@@ -94,4 +94,4 @@ CREATE TABLE Comentario (
 	CONSTRAINT PK_Comentario PRIMARY KEY (id),
 	CONSTRAINT FK_Comentario_Ticket FOREIGN KEY (id_ticket) REFERENCES Ticket (id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT FK_Comentario_Usuario FOREIGN KEY (id_usuario) REFERENCES Usuario (id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
