@@ -70,6 +70,32 @@
 					</div>
 				</div>
 
+				<!-- Filtro Prioridad Custom -->
+				<div class="desplegable-personalizado" [class.activo]="desplegablePrioridadAbierto" [class.filtro-aplicado]="filtroPrioridad !== 'todos'">
+					<button type="button" class="boton-filtro-custom" (click)="toggleDesplegablePrioridad($event)">
+						<span>PRIORIDAD: {{ getPrioridadEtiqueta() }}</span>
+						<i class="fa-solid fa-chevron-down"></i>
+					</button>
+					<div class="opciones-desplegable" *ngIf="desplegablePrioridadAbierto">
+						<div class="opcion-item" [class.seleccionado]="filtroPrioridad === 'todos'" (click)="seleccionarPrioridad('todos')">
+							<span>PRIORIDAD: TODOS</span>
+							<i class="fa-solid fa-check" *ngIf="filtroPrioridad === 'todos'"></i>
+						</div>
+						<div class="opcion-item" [class.seleccionado]="filtroPrioridad === 'b'" (click)="seleccionarPrioridad('b')">
+							<span>🟢 BAJA</span>
+							<i class="fa-solid fa-check" *ngIf="filtroPrioridad === 'b'"></i>
+						</div>
+						<div class="opcion-item" [class.seleccionado]="filtroPrioridad === 'm'" (click)="seleccionarPrioridad('m')">
+							<span>🔵 MEDIA</span>
+							<i class="fa-solid fa-check" *ngIf="filtroPrioridad === 'm'"></i>
+						</div>
+						<div class="opcion-item" [class.seleccionado]="filtroPrioridad === 'a'" (click)="seleccionarPrioridad('a')">
+							<span>🔴 ALTA</span>
+							<i class="fa-solid fa-check" *ngIf="filtroPrioridad === 'a'"></i>
+						</div>
+					</div>
+				</div>
+
 				<!-- Filtro Creador Custom (Solo Admin) -->
 				<div class="desplegable-personalizado" *ngIf="usuario_actual?.rol === 'administrador'" [class.activo]="desplegableCreadorAbierto" [class.filtro-aplicado]="filtroCreador !== 'todos'">
 					<button type="button" class="boton-filtro-custom" (click)="toggleDesplegableCreador($event)">

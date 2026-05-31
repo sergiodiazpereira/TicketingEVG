@@ -36,12 +36,14 @@ export class ListaTicketsComponent implements OnInit {
   terminoBusqueda: string = '';
   filtroTipo: string = 'todos';
   filtroEstado: string = 'todos';
+  filtroPrioridad: string = 'todos';
   ticketsFiltrados: Ticket[] = [];
 
   /** Estado de los desplegables personalizados */
   desplegableTipoAbierto = false;
   desplegableEstadoAbierto = false;
   desplegableCreadorAbierto = false;
+  desplegablePrioridadAbierto = false;
 
   filtroCreador: string = 'todos';
 
@@ -165,7 +167,13 @@ export class ListaTicketsComponent implements OnInit {
         }
       }
 
-      return coincideBusqueda && coincideTipo && coincideEstado && coincideCreador;
+      // Filtrar por prioridad
+      let coincidePrioridad = true;
+      if (this.filtroPrioridad !== 'todos') {
+        coincidePrioridad = ticket.prioridad === this.filtroPrioridad;
+      }
+
+      return coincideBusqueda && coincideTipo && coincideEstado && coincideCreador && coincidePrioridad;
     });
   }
 
@@ -184,6 +192,7 @@ export class ListaTicketsComponent implements OnInit {
     this.desplegableTipoAbierto = !this.desplegableTipoAbierto;
     this.desplegableEstadoAbierto = false;
     this.desplegableCreadorAbierto = false;
+    this.desplegablePrioridadAbierto = false;
   }
 
   toggleDesplegableEstado(event: Event): void {
@@ -191,6 +200,7 @@ export class ListaTicketsComponent implements OnInit {
     this.desplegableEstadoAbierto = !this.desplegableEstadoAbierto;
     this.desplegableTipoAbierto = false;
     this.desplegableCreadorAbierto = false;
+    this.desplegablePrioridadAbierto = false;
   }
 
   seleccionarTipo(tipo: string): void {
@@ -230,6 +240,7 @@ export class ListaTicketsComponent implements OnInit {
     this.desplegableCreadorAbierto = !this.desplegableCreadorAbierto;
     this.desplegableTipoAbierto = false;
     this.desplegableEstadoAbierto = false;
+    this.desplegablePrioridadAbierto = false;
   }
 
   seleccionarCreador(creador: string): void {
@@ -246,6 +257,30 @@ export class ListaTicketsComponent implements OnInit {
     return c ? c.nombre.toUpperCase() : `USUARIO #${this.filtroCreador}`;
   }
 
+  toggleDesplegablePrioridad(event: Event): void {
+    event.stopPropagation();
+    this.desplegablePrioridadAbierto = !this.desplegablePrioridadAbierto;
+    this.desplegableTipoAbierto = false;
+    this.desplegableEstadoAbierto = false;
+    this.desplegableCreadorAbierto = false;
+  }
+
+  seleccionarPrioridad(prioridad: string): void {
+    this.filtroPrioridad = prioridad;
+    this.desplegablePrioridadAbierto = false;
+    this.filtrarTickets();
+  }
+
+  getPrioridadEtiqueta(): string {
+    const mapa: Record<string, string> = {
+      todos: 'TODOS',
+      b: 'BAJA',
+      m: 'MEDIA',
+      a: 'ALTA'
+    };
+    return mapa[this.filtroPrioridad] || 'TODOS';
+  }
+
   logout(): void {
     this.authService.logout();
   }
@@ -255,5 +290,6 @@ export class ListaTicketsComponent implements OnInit {
     this.desplegableTipoAbierto = false;
     this.desplegableEstadoAbierto = false;
     this.desplegableCreadorAbierto = false;
+    this.desplegablePrioridadAbierto = false;
   }
 }
