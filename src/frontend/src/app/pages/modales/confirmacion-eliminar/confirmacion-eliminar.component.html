@@ -3,11 +3,11 @@
         <div class="alert-header">
             <div class="alert-icon-container">
                 <!-- Iconos dinámicos según el tipo -->
-                <app-icon *ngIf="tipo === 'categoria' || tipo === 'operario' || tipo === 'eliminar-multiple' || tipo === 'eliminar-multiple-operarios'" name="trash" size="18"></app-icon>
-                <app-icon *ngIf="tipo === 'desasignar'" name="user-minus" size="18"></app-icon>
-                <app-icon *ngIf="tipo === 'cambio-categoria-desasignar'" name="warning" size="18"></app-icon>
-                <app-icon *ngIf="tipo === 'cerrar-sesion'" name="log-out" size="18"></app-icon>
-                <app-icon *ngIf="tipo === 'cancelar-ticket'" name="cancel" size="18"></app-icon>
+                <app-icon *ngIf="tipo === 'categoria' || tipo === 'operario' || tipo === 'eliminar-multiple' || tipo === 'eliminar-multiple-operarios'" name="trash" size="40" color="white"></app-icon>
+                <app-icon *ngIf="tipo === 'desasignar'" name="user-minus" size="40" color="white"></app-icon>
+                <app-icon *ngIf="tipo === 'cambio-categoria-desasignar'" name="warning" size="40" color="white"></app-icon>
+                <app-icon *ngIf="tipo === 'cerrar-sesion'" name="log-out" size="40" color="white"></app-icon>
+                <app-icon *ngIf="tipo === 'cancelar-ticket'" name="cancel" size="40" color="white"></app-icon>
             </div>
             <h2 class="alert-title">
                 {{ 

@@ -12,12 +12,14 @@ import { of, throwError } from 'rxjs';
 import { OperariosComponent } from './operarios.component';
 import { AuthService } from '../../../services/auth.service';
 import { UsuarioService } from '../../../services/usuario.service';
+import { ToastService } from '../../../services/toast.service';
 
 describe('OperariosComponent', () => {
 	let component: OperariosComponent;
 	let fixture: ComponentFixture<OperariosComponent>;
 	let mockAuthService: any;
 	let mockUsuarioService: any;
+	let mockToastService: any;
 
 	beforeEach(async () => {
 		mockAuthService = {
@@ -38,11 +40,16 @@ describe('OperariosComponent', () => {
 			eliminarUsuario: jasmine.createSpy('eliminarUsuario').and.returnValue(of({ status: 'success' }))
 		};
 
+		mockToastService = {
+			mostrarMensaje: jasmine.createSpy('mostrarMensaje')
+		};
+
 		await TestBed.configureTestingModule({
 			imports: [OperariosComponent, HttpClientTestingModule, RouterTestingModule],
 			providers: [
 				{ provide: AuthService, useValue: mockAuthService },
-				{ provide: UsuarioService, useValue: mockUsuarioService }
+				{ provide: UsuarioService, useValue: mockUsuarioService },
+				{ provide: ToastService, useValue: mockToastService }
 			]
 		}).compileComponents();
 

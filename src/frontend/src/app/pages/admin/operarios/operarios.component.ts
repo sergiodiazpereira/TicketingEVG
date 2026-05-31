@@ -16,6 +16,7 @@ import { ConfirmacionEliminarComponent } from '../../modales/confirmacion-elimin
 import { FormularioOperarioComponent } from '../../modales/formulario-operario/formulario-operario.component';
 import { forkJoin } from 'rxjs';
 import { IconComponent } from '../../../components/icon/icon.component';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-operarios',
@@ -43,7 +44,8 @@ export class OperariosComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private toastService: ToastService
   ) {
     this.usuario_actual = this.authService.getUsuarioActual();
   }
@@ -238,5 +240,6 @@ export class OperariosComponent implements OnInit {
     this.mensajeFeedback = texto;
     this.esMensajeError = esError;
     setTimeout(() => this.mensajeFeedback = null, 4000);
+    this.toastService.mostrarMensaje(texto, esError);
   }
 }

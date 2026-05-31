@@ -17,6 +17,7 @@ import { FormularioCategoriaComponent } from '../../modales/formulario-categoria
 import { CategoriasService } from '../../../services/categorias.service';
 import { forkJoin } from 'rxjs';
 import { IconComponent } from '../../../components/icon/icon.component';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-categorias',
@@ -43,7 +44,8 @@ export class CategoriasComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private categoriasService: CategoriasService
+    private categoriasService: CategoriasService,
+    private toastService: ToastService
   ) {
     this.usuario_actual = this.authService.getUsuarioActual();
   }
@@ -232,5 +234,6 @@ export class CategoriasComponent implements OnInit {
     this.mensajeFeedback = texto;
     this.esMensajeError = esError;
     setTimeout(() => this.mensajeFeedback = null, 4000);
+    this.toastService.mostrarMensaje(texto, esError);
   }
 }
