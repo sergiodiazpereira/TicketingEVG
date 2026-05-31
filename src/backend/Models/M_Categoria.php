@@ -21,7 +21,7 @@ class M_Categoria {
 	 * @return array
 	 */
 	public function listar_categorias() {
-		$sql = "SELECT c.id, c.nombre,
+		$sql = "SELECT c.id, c.nombre, c.descripcion,
 			    (SELECT COUNT(*) FROM Categoria_Usuario cu WHERE cu.id_categoria = c.id) as operarios,
 			    (SELECT COUNT(*) FROM Ticket t WHERE t.id_categoria = c.id) as tickets
 				FROM Categoria c";

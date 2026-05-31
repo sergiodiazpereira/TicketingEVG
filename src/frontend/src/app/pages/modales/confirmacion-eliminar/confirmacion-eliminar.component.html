@@ -3,15 +3,11 @@
         <div class="alert-header">
             <div class="alert-icon-container">
                 <!-- Icono Papelera para Categoría/Operario/Múltiple -->
-                <app-icon name="info" size="18"></app-icon>
-                <!-- Icono Desasignar Técnico -->
-                <app-icon name="info" size="18"></app-icon>
+                <app-icon *ngIf="tipo === 'categoria' || tipo === 'operario' || tipo === 'eliminar-multiple' || tipo === 'eliminar-multiple-operarios'" name="basura" size="18"></app-icon>
+                <!-- Icono Advertencia/Info -->
+                <app-icon *ngIf="tipo === 'desasignar' || tipo === 'cambio-categoria-desasignar' || tipo === 'cerrar-sesion'" name="info" size="18"></app-icon>
                 <!-- Icono Cancelar Ticket -->
-                <app-icon name="cancel" size="18"></app-icon>
-                <!-- Icono Advertencia para Cambio de Categoría Desasignar -->
-                <app-icon name="info" size="18"></app-icon>
-                <!-- Icono Cerrar Sesión (Logout) -->
-                <app-icon name="info" size="18"></app-icon>
+                <app-icon *ngIf="tipo === 'cancelar-ticket'" name="cancel" size="18"></app-icon>
             </div>
             <h2 class="alert-title">
                 {{ 
