@@ -18,5 +18,4 @@ INSERT INTO Rol (id, nombre) VALUES
 INSERT INTO Categoria (nombre, descripcion) VALUES 
 ('Software', 'Incidencias y peticiones relacionadas con programas y SO'),
 ('Redes', 'Problemas de conectividad y equipos de red'),
-('Mantenimiento', 'Mantenimiento preventivo y correctivo de hardware'),
-('Otros', 'Cualquier otro tipo de solicitud no clasificada');
+('Mantenimiento', 'Mantenimiento preventivo y correctivo de hardware');
